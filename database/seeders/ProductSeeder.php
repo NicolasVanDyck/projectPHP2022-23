@@ -13,12 +13,12 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::factory(10)->create();
+        Product::factory()->create();
 
-        Product::factory(1)->create([
-            'name' => 'Lovely Overpriced Product',
-            'price' => 100,
-        ]);
+//        Product::factory(1)->create([
+//            'name' => 'Lovely Overpriced Product',
+//            'price' => 100,
+//        ]);
     }
 
 

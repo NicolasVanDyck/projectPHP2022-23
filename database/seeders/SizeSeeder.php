@@ -13,6 +13,11 @@ class SizeSeeder extends Seeder
      */
     public function run(): void
     {
-        Size::factory()->count(4)->create();
+        /**
+         * Creates the sizes from the factory model.
+         * The amount of sizes is defined in the factory model and should not be changed here.
+         * @var Size $size
+         */
+        Size::factory(5)->create();
     }
 }
