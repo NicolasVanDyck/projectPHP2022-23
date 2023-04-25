@@ -22,6 +22,65 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
+
+        DB::table('users')->insert(
+            [
+                [
+                    'name' => 'Luc Sels',
+                    'email' => 'lucsels@fakemail.com',
+                    'active' => true,
+                    'program_id' => "1",
+                    'password' => Hash::make('user1'),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ],
+                [
+                    'name' => 'Caroline Claes',
+                    'email' => 'carolineclaes@fakemail.com',
+                    'active' => true,
+                    'program_id' => "2",
+                    'password' => Hash::make('user2'),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ],
+                [
+                    'name' => 'Bert Baes',
+                    'email' => 'bertbaes@fakemail.com',
+                    'active' => true,
+                    'program_id' => "3",
+                    'password' => Hash::make('user3'),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ],
+                [
+                    'name' => 'Peter Goris',
+                    'email' => 'petergoris@fakemail.com',
+                    'active' => true,
+                    'program_id' => "4",
+                    'password' => Hash::make('user4'),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ],
+                [
+                    'name' => 'Gusta Meeuws',
+                    'email' => 'gustameeuws@fakemail.com',
+                    'active' => true,
+                    'program_id' => "5",
+                    'password' => Hash::make('user5'),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ],
+                [
+                    'name' => 'Elke Frietmans',
+                    'email' => 'frietjes@fakemail.com',
+                    'active' => false,
+                    'program_id' => "5",
+                    'password' => Hash::make('user6'),
+                    'created_at' => now(),
+                    'email_verified_at' => now()
+                ],
+            ]
+        );
     }
 
     /**
