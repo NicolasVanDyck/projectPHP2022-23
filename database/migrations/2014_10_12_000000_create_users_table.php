@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
-
+//Het zou kunnen dat we de admins via een andere insert moeten doen, omdat die een extra veld isAdmin hebben. Zo moest dat toch bij mijn project, maar ik weet niet of dat hier ook zo is.
         DB::table('users')->insert(
             [
                 [
