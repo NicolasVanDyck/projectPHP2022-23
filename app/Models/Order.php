@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
-//class Order extends Pivot??
+//class Order extends Pivot?? -> Some extra comment.
 {
     use HasFactory;
 

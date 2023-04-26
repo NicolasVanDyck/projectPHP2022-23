@@ -1,0 +1,20 @@
+[
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/localhost:5174\/@vite\/client - Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "source": "network",
+        "timestamp": 1682399454744
+    },
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/localhost:5174\/resources\/css\/app.css - Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "source": "network",
+        "timestamp": 1682399454744
+    },
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/localhost:5174\/resources\/js\/app.js - Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "source": "network",
+        "timestamp": 1682399454746
+    }
+]
