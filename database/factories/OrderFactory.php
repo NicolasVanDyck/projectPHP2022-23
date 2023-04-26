@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class OrderFactory extends Factory
 {
     /**
+     * The factory's corresponding model.
+     */
+    protected $model = \App\Models\Order::class;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -18,7 +23,7 @@ class OrderFactory extends Factory
     {
         return [
             'orderDate'=> now(),
-            'quantity'=> fake()->randomDigit(),
+            'quantity'=> $this->faker->randomDigit(),
         ];
     }
 }
