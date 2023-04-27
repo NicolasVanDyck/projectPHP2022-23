@@ -11,5 +11,6 @@ class Activity extends Model
 
     protected $guarded = [
         'id',
+        'timestamps',
     ];
 }
