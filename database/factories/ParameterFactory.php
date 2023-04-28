@@ -3,12 +3,14 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Parameter;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Parameter>
  */
 class ParameterFactory extends Factory
 {
+    protected $model  = Parameter::class;
     /**
      * Define the model's default state.
      *
@@ -17,7 +19,7 @@ class ParameterFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'endDateOrder' => $this ->faker->date(),
         ];
     }
 }
