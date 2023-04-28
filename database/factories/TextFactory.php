@@ -17,7 +17,7 @@ class TextFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'description' => $this->faker->unique()->paragraph(3),
         ];
     }
 }
