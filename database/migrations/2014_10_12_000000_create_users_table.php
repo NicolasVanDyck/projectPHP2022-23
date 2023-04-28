@@ -43,7 +43,7 @@ return new class extends Migration
                     'phone_number' => null,
                     'mobile_number' => null,
                     'password' => 'admin123',
-                    'isAdmin' => true,
+                    'is_admin' => true,
                 ],
                 [
                     'name' => 'Ingritte Wellens',
@@ -56,7 +56,7 @@ return new class extends Migration
                     'phone_number' => '014/81.02.37',
                     'mobile_number' => '0498/63.81.49',
                     'password' => 'ingrittew123',
-                    'isAdmin' => true,
+                    'is_admin' => true,
                 ],
                 [
                     'name' => 'Willy Boets',
