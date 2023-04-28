@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Route;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\BicycleType;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Route>
@@ -24,6 +25,9 @@ class RouteFactory extends Factory
             'amountOfKm' => $this ->faker-> randomFloat(),
             'name' => $this ->faker-> name(),
             'createdAt' => $this ->faker-> dateTime(),
+            'bicycle_types_id' => function() {
+                return BicycleType::factory()->create()->id;
+            }
         ];
     }
 }
