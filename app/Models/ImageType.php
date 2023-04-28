@@ -10,7 +10,7 @@ class ImageType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description',
+        'imageType',
     ];
 
     public function images()

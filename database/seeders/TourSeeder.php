@@ -14,19 +14,6 @@ class TourSeeder extends Seeder
      */
     public function run(): void
     {
-        $bicycleTypes = ['Koers', 'MTB'];
-        $randombicycleType = rand(1,count($bicycleTypes));
 
-        foreach ($bicycleTypes as $bicycleType)
-        {
-            BicycleType::firstOrCreate(['bicycleType' => $bicycleType]);
-        }
-        $tours = Tour::factory(100)->create();
-
-        foreach ($tours as $tour)
-        {
-            $bicycleTypes = BicycleType::inRandomOrder()->take($randombicycleType)->pluck('id');
-            $tour->bikes()->syncWithoutDetaching($bicycleTypes);
-        }
     }
 }

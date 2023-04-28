@@ -19,7 +19,7 @@ class ImageSeeder extends Seeder
 
         foreach ($types as $type)
         {
-            ImageType::firstOrCreate(['type' => $type]);
+            ImageType::firstOrCreate(['imageType' => $type]);
         }
 
         $images = Image::factory(100)->create();

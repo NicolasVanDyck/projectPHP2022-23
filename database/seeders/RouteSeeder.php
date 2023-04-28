@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\BicycleType;
 use App\Models\Route;
+use App\Models\Tour;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +15,18 @@ class RouteSeeder extends Seeder
      */
     public function run(): void
     {
-        Route::factory(9)->create();
+        $bicycleTypes = ['Koers', 'MTB'];
+        $randombicycleType = rand(1,count($bicycleTypes));
 
-        Route::factory(1)->create([
-            'name' => 'Tour langs de maas',
-            'amountOfKm'=> '69'
-        ]);
+        foreach ($bicycleTypes as $bicycleType)
+        {
+            BicycleType::firstOrCreate(['bicycleType' => $bicycleType]);
+        }
+        $tours = Tour::factory(100)->create();
+
+        foreach ($tours as $tour) {
+            $bicycleTypes = BicycleType::inRandomOrder()->take($randombicycleType)->pluck('id');
+            $tour->bikes()->syncWithoutDetaching($bicycleTypes);
+        }
     }
 }
