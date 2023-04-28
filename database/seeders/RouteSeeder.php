@@ -24,9 +24,9 @@ class RouteSeeder extends Seeder
         }
         $routes = Route::factory(100)->create();
 
-        foreach ($routes as $tour) {
+        foreach ($routes as $route) {
             $bicycleTypes = BicycleType::inRandomOrder()->take($randombicycleType)->pluck('id');
-            $tour->bikes()->syncWithoutDetaching($bicycleTypes);
+            $route->bicyleTypes()->syncWithoutDetaching($bicycleTypes);
         }
     }
 }
