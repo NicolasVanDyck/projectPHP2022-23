@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('tours', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('route_id')->constrained()->cascadeOnUpdate()->setNullOnDelete();
+            $table->dateTime('start_date')->nullable(False);
+            $table->dateTime('end_date')->nullable(False);
             $table->timestamps();
-            $table->string('size')->unique();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('tours');
     }
 };

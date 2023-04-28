@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('startDate');
+            $table->dateTime('endDate');
+            $table->string('name');
+            $table->mediumText('description')->nullable();
             $table->timestamps();
-            $table->string('size')->unique();
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('activities');
     }
 };
