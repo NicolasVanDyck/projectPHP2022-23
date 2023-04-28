@@ -16,15 +16,23 @@ class GroupTour extends Model
         'endDate', ];
 
 
-    public function usertour()
+    public function usertours()
     {
         //hasONe
         return $this->hasMany(Usertour::class);
     }
 
-    public function tours()
+    public function tour()
     {
         //hasONe
         return $this->belongsTo(Tour::class);
     }
+
+    public function group(){
+
+        return $this->belongsTo(Group::class);
+    }
+
+
+
 }
