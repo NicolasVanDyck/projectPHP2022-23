@@ -14,7 +14,9 @@ class SizeFactory extends Factory
     /**
      * The factory's corresponding model.
      */
-    protected $model = \App\Models\Size::class;
+    protected $model = Size::class;
+    private array $sizes = ['extra small', 'small', 'medium', 'large', 'extra large'];
+
 
     /**
      * Define the model's default state.
@@ -25,7 +27,7 @@ class SizeFactory extends Factory
     {
         // Declare sizes small to extra large and return them in the array. Each size must be unique.
         return [
-            'size' => $this->faker->unique()->randomElement(['small', 'medium', 'large', 'extra large']),
+            'size' => $this->faker->unique()->randomElement($this->sizes),
         ];
     }
 }
