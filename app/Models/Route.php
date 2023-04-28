@@ -21,13 +21,13 @@ class Route extends Model
         return $this->hasMany(Tour::class);
     }
 
-    public function images()
+    public function image()
     {
         //hasONe
         return $this->hasOne(Image::class);
     }
 
-    public function bicyleType()
+    public function bicyleTypes()
     {
         //belongsTo or hasMany
         return $this->belongsToMany(BicycleType::class);
