@@ -13,9 +13,9 @@ class Group extends Model
         'name',
     ];
 
-    public function Grouptour()
+    public function GroupTour()
     {
         //hasONe
-        return $this->belongsToMany(Grouptour::class);
+        return $this->hasMany(GroupTours::class);
     }
 }
