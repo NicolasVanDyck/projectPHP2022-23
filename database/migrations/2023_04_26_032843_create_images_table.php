@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('imageType_id')->constrained()->onDelete('restrict')->onUpdate('restrict');
             $table->string('name')->unique()->nullable(false);
             $table->mediumText('description');
+            $table->timestamps();
             $table->string('path')->unique()->nullable(false);
         });
     }
