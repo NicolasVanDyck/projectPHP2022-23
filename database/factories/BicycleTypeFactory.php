@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BicycleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,18 +10,21 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BicycleTypeFactory extends Factory
 {
+    protected $model = BicycleType::class;
+
+    private array $bikes = ['Koers', 'MTB'];
+
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
 
-    private array $bikes = ['Koers', 'Bakfiets', 'MTB',];
     public function definition(): array
     {
 
         return [
-            'name' => $this ->faker->unique()->randomElement($this->bikes),
+            'bicycleType' => $this ->faker->unique()->randomElement($this->bikes),
         ];
     }
 }

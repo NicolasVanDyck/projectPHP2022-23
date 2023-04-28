@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('image_types', function (Blueprint $table) {
             $table->id();
-            $table->mediumText('description')->nullable(false);
+            $table->mediumText('imageType')->unique()->nullable(false);
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Image;
+use App\Models\ImageType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,12 +14,20 @@ class ImageSeeder extends Seeder
      */
     public function run(): void
     {
-        Image::factory(10)->create();
+        $imageTypes = ['sponser', 'image'];
+        $randomtype = rand(1,count($imageTypes));
 
-        Image::factory(1)->create([
-            'name' => 'Dancing cat',
-            'description' => 'Here we can see a cat dancing',
-            'path' => '/this/folder/dancing_cat'
-        ]);
+        foreach ($imageTypes as $imageType)
+        {
+            ImageType::firstOrCreate(['imageType' => $imageType]);
+        }
+
+        $images = Image::factory(100)->create();
+
+        foreach ($images as $image)
+        {
+            $imageType = ImageType::inRandomOrder()->take($randomtype)->pluck('id');
+            $image->imageTypes()->syncWithoutDetaching($imageType);
+        }
     }
 }

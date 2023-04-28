@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ImageType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,6 +11,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ImageTypeFactory extends Factory
 {
     /**
+     * The factory's corresponding model.
+     */
+    protected $model = ImageType::class;
+    private array $types = ['sponser', 'image'];
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -17,7 +24,7 @@ class ImageTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'description'=> $this->faker->word(),
+            'imageType'=> $this->faker->unique()->randomElement($this->types),
         ];
     }
 }
