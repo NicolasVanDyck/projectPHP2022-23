@@ -16,6 +16,6 @@ class Group extends Model
     public function GroupTour()
     {
         //hasONe
-        return $this->hasMany(GroupTours::class);
+        return $this->hasMany(grouptours::class);
     }
 }
