@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Route;
 
 class BicycleType extends Model
 {
@@ -16,7 +17,7 @@ class BicycleType extends Model
 public function routeBicyleType()
 {
     //hasONe
-    return $this->hasMany(routeBicyleType::class);
+    return $this->belongsToMany(Route::class);
 }
 
 
