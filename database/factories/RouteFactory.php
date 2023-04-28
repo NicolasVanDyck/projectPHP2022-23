@@ -23,7 +23,7 @@ class RouteFactory extends Factory
             'amountOfKm' => $this ->faker-> randomFloat(),
             'name' => $this ->faker-> name(),
             'createdAt' => $this ->faker-> dateTime(),
-            'bicycletype_id' => function() {
+            'bicycle_types_id' => function() {
                 return BicycleType::factory()->create()->id;
             }
         ];
