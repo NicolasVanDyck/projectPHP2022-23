@@ -15,9 +15,9 @@ class Tour extends Model
         'end_date',
     ];
 
-    public function routes()
+    public function route()
     {
-        return $this->belongsTo(Route::class);
+        return $this->belongsTo(Route::class)->withDefault();
     }
 
     public function usertours()
