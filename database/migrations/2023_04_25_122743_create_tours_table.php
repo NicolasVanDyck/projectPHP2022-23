@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('route_id')->constrained()->cascadeOnUpdate()->setNullOnDelete();
+            $table->foreignId('routes_id')->constrained()->cascadeOnUpdate()->NullOnDelete();
             $table->dateTime('start_date')->nullable(False);
             $table->dateTime('end_date')->nullable(False);
             $table->timestamps();
