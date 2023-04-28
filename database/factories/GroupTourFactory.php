@@ -19,7 +19,7 @@ class GroupTourFactory extends Factory
     public function definition(): array
     {
         $start = $this->faker->dateTime();
-         $end = $this-> faker->dateTimeBetween($start,'1 week');
+         $end = $this-> faker->dateTimeBetween($start,'+1 week');
 
          return [
              'group_id' => function() {
