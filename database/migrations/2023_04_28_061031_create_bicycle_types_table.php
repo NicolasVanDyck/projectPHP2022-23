@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bicycle_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable(false);
+            $table->string('bicycleType')->unique()->nullable(false);
             $table->timestamps();
         });
     }
