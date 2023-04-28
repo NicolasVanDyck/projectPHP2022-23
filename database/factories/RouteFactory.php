@@ -17,11 +17,11 @@ class RouteFactory extends Factory
     public function definition(): array
     {
         return [
-            'startLocation' => $this ->faker-> startLocation (),
-            'endLocation' => $this ->faker-> endLocation (),
-            'amountOfKM' => $this ->faker-> amountOfKM(),
+            'startLocation' => $this ->faker-> word(),
+            'endLocation' => $this ->faker-> word(),
+            'amountOfKM' => $this ->faker-> randomFloat(),
             'name' => $this ->faker-> name(),
-            'createdAt' => $this ->faker-> createdAt (),
+            'createdAt' => $this ->faker-> dateTime(),
         ];
     }
 }

@@ -13,7 +13,9 @@ class RouteSeeder extends Seeder
      */
     public function run(): void
     {
-        Route::factory(10)->create([
+        Route::factory(9)->create();
+
+        Route::factory(1)->create([
             'name' => 'Tour langs de maas',
             'amountOfKm'=> '69'
         ]);
