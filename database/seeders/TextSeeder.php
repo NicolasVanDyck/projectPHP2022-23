@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Text;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,7 @@ class TextSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Text::factory(5)->create();
+
     }
 }
