@@ -15,23 +15,23 @@ class Route extends Model
         'endLocation',
     ];
 
-    public function Tour()
+    public function Tours()
     {
         //belongsTo or hasMany
         return $this->belongsToMany(Tour::class);
     }
 
-    public function Image()
+    public function Images()
     {
         //hasONe
         return $this->belongsTo(Image::class);
     }
 
-    public function RouteBicyleType()
-    {
-        //belongsTo or hasMany
-        return $this->belongsToMany(RouteBicyleType::class);
-    }
+//    public function RouteBicyleType()
+//    {
+//        //belongsTo or hasMany
+//        return $this->belongsToMany(RouteBicyleType::class);
+//    }
 
 
 }
