@@ -19,8 +19,8 @@ class Image extends Model
         $this->belongsTo(ImageType::class)->withDefault();
     }
 
-    public function routes()
+    public function route()
     {
-        $this->hasMany(Route::class);
+        $this->hasOne(Route::class);
     }
 }
