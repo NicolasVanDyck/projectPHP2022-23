@@ -14,20 +14,20 @@ class ImageSeeder extends Seeder
      */
     public function run(): void
     {
-        $types = ['sponser', 'image'];
-        $randomtype = rand(1,count($types));
+        $imageTypes = ['sponser', 'image'];
+        $randomtype = rand(1,count($imageTypes));
 
-        foreach ($types as $type)
+        foreach ($imageTypes as $imageType)
         {
-            ImageType::firstOrCreate(['imageType' => $type]);
+            ImageType::firstOrCreate(['imageType' => $imageType]);
         }
 
         $images = Image::factory(100)->create();
 
         foreach ($images as $image)
         {
-            $types = ImageType::inRandomOrder()->take($randomtype)->pluck('id');
-            $image->types()->syncWithoutDetaching($types);
+            $imageType = ImageType::inRandomOrder()->take($randomtype)->pluck('id');
+            $image->imageTypes()->syncWithoutDetaching($imageType);
         }
     }
 }
