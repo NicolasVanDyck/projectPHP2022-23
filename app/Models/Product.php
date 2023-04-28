@@ -21,9 +21,9 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
-    public function productsizes()
+    public function sizes()
     {
         //hasOne, hasMany, belongsTo, belongsToMany
-        return $this->belongsToMany(Productsize::class);
+        return $this->belongsToMany(Size::class, 'product_sizes');
     }
 }

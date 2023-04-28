@@ -25,8 +25,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'birthday',
         'email',
-        'password',
+        'postal_code',
+        'address',
+        'phone_number',
     ];
 
     /**
@@ -58,4 +62,15 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function usertours()
+    {
+        return $this->hasMany(UserTour::class);
+    }
+
 }
