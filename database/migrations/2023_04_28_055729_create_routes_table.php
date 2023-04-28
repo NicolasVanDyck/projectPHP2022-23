@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('image_id')->nullable(false)->constrained();
             $table->string('startLocation')->nullable(false);
             $table->string('endLocation')->nullable(false);
-            $table->float('amountOfKM')->nullable(false);
+            $table->float('amountOfKm')->nullable(false);
             $table->string('name')->nullable(false);
             $table->dateTime('createdAt')->nullable(true);
             $table->timestamps();

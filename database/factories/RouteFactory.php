@@ -19,7 +19,7 @@ class RouteFactory extends Factory
         return [
             'startLocation' => $this ->faker-> word(),
             'endLocation' => $this ->faker-> word(),
-            'amountOfKM' => $this ->faker-> randomFloat(),
+            'amountOfKm' => $this ->faker-> randomFloat(),
             'name' => $this ->faker-> name(),
             'createdAt' => $this ->faker-> dateTime(),
         ];
