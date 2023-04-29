@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable(false)->constrained()->restrictOnDelete();
-            $table->foreignId('product_id')->nullable(false)->constrained()->restrictOnDelete();
+            $table->foreignId('users_id')->nullable(false)->constrained()->restrictOnDelete();
+            $table->foreignId('products_id')->nullable(false)->constrained()->restrictOnDelete();
             $table->dateTime('orderDate')->nullable(false);
             $table->integer('quantity')->nullable(false);
             $table->timestamps();

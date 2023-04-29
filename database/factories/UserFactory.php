@@ -40,7 +40,8 @@ class UserFactory extends Factory
             'two_factor_recovery_codes' => null,
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
-            'current_team_id' => null,
+            // The current_team_id was removed from migrations, this came up when I tried to run the tests.
+//            'current_team_id' => null,
         ];
     }
 

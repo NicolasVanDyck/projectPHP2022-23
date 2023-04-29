@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('user_tours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('tour_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('groupTour_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('users_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('tours_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('group_tours_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

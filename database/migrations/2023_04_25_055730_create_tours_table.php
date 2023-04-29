@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('routes_id')->constrained()->cascadeOnUpdate()->NullOnDelete();
+            // Removed cascadeOnUpdate. This is not necessary I think.
+            // Because the route_id is not updated.
+            // Removed null on delete. This is not necessary I think.
+            $table->foreignId('routes_id')->constrained();
             $table->dateTime('start_date')->nullable(False);
             $table->dateTime('end_date')->nullable(False);
             $table->timestamps();
