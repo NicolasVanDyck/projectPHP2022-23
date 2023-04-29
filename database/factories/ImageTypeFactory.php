@@ -14,7 +14,7 @@ class ImageTypeFactory extends Factory
      * The factory's corresponding model.
      */
     protected $model = ImageType::class;
-    private array $types = ['sponser', 'image'];
+    private array $types = ['sponsor', 'image'];
 
     /**
      * Define the model's default state.
