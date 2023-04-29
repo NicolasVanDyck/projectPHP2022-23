@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('startDate');
-            $table->dateTime('endDate');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->string('name');
             $table->mediumText('description')->nullable();
             $table->timestamps();

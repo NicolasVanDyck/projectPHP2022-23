@@ -24,8 +24,8 @@ class TourFactory extends Factory
             'route_id' => function() {
                 return Route::factory()->create()->id;
             },
-            'startDate' => $this->faker->dateTime('now'),
-            'endDate' => $this->faker->dateTimeBetween('now', '+1 years'),
+            'start_date' => $this->faker->dateTime('now'),
+            'end_date' => $this->faker->dateTimeBetween('now', '+1 years'),
 
         ];
     }

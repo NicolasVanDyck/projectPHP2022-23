@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('group_tours', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('groups_id')->nullable(false)->constrained()->restrictOnDelete();
-            $table->foreignId('tours_id')->nullable(false)->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->dateTime('startDate')->nullable(false);
-            $table->dateTime('endDate')->nullable(false);
+            $table->foreignId('group_id')->nullable(false)->constrained()->restrictOnDelete();
+            $table->foreignId('tour_id')->nullable(false)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->dateTime('start_date')->nullable(false);
+            $table->dateTime('end_date')->nullable(false);
             $table->timestamps();
         });
     }

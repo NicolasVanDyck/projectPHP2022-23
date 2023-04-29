@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         $sizes = ['extra small', 'small', 'medium', 'large', 'extra large'];
-        $randomsize = rand(1, count($sizes));
+        $randomSize = rand(1, count($sizes));
 
         foreach ($sizes as $size)
         {
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
         $products = Product::factory(100)->create();
 
         foreach ($products as $product) {
-            $sizes = Size::inRandomOrder()->take($randomsize)->pluck('id');
+            $sizes = Size::inRandomOrder()->take($randomSize)->pluck('id');
             $product->sizes()->syncWithoutDetaching($sizes);
         }
     }
