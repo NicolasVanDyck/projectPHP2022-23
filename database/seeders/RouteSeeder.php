@@ -16,16 +16,16 @@ class RouteSeeder extends Seeder
     public function run(): void
     {
         $bicycleTypes = ['Koers', 'MTB'];
-        $randombicycleType = rand(1,count($bicycleTypes));
+        $randomBicycleType = rand(1,count($bicycleTypes));
 
         foreach ($bicycleTypes as $bicycleType)
         {
-            BicycleType::firstOrCreate(['bicycleType' => $bicycleType]);
+            BicycleType::firstOrCreate(['bicycle_type' => $bicycleType]);
         }
         $routes = Route::factory(100)->create();
 
         foreach ($routes as $route) {
-            $bicycleTypes = BicycleType::inRandomOrder()->take($randombicycleType)->pluck('id');
+            $bicycleTypes = BicycleType::inRandomOrder()->take($randomBicycleType)->pluck('id');
             $route->bicyleTypes()->syncWithoutDetaching($bicycleTypes);
         }
     }

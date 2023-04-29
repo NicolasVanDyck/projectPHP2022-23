@@ -19,7 +19,7 @@ class ParameterFactory extends Factory
     public function definition(): array
     {
         return [
-            'endDateOrder' => $this ->faker->date(),
+            'end_date_order' => $this ->faker->date(),
         ];
     }
 }

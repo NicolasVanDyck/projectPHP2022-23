@@ -24,7 +24,7 @@ class ImageTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'imageType'=> $this->faker->unique()->randomElement($this->types),
+            'image_type'=> $this->faker->unique()->randomElement($this->types),
         ];
     }
 }

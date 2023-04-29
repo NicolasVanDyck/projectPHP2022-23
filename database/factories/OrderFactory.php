@@ -22,7 +22,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'orderDate'=> now(),
+            'order_date'=> now(),
             'quantity'=> $this->faker->randomDigit(),
         ];
     }

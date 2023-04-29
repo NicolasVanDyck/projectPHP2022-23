@@ -18,7 +18,7 @@ class ImageSeeder extends Seeder
 
         foreach ($imageTypes as $imageType)
         {
-            ImageType::firstOrCreate(['imageType' => $imageType]);
+            ImageType::firstOrCreate(['image_type' => $imageType]);
         }
 
         function create_photos($count) {
