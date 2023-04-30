@@ -11,8 +11,8 @@ class Route extends Model
 
     protected $fillable=[
         'name',
-        'startLocation',
-        'endLocation',
+        'start_location',
+        'end_location',
     ];
 
     public function tours()

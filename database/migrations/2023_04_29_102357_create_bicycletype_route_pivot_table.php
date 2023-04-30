@@ -12,7 +12,7 @@ class CreateBicycletypeRoutePivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('bicycletype_routes', function (Blueprint $table) {
+        Schema::create('bicycle_type_route', function (Blueprint $table) {
             $table->unsignedBigInteger('bicycle_type_id')->index();
             $table->foreign('bicycle_type_id')->references('id')->on('bicycle_types')->cascadeOnDelete();
             $table->unsignedBigInteger('route_id')->index();

@@ -14,11 +14,9 @@ class BicycleType extends Model
         'name'
     ];
 
-public function routes()
-{
-    //hasONe
-    return $this->belongsToMany(Route::class);
-}
-
-
+    public function routes()
+    {
+        //hasONe
+        return $this->belongsToMany(Route::class);
+    }
 }
