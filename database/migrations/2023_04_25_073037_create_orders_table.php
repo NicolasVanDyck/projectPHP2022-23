@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable(false)->constrained()->restrictOnDelete();
             $table->foreignId('product_id')->nullable(false)->constrained()->restrictOnDelete();
-            $table->dateTime('orderDate')->nullable(false);
+            $table->dateTime('order_date')->nullable(false);
             $table->integer('quantity')->nullable(false);
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('tour_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('groupTour_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('group_tour_id')->nullable(false)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

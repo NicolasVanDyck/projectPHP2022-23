@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('image_id')->nullable(false)->constrained();
-            $table->string('startLocation')->nullable(false);
-            $table->string('endLocation')->nullable(false);
-            $table->float('amountOfKm')->nullable(false);
+            $table->string('start_location')->nullable(false);
+            $table->string('end_location')->nullable(false);
+            $table->float('amount_of_km')->nullable(false);
             $table->string('name')->nullable(false);
-            $table->dateTime('createdAt')->nullable(true);
             $table->timestamps();
         });
     }

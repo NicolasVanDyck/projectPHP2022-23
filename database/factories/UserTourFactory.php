@@ -26,7 +26,7 @@ class UserTourFactory extends Factory
             'user_id' => function() {
                 return User::factory()->create()->id;
             },
-            'group_tours_id' => function() {
+            'group_tour_id' => function() {
                 return GroupTour::factory()->create()->id;
             },
             'tour_id' => function() {
