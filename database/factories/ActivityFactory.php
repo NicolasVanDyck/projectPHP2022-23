@@ -18,12 +18,12 @@ class ActivityFactory extends Factory
      */
     public function definition(): array
     {
-        $start = $this->faker->date();
+        $start = $this->faker->dateTime();
         $end = $this->faker->dateTimeBetween($start,'+1 week');
 
         return [
-            'startDate' => $this->faker->$start,
-            'endDate' => $this->faker->$end,
+            'start_date' => $start,
+            'end_date' => $end,
             'name' => $this->faker->name(),
             'description' => $this->faker->unique()->paragraph(3),
         ];
