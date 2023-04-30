@@ -15,9 +15,14 @@ class UserTour extends Model
     {
         return $this->belongsTo(User::class)->withDefault();
     }
-    public function tour()
+//    public function tour()
+//    {
+//        return $this->belongsTo(Tour::class)->withDefault();
+//    }
+
+    public function tours()
     {
-        return $this->belongsTo(Tour::class)->withDefault();
+        return $this->morphMany(Tour::class, 'tourable');
     }
     public function groupTour()
     {

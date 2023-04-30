@@ -1,8 +1,8 @@
 <?php
 
 namespace Database\Factories;
-namespace App\Models;
 
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class GroupFactory extends Factory
 {
-    protected $model  = Group::class;
+    protected $model = Group::class;
+
     /**
      * Define the model's default state.
      *
@@ -19,7 +20,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this ->faker->name(),
+            'name' => $this->faker->name(),
         ];
     }
 }
