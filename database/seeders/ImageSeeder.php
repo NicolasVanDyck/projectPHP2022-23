@@ -14,7 +14,7 @@ class ImageSeeder extends Seeder
      */
     public function run(): void
     {
-        function create_photos($count, $nrImageTypes): void
+        function create_images($count, $nrImageTypes): void
         {
             for ($i = 1; $i <= $count; $i++) {
                 $photo = 'foto' . $i;
@@ -38,6 +38,6 @@ class ImageSeeder extends Seeder
             ImageType::firstOrCreate(['image_type' => $imageType]);
         }
 
-        create_photos(29, $nrImageTypes);
+        create_images(29, $nrImageTypes);
     }
 }

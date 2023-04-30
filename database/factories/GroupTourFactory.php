@@ -18,15 +18,15 @@ class GroupTourFactory extends Factory
      */
     public function definition(): array
     {
-        $start = $this->faker->dateTime();
+         $start = $this->faker->dateTime();
          $end = $this-> faker->dateTimeBetween($start,'+1 week');
 
          return [
              'group_id' => function() {
                 return Group::factory()->create()->id;
                 },
-             'startDate' => $this ->faker->$start,
-             'endDate' => $this ->faker->$end,
+             'start_date' => $this ->faker->dateTime(now()),
+             'end_date' => $this ->faker->dateTimeBetween(now(),'+1 week')
         ];
     }
 }
