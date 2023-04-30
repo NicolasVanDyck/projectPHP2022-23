@@ -14,21 +14,15 @@ class ImageSeeder extends Seeder
      */
     public function run(): void
     {
-        $imageTypes = ['sponsor', 'image', 'route'];
-
-        foreach ($imageTypes as $imageType)
+        function create_photos($count, $nrImageTypes): void
         {
-            ImageType::firstOrCreate(['image_type' => $imageType]);
-        }
-
-        function create_photos($count) {
             for ($i = 1; $i <= $count; $i++) {
                 $photo = 'foto' . $i;
                 $description = 'foto' . $i;
                 $path = 'storage/app/public/images/Foto' . $i . '.jpg';
                 // TODO: adjust to if not exists.
-                Image::factory()->create([
-                    'image_types_id' => '2',
+                Image::firstOrCreate([
+                    'image_type_id' => rand(1, $nrImageTypes),
                     'name' => $photo,
                     'description' => $description,
                     'path' => $path,
@@ -36,6 +30,14 @@ class ImageSeeder extends Seeder
             }
         }
 
-        create_photos(29);
+        $imageTypes = ['sponsor', 'image', 'route'];
+        $nrImageTypes = count($imageTypes);
+
+        foreach ($imageTypes as $imageType)
+        {
+            ImageType::firstOrCreate(['image_type' => $imageType]);
+        }
+
+        create_photos(29, $nrImageTypes);
     }
 }

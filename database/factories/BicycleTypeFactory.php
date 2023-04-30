@@ -12,7 +12,7 @@ class BicycleTypeFactory extends Factory
 {
     protected $model = BicycleType::class;
 
-    private array $bikes = ['Koers', 'MTB'];
+//    private array $bikes = ['Koers', 'MTB'];
 
     /**
      * Define the model's default state.
@@ -22,9 +22,11 @@ class BicycleTypeFactory extends Factory
 
     public function definition(): array
     {
+        // The bicycletypefactory is not used anyway. So I commented most of it out.
+        return ['bicycle_type' => 'MTB'];
 
-        return [
-            'bicycleType' => $this ->faker->unique()->randomElement($this->bikes),
-        ];
+//        return [
+//            'bicycle_type' => $this ->faker->unique()->randomElement($this->bikes),
+//        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Image;
 use App\Models\Route;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BicycleType;
@@ -25,9 +26,13 @@ class RouteFactory extends Factory
             'amount_of_km' => $this ->faker-> randomFloat(),
             'name' => $this ->faker-> name(),
             'created_at' => $this ->faker-> dateTime(),
-            'bicycle_type_id' => function() {
-                return BicycleType::factory()->create()->id;
-            }
+//            'image_id' => function() {
+//                return Image::factory()->create()->id;
+//            },
+            // Commented below out because it's already done in the seeder.
+//            'bicycle_type_id' => function() {
+//                return BicycleType::factory()->create()->id;
+//            }
         ];
     }
 }
