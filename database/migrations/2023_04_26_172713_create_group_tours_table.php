@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('group_tours', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->nullable(false)->constrained()->restrictOnDelete();
-            $table->foreignId('tour_id')->nullable(false)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('tour_id')->nullable(false)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->dateTime('start_date')->nullable(false);
             $table->dateTime('end_date')->nullable(false);
             $table->timestamps();

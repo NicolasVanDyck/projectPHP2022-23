@@ -22,10 +22,15 @@ class GroupTour extends Model
         return $this->hasMany(Usertour::class);
     }
 
-    public function tour()
+//    public function tour()
+//    {
+//        //hasONe
+//        return $this->belongsTo(Tour::class);
+//    }
+
+    public function tours()
     {
-        //hasONe
-        return $this->belongsTo(Tour::class);
+        return $this->morphMany(Tour::class, 'tourable');
     }
 
     public function group(){

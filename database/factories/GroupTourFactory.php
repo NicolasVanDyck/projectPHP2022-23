@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Group;
 use App\Models\Route;
+use App\Models\Tour;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,6 +26,7 @@ class GroupTourFactory extends Factory
              'group_id' => function() {
                 return Group::factory()->create()->id;
                 },
+             'tour_id' => Tour::factory(),
              'start_date' => $this ->faker->dateTime(now()),
              'end_date' => $this ->faker->dateTimeBetween(now(),'+1 week')
         ];

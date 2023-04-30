@@ -12,7 +12,7 @@ use App\Models\Route;
 class TourFactory extends Factory
 {
 
-    protected $model  = Tour::class;
+    protected $model = Tour::class;
     /**
      * Define the model's default state.
      *

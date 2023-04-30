@@ -23,7 +23,7 @@ class ProductTest extends TestCase
      */
     public function test_example(): void
     {
-        $response = $this->get('/');
+        $response = $this->get('/test');
 
         $response->assertStatus(200);
     }
