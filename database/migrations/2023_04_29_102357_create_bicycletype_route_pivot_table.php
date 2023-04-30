@@ -28,6 +28,6 @@ class CreateBicycletypeRoutePivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bicycletype_routes');
+        Schema::dropIfExists('bicycle_type_route');
     }
 }
