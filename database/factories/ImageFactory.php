@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ImageType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,10 @@ class ImageFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->words(10,true),
-            'path' => $this->faker->filePath()
+            'path' => $this->faker->filePath(),
+            'image_type_id' => function() {
+                return ImageType::factory()->create()->id;
+            },
         ];
     }
 }
