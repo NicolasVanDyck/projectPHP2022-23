@@ -45,7 +45,7 @@ Route::get('/test', function () {
     return view('test');
 });
 
-// TODO: Moet er nog 'admin' middleware aangemaakt worden?
+// TODO: Moet er nog 'admin' middleware toegevoegd worden hieronder? Is reeds aangemaakt, maar staat niet hieronder! Tests lukken nog, is dit nodig?
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
