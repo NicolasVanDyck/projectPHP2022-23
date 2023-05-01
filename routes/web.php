@@ -29,7 +29,7 @@ Route::middleware(['auth'])->prefix('member/')->group(function() {
 });
 
 //Voor de admins
-Route::prefix('admin')->group(function() {
+Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('aanwezighedenbeheer', function() { return view('admin/aanwezighedenbeheer');})->name('aanwezighedenbeheer');
     Route::get('fotobeheer', function() { return view('admin/fotobeheer');})->name('fotobeheer');
     Route::get('galerijbeheer', function() { return view('admin/galerijbeheer');})->name('galerijbeheer');
@@ -45,6 +45,7 @@ Route::get('/test', function () {
     return view('test');
 });
 
+// TODO: Moet er nog 'admin' middleware aangemaakt worden?
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

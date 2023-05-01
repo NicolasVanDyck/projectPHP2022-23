@@ -52,7 +52,10 @@ class Kernel extends HttpKernel
      *
      * @var array<string, class-string|string>
      */
+
+//    In de cursus heet onderstaande variabele wel $routeMiddleware (misschien verschil tussen versies?)
     protected $middlewareAliases = [
+        'admin' => \App\Http\Middleware\Admin::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
