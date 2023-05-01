@@ -13,37 +13,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Voor de bezoekers
 Route::view('/','home')->name('home');
+//Nog bekijken i.v.m. contactformulier. Misschien moet dit een andere methode zijn dan view() (post() bv.)
 Route::view('contact','contact')->name('contact');
 
-//Gedeelte voor member (middleware(['auth']->) moet hier nog aan toegevoegd worden, nog niet gedaan voor testdoeleinden)
-Route::middleware(['auth'])->prefix('member')->name('member/')->group(function() {
-//Route::prefix('member')->name('member/')->group(function() {
-   Route::view('dashboard', 'member/dashboard')->name('dashboard');
-   Route::view('deelname_groep', 'member/deelname_groep')->name('deelname_groep');
-   Route::view('galerij', 'member/galerij')->name('galerij');
-   Route::view('individuele_trajecten', 'member/individuele_trajecten')->name('individuele_trajecten');
-   Route::view('kleding', 'member/kleding')->name('kleding');
-   Route::view('profile.show', 'profile.show')->name('profile.show');
-//   Nog bekijken of dit kan/klopt; voorlopig in commentaar
-
+//Voor de leden
+Route::middleware(['auth'])->prefix('member/')->group(function() {
+    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+    Route::get('deelname_groep', function() { return view('member/deelname_groep');})->name('deelname_groep');
+    Route::get('galerij', function() { return view('member/galerij');})->name('galerij');
+    Route::get('individuele_trajecten', function() { return view('member/individuele_trajecten');})->name('individuele_trajecten');
+    Route::get('kleding', function() { return view('member/kleding');})->name('kleding');
+    Route::get('profile.show', function() { return view('profile.show');})->name('profile.show');
 });
 
-if (auth()->check() && auth()->user()->is_admin == true)
-    Route::view('admin/welkom', 'admin/welkom')->name('welkom');
-
-//Route::middleware(['auth','admin'])->prefix('member')->name('member/')->group(function() { (uit comment halen om authenticatie op te zetten)
-//Nog middleware aanmaken OF via het 'is_admin'-attribuut werken om de 'BEHEREN' knop zichtbaar te maken in het ledenoverzicht van routes.
-Route::prefix('admin')->name('admin/')->group(function() {
-    Route::view('aanwezighedenbeheer', 'admin/aanwezighedenbeheer')->name('aanwezighedenbeheer');
-    Route::view('fotobeheer', 'admin/fotobeheer')->name('fotobeheer');
-    Route::view('galerijbeheer', 'admin/galerijbeheer')->name('galerijbeheer');
-    Route::view('kleding_bestellingen', 'admin/kleding_bestellingen')->name('kleding_bestellingen');
-    Route::view('kledingbeheer', 'admin/kledingbeheer')->name('kledingbeheer');
-    Route::view('ledenbeheer', 'admin/ledenbeheer')->name('ledenbeheer');
-    Route::view('trajectbeheer', 'admin/trajectbeheer')->name('trajectbeheer');
-    Route::view('webtekstbeheer', 'admin/webtekstbeheer')->name('webtekstbeheer');
-    Route::view('admin/welkom', 'admin/welkom')->name('welkom');
+//Voor de admins
+Route::prefix('admin')->group(function() {
+    Route::get('aanwezighedenbeheer', function() { return view('admin/aanwezighedenbeheer');})->name('aanwezighedenbeheer');
+    Route::get('fotobeheer', function() { return view('admin/fotobeheer');})->name('fotobeheer');
+    Route::get('galerijbeheer', function() { return view('admin/galerijbeheer');})->name('galerijbeheer');
+    Route::get('kleding_bestellingen', function() { return view('admin/kleding_bestellingen');})->name('kleding_bestellingen');
+    Route::get('kledingbeheer', function() { return view('admin/kledingbeheer');})->name('kledingbeheer');
+    Route::get('ledenbeheer', function() { return view('admin/ledenbeheer');})->name('ledenbeheer');
+    Route::get('trajectbeheer', function() { return view('admin/trajectbeheer');})->name('trajectbeheer');
+    Route::get('webtekstbeheer', function() { return view('admin/webtekstbeheer');})->name('webtekstbeheer');
+    Route::get('welkom', function() { return view('admin/welkom');})->name('welkom');
 });
 
 Route::get('/test', function () {

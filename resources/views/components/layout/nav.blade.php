@@ -1,5 +1,5 @@
 <nav>
-    <a href={{'/'}}  class="underline">Home</a>
-    <a href={{'contact'}} class="underline">Contact</a>
-    <a href={{'login'}} class="underline">Login</a>
+    <a href={{route('home')}}  class="underline">Home</a>
+    <a href={{route('contact')}} class="underline">Contact</a>
+    <a href={{route('login')}} class="underline">Login</a>
 </nav>

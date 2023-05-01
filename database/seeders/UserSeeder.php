@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
             'address' => 'Veldweg 21',
             'phone_number' => '014/81.26.66',
             'mobile_number' => '0479/41.18.14',
-            'password' => 'willyb123',
+            'password' => Hash::make('willyb123'),
         ]);
 
         User::factory()->create([
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
             'address' => 'Vuurbergenstraat 8',
             'phone_number' => '014/65.00.71',
             'mobile_number' => '0475/28.59.44',
-            'password' => 'lucb123',
+            'password' => Hash::make('lucb123'),
         ]);
 
         User::factory()->create([
@@ -78,7 +78,7 @@ class UserSeeder extends Seeder
             'address' => 'Sportlaan 78',
             'phone_number' => null,
             'mobile_number' => '0498/61.17.58',
-            'password' => 'ronyb123',
+            'password' => Hash::make('ronyb123'),
         ]);
 
         User::factory()->create([
@@ -91,7 +91,7 @@ class UserSeeder extends Seeder
             'address' => 'Vieille Montagnestraat 6',
             'phone_number' => '014/81.24.11',
             'mobile_number' => '0473/85.61.77',
-            'password' => 'theob123',
+            'password' => Hash::make('theob123'),
         ]);
 
         User::factory()->create([
@@ -104,7 +104,7 @@ class UserSeeder extends Seeder
             'address' => 'Hoevenweg 31',
             'phone_number' => null,
             'mobile_number' => '0485/68.20.59',
-            'password' => 'patrickc123',
+            'password' => Hash::make('patrickc123'),
         ]);
 
         User::factory()->create([
@@ -117,7 +117,7 @@ class UserSeeder extends Seeder
             'address' => 'Ringlaan 39',
             'phone_number' => '014/81.02.17',
             'mobile_number' => '0498/64.22.74',
-            'password' => 'eddyc123',
+            'password' => Hash::make('eddyc123'),
         ]);
 
         User::factory()->create([
@@ -130,7 +130,7 @@ class UserSeeder extends Seeder
             'address' => 'Grotstraat 9',
             'phone_number' => null,
             'mobile_number' => '0477/31.01.91',
-            'password' => 'lucc123',
+            'password' => Hash::make('lucc123'),
         ]);
 
         User::factory()->create([
@@ -143,7 +143,7 @@ class UserSeeder extends Seeder
             'address' => 'Brouwerijdreef',
             'phone_number' => null,
             'mobile_number' => '0473/98.64.22',
-            'password' => 'andréd123',
+            'password' => Hash::make('andréd123'),
         ]);
 
         User::factory()->create([
@@ -156,7 +156,7 @@ class UserSeeder extends Seeder
             'address' => 'Molse Kiezel 251',
             'phone_number' => '011/54.09.38',
             'mobile_number' => '0495/53.09.38',
-            'password' => 'jeffdw123',
+            'password' => Hash::make('jeffdw123'),
         ]);
 
         User::factory()->create([
@@ -169,7 +169,7 @@ class UserSeeder extends Seeder
             'address' => 'Duinstraat 9',
             'phone_number' => null,
             'mobile_number' => '0488/27.83.43',
-            'password' => 'andrée123',
+            'password' => Hash::make('andrée123'),
         ]);
 
         User::factory()->create([
@@ -182,7 +182,7 @@ class UserSeeder extends Seeder
             'address' => 'Bremstraat 29',
             'phone_number' => '014/32.15.89',
             'mobile_number' => '0498/52.86.15',
-            'password' => 'guyf123',
+            'password' => Hash::make('guyf123'),
         ]);
 
         User::factory()->create([
@@ -195,7 +195,7 @@ class UserSeeder extends Seeder
             'address' => 'Zwarte Dreeferf 5',
             'phone_number' => '014/81.24.53',
             'mobile_number' => '0498/57.17.20',
-            'password' => 'harryg123',
+            'password' => Hash::make('harryg123'),
         ]);
 
         User::factory()->create([
@@ -208,7 +208,7 @@ class UserSeeder extends Seeder
             'address' => 'Vieille Montagnestraat 4',
             'phone_number' => null,
             'mobile_number' => '0472/97.58.20',
-            'password' => 'dannyg123',
+            'password' => Hash::make('dannyg123'),
         ]);
 
         User::factory()->create([
@@ -221,7 +221,7 @@ class UserSeeder extends Seeder
             'address' => 'Congostraat 5',
             'phone_number' => '014/81.20.79',
             'mobile_number' => '0477/97.03.97',
-            'password' => 'eddyg123',
+            'password' => Hash::make('eddyg123'),
         ]);
 
         User::factory()->create([
@@ -234,7 +234,7 @@ class UserSeeder extends Seeder
             'address' => 'Laurierstraat 4',
             'phone_number' => null,
             'mobile_number' => '0476/75.34.07',
-            'password' => 'fernandg123',
+            'password' => Hash::make('fernandg123'),
         ]);
 
         User::factory()->create([
@@ -247,7 +247,7 @@ class UserSeeder extends Seeder
             'address' => 'Kapelstraat 82',
             'phone_number' => '011/55.10.56',
             'mobile_number' => '0486/66.88.45',
-            'password' => 'jeang123',
+            'password' => Hash::make('jeang123'),
         ]);
 
         User::factory()->create([
@@ -260,7 +260,7 @@ class UserSeeder extends Seeder
             'address' => 'Pasdijk 7',
             'phone_number' => null,
             'mobile_number' => '0473/85.37.41',
-            'password' => 'michelg123',
+            'password' => Hash::make('michelg123'),
         ]);
 
         User::factory()->create([
@@ -273,7 +273,7 @@ class UserSeeder extends Seeder
             'address' => 'Rijsbergdijk 13',
             'phone_number' => '061/097.07.96',
             'mobile_number' => '0495/61.95.07',
-            'password' => 'henrih123',
+            'password' => Hash::make('henrih123'),
         ]);
 
         User::factory()->create([
@@ -286,7 +286,7 @@ class UserSeeder extends Seeder
             'address' => 'Papenberg 21',
             'phone_number' => '011/75.93.29',
             'mobile_number' => '0499/72.60.15',
-            'password' => 'sylvieh123',
+            'password' => Hash::make('sylvieh123'),
         ]);
 
         User::factory()->create([
@@ -299,7 +299,7 @@ class UserSeeder extends Seeder
             'address' => 'Kapelstraat 173',
             'phone_number' => null,
             'mobile_number' => '0497/79.12.88',
-            'password' => 'fonsj123',
+            'password' => Hash::make('fonsj123'),
         ]);
 
         User::factory()->create([
@@ -312,7 +312,7 @@ class UserSeeder extends Seeder
             'address' => 'Soef 143',
             'phone_number' => '014/81.26.19',
             'mobile_number' => '0497/65.19.18',
-            'password' => 'gilbertj123',
+            'password' => Hash::make('gilbertj123'),
         ]);
 
         User::factory()->create([
@@ -325,7 +325,7 @@ class UserSeeder extends Seeder
             'address' => 'Bankei 4',
             'phone_number' => '014/81.07.50',
             'mobile_number' => '0473/12.37.22',
-            'password' => 'yvom123',
+            'password' => Hash::make('yvom123'),
         ]);
 
         User::factory()->create([
@@ -338,7 +338,7 @@ class UserSeeder extends Seeder
             'address' => 'Meyerstraat 3',
             'phone_number' => '014/81.08.94',
             'mobile_number' => '0472/42.47.68',
-            'password' => 'willym123',
+            'password' => Hash::make('willym123'),
         ]);
 
         User::factory()->create([
@@ -351,7 +351,7 @@ class UserSeeder extends Seeder
             'address' => 'Gustaaf Wouterstraat 4 bus 3',
             'phone_number' => null,
             'mobile_number' => '0476/63.31.76',
-            'password' => 'eddym123',
+            'password' => Hash::make('eddym123'),
         ]);
 
         User::factory()->create([
@@ -364,7 +364,7 @@ class UserSeeder extends Seeder
             'address' => 'Nachtegaalstraat 2',
             'phone_number' => '011/34.16.15',
             'mobile_number' => '0497/24.15.00',
-            'password' => 'ludoon123',
+            'password' => Hash::make('ludoon123'),
         ]);
 
         User::factory()->create([
@@ -377,7 +377,7 @@ class UserSeeder extends Seeder
             'address' => 'Balen-Neetlaan 33',
             'phone_number' => null,
             'mobile_number' => '0496/85.54.89',
-            'password' => 'ludoop123',
+            'password' => Hash::make('ludoop123'),
         ]);
 
         User::factory()->create([
@@ -390,7 +390,7 @@ class UserSeeder extends Seeder
             'address' => 'Meyerstraat 29',
             'phone_number' => '014/41.04.18',
             'mobile_number' => '0472/27.40.89',
-            'password' => 'chrisp123',
+            'password' => Hash::make('chrisp123'),
         ]);
 
         User::factory()->create([
@@ -403,7 +403,7 @@ class UserSeeder extends Seeder
             'address' => 'Vieille Montagnestraat 11',
             'phone_number' => '014/81.02.37',
             'mobile_number' => '0498/28.04.09',
-            'password' => 'eugeenp123',
+            'password' => Hash::make('eugeenp123'),
         ]);
 
         User::factory()->create([
@@ -416,7 +416,7 @@ class UserSeeder extends Seeder
             'address' => 'Ringlaan 35',
             'phone_number' => '014/63.23.10',
             'mobile_number' => '0497/57.77.93',
-            'password' => 'mauricep123',
+            'password' => Hash::make('mauricep123'),
         ]);
 
         User::factory()->create([
@@ -429,7 +429,7 @@ class UserSeeder extends Seeder
             'address' => 'Papenberg 21',
             'phone_number' => '011/75.93.29',
             'mobile_number' => null,
-            'password' => 'jeanpierrer123',
+            'password' => Hash::make('jeanpierrer123'),
         ]);
 
         User::factory()->create([
@@ -442,7 +442,7 @@ class UserSeeder extends Seeder
             'address' => 'Vuurbergenstraat 8',
             'phone_number' => '014/65.00.71',
             'mobile_number' => '0472/.25.01.39',
-            'password' => 'veroniques123',
+            'password' => Hash::make('veroniques123'),
         ]);
 
         User::factory()->create([
@@ -455,7 +455,7 @@ class UserSeeder extends Seeder
             'address' => 'Duinstraat 15',
             'phone_number' => null,
             'mobile_number' => '0495/25.09.93',
-            'password' => 'alberts123',
+            'password' => Hash::make('alberts123'),
         ]);
 
         User::factory()->create([
@@ -468,7 +468,7 @@ class UserSeeder extends Seeder
             'address' => 'Dalstraat 88',
             'phone_number' => null,
             'mobile_number' => '0476/71.44.70',
-            'password' => 'clems123',
+            'password' => Hash::make('clems123'),
         ]);
 
         User::factory()->create([
@@ -481,7 +481,7 @@ class UserSeeder extends Seeder
             'address' => 'Tennislaan 1',
             'phone_number' => null,
             'mobile_number' => '0485/66.45.11',
-            'password' => 'simonnes123',
+            'password' => Hash::make('simonnes123'),
         ]);
 
         User::factory()->create([
@@ -494,7 +494,7 @@ class UserSeeder extends Seeder
             'address' => 'Tennislaan 1',
             'phone_number' => null,
             'mobile_number' => '0485/66.45.21',
-            'password' => 'dirks123',
+            'password' => Hash::make('dirks123'),
         ]);
 
         User::factory()->create([
@@ -507,7 +507,7 @@ class UserSeeder extends Seeder
             'address' => 'Hendrik Consciencestraat 15',
             'phone_number' => null,
             'mobile_number' => '0479/56.99.46',
-            'password' => 'dirks123',
+            'password' => Hash::make('dirks123'),
         ]);
 
         User::factory()->create([
@@ -520,7 +520,7 @@ class UserSeeder extends Seeder
             'address' => 'Grotstraat 9',
             'phone_number' => null,
             'mobile_number' => '0499/13.45.39',
-            'password' => 'agnesv123',
+            'password' => Hash::make('agnesv123'),
         ]);
 
         User::factory()->create([
@@ -533,7 +533,7 @@ class UserSeeder extends Seeder
             'address' => 'St. Jansstraat 131',
             'phone_number' => null,
             'mobile_number' => '0472/61.05.69',
-            'password' => 'renev123',
+            'password' => Hash::make('renev123'),
         ]);
 
         User::factory()->create([
@@ -546,7 +546,7 @@ class UserSeeder extends Seeder
             'address' => 'Esdoornstraat 6',
             'phone_number' => '014/81.73.89',
             'mobile_number' => '0475/56.02.63',
-            'password' => 'swav123',
+            'password' => Hash::make('swav123'),
         ]);
 
         User::factory()->create([
@@ -559,7 +559,7 @@ class UserSeeder extends Seeder
             'address' => 'Molenstraat 135',
             'phone_number' => null,
             'mobile_number' => '0494/81.77.12',
-            'password' => 'victorv123',
+            'password' => Hash::make('victorv123'),
         ]);
 
         User::factory()->create([
@@ -572,7 +572,7 @@ class UserSeeder extends Seeder
             'address' => 'Heilandstraat 3',
             'phone_number' => null,
             'mobile_number' => '0498/46.39.51',
-            'password' => 'hermanv123',
+            'password' => Hash::make('hermanv123'),
         ]);
 
         User::factory()->create([
@@ -585,7 +585,7 @@ class UserSeeder extends Seeder
             'address' => 'Tennislaan 18',
             'phone_number' => null,
             'mobile_number' => '0475/83.93.47',
-            'password' => 'peterv123',
+            'password' => Hash::make('peterv123'),
         ]);
 
         User::factory()->create([
@@ -598,7 +598,7 @@ class UserSeeder extends Seeder
             'address' => 'Zwaluwstraat 15',
             'phone_number' => null,
             'mobile_number' => '0496/60.03.43',
-            'password' => 'ludov123',
+            'password' => Hash::make('ludov123'),
         ]);
 
         User::factory()->create([
@@ -611,7 +611,7 @@ class UserSeeder extends Seeder
             'address' => 'Haverstraat 29',
             'phone_number' => null,
             'mobile_number' => '0477/45.98.84',
-            'password' => 'augustv123',
+            'password' => Hash::make('augustv123'),
         ]);
 
         User::factory()->create([
@@ -624,7 +624,7 @@ class UserSeeder extends Seeder
             'address' => 'Kasteeldreef 49',
             'phone_number' => '014/81.48.58',
             'mobile_number' => '0495/62.29.21',
-            'password' => 'jeanv123',
+            'password' => Hash::make('jeanv123'),
         ]);
 
         User::factory()->create([
@@ -637,7 +637,7 @@ class UserSeeder extends Seeder
             'address' => 'Maalderstraat 40',
             'phone_number' => null,
             'mobile_number' => '0475/34.10.31',
-            'password' => 'rafv123',
+            'password' => Hash::make('rafv123'),
         ]);
 
         User::factory()->create([
@@ -650,7 +650,7 @@ class UserSeeder extends Seeder
             'address' => 'Balen-Neetlaan 99',
             'phone_number' => null,
             'mobile_number' => '0496/92.97.71',
-            'password' => 'wimv123',
+            'password' => Hash::make('wimv123'),
         ]);
 
         User::factory()->create([
@@ -663,7 +663,7 @@ class UserSeeder extends Seeder
             'address' => 'Hulststraat 2',
             'phone_number' => '014/81.54.10',
             'mobile_number' => '0494/27.03.51',
-            'password' => 'rogerv123',
+            'password' => Hash::make('rogerv123'),
         ]);
 
         User::factory()->create([
@@ -676,7 +676,7 @@ class UserSeeder extends Seeder
             'address' => 'Ruiterstraat 21',
             'phone_number' => null,
             'mobile_number' => '0473/17.73.74',
-            'password' => 'fredv123',
+            'password' => Hash::make('fredv123'),
         ]);
 
         User::factory()->create([
@@ -689,7 +689,7 @@ class UserSeeder extends Seeder
             'address' => 'Steenweg op Antwerpen 53B1',
             'phone_number' => null,
             'mobile_number' => '0498/53.07.71',
-            'password' => 'josv123',
+            'password' => Hash::make('josv123'),
         ]);
     }
 }
