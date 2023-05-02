@@ -13,6 +13,6 @@ class UserTourSeeder extends Seeder
      */
     public function run(): void
     {
-        UserTour::factory()->create();
+        UserTour::factory(20)->create();
     }
 }

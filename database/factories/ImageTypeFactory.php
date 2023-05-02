@@ -23,8 +23,16 @@ class ImageTypeFactory extends Factory
      */
     public function definition(): array
     {
+        $imageTypes = ['product', 'route', 'user'];
+        $randomImageType = rand(1, count($imageTypes));
+
+//        foreach ($imageTypes as $imageType)
+//        {
+//            ImageType::firstOrCreate(['image_type' => $imageType]);
+//        }
+
         return [
-            'image_type'=> $this->faker->unique()->randomElement($this->types),
+            'image_type'=> $this->faker->unique()->randomElement($imageTypes),
         ];
     }
 }

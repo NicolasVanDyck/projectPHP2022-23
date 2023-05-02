@@ -11,7 +11,7 @@ class ImageType extends Model
 
     protected $fillable = [
         // todo: snake_case
-        'imageType',
+        'image_type',
     ];
 
     public function images()

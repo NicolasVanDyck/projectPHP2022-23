@@ -13,14 +13,14 @@ class RouteSeederTest extends TestCase
 {
     use RefreshDatabase;
 
+    // Reset the testdatabase:
+
+
     /**
      * Runs the RouteSeeder before each test.
      */
     public function create_hundred_routes(): void
     {
-        // Need to seed the images table as well since it's a foreign key.
-        $this->seed(ImageSeeder::class);
-
         $this->seed(RouteSeeder::class);
     }
 
