@@ -13,7 +13,7 @@
 <div class="flex flex-col space-y-4 min-h-screen text-gray-800 bg-gray-100">
     <header class="shadow bg-white sticky inset-0 backdrop-blur-sm z-10">
         <nav>
-{{--            {{  $navigation  }}--}}
+            <x-layout.navmember />
         </nav>
     </header>
     <!-- Page Content -->

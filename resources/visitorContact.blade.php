@@ -1,4 +1,4 @@
-<x-templatelayout>
+<x-visitorlayout>
     <x-slot name="title">Contactpagina</x-slot>
     <x-slot name="description">Contactpagina</x-slot>
 
@@ -21,4 +21,4 @@
 
 {{--        nog niet goedgekeurd--}}
             <x-wd_components.form></x-wd_components.form>
-</x-templatelayout>
+</x-visitorlayout>
