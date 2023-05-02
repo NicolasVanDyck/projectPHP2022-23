@@ -13,7 +13,14 @@
 <div class="flex flex-col space-y-4 min-h-screen text-gray-800 bg-gray-100">
     <header class="shadow bg-white sticky inset-0 backdrop-blur-sm z-10">
         <nav>
-            <x-layout.navmember />
+                @if (Auth::user()->is_admin == '1')
+                    @include('<x-layout.navadmin/> ')
+                @elseif (Auth::user()->is_admin == '0')
+                    @include('<x-layout.navmember/> ')
+                @else
+                    @include('<x-layout.nav/>')
+                @endif
+
         </nav>
     </header>
     <!-- Page Content -->

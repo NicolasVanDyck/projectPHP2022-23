@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Memberlayout extends Component
+class Templatelayout extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Memberlayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('layouts.memberlayout');
+        return view('layouts.templatelayout');
     }
 }
