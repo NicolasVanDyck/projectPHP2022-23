@@ -1,5 +1,4 @@
-
-<x-template-layout>
+<x-templatelayout>
     <x-slot name="title">Contactpagina</x-slot>
     <x-slot name="description">Contactpagina</x-slot>
 
@@ -21,7 +20,5 @@
         </div>
 
 {{--        nog niet goedgekeurd--}}
-    {{--        <x-wd_components.form></x-wd_components.form>--}}
-
-
-</x-template-layout>
+            <x-wd_components.form></x-wd_components.form>
+</x-templatelayout>

@@ -1,4 +1,4 @@
-<x-template-layout>
+<x-templatelayout>
 <x-slot name="title">Homepagina</x-slot>
 <x-slot name="description">Homepagina</x-slot>
 
@@ -32,4 +32,4 @@
 <x-wd_components.carousel></x-wd_components.carousel>
 
 
-</x-template-layout>
+</x-templatelayout>
