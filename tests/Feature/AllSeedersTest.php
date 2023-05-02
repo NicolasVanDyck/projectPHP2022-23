@@ -56,7 +56,7 @@ class AllSeedersTest extends TestCase
 
         if ($this->assertDatabaseEmpty('images')) {
             $this->seed(ImageSeeder::class);
-            $this->assertDatabaseCount('images', 29);
+            $this->assertDatabaseCount('images', 10);
         }
     }
 
@@ -69,11 +69,12 @@ class AllSeedersTest extends TestCase
      */
     public function testUserTourSeeder(): void
     {
+        $this->refreshDatabase();
 
         $this->seed(UserTourSeeder::class);
-        $this->assertDatabaseCount('images', 1);
+        $this->assertDatabaseCount('images', 5);
         $this->assertDatabaseCount('image_types', 3);
-        $this->assertDatabaseCount('user_tours', 1);
+        $this->assertDatabaseCount('user_tours', 5);
     }
 
 

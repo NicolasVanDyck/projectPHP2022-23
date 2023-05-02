@@ -48,9 +48,9 @@ class UserTourTest extends TestCase
     {
 
         $this->seed(UserTourSeeder::class);
-        $this->assertDatabaseCount('images', 1);
+        $this->assertDatabaseCount('images', 5);
         $this->assertDatabaseCount('image_types', 3);
-        $this->assertDatabaseCount('user_tours', 1);
+        $this->assertDatabaseCount('user_tours', 5);
     }
 
 }

@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
     use HasFactory;
+    use HasUuids;
+
     protected $fillable = [
         'name',
         'description',
@@ -16,7 +19,7 @@ class Image extends Model
 
     public function imagetype($imagetype = null)
     {
-        $this->belongsTo(ImageType::class)->withDefault([
+        $this->belongsTo(ImageType::class) ([
             'image_type' => 'image',
         ]);
     }

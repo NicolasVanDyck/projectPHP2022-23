@@ -14,7 +14,7 @@ class ImageTypeFactory extends Factory
      * The factory's corresponding model.
      */
     protected $model = ImageType::class;
-    private array $types = ['sponsor', 'image'];
+    private array $types = ['sponsor', 'image', 'route', 'user'];
 
     /**
      * Define the model's default state.
@@ -23,16 +23,8 @@ class ImageTypeFactory extends Factory
      */
     public function definition(): array
     {
-        $imageTypes = ['product', 'route', 'user'];
-        $randomImageType = rand(1, count($imageTypes));
-
-//        foreach ($imageTypes as $imageType)
-//        {
-//            ImageType::firstOrCreate(['image_type' => $imageType]);
-//        }
-
         return [
-            'image_type'=> $this->faker->unique()->randomElement($imageTypes),
+            'image_type' => $this->faker->unique()->randomElement(['product', 'route', 'user']),
         ];
     }
 }

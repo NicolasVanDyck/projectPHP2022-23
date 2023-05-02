@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('image_type_id')->constrained()->restrictOnUpdate()->restrictOnDelete();
+            $table->uuid('id')->primary()->index();
+            $table->foreignId('image_type_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
             $table->string('name')->unique()->nullable(false);
             $table->mediumText('description');
             $table->timestamps();
