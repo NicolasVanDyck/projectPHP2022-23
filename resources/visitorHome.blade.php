@@ -1,7 +1,7 @@
 <x-templatelayout>
 <x-slot name="title">Homepagina</x-slot>
 <x-slot name="description">Homepagina</x-slot>
-
+<x-slot name="nav"><x-layout.nav/></x-slot>
 
     <div class='flex items-center justify-center bg-gradient-to-br px-2 pb-4 mx'>
         <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
