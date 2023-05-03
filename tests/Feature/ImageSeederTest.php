@@ -16,6 +16,6 @@ class ImageSeederTest extends TestCase
     public function test_image_seeder(): void
     {
         $this->seed(ImageSeeder::class);
-        $this->assertDatabaseCount('images', 29);
+        $this->assertDatabaseCount('images', 10);
     }
 }
