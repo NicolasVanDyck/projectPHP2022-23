@@ -22,17 +22,14 @@ class UserTourFactory extends Factory
      */
     public function definition(): array
     {
+        $tourId = Tour::factory()->create()->id;
+
         return [
             'user_id' => function() {
                 return User::factory()->create()->id;
             },
-            'group_tour_id' => function() {
-                return GroupTour::factory()->create()->id;
-            },
-//            'tour_id' => function() {
-//                return Tour::factory()->create()->id;
-//            },
-            'tour_id' => Tour::factory(),
+            'tour_id' => $tourId,
+            'group_tour_id' => GroupTour::factory()->create(['tour_id' => $tourId])->id,
         ];
     }
 }

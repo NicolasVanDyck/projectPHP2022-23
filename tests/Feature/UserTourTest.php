@@ -2,10 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Image;
-use Database\Seeders\ImageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Database\Seeders\UserTourSeeder;
 
@@ -13,15 +10,28 @@ class UserTourTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Assert the images table is empty.
+     */
+    public function test_images_table_empty(): void
+    {
+        $this->assertDatabaseCount('images', 0);
+    }
 
     /**
-     * A basic feature test example.
+     * Assert the image_types table is empty.
      */
-    public function test_example(): void
+    public function test_image_types_table_empty(): void
     {
-        $response = $this->get('/test');
+        $this->assertDatabaseCount('image_types', 0);
+    }
 
-        $response->assertStatus(200);
+    /**
+     * Assert the database is empty.
+     */
+    public function test_database_empty(): void
+    {
+        $this->assertDatabaseCount('user_tours', 0);
     }
 
     /**
@@ -33,9 +43,11 @@ class UserTourTest extends TestCase
      */
     public function testUserTourSeeder(): void
     {
-        $this->seed(ImageSeeder::class);
+
         $this->seed(UserTourSeeder::class);
-        $this->assertDatabaseCount('user_tours', 1);
+        $this->assertDatabaseCount('images', 5);
+        $this->assertDatabaseCount('image_types', 3);
+        $this->assertDatabaseCount('user_tours', 5);
     }
 
 }
