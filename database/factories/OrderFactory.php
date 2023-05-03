@@ -33,7 +33,7 @@ class OrderFactory extends Factory
             'postal_code' => $this->faker->postcode(),
             'address' => $this->faker->address(),
             'phone_number' => $this->faker->phoneNumber(),
-            'password' => $this->faker->password(),
+            'password' => bcrypt('password'),
             'city'=> $this->faker->city(),
             'mobile_number' => $this->faker->phoneNumber(),
         ]);
