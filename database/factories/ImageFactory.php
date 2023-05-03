@@ -23,14 +23,8 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
-        static $imageTypeIds;
-
-        if (!isset($imageTypeIds)) {
-            $imageTypeIds = ImageType::pluck('id')->toArray();
-        }
-
         // Image types array.
-        $imageTypes = ['product', 'route', 'user'];
+        $imageTypes = ['sponsor', 'route', 'image'];
 
         $imageTypeArray = [];
 
