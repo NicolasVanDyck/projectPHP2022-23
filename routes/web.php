@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,3 +59,8 @@ Route::middleware([
         return view('member/dashboard');
     })->name('dashboard');
 });
+
+// Resources
+Route::resources([
+    'activities' => ActivityController::class,
+]);
