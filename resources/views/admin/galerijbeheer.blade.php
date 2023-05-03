@@ -1,4 +1,4 @@
-{{--<x-template-layout>--}}
+<x-templatelayout>
 
 <x-slot name="title">Galerijbeheer</x-slot>
 <x-slot name="description">Op deze pagina kan u als admin kiezen welke foto's er voor welk onderdeel te zien zijn.</x-slot>
@@ -21,4 +21,4 @@
 </div>
 
 
-{{--</x-template-layout>--}}
+</x-templatelayout>

@@ -1,4 +1,4 @@
-{{--<x-template-layout>--}}
+<x-templatelayout>
 
 <x-slot name="title">Trajectbeheer</x-slot>
 <x-slot name="description">Op deze pagina kan u als admin de trajecten beheren.</x-slot>
@@ -21,4 +21,4 @@
 </div>
 
 
-{{--</x-template-layout>--}}
+</x-templatelayout>

@@ -1,7 +1,7 @@
-<x-memberlayout>
+<x-templatelayout>
 
 <x-slot name="title">Dashboard</x-slot>
-{{--<x-slot name="description">Welkom op het dashboard van {{auth()->user()->name}} </x-slot>--}}
+<x-slot name="description">Welkom op het dashboard van {{auth()->user()->name}} </x-slot>
 
 <x-layout.navmember></x-layout.navmember>
 
@@ -9,7 +9,7 @@
     <main class="p-6 sm:p-10 space-y-6 bg-gray-400">
         <div class="flex flex-col space-y-6  justify-between">
             <div class="mr-6 text-center">
-                <h1 class="text-4xl font-semibold mb-2">Dashboard</h1>
+                <h1 class="text-4xl font-semibold mb-2">Dashboard van {{auth()->user()->name}} </h1>
                 <h2 class="text-gray-600 ml-0.5">Vind hier al uw statistieken</h2>
             </div>
         </div>
@@ -128,4 +128,4 @@
     </main>
 </body>
 
-</x-memberlayout>
+</x-templatelayout>
