@@ -31,4 +31,4 @@
 <x-wd_components.carousel></x-wd_components.carousel>
 
 
-<x-templatelayout/>
+</x-templatelayout>

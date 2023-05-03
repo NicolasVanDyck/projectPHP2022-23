@@ -22,7 +22,7 @@
             {{--                    @include('<x-layout.nav/>')--}}
             {{--                @endif--}}
 
-        {{ $nav ?? 'BasisNaV' }}
+        {{ $nav ?? 'BasisNav' }}
         </nav>
     </header>
     <!-- Page Content -->
