@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Route;
-use Database\Seeders\ImageSeeder;
 use Database\Seeders\RouteSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RouteSeederTest extends TestCase
@@ -18,9 +16,6 @@ class RouteSeederTest extends TestCase
      */
     public function create_hundred_routes(): void
     {
-        // Need to seed the images table as well since it's a foreign key.
-        $this->seed(ImageSeeder::class);
-
         $this->seed(RouteSeeder::class);
     }
 

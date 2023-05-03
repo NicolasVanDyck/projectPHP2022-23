@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('image_id')->nullable(false)->constrained();
+            $table->foreignUuid('image_id')->nullable(false);
             $table->string('start_location')->nullable(false);
             $table->string('end_location')->nullable(false);
             $table->float('amount_of_km')->nullable(false);

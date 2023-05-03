@@ -11,7 +11,7 @@ class BicycleType extends Model
     use HasFactory;
 
     protected $fillable=[
-        'name'
+        'bicycle_type'
     ];
 
     public function routes()
