@@ -10,8 +10,7 @@ class ImageType extends Model
     use HasFactory;
 
     protected $fillable = [
-        // todo: snake_case
-        'imageType',
+        'image_type',
     ];
 
     public function images()
