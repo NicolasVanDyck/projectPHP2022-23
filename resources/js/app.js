@@ -9,10 +9,11 @@ import {
     Ripple,
     Input,
     Select,
+    Chart,
     initTE,
 } from "tw-elements";
 
-initTE({ Carousel, Dropdown, Ripple, Input, Select });
+initTE({ Carousel, Dropdown, Ripple, Input, Select, Chart });
 
 window.Alpine = Alpine;
 
