@@ -29,6 +29,16 @@
         </div>
     </div>
 
+    {{--Activities--}}
+    <x-activities>
+        @foreach($activities as $activity)
+            <p class="flex-col">name: {{ $activity->name }}</p>
+            <p class="flex-col">description: {{ $activity->description }}</p>
+        @endforeach
+    </x-activities>
+
+    {{--Carousel--}}
+
 
 
 <x-wd_components.carousel></x-wd_components.carousel>

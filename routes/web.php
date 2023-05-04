@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Dusk\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('register', function () { return redirect()->route('login');});
 
 //Voor de bezoekers
-Route::view('/','home')->name('home');
+
+Route::get('/', [ActivityController::class, 'showAllActivities'] )->name('home');
 //Nog bekijken i.v.m. contactformulier. Misschien moet dit een andere methode zijn dan view() (post() bv.)
 Route::view('contact','contact')->name('contact');
 
@@ -62,5 +64,5 @@ Route::middleware([
 
 // Resources
 Route::resources([
-    'activities' => ActivityController::class,
+//    'activities' => ActivityController::class,
 ]);
