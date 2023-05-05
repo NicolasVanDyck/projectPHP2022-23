@@ -50,3 +50,8 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::post('/parameter', 'App\Http\Controllers\ParameterController@store')->name('parameter.store');
+Route::get('/test', 'App\Http\Controllers\ParameterController@index')->name('parameter.index');
+Route::post('/parameter', 'App\Http\Controllers\ParameterController@store')->name('parameter.store');
+Route::delete('/parameter', 'App\Http\Controllers\ParameterController@destroy')->name('parameter.destroy');
+Route::post('/parameter/update', 'App\Http\Controllers\ParameterController@update')->name('parameter.update');
