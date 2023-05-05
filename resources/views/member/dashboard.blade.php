@@ -3,8 +3,6 @@
 <x-slot name="title">Dashboard</x-slot>
 <x-slot name="description">Welkom op het dashboard van {{auth()->user()->name}} </x-slot>
 
-<x-layout.navmember></x-layout.navmember>
-
     <body class="flex min-h-screen flex items-center justify-center">
     <main class="p-6 sm:p-10 space-y-6 bg-gray-400">
         <div class="flex flex-col space-y-6  justify-between">

@@ -3,8 +3,6 @@
 <x-slot name="title">Webtekstbeheer</x-slot>
 <x-slot name="description">Op deze pagina kan u als admin de inhoud van de webteksten beheren.</x-slot>
 
-<x-layout.navadmin></x-layout.navadmin>
-
 <div class='flex items-center justify-center bg-gradient-to-br px-2 pb-4 mx'>
     <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
         <div class='max-w-md mx-auto'>

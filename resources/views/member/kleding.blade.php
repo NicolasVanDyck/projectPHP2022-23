@@ -2,8 +2,6 @@
     <x-slot name="title">Kleding</x-slot>
     <x-slot name="description">Op deze pagina kan je kiezen welke clubkledij je graag wenst te bestellen!</x-slot>
 
-    <x-layout.navmember></x-layout.navmember>
-
     <div class='flex items-center justify-center bg-gradient-to-br px-2 pb-4 mx'>
         <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
             <div class='max-w-md mx-auto'>

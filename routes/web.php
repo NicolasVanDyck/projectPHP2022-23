@@ -47,14 +47,3 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
 Route::get('/test', function () {
     return view('test');
 });
-
-// TODO: Moet er nog 'admin' middleware toegevoegd worden hieronder? Is reeds aangemaakt, maar staat niet hieronder! Tests lukken nog, is dit nodig?
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('dashboard', function () {
-        return view('member/dashboard');
-    })->name('dashboard');
-});

@@ -13,16 +13,18 @@
 <div class="flex flex-col space-y-4 min-h-screen text-gray-800 bg-gray-100">
     <header class="shadow bg-white sticky inset-0 backdrop-blur-sm z-10">
         <nav>
-{{--                            @if(resource_path()=='views/admin/*')--}}
-{{--                                @include('components.layout.navadmin')--}}
-{{--                            @elseif((resource_path() == 'views/member/*'))--}}
-{{--                                @include('components.layout.navmember')--}}
-{{--                            @else--}}
-{{--                                @include('components.layout.nav')--}}
-{{--                            @endif--}}
+            @auth
+                @if(Auth::user()->is_admin == true && str_contains(Request::url(), 'admin') )
+                    <x-layout.navadmin/>
+                @endif
+                @if(str_contains(Request::url(), 'member'))
+                    <x-layout.navmember/>
+                @endif
+            @endauth
+            @guest
+                    <x-layout.nav/>
+            @endguest
 
-
-{{--        {{ $nav ?? 'BasisNav' }}--}}
         </nav>
     </header>
     <!-- Page Content -->
