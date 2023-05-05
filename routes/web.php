@@ -50,26 +50,3 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::get('/test', 'App\Http\Controllers\ParameterController@index')->name('parameter.index');
-Route::post('/parameter', 'App\Http\Controllers\ParameterController@store')->name('parameter.store');
-Route::delete('/parameter', 'App\Http\Controllers\ParameterController@destroy')->name('parameter.destroy');
-Route::post('/parameter/update', 'App\Http\Controllers\ParameterController@update')->name('parameter.update');
-
-
-
-
-
-
-
-
-
-// TODO: Moet er nog 'admin' middleware toegevoegd worden hieronder? Is reeds aangemaakt, maar staat niet hieronder! Tests lukken nog, is dit nodig?
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('dashboard', function () {
-        return view('member/dashboard');
-    })->name('dashboard');
-});
