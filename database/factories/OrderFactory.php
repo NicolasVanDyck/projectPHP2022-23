@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +23,30 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
+
+        // Create users if they don't exist yet.
+        $user = User::updateOrCreate([
+            'name' => $this->faker->name(),
+            'username' => $this->faker->userName(),
+            'birthday' => $this->faker->date(),
+            'email' => $this->faker->email(),
+            'postal_code' => $this->faker->postcode(),
+            'address' => $this->faker->address(),
+            'phone_number' => $this->faker->phoneNumber(),
+            'password' => bcrypt('password'),
+            'city'=> $this->faker->city(),
+            'mobile_number' => $this->faker->phoneNumber(),
+        ]);
+
+        // Create products if they don't exist yet.
+        $product = Product::updateOrCreate([
+            'name' => $this->faker->name(),
+            'price' => $this->faker->randomDigit(),
+        ]);
+
         return [
+            'product_id'=> $product->id,
+            'user_id'=> $user->id,
             'order_date'=> now(),
             'quantity'=> $this->faker->randomDigit(),
         ];
