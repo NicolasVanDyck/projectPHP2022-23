@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ParameterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('fotobeheer', function() { return view('admin/fotobeheer');})->name('fotobeheer');
     Route::get('galerijbeheer', function() { return view('admin/galerijbeheer');})->name('galerijbeheer');
     Route::get('kleding_bestellingen', function() { return view('admin/kleding_bestellingen');})->name('kleding_bestellingen');
+    Route::get('kleding_bestellingen/test', [ParameterController::class,'index'] )->name('kleding_bestellingen');
     Route::get('kledingbeheer', function() { return view('admin/kledingbeheer');})->name('kledingbeheer');
     Route::get('ledenbeheer', function() { return view('admin/ledenbeheer');})->name('ledenbeheer');
     Route::get('trajectbeheer', function() { return view('admin/trajectbeheer');})->name('trajectbeheer');
@@ -47,6 +49,19 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
 Route::get('/test', function () {
     return view('test');
 });
+
+Route::get('/test', 'App\Http\Controllers\ParameterController@index')->name('parameter.index');
+Route::post('/parameter', 'App\Http\Controllers\ParameterController@store')->name('parameter.store');
+Route::delete('/parameter', 'App\Http\Controllers\ParameterController@destroy')->name('parameter.destroy');
+Route::post('/parameter/update', 'App\Http\Controllers\ParameterController@update')->name('parameter.update');
+
+
+
+
+
+
+
+
 
 // TODO: Moet er nog 'admin' middleware toegevoegd worden hieronder? Is reeds aangemaakt, maar staat niet hieronder! Tests lukken nog, is dit nodig?
 Route::middleware([
