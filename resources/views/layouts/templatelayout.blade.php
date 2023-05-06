@@ -14,7 +14,7 @@
     <header class="shadow bg-white sticky inset-0 backdrop-blur-sm z-10">
         <nav>
             @auth
-                @if(Auth::user()->is_admin == true && str_contains(Request::url(), 'admin') )
+                @if(Auth::user()->is_admin && str_contains(Request::url(), 'admin') )
                     <x-layout.navadmin/>
                 @endif
                 @if(str_contains(Request::url(), 'member'))
