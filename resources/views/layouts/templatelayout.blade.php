@@ -15,16 +15,15 @@
     <header class="shadow bg-white sticky inset-0 backdrop-blur-sm z-10">
         <nav>
             @auth
-                {{--== true is not necessary--}}
-            @if(Auth::user()->is_admin == true && str_contains(Request::url(), 'admin') )
-                    <x-layout.navadmin/>
+                @if(Auth::user()->is_admin && str_contains(Request::url(), 'admin') )
+                    @livewire('layout.nav-bar-admin')
                 @endif
                 @if(str_contains(Request::url(), 'member'))
-                    <x-layout.navmember/>
+                        @livewire('layout.nav-bar-member')
                 @endif
             @endauth
             @guest
-                    <x-layout.nav/>
+                    @livewire('layout.nav-bar')
             @endguest
 
         </nav>
