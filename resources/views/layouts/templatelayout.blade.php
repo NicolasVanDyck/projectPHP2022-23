@@ -15,14 +15,14 @@
         <nav>
             @auth
                 @if(Auth::user()->is_admin == true && str_contains(Request::url(), 'admin') )
-                    <x-layout.navadmin/>
+                    @livewire('layout.nav-bar-admin')
                 @endif
                 @if(str_contains(Request::url(), 'member'))
-                    <x-layout.navmember/>
+                        @livewire('layout.nav-bar-member')
                 @endif
             @endauth
             @guest
-                    <x-layout.nav/>
+                    @livewire('layout.nav-bar')
             @endguest
 
         </nav>
