@@ -27,16 +27,11 @@
     </div>
 
     {{--Activities--}}
-    <x-activities>
-        @foreach($activities as $activity)
-            <p class="flex-col">name: {{ $activity->name }}</p>
-            <p class="flex-col">description: {{ $activity->description }}</p>
-        @endforeach
-    </x-activities>
+    <h2 class="text-4xl pl-8">Activities</h2>
+    <livewire:activities/>
+
+
 
     {{--Carousel--}}
-
-
-
-<x-wd_components.carousel></x-wd_components.carousel>
+    <x-wd_components.carousel></x-wd_components.carousel>
 </x-templatelayout>
