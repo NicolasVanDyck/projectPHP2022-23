@@ -6,6 +6,7 @@
     {{--    <x-layout.favicons/>--}}
     <meta name="description" content={{  $description ?? 'BasisDescription' }}>
     <title>{{  $title ?? 'BasisTitel' }}</title>
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -35,7 +36,7 @@
     <footer class="text-center absolute bottom-0 w-[100%]">
         <x-layout.footer />
     </footer>
-
+    @livewireScripts
 
 </div>
 </body>
