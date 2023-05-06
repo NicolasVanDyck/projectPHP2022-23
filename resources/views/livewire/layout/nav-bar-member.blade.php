@@ -1,5 +1,5 @@
-<div class="container mx-auto p-4 flex justify-between">
-    <div class="flex items-center mr-8 transition hover:scale-105 duration-1000">
+<div class="container mx-auto p-4 flex">
+    <div class="flex grow lg:grow-0 items-center mr-8 transition hover:scale-105 duration-1000">
         {{-- Logo --}}
 {{--        <a href="{{ route('dashboard') }}">--}}
 {{--            --}}{{--            <img src="{{asset('icons/favicon-32x32.png')}}" alt="Logo" />--}}
@@ -7,7 +7,7 @@
         <h1>De Wezeldrivers</h1>
     </div>
     @auth
-        <div class="flex w-full justify-between flex-grow hidden lg:block">
+        <div class="flex flex-auto text-center space-x-4 hidden lg:block">
                 <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     Dashboard
                 </x-nav-link>
@@ -61,8 +61,8 @@
                     <x-dropdown-link href="{{ route('individuele_trajecten') }}">Individuele Trajecten</x-dropdown-link>
                     <x-dropdown-link href="{{ route('deelname_groep') }}">Deelname Groep</x-dropdown-link>
                     <x-dropdown-link href="{{ route('galerij') }}">Galerij</x-dropdown-link>
-                    <x-dropdown-link href="{{ route('kleding') }}">Profiel</x-dropdown-link>
-                    <x-dropdown-link href="{{ route('profile.show') }}">Contact</x-dropdown-link>
+                    <x-dropdown-link href="{{ route('kleding') }}">Kleding</x-dropdown-link>
+                    <x-dropdown-link href="{{ route('profile.show') }}">Profiel</x-dropdown-link>
                     @if(auth()->user()->is_admin)
                         <x-dropdown-link href="{{ route('welkom') }}">Beheren</x-dropdown-link>
                     @endif

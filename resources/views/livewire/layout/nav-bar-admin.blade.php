@@ -1,11 +1,11 @@
-<div class="container mx-auto p-4 flex justify-between">
-    <div class="flex items-center mr-8 transition hover:scale-105 duration-1000">
+<div class="container mx-auto p-4 flex">
+    <div class="flex grow lg:grow-0 items-center mr-8 transition hover:scale-105 duration-1000">
         {{-- Logo --}}
             {{--            <img src="{{asset('icons/favicon-32x32.png')}}" alt="Logo" />--}}
         <h1>De Wezeldrivers</h1>
     </div>
     @auth
-        <div class="flex w-full justify-between flex-grow hidden lg:block">
+        <div class="flex flex-grow text-center space-x-4 hidden lg:block">
             <x-nav-link href="{{ route('aanwezighedenbeheer') }}" :active="request()->routeIs('aanwezighedenbeheer')">
                 Aanwezighedenbeheer
             </x-nav-link>
