@@ -41,7 +41,7 @@ class Activities extends Component
 
         return view('livewire.activities', [
             'activities' => $selectedActivities,
-            'years' => $years,
+            'years' => $years->sortDesc(),
             'months' => $months,
         ])->layout('layouts.templatelayout');
     }

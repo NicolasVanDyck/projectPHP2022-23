@@ -34,24 +34,26 @@
                     <th class="text-base p-2">Activiteit</th>
                     <th class="text-base p-2">Beschrijving</th>
                     <th class="text-base p-2">Startdatum</th>
+                    <th class="text-base p-2">Starttijd</th>
                     <th class="text-base p-2">Einddatum</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($activities as $activity)
-                    <tr>
+                    <tr class="p-2">
                         <td class="p-2">{{ $activity->name }}</td>
                         <td class="p-2">{{ $activity->description }}</td>
-                        <td class="p-2">{{ date('Y-m-d', strtotime($activity->start_date)) }}</td>
-                        <td class="p-2">{{ date('Y-m-d', strtotime($activity->end_date)) }}</td>
+                        <td class="p-2">{{ date('d-m-Y', strtotime($activity->start_date)) }}</td>
+                        <td class="p-2">{{ date('H:i', strtotime($activity->start_date)) }}</td>
+                        <td class="p-2">{{ date('d-m-Y', strtotime($activity->end_date)) }}</td>
                     </tr>
                     {{--A very thin separation line--}}
                     <tr>
-                        <td colspan="4" class="border-b border-gray-200"></td>
+                        <td colspan="5" class="border-b border-gray-200"></td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="p-2">No activities found</td>
+                        <td class="p-2">Geen activiteiten gevonden</td>
                     </tr>
                 @endforelse
 {{--                {{ $activities->links() }}--}}

@@ -27,7 +27,7 @@
     </div>
 
     {{--Activities--}}
-    <h2 class="text-4xl pl-8">Activities</h2>
+    <h2 class="text-4xl pl-8">Activiteiten</h2>
     <livewire:activities/>
 
 
