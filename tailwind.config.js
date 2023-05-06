@@ -15,6 +15,8 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                title: ['Roboto'],
+                // Hier kunnen nog bijkomende fonts geplaats worden die we vaak gebruiken
             },
         },
     },
