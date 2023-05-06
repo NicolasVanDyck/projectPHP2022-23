@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Dusk\Http\Controllers\UserController;
 

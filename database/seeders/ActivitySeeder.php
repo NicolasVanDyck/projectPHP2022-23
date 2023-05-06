@@ -13,6 +13,9 @@ class ActivitySeeder extends Seeder
      */
     public function run(): void
     {
-        Activity::factory(5)->create();
+        Activity::factory(5)->create([
+            'start_date' => '2023-06-05',
+            'end_date' => '2023-06-07',
+        ]);
     }
 }
