@@ -19,24 +19,10 @@
     @livewireStyles
 </head>
 <body class="antialiased">
-{{--<div>--}}
-{{--    <h1>Delete Parameter</h1>--}}
-{{--    <form wire:submit.prevent="destroy">--}}
-{{--        <div>--}}
-{{--            <label for="parameter_id">Select parameter to delete:</label>--}}
-{{--            <select name="parameter_id" id="parameter_id" wire:model="parameter_id">--}}
-{{--                <option value="">Select parameter</option>--}}
-{{--                @foreach ($parameters as $parameter)--}}
-{{--                    <option value="{{ $parameter->id }}">{{ $parameter->end_date_order }}</option>--}}
-{{--                @endforeach--}}
-{{--            </select>--}}
-{{--            @error('parameter_id') <span>{{ $message }}</span> @enderror--}}
-{{--        </div>--}}
-{{--        <button type="submit">Delete</button>--}}
-{{--    </form>--}}
-{{--</div>--}}
+
 <div>
     @livewire('parameter-component')
+
 </div>
 
 {{--<div--}}
@@ -177,7 +163,7 @@
 {{--        >Next</span--}}
 {{--        >--}}
 {{--    </button>--}}
-</div>
-@livewireStyles
+{{--</div>--}}
+@livewireScripts
 </body>
 </html>
