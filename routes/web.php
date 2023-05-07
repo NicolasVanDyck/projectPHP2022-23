@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use App\Http\Controllers\ParameterController;
+=======
+use Laravel\Dusk\Http\Controllers\UserController;
+>>>>>>> main
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +22,8 @@ use App\Http\Controllers\ParameterController;
 Route::get('register', function () { return redirect()->route('login');});
 
 //Voor de bezoekers
-Route::view('/','home')->name('home');
+
+Route::view('/','home' )->name('home');
 //Nog bekijken i.v.m. contactformulier. Misschien moet dit een andere methode zijn dan view() (post() bv.)
 Route::view('contact','contact')->name('contact');
 
@@ -49,13 +54,3 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
 Route::get('/test', function () {
     return view('test');
 });
-
-
-//Route::get('/parameters', 'App\Http\Controllers\ParameterController@index');
-
-
-//Route::post('/parameter', 'App\Http\Controllers\ParameterController@store')->name('parameter.store');
-//Route::get('/test', 'App\Http\Controllers\ParameterController@index')->name('parameter.index');
-//Route::post('/parameter', 'App\Http\Controllers\ParameterController@store')->name('parameter.store');
-//Route::delete('/parameter', 'App\Http\Controllers\ParameterController@destroy')->name('parameter.destroy');
-//Route::post('/parameter/update', 'App\Http\Controllers\ParameterController@update')->name('parameter.update');

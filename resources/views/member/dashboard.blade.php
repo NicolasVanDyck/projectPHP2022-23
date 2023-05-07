@@ -103,11 +103,16 @@
             </section>
             {{--            KALENDER/Nog niet ingevuld--}}
             <section class="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
-                <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
+{{--                <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">--}}
+{{--                    <div class="px-6 py-5 font-semibold border-b border-gray-100">Kalender</div>--}}
+{{--                    <img src="https://michelzbinden.com/images/2023/vi/nl/kalender-mei-2023-50mz.jpg" alt="">--}}
+{{--                </div>--}}
+                <div class="flex flex-col row-span-3 rounded-lg">
                     <div class="px-6 py-5 font-semibold border-b border-gray-100">Kalender</div>
-                    <img src="https://michelzbinden.com/images/2023/vi/nl/kalender-mei-2023-50mz.jpg" alt="">
+                    <livewire:activities/>
                 </div>
-                {{--            UPLOAD ZONE--}}
+
+                            UPLOAD ZONE
                 <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
                     <div class="px-6 py-5 font-semibold border-b border-gray-100">Upload zone fiets statistiek</div>
                     <div class="flex items-center justify-center h-full px-4 py-24  bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">
@@ -122,6 +127,7 @@
                     </div>
                 </div>
             </section>
+
         </section>
     </main>
 </body>

@@ -1,6 +1,37 @@
+/*import Roboto Font*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+/*import Monsterat Font*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* dit is de styling per tag */
+@layer base {
+    html {
+        font-family: Montserrat, system-ui, sans-serif;
+    }
+    h1 {
+        @apply text-6xl font-title text-black;
+    }
+    h2 {
+        @apply text-4xl font-title text-black;
+    }
+    p {
+        @apply text-base text-gray-700;
+    }
+    button {
+        @apply text-base;
+    }
+    a {
+        @apply text-base text-blue-500 underline visited:text-purple-600 hover:text-blue-800;
+    }
+    img {
+        @apply  w-16 md:w-32 lg:w-48 rounded-lg;
+    }
+}
 
 [x-cloak] {
     display: none;
