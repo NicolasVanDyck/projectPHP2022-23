@@ -28,7 +28,7 @@ class OrderFactory extends Factory
         $user = User::updateOrCreate([
             'name' => $this->faker->name(),
             'username' => $this->faker->userName(),
-            'birthday' => $this->faker->date(),
+            'birthdate' => $this->faker->date(),
             'email' => $this->faker->email(),
             'postal_code' => $this->faker->postcode(),
             'address' => $this->faker->address(),
