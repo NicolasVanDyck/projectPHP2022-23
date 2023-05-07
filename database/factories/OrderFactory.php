@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Product;
 use App\Models\User;
+use DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -44,8 +45,14 @@ class OrderFactory extends Factory
             'price' => $this->faker->randomDigit(),
         ]);
 
+        // Get all the productsizes from product_size table.
+        $product_sizes = DB::table('product_size')->get();
+
+        // Get a random product_size from the product_size table.
+        $product_size = $product_sizes->random();
+
         return [
-            'product_id'=> $product->id,
+            'product_size_id'=> $product_size->id,
             'user_id'=> $user->id,
             'order_date'=> now(),
             'quantity'=> $this->faker->randomDigit(),

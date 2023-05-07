@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
             Size::firstOrCreate(['size' => $size]);
         }
 
-        $products = Product::factory(100)->create();
+        $products = Product::factory(20)->create();
 
         foreach ($products as $product) {
             $sizes = Size::inRandomOrder()->take($randomSize)->pluck('id');
