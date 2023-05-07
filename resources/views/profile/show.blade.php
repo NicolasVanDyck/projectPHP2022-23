@@ -6,7 +6,7 @@
     </x-slot>
 
     <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto pt-[2.5rem] pb-[6.5rem] sm:px-6 lg:px-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
 
@@ -18,7 +18,7 @@
                     @livewire('profile.update-password-form')
                 </div>
 
-                <x-section-border />
+{{--                <x-section-border />--}}
             @endif
 
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
