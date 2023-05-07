@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->id();
+            $table->string('location')->nullable(false)->unique();
             $table->mediumText('description')->nullable(false);
             $table->timestamps();
         });
