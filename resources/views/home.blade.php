@@ -26,7 +26,12 @@
         </div>
     </div>
 
+    {{--Activities--}}
+    <h2 class="text-4xl pl-8">Activiteiten</h2>
+    <livewire:activities/>
 
 
-<x-wd_components.carousel></x-wd_components.carousel>
+
+    {{--Carousel--}}
+    <x-wd_components.carousel></x-wd_components.carousel>
 </x-templatelayout>

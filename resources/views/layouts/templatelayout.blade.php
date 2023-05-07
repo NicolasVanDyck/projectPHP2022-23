@@ -6,23 +6,24 @@
     {{--    <x-layout.favicons/>--}}
     <meta name="description" content={{  $description ?? 'BasisDescription' }}>
     <title>{{  $title ?? 'BasisTitel' }}</title>
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antialiased">
+<body class="antialiased relative">
 <div class="flex flex-col space-y-4 min-h-screen text-gray-800 bg-gray-100">
     <header class="shadow bg-white sticky inset-0 backdrop-blur-sm z-10">
         <nav>
             @auth
                 @if(Auth::user()->is_admin && str_contains(Request::url(), 'admin') )
-                    <x-layout.navadmin/>
+                    @livewire('layout.nav-bar-admin')
                 @endif
                 @if(str_contains(Request::url(), 'member'))
-                    <x-layout.navmember/>
+                        @livewire('layout.nav-bar-member')
                 @endif
             @endauth
             @guest
-                    <x-layout.nav/>
+                    @livewire('layout.nav-bar')
             @endguest
 
         </nav>
@@ -31,10 +32,10 @@
     <main>
         {{ $slot }}
     </main>
-    <footer class="text-center bg-white">
+    <footer class="text-center absolute bottom-0 w-[100%]">
         <x-layout.footer />
     </footer>
-
+    @livewireScripts
 
 </div>
 </body>

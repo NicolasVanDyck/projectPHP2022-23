@@ -5,6 +5,7 @@ import focus from '@alpinejs/focus';
 // Initialization for ES Users
 import {
     Carousel,
+    Collapse,
     Dropdown,
     Ripple,
     Input,
@@ -13,7 +14,7 @@ import {
     initTE,
 } from "tw-elements";
 
-initTE({ Carousel, Dropdown, Ripple, Input, Select, Chart });
+initTE({ Carousel, Collapse, Dropdown, Ripple, Input, Select, Chart });
 
 window.Alpine = Alpine;
 
