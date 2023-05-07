@@ -9,7 +9,7 @@
 
     <x-slot name="content">
         <div class="max-w-xl text-sm text-gray-600">
-            {{ __('Eenmaal je account verwijderd is ook alle data permanent verloren. Zorg ervoor dat je alle belangrijke data download voordat je hiermee verdergaat.') }}
+            {{ __('Eenmaal je account verwijderd is, gaat ook alle data permanent verloren. Zorg ervoor dat je alle belangrijke data downloadt voordat je hiermee verdergaat.') }}
         </div>
 
         <div class="mt-5">
@@ -25,7 +25,7 @@
             </x-slot>
 
             <x-slot name="content">
-                {{ __('Ben je zeker dat je dit account wilt verwijderen. Eenmaal je account is verwijderd ben je ook alle data permanent kwijt. Geef je wachtwoord in om verder te gaan') }}
+                {{ __('Ben je zeker dat je dit account wilt verwijderen? Eenmaal je account verwijderd is, ben je ook alle data permanent kwijt. Geef je wachtwoord in om verder te gaan') }}
 
                 <div class="mt-4" x-data="{}" x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
                     <x-input type="password" class="mt-1 block w-3/4"
