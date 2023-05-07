@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'username' => 'admin',
-            'birthday' => '1987-12-18',
+            'birthdate' => '1987-12-18',
             'email' => 's0173395@student.thomasmore.be',
             'postal_code' => 2360,
             'city' => 'Oud-Turnhout',
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ingritte Wellens',
             'username' => 'ingrittewellens',
-            'birthday' => '1954-01-19',
+            'birthdate' => '1954-01-19',
             'email' => 'ingritte.wellens@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -45,20 +45,20 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Willy Boets',
             'username' => 'willyboets',
-            'birthday' => '1953-07-05',
+            'birthdate' => '1953-07-05',
             'email' => 'willy.boets@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Veldweg 21',
-            'phone_number' => '014/81.26.66',
-            'mobile_number' => '0479/41.18.14',
+            'phone_number' => '014812666',
+            'mobile_number' => '0479411814',
             'password' => Hash::make('willyb123'),
         ]);
 
         User::factory()->create([
             'name' => 'Luc Bogaerts',
             'username' => 'lucbogaerts',
-            'birthday' => '1962-07-24',
+            'birthdate' => '1962-07-24',
             'email' => 'veronique.sannen@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -71,7 +71,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Rony Bogaerts',
             'username' => 'ronybogaerts',
-            'birthday' => '1959-07-11',
+            'birthdate' => '1959-07-11',
             'email' => 'ronybogaerts@hotmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -84,7 +84,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Theo Bollen',
             'username' => 'theobollen',
-            'birthday' => '1938-07-14',
+            'birthdate' => '1938-07-14',
             'email' => 'bollentheo@skynet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -97,7 +97,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Patrick Cools',
             'username' => 'patrickcools',
-            'birthday' => '1964-02-26',
+            'birthdate' => '1964-02-26',
             'email' => 'patrick.cools5@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -110,7 +110,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Eddy Coomans',
             'username' => 'eddycoomans',
-            'birthday' => '1955-03-06',
+            'birthdate' => '1955-03-06',
             'email' => 'coomansje119@gmail.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -123,7 +123,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Luc Cuypers',
             'username' => 'luccuypers',
-            'birthday' => '1964-03-29',
+            'birthdate' => '1964-03-29',
             'email' => 'cuypers.luc@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -136,7 +136,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'André Delen',
             'username' => 'andrédelen',
-            'birthday' => '1944-04-05',
+            'birthdate' => '1944-04-05',
             'email' => 'andredelen@skynet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -149,7 +149,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jeff De Weerdt',
             'username' => 'jeffdeweerdt',
-            'birthday' => '1952-11-18',
+            'birthdate' => '1952-11-18',
             'email' => 'jeffdeweerdt@telenet.be',
             'postal_code' => 3920,
             'city' => 'Lommel',
@@ -162,7 +162,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'André Engelen',
             'username' => 'andréengelen',
-            'birthday' => '1952-03-10',
+            'birthdate' => '1952-03-10',
             'email' => 'andre_engelen1@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -175,7 +175,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Guy Faes',
             'username' => 'guyfaes',
-            'birthday' => '1971-05-31',
+            'birthdate' => '1971-05-31',
             'email' => 'carmendiels@hotmail.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -188,7 +188,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Harry Geboers',
             'username' => 'harrygeboers',
-            'birthday' => '1946-03-27',
+            'birthdate' => '1946-03-27',
             'email' => 'hendrikgeboers@hotmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -201,7 +201,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Danny Geubbelmans',
             'username' => 'dannygeubbelmans',
-            'birthday' => '1959-04-24',
+            'birthdate' => '1959-04-24',
             'email' => 'danny.geubbelmans@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -214,7 +214,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Eddy Geubbelmans',
             'username' => 'eddygeubbelmans',
-            'birthday' => '1956-02-17',
+            'birthdate' => '1956-02-17',
             'email' => 'e.geubbelmans@hotmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -227,7 +227,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Fernand Geubbelmans',
             'username' => 'fernandgeubbelmans',
-            'birthday' => '1948-04-09',
+            'birthdate' => '1948-04-09',
             'email' => 'ferdinand.geubbelmans@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -240,7 +240,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jean Geuens',
             'username' => 'jeangeuens',
-            'birthday' => '1954-05-29',
+            'birthdate' => '1954-05-29',
             'email' => 'geuens.jean@outlook.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -253,7 +253,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Michel Geuens',
             'username' => 'michelgeuens',
-            'birthday' => '1947-08-13',
+            'birthdate' => '1947-08-13',
             'email' => 'michel.geuens@hotmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -266,7 +266,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Henri Hendriks',
             'username' => 'henrihendriks',
-            'birthday' => '1961-08-06',
+            'birthdate' => '1961-08-06',
             'email' => 'henri.hendriks@ah.nl',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -279,7 +279,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Sylvie Hendrikx',
             'username' => 'sylviehendrikx',
-            'birthday' => '1973-09-28',
+            'birthdate' => '1973-09-28',
             'email' => 'sylle.hendrikx@gmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -292,7 +292,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Fons Janssen',
             'username' => 'fonsjanssen',
-            'birthday' => '1947-07-10',
+            'birthdate' => '1947-07-10',
             'email' => 'fons.janssen11@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -305,7 +305,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Gilbert Joos',
             'username' => 'gilbertjoos',
-            'birthday' => '1952-10-08',
+            'birthdate' => '1952-10-08',
             'email' => 'gilbert.joos@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -318,7 +318,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Yvo Machiels',
             'username' => 'yvomachiels',
-            'birthday' => '1948-11-30',
+            'birthdate' => '1948-11-30',
             'email' => 'yvo.machiels@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -331,7 +331,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Willy Machiels',
             'username' => 'willymachiels',
-            'birthday' => '1946-02-16',
+            'birthdate' => '1946-02-16',
             'email' => 'willy.machiels5@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -344,7 +344,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Eddy Meynen',
             'username' => 'eddymeynen',
-            'birthday' => '1961-09-20',
+            'birthdate' => '1961-09-20',
             'email' => 'edje.meynen@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -357,7 +357,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ludo Onraedt',
             'username' => 'ludoonraedt',
-            'birthday' => '1956-04-10',
+            'birthdate' => '1956-04-10',
             'email' => 'ludo@van-erum.be',
             'postal_code' => 3970,
             'city' => 'Leopoldsburg',
@@ -370,7 +370,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ludo Opdebeek',
             'username' => 'ludoopdebeek',
-            'birthday' => '1952-05-29',
+            'birthdate' => '1952-05-29',
             'email' => 'ludo.opdebeek@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -383,7 +383,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Chris Peeters',
             'username' => 'chrispeeters',
-            'birthday' => '1946-02-23',
+            'birthdate' => '1946-02-23',
             'email' => 'christiaan.peeters@hotmail.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -396,7 +396,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Eugeen Peeters',
             'username' => 'eugeenpeeters',
-            'birthday' => '1954-02-08',
+            'birthdate' => '1954-02-08',
             'email' => 'gene.peeters1@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -409,7 +409,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Maurice Peeters',
             'username' => 'mauricepeeters',
-            'birthday' => '1945-03-17',
+            'birthdate' => '1945-03-17',
             'email' => 'mandesaintemarie@skynet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -422,7 +422,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jean Pierre Ryckmans',
             'username' => 'jeanpierreryckmans',
-            'birthday' => '1954-04-18',
+            'birthdate' => '1954-04-18',
             'email' => 'sylle@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -435,7 +435,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Veronique Sannen',
             'username' => 'veroniquesannen',
-            'birthday' => '1967-12-18',
+            'birthdate' => '1967-12-18',
             'email' => 'veronique.sannen@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -448,7 +448,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Albert Schalley',
             'username' => 'albertschalley',
-            'birthday' => '1954-07-21',
+            'birthdate' => '1954-07-21',
             'email' => 'albert.schalley@skynet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -461,7 +461,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Clem Segers',
             'username' => 'clemsegers',
-            'birthday' => '1948-12-15',
+            'birthdate' => '1948-12-15',
             'email' => 'clement.slegers@skynet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -474,7 +474,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Simonne Spruyt',
             'username' => 'simonnespruyt',
-            'birthday' => '1963-05-03',
+            'birthdate' => '1963-05-03',
             'email' => 'simonne.spruyt@gmail.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -487,7 +487,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Dirk Stans',
             'username' => 'dirkstans',
-            'birthday' => '1963-01-29',
+            'birthdate' => '1963-01-29',
             'email' => 'dirk.stans@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -500,7 +500,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Dirk Swinnen',
             'username' => 'dirkswinnen',
-            'birthday' => '1956-09-15',
+            'birthdate' => '1956-09-15',
             'email' => 'dirk.swinnen4@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -513,7 +513,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Agnes Valkenborghs',
             'username' => 'agnesvalkenborghs',
-            'birthday' => '1961-01-11',
+            'birthdate' => '1961-01-11',
             'email' => 'agnes_valkenborghs@hotmail.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -526,7 +526,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'René Van Balen',
             'username' => 'renevanbalen',
-            'birthday' => '1947-03-31',
+            'birthdate' => '1947-03-31',
             'email' => 'renevanbalen@hotmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -539,7 +539,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Swa Van Broekhoven',
             'username' => 'swavanbroekhoven',
-            'birthday' => '1946-03-08',
+            'birthdate' => '1946-03-08',
             'email' => 'swavanbroekhoven@hotmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -552,7 +552,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Victor Van Broekhoven',
             'username' => 'victorvanbroekhoven',
-            'birthday' => '1951-09-09',
+            'birthdate' => '1951-09-09',
             'email' => 'victorvanbroekhoven135@outlook.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -565,7 +565,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Herman Vandereycken',
             'username' => 'hermanvandereycken',
-            'birthday' => '1947-07-05',
+            'birthdate' => '1947-07-05',
             'email' => 'herman.vandereycken@gmail.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -578,7 +578,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Peter Van Dyck',
             'username' => 'petervandyck',
-            'birthday' => '1962-06-05',
+            'birthdate' => '1962-06-05',
             'email' => 'vandyck.goethals@gmail.com',
             'postal_code' => 2400,
             'city' => 'Mol-Wezel',
@@ -591,7 +591,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ludo Van Olmen',
             'username' => 'ludovanolmen',
-            'birthday' => '1953-12-17',
+            'birthdate' => '1953-12-17',
             'email' => 'ludo.van.olmen@telenet.be',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -604,7 +604,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'August Van Grieken',
             'username' => 'augustvangrieken',
-            'birthday' => '1959-03-01',
+            'birthdate' => '1959-03-01',
             'email' => 'august.vangrieken@gmail.com',
             'postal_code' => 3920,
             'city' => 'Lommel',
@@ -617,7 +617,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jean Van Grieken',
             'username' => 'jeanvangrieken',
-            'birthday' => '1951-11-16',
+            'birthdate' => '1951-11-16',
             'email' => 'jeanvg@skynet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -630,7 +630,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Raf Van Grieken',
             'username' => 'rafvangrieken',
-            'birthday' => '1952-08-21',
+            'birthdate' => '1952-08-21',
             'email' => 'raf.vangrieken@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -643,7 +643,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Wim Van Ouytsel',
             'username' => 'wimvanouytsel',
-            'birthday' => '1954-01-09',
+            'birthdate' => '1954-01-09',
             'email' => 'willem.van.ouytsel1@gmail.com',
             'postal_code' => 2490,
             'city' => 'Balen',
@@ -656,7 +656,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Roger Verhaegen',
             'username' => 'rogerverhaegen',
-            'birthday' => '1944-08-16',
+            'birthdate' => '1944-08-16',
             'email' => 'roger.verhaegen6@telenet.be',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -669,7 +669,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Fred Vermeulen',
             'username' => 'fredvermeulen',
-            'birthday' => '1953-12-21',
+            'birthdate' => '1953-12-21',
             'email' => 'noeke64@yahoo.com',
             'postal_code' => 2400,
             'city' => 'Mol',
@@ -682,7 +682,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jos Verstrael',
             'username' => 'josverstrael',
-            'birthday' => '1948-08-01',
+            'birthdate' => '1948-08-01',
             'email' => 'ria.j@telenet.be',
             'postal_code' => 2300,
             'city' => 'Turnhout',
