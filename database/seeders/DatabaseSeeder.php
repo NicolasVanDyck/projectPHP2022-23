@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
         // Runs the UserTourSeeder.
         $this->call(UserTourSeeder::class);
         // TODO add more seeders here...
+        $this->call(ActivitySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(OrderSeeder::class);
     }
 }
