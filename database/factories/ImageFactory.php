@@ -4,8 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Image;
 use App\Models\ImageType;
-use App\Models\Product;
-use App\Models\Size;
+
 use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -14,9 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ImageFactory extends Factory
 {
-
-    protected $model = \App\Models\Image::class;
-
+    protected $model = Image::class;
     /**
      * Define the model's default state.
      *
@@ -31,9 +28,7 @@ class ImageFactory extends Factory
             $imageTypeIds = ImageType::pluck('id')->toArray();
         }
 
-        // Image types array.
-        $imageTypes = ['product', 'route', 'user'];
-
+        $imageTypes = ['sponsor', 'route', 'image'];
         $imageTypeArray = [];
 
         // Create image types and append to the array if not in the array yet.

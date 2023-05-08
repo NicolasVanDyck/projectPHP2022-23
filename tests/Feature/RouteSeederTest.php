@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Route;
-use Database\Seeders\ImageSeeder;
 use Database\Seeders\RouteSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RouteSeederTest extends TestCase

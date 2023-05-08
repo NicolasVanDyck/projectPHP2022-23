@@ -6,7 +6,7 @@ use Database\Seeders\ImageSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\UserTourSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+
 use Tests\TestCase;
 
 class AllSeedersTest extends TestCase
@@ -76,8 +76,6 @@ class AllSeedersTest extends TestCase
         $this->assertDatabaseCount('image_types', 3);
         $this->assertDatabaseCount('user_tours', 5);
     }
-
-
 
     /**
      * UserSeeder test.

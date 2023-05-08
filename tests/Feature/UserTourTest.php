@@ -2,10 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Image;
-use Database\Seeders\ImageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Database\Seeders\UserTourSeeder;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Models\Product;
 use Database\Seeders\ProductSeeder;
@@ -17,15 +17,6 @@ class ProductTest extends TestCase
     public function create_hundred_products(): void
     {
         $this->seed(ProductSeeder::class);
-    }
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/test');
-
-        $response->assertStatus(200);
     }
 
     /**

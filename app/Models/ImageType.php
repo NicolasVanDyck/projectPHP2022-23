@@ -12,7 +12,10 @@ class ImageType extends Model
 //    use HasUuids;
 
     protected $fillable = [
+<<<<<<< HEAD
         // todo: snake_case
+=======
+>>>>>>> main
         'image_type',
     ];
 

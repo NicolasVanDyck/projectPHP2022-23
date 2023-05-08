@@ -1,5 +1,10 @@
 <?php
 
+// !!! THIS FILE IS NOT USED RIGHT NOW !!!
+// !!! THIS FILE IS NOT USED RIGHT NOW !!!
+// !!! THIS FILE IS NOT USED RIGHT NOW !!!
+// !!! BUT LEFT HERE FOR POSSIBLE FUTURE USE !!!
+
 namespace Database\Factories;
 
 use App\Models\ImageType;
@@ -24,7 +29,7 @@ class ImageTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'image_type' => $this->faker->unique()->randomElement(['product', 'route', 'user']),
+            'image_type' => $this->faker->randomElement($this->types),
         ];
     }
 }
