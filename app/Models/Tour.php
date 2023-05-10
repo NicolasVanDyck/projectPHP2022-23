@@ -33,5 +33,12 @@ class Tour extends Model
         );
     }
 
-    protected $appends = ['start_location'];
+    protected function endLocation(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => Route::find($attributes['route_id'])->end_location,
+        );
+    }
+
+    protected $appends = ['start_location','end_location'];
 }

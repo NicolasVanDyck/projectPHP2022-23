@@ -18,7 +18,7 @@
 
 @endphp
 
-<button {{ $attributes->merge(['class' => "$style $active w-32 text-center text-black py-1 mx-3 rounded-lg font-bold shadow-black/25 shadow-lg
+<button {{ $attributes->merge(['class' => "$style $active w-32 text-center text-white py-1 mx-3 rounded-lg font-bold shadow-black/25 shadow-lg
 border-2 hover:scale-105"]) }}>
     {{ $slot }}
 </button>
