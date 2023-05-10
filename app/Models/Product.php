@@ -26,4 +26,5 @@ class Product extends Model
         //hasOne, hasMany, belongsTo, belongsToMany
         return $this->belongsToMany(Size::class);
     }
+
 }
