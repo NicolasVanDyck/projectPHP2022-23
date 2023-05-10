@@ -19,3 +19,4 @@ class Size extends Model
         return $this->belongsToMany(Product::class);
     }
 }
+
