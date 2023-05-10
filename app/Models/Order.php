@@ -14,19 +14,14 @@ class Order extends Model
         'quantity',
     ];
 
-//    public function products()
-//    {
-//        return $this->belongsTo(Product::class);
-//    }
+    public function products()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     public function users()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function productsizes()
-    {
-        return $this->belongsTo(ProductSize::class);
     }
 
 }
