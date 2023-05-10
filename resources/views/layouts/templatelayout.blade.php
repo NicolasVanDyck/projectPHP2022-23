@@ -18,7 +18,7 @@
                 @if(Auth::user()->is_admin && str_contains(Request::url(), 'admin') )
                     @livewire('layout.nav-bar-admin')
                 @endif
-                @if(str_contains(Request::url(), 'member') || Auth::check())
+                @if(str_contains(Request::url(), 'member'))
                         @livewire('layout.nav-bar-member')
                 @endif
             @endauth

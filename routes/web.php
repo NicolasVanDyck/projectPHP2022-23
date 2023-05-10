@@ -18,8 +18,8 @@ use Laravel\Dusk\Http\Controllers\UserController;
 Route::get('register', function () { return redirect()->route('login');});
 
 //Voor de bezoekers
-
 Route::view('/','home' )->name('home');
+
 //Nog bekijken i.v.m. contactformulier. Misschien moet dit een andere methode zijn dan view() (post() bv.)
 Route::view('contact','contact')->name('contact');
 
