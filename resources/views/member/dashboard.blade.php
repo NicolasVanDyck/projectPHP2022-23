@@ -60,16 +60,19 @@
                         <rect x="9" y="3" width="6" height="4" rx="2" />  <path d="M9 14l2 2l4 -4" /></svg>
                 </div>
                 <div>
-                    <span class="block text-2xl font-bold">Ingeschreven ritten</span>
-                    <span class="block text-gray-500"><u>4-06-2023</u></span>
-                    <span class="block text-gray-500"><u>6-06-2023</u></span>
-                    <span class="block text-gray-500"><u>25-06-2023</u></span>
+{{--                    <span class="block text-2xl font-bold">Ingeschreven ritten</span>--}}
+{{--                    <span class="block text-gray-500"><u>4-06-2023</u></span>--}}
+{{--                    <span class="block text-gray-500"><u>6-06-2023</u></span>--}}
+{{--                    <span class="block text-gray-500"><u>25-06-2023</u></span>--}}
+
+                    <livewire:dashboard-aanwezigheden/>
                     <button
                         type="button" onclick="window.location.href='{{ route('deelname_groep') }}'"
                         class="rounded border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
                         data-te-ripple-init>
                         Wijzigen
                     </button>
+
                 </div>
             </div>
         </section>
