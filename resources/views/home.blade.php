@@ -17,12 +17,9 @@
 
 {{--        Sponsor--}}
         <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
-            <div class='max-w-md mx-auto'>
-                <div class='p-4'>
-                    <img src="https://d147a5vd7kzml6.cloudfront.net/img/appeltern_nl/106581/1000x750/resize:normal/mollen_in_mijn_tuin_wat_kan_ik_doen.jpg" alt="">
-                    <img src="https://www.alletop10lijstjes.nl/wp-content/uploads/2013/07/neusaap.jpg">
-                </div>
-            </div>
+          <div>
+              @livewire('sponsor')
+          </div>
         </div>
     </div>
 

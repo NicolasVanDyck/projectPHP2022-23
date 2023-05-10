@@ -13,11 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-        // Runs the ImageSeeder.
         $this->call(ImageSeeder::class);
-        // Runs the UserTourSeeder.
         $this->call(UserTourSeeder::class);
-
-        // TODO add more seeders here...
+        $this->call(ActivitySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(OrderSeeder::class);
     }
 }
