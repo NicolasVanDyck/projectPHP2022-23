@@ -17,6 +17,7 @@ class TextFactory extends Factory
     public function definition(): array
     {
         return [
+            'location' => $this->faker->unique()->word(),
             'description' => $this->faker->unique()->paragraph(3),
         ];
     }
