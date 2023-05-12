@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Order;
 use Database\Seeders\OrderSeeder;
+use Database\Seeders\ProductSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,6 +17,7 @@ class OrderSeederTest extends TestCase
      */
     public function create_ten_orders(): void
     {
+        $this->seed(ProductSeeder::class);
         $this->seed(OrderSeeder::class);
     }
 

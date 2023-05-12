@@ -15,15 +15,16 @@ class Product extends Model
         'price',
     ];
 
-    public function orders()
-    {
-        //hasOne, hasMany, belongsTo, belongsToMany
-        return $this->belongsToMany(Order::class);
-    }
+//    public function orders()
+//    {
+//        //hasOne, hasMany, belongsTo, belongsToMany
+//        return $this->belongsToMany(Order::class);
+//    }
 
     public function sizes()
     {
         //hasOne, hasMany, belongsTo, belongsToMany
         return $this->belongsToMany(Size::class);
     }
+
 }
