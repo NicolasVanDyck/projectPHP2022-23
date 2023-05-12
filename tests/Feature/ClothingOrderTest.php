@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ClothingOrderTest extends TestCase
@@ -43,5 +44,34 @@ class ClothingOrderTest extends TestCase
         $products = $kleding->getProducts();
         $this->assertIsArray($products);
         $this->assertCount(10, $products);
+    }
+
+
+    /**
+     * Test the getSizesForSelectedProduct method from the livewire Kleding component.
+     * Test if the return type is array and the count is 3.
+     * @covers \App\Http\Livewire\Member\Kleding::getSizesForSelectedProduct()
+     * @return void
+     * @throws \Exception
+     */
+    public function test_getSizesForSelectedProduct(): void
+    {
+        $this->seedDatabase();
+        $kleding = new \App\Http\Livewire\Member\Kleding();
+
+        $products = $kleding->getProducts();
+        $randomProduct = $products[array_rand($products)];
+
+        $sizes = $kleding->getSizesForSelectedProduct($randomProduct);
+
+        $this->assertDatabaseHas('product_size', [
+            'product_id' => $randomProduct,
+        ]);
+
+        // Assert the sizes table has one of these sizes ['extra small', 'small', 'medium', 'large', 'extra large'].
+        $this->assertDatabaseHas('sizes', [
+            'size' => 'extra small',
+        ]);
+        $this->assertIsArray($sizes);
     }
 }

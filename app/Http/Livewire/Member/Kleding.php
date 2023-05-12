@@ -5,14 +5,15 @@ namespace App\Http\Livewire\Member;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Kleding extends Component
 {
     public $sizes;
     public $selectedSize;
-    public $items;
-    public $selectedItem;
+    public $products;
+    public $selectedProduct;
     public $amount;
     public $order;
     public \Illuminate\Database\Eloquent\Collection $productSizes;
@@ -38,8 +39,36 @@ class Kleding extends Component
                 $products[] = $productSize->product_id;
             }
         }
+
+        $this->products = $products;
         return $products;
     }
+
+    /**
+     * Returns all the sizes from the ProductSize associated with one product.
+     *
+     * @return array
+     */
+    public function getSizesForSelectedProduct($productId): array
+    {
+
+        $this->productSizes = ProductSize::all();
+
+        // Return all the sizes associated with the selected product.
+        $sizes = [];
+        foreach ($this->productSizes as $productSize) {
+            if ($productSize->product_id == $productId) {
+                $sizes[] = $productSize->size_id;
+            }
+        }
+
+        return $sizes;
+    }
+
+
+    /**
+     * Update the Order table with the selected product_size id and amount.
+     */
 
 
     public function render()
