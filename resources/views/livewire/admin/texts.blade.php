@@ -7,6 +7,7 @@
 {{--        @endforeach--}}
 {{--    </ul>--}}
 {{--</div>--}}
+<div>
 @foreach($texts as $text)
 
     @if(str_contains(Request::url(), 'admin'))
@@ -54,7 +55,7 @@
     @endif
 @endforeach
             </ul>
-
+</div>
 
 
 
