@@ -14,7 +14,8 @@ class CreateProductSizePivotTable extends Migration
     public function up()
     {
         Schema::create('product_size', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->index();
+            $table->id();
+            $table->unsignedBigInteger('product_id')->index();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('size_id')->index();
             $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade');
