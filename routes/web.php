@@ -55,3 +55,4 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
 Route::get('/test', function () {
     return view('test');
 });
+

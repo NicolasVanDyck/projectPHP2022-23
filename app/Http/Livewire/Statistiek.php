@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Strava;
 
@@ -16,7 +18,13 @@ class Statistiek extends Component
     {
         $token = Strava::token($request->code);
 
-        $user->
+        $user = User::find(auth()->user()->id);
+        $user->access_token = $token->access_token;
+        $user->refresh_token = $token->refresh_token;
+        $user->expires_at = $token->expires_at;
+        $user->save();
+
+
     }
     public function render()
     {

@@ -3,6 +3,10 @@
         <button class="font-title text-4xl rounded-lg bg-red-100"
         wire:click="stravaAuth">Strava</button>
     </div>
+    <div class="flex">
+        <button class="font-title text-4xl rounded-lg bg-red-100"
+                wire:click="getToken">Token</button>
+    </div>
     <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
             <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 bg-purple-100 rounded-full  mr-6" >
