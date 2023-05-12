@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="nl">
-    <head>
-        <title>Parameters</title>
-        @livewireStyles
-    </head>
-    <body>
-
+<div>
     {{-- Data Showing part  --}}
-
     @isset($parameters)
         @if (count($parameters) > 0)
             <table>
@@ -32,47 +24,47 @@
 
 
 {{--    --}}{{-- Data inserting part  --}}
-{{--    <div>--}}
-{{--        <h1><u> Parameter</u></h1>--}}
-{{--        <form wire:submit.prevent="store">--}}
-{{--            @csrf--}}
-{{--            <div>--}}
-{{--                <label for="end_date_order">End Date Order:</label>--}}
-{{--                <input type="date" id="end_date_order" wire:model.defer="end_date_order">--}}
-{{--                @error('end_date_order')--}}
-{{--                    <span>{{ $message ?? 'Werkt niet' }}</span>--}}
-{{--                @enderror--}}
-{{--            </div>--}}
-{{--            <button type="submit">Create Parameter</button>--}}
-{{--        </form>--}}
+    <div>
+        <h1><u> Parameter</u></h1>
+        <form wire:submit.prevent="store">
+            @csrf
+            <div>
+                <label for="end_date_order">End Date Order:</label>
+                <input type="date" id="end_date_order" wire:model.defer="end_date_order">
+                @error('end_date_order')
+                    <span>{{ $message ?? 'Werkt niet' }}</span>
+                @enderror
+            </div>
+            <button type="submit">Create Parameter</button>
+        </form>
 
-{{--    </div>--}}
+    </div>
 
 
 
 {{--     Data Deleting part--}}
-{{--    @isset($parameters)--}}
-{{--        <div>--}}
-{{--            <h1><u>Delete Parameter</u></h1>--}}
-{{--            <form wire:submit.prevent="destroy">--}}
-{{--                <div>--}}
-{{--                    <label for="parameter_id_delete">Select parameter to delete:</label>--}}
-{{--                    <select name="parameter_id_delete" id="parameter_id_delete" wire:model.defer="parameter_id_delete">--}}
-{{--                        <option value="">Select parameter</option>--}}
-{{--                        @foreach ($parameters as $parameter)--}}
-{{--                            <option value="{{ $parameter->id }}">{{ $parameter->end_date_order }}</option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                    @error('parameter_id')--}}
-{{--                        <span>{{ $message }}</span>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--                <button type="submit">Delete</button>--}}
-{{--            </form>--}}
-{{--        </div>--}}
-{{--    @endisset--}}
+    @isset($parameters)
+        <div>
+            <h1><u>Delete Parameter</u></h1>
+            <form wire:submit.prevent="destroy">
+                <div>
+                    <label for="parameter_id_delete">Select parameter to delete:</label>
+                    <select name="parameter_id_delete" id="parameter_id_delete" wire:model.defer="parameter_id_delete">
+                        <option value="">Select parameter</option>
+                        @foreach ($parameters as $parameter)
+                            <option value="{{ $parameter->id }}">{{ $parameter->end_date_order }}</option>
+                        @endforeach
+                    </select>
+                    @error('parameter_id')
+                        <span>{{ $message }}</span>
+                    @enderror
+                </div>
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    @endisset
 
-     Data Updating part
+{{--     Data Updating part--}}
     @isset($parameters)
         <div>
             <h1><u>Edit Parameter</u></h1>
@@ -99,7 +91,7 @@
             </form>
         </div>
     @endisset
-
+</div>
 
 {{--    <div>--}}
 {{--        <h1><u>Edit Parameter</u></h1>--}}
@@ -155,10 +147,5 @@
 {{--        </form>--}}
 {{--    </div>--}}
 
-
-
-    @livewireScripts
-    </body>
-</html>
 
 
