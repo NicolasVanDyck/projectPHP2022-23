@@ -9,6 +9,11 @@ class ProductSize extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     */
+    protected $table = 'product_size';
+
     protected $fillable = [];
 
     public function orders()

@@ -17,13 +17,17 @@ class ClothingOrderTest extends TestCase
     }
 
     /**
-     * A basic feature test example.
+     * Assert the product_size table exists and is seeded.
+     * @covers \App\Models\ProductSize
+     * @return void
+     * @throws \Exception
      */
-    public function test_example(): void
+    public function test_product_size_table_exists(): void
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->seedDatabase();
+        $this->assertDatabaseHas('product_size', [
+            'id' => 1,
+        ]);
     }
 
     /**

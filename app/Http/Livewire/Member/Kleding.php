@@ -33,7 +33,10 @@ class Kleding extends Component
 
         $products = [];
         foreach ($this->productSizes as $productSize) {
-            $products[] = $productSize->product;
+            // If the product is not in the array, add it. Else, skip it.
+            if (!in_array($productSize->product_id, $products)) {
+                $products[] = $productSize->product_id;
+            }
         }
         return $products;
     }
