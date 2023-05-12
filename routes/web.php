@@ -31,7 +31,8 @@ Route::view('contact','contact')->name('contact');
 
 //Voor de leden
 Route::middleware(['auth'])->prefix('member/')->group(function() {
-    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+//    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+    Route::get('dashboard', [App\Http\Controllers\Member\StravaController::class,'test'])->name('dashboard');
     Route::get('deelname_groep', function() { return view('member/deelname_groep');})->name('deelname_groep');
     Route::get('galerij', function() { return view('member/galerij');})->name('galerij');
     Route::get('individuele_trajecten', function() { return view('member/individuele_trajecten');})->name('individuele_trajecten');

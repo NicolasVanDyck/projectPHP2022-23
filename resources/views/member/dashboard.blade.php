@@ -24,7 +24,7 @@
                     <circle cx="17" cy="5" r="1" /></svg>
             </div>
             <div>
-                <span class="text-2xl font-bold text-center ">62</span>
+                <span class="text-2xl font-bold text-center ">{{$distance}}</span>
                 <span class="block text-gray-500">Aantal Kilometers</span>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 </svg>
             </div>
             <div>
-                <span class="block text-2xl font-bold">3.659</span>
+                <span class="block text-2xl font-bold">{{$elevation}}</span>
                 <span class="block text-gray-500">Aantal HoogteMeters</span>
             </div>
 
@@ -49,7 +49,7 @@
                     <circle cx="15" cy="9" r="1"  /></svg>
             </div>
             <div>
-                <span class="inline-block text-2xl font-bold">73</span>
+                <span class="inline-block text-2xl font-bold">{{$ammount}}</span>
                 <span class="block text-gray-500">Totaal aantal ritten</span>
             </div>
         </div>
@@ -81,8 +81,8 @@
             <canvas class="scale-75"
                     data-te-chart="bar"
                     data-te-dataset-label="Kilometers"
-                    data-te-labels="['Januari', 'februari' , 'Maart' , 'April' , 'Mei' , 'Juni' , 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December']"
-                    data-te-dataset-data="[2112, 2343, 2545, 3423, 2365, 1985, 987,458,3654,1025,988,1230]">
+                    data-te-labels="['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December']"
+                    data-te-dataset-data="[{{implode(",",array_values($years))}}]">
             </canvas>
         </div>
     </div>
