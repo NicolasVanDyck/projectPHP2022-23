@@ -10,9 +10,8 @@
                 <h2 class="text-gray-600 ml-0.5">Vind hier al uw statistieken</h2>
             </div>
         </div>
-        <div class="flex">
-            <button class="font-title text-4xl rounded-lg bg-red-100"><a href="https://www.strava.com/oauth/authorize?client_id=107072&redirect_uri=http://localhost/member/dashboard&response_type=code&scope=read_all,activity:read_all">Strava</a></button>
-        </div>
+
+            {{--            STATISTIEK--}}
         @livewire('statistiek')
 
             {{--            KALENDER/Nog niet ingevuld--}}
