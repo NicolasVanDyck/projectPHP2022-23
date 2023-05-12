@@ -100,23 +100,6 @@ class ParameterComponent extends Component
     }
 
 
-//    public function update()
-//    {
-//        $this->validate([
-//            'parameter_id' => 'required',
-//            'end_date_order' => 'required|date',
-//        ]);
-//
-//        $parameter = Parameter::findOrFail($this->parameter_id);
-//
-//        $parameter->update([
-//            'end_date_order' => $this->end_date_order,
-//        ]);
-//
-//        session()->flash('message', 'Parameter updated successfully.');
-//
-//        $this->reset();
-//    }
 
 
 
