@@ -49,7 +49,7 @@
                     <circle cx="15" cy="9" r="1"  /></svg>
             </div>
             <div>
-                <span class="inline-block text-2xl font-bold">{{$ammount}}</span>
+                <span class="inline-block text-2xl font-bold">{{$amount}}</span>
                 <span class="block text-gray-500">Totaal aantal ritten</span>
             </div>
         </div>
