@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Member;
 
 use App\Models\Product;
+use App\Models\ProductSize;
 use App\Models\Size;
 use Livewire\Component;
 
@@ -14,11 +15,27 @@ class Kleding extends Component
     public $selectedItem;
     public $amount;
     public $order;
+    public \Illuminate\Database\Eloquent\Collection $productSizes;
 
     public function mount()
     {
-        $this->sizes = Size::all();
-        $this->items = Product::all();
+        $this->productSizes = ProductSize::all();
+    }
+
+    /**
+     * Returns all the products from the ProductSize table.
+     *
+     * @return array
+     */
+    public function getProducts()
+    {
+        $this->productSizes = ProductSize::all();
+
+        $products = [];
+        foreach ($this->productSizes as $productSize) {
+            $products[] = $productSize->product;
+        }
+        return $products;
     }
 
 
