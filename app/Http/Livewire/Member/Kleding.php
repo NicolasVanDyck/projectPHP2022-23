@@ -6,22 +6,25 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Kleding extends Component
 {
-    public $sizes;
-    public $selectedSize;
-    public $products;
-    public $selectedProduct;
-    public $amount;
+    public Collection $sizeNames;
+    public int $selectedSize;
+    public Collection $products;
+    public int $selectedProduct;
+    public $selectedProductSize;
+    public int $amount;
     public $order;
     public \Illuminate\Database\Eloquent\Collection $productSizes;
 
     public function mount()
     {
         $this->productSizes = ProductSize::all();
+        $this->getProducts();
     }
 
     /**
@@ -41,6 +44,9 @@ class Kleding extends Component
             }
         }
 
+        // Select all the products from the product table that are in the productsize table.
+        $products = Product::whereIn('id', $products)->get();
+
         $this->products = $products;
         return $products;
     }
@@ -48,11 +54,11 @@ class Kleding extends Component
     /**
      * Returns all the sizes from the ProductSize associated with one product.
      *
-     * @return array
+     * @return Collection
      */
-    public function getSizesForSelectedProduct($productId): array
+    public function getSizesForSelectedProduct($productId): Collection
     {
-
+        $this->selectedProduct = $productId;
         $this->productSizes = ProductSize::all();
 
         // Return all the sizes associated with the selected product.
@@ -63,7 +69,11 @@ class Kleding extends Component
             }
         }
 
-        return $sizes;
+        // Select all the sizes from the size table that are in the productsize table.
+        $sizeCollection = Size::whereIn('id', $sizes)->get();
+
+        $this->sizeNames = $sizeCollection;
+        return $sizeCollection;
     }
 
 
@@ -77,23 +87,28 @@ class Kleding extends Component
     {
         $this->validate([
             'amount' => 'required|integer|min:1',
+            'selectedSize' => 'required',
+            'selectedProduct' => 'required',
         ]);
 
         $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
+
+        // Find the product_size_id from the selected product and size.
+        $this->selectedProductSize = ProductSize::where('product_id', $this->selectedProduct)->where('size_id', $this->selectedSize)->value('id');
 
         // If the order is not in the database, create it.
         if (!$this->order) {
             DB::table('orders')->insert([
                 'user_id' => auth()->user()->id,
-                'product_size_id' => $this->selectedSize,
-                'amount' => $this->amount,
+                'product_size_id' => $this->selectedProductSize,
+                'quantity' => $this->amount,
                 'order_date' => now(),
             ]);
         } else {
             // Else, update the order.
             DB::table('orders')->where('user_id', auth()->user()->id)->update([
-                'product_size_id' => $this->selectedSize,
-                'amount' => $this->amount,
+                'product_size_id' => $this->selectedProductSize,
+                'quantity' => $this->amount,
                 'order_date' => now(),
             ]);
         }
@@ -104,9 +119,9 @@ class Kleding extends Component
     /**
      * Get the orders for the current logged-in user.
      *
-     * @return string
+     * @return array of products
      */
-    public function getOrderProductName(): string
+    public function getOrderProductNames(): array
     {
         $productName = Order::with('productsizes.products')->where('user_id', auth()->user()->id);
 
@@ -144,6 +159,6 @@ class Kleding extends Component
 
     public function render()
     {
-        return view('livewire.member.kleding');
+        return view('livewire.member.kleding')->layout('layouts.templatelayout');
     }
 }
