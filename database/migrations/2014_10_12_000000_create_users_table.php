@@ -27,6 +27,9 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->boolean('is_admin')->default(false);
+            $table->string('access_token')->nullable();
+            $table->string('refresh_token')->nullable();
+            $table->string('expires_at')->nullable();
             $table->timestamps();
         });
 
