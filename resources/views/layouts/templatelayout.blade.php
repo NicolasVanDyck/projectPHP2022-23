@@ -32,11 +32,15 @@
     <main>
         {{ $slot }}
     </main>
-    <footer class="text-center absolute bottom-0 w-[100%]">
-        <x-layout.footer />
-    </footer>
+    <div class="min-h-screen flex flex-col">
+        <footer class="text-center w-full py-4 bg-white rounded-3xl">
+            <div class="max-w-screen-lg mx-auto">
+                <x-layout.footer />
+            </div>
+        </footer>
+    </div>
     @livewireScripts
 
-</div>
+
 </body>
 </html>
