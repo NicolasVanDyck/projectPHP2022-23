@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Controllers\Member;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Livewire\Component;
 use Strava;
 
-class Statistiek extends Component
+class StravaController extends Controller
 {
 
-    public function stravaAuth()
+    public function stravaAuth($scope = 'read_all,profile:read_all,activity:read_all')
     {
-        return Strava::authenticate();
+        return Strava::authenticate($scope);
     }
     public function getToken(Request $request)
     {
@@ -24,10 +24,8 @@ class Statistiek extends Component
         $user->expires_at = $token->expires_at;
         $user->save();
 
+        return redirect()->route('dashboard');
 
     }
-    public function render()
-    {
-        return view('livewire.statistiek');
-    }
+
 }
