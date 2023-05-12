@@ -22,7 +22,7 @@ class CreateProductSizePivotTable extends Migration
 //            $table->primary(['product_id', 'size_id']);
 
             // Hier een destrict on delete toegevoegd, in plaats van cascade. Als de maat wordt verwijderd, kan het zijn
-            // ....dat deze nog in een order table staat. Historisch gezien moeten we hier dus een soft delete doen.
+            // ....dat deze nog in een order table staat.
 
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');

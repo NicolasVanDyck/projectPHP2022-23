@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Member;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
@@ -68,7 +69,77 @@ class Kleding extends Component
 
     /**
      * Update the Order table with the selected product_size id and amount.
+     *
+     * @return void
+     * @throws \Illuminate\Validation\ValidationException
      */
+    public function updateOrder(): void
+    {
+        $this->validate([
+            'amount' => 'required|integer|min:1',
+        ]);
+
+        $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
+
+        // If the order is not in the database, create it.
+        if (!$this->order) {
+            DB::table('orders')->insert([
+                'user_id' => auth()->user()->id,
+                'product_size_id' => $this->selectedSize,
+                'amount' => $this->amount,
+                'order_date' => now(),
+            ]);
+        } else {
+            // Else, update the order.
+            DB::table('orders')->where('user_id', auth()->user()->id)->update([
+                'product_size_id' => $this->selectedSize,
+                'amount' => $this->amount,
+                'order_date' => now(),
+            ]);
+        }
+
+        session()->flash('message', 'Je bestelling is geplaatst!');
+    }
+
+    /**
+     * Get the orders for the current logged-in user.
+     *
+     * @return string
+     */
+    public function getOrderProductName(): string
+    {
+        $productName = Order::with('productsizes.products')->where('user_id', auth()->user()->id);
+
+        return $productName->productsizes->product->name;
+
+        //TODO get all the orders.
+    }
+
+    /**
+     * Get the order amount for the current logged-in user.
+     *
+     * @return int
+     */
+    public function getOrderAmount(): int
+    {
+        $orderAmount = Order::where('user_id', auth()->user()->id)->quantity;
+
+        return $orderAmount->quantity;
+
+    }
+
+
+    /**
+     * Get the order size from the product_size_id for the current logged-in user.
+     *
+     * @return string
+     */
+    public function getOrderSize()
+    {
+        $orderSize = Order::with('productsizes.sizes')->where('user_id', auth()->user()->id)->first();
+
+        return $orderSize;
+    }
 
 
     public function render()
