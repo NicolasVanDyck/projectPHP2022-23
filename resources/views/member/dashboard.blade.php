@@ -3,14 +3,17 @@
 <x-slot name="title">Dashboard</x-slot>
 <x-slot name="description">Welkom op het dashboard van {{auth()->user()->name}} </x-slot>
 
-    <body class="flex min-h-screen flex items-center justify-center">
-    <main class="p-6 sm:p-10 space-y-6 bg-gray-400">
-        <div class="flex flex-col space-y-6  justify-between">
+
+        <div class="flex-col space-y-6  justify-between my-6">
             <div class="mr-6 text-center">
                 <h1 class="text-4xl font-semibold mb-2">Dashboard van {{auth()->user()->name}} </h1>
                 <h2 class="text-gray-600 ml-0.5">Vind hier al uw statistieken</h2>
             </div>
         </div>
+        <div class="flex">
+            <button class="font-title text-4xl rounded-lg bg-red-100"><a href="https://www.strava.com/oauth/authorize?client_id=107072&redirect_uri=http://localhost/member/dashboard&response_type=code&scope=read_all,activity:read_all">Strava</a></button>
+        </div>
+        @livewire('statistiek')
 
         <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
             <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -100,6 +103,7 @@
                     </div>
                 </div>
             </section>
+
             {{--            KALENDER/Nog niet ingevuld--}}
             <section class="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
 {{--                <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">--}}
@@ -126,9 +130,4 @@
                     </div>
                 </div>
             </section>
-
-        </section>
-    </main>
-</body>
-
 </x-templatelayout>

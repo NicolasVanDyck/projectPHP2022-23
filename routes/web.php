@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Dusk\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +13,19 @@ use Laravel\Dusk\Http\Controllers\UserController;
 |
 */
 
+
+//Voor de bezoekers
+Route::get('/', function () {
+    if (\Illuminate\Support\Facades\Auth::check()) {
+        return redirect()->route('dashboard');
+    } else {
+        return view('home');
+    }
+})->name('home');
+
 //Registerpagina uitschakelen door om te leiden naar loginpagina
 Route::get('register', function () { return redirect()->route('login');});
 
-//Voor de bezoekers
-
-Route::view('/','home' )->name('home');
 //Nog bekijken i.v.m. contactformulier. Misschien moet dit een andere methode zijn dan view() (post() bv.)
 Route::view('contact','contact')->name('contact');
 
