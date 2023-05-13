@@ -63,19 +63,17 @@
                     <rect x="9" y="3" width="6" height="4" rx="2" />  <path d="M9 14l2 2l4 -4" /></svg>
             </div>
             <div>
-                <span class="block text-2xl font-bold">Ingeschreven ritten</span>
-                <span class="block text-gray-500"><u>4-06-2023</u></span>
-                <span class="block text-gray-500"><u>6-06-2023</u></span>
-                <span class="block text-gray-500"><u>25-06-2023</u></span>
-                <button
+              @livewire('dashboard-aanwezigheden')
+                <x-button
                     type="button" onclick="window.location.href='{{ route('deelname_groep') }}'"
                     class="rounded border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
                     data-te-ripple-init>
                     Wijzigen
-                </button>
+                </x-button>
             </div>
         </div>
     </section>
+    <section>
     <div class="flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg my-6">
         <div class="px-6 py-5 font-semibold border-b border-gray-100">Gereden Kilometers</div>
         <div class="p-4 flex-grow">
@@ -129,6 +127,9 @@
                         <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Klik voor de upload</span> of drag and drop</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">.GPX Only</p>
+                            </div>
+                            <input id="dropzone-file" type="file" type="file" id="Username_file" name="Username_File" accept=".gpx," />
+                        </label>
                     </div>
                     <input id="dropzone-file" type="file" accept=".gpx," />
                 </label>

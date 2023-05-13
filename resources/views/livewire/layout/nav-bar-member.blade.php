@@ -2,7 +2,7 @@
     <div class="flex grow lg:grow-0 items-center mr-8 transition hover:scale-105 duration-1000">
         {{-- Logo --}}
 {{--        <a href="{{ route('dashboard') }}">--}}
-{{--            --}}{{--            <img src="{{asset('icons/favicon-32x32.png')}}" alt="Logo" />--}}
+{{--            --}}{{--            <img src="{{asset('icons/icons-32x32.png')}}" alt="Logo" />--}}
 {{--        </a>--}}
         <h1>De Wezeldrivers</h1>
     </div>
