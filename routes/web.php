@@ -40,7 +40,6 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('fotobeheer', function() { return view('admin/fotobeheer');})->name('fotobeheer');
     Route::get('galerijbeheer', function() { return view('admin/galerijbeheer');})->name('galerijbeheer');
     Route::get('kleding_bestellingen', function() { return view('admin/kleding_bestellingen');})->name('kleding_bestellingen');
-    Route::get('kleding_bestellingen/test', [ParameterController::class,'index'] )->name('kleding_bestellingen');
     Route::get('kledingbeheer', function() { return view('admin/kledingbeheer');})->name('kledingbeheer');
     Route::get('ledenbeheer', function() { return view('admin/ledenbeheer');})->name('ledenbeheer');
     Route::get('trajectbeheer', function() { return view('admin/trajectbeheer');})->name('trajectbeheer');
