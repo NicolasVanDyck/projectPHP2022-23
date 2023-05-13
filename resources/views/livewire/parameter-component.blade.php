@@ -93,59 +93,6 @@
     @endisset
 </div>
 
-{{--    <div>--}}
-{{--        <h1><u>Edit Parameter</u></h1>--}}
-{{--        @if (session()->has('message'))--}}
-{{--            <div>{{ session('message') }}</div>--}}
-{{--        @endif--}}
-{{--        <form wire:submit.prevent="update">--}}
-{{--            @csrf--}}
-{{--            <div>--}}
-{{--                <label>Select parameter to edit:</label>--}}
-{{--                @foreach ($parameters as $parameter)--}}
-{{--                    <label>--}}
-{{--                        <input type="radio" wire:model="selectedParameterId" value="{{ $parameter->id }}">--}}
-{{--                        {{ $parameter->end_date_order }}--}}
-{{--                    </label>--}}
-{{--                @endforeach--}}
-{{--                @error('selectedParameterId') <span>{{ $message }}</span> @enderror--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <label for="end_date_order">End Order Date:</label>--}}
-{{--                <input type="date" name="end_date_order" id="end_date_order" wire:model.defer="end_date_order">--}}
-{{--                @error('end_date_order') <span>{{ $message }}</span> @enderror--}}
-{{--            </div>--}}
-{{--            <button type="submit">Update Parameter</button>--}}
-{{--        </form>--}}
-{{--    </div>--}}
-
-
-
-
-    {{--    <div>--}}
-{{--        <h1><u>Edit Parameter</u></h1>--}}
-{{--        @if (session()->has('message'))--}}
-{{--            <div>{{ session('message') }}</div>--}}
-{{--        @endif--}}
-{{--        <form wire:submit.prevent="update">--}}
-{{--            <div>--}}
-{{--                <label>Select parameter to edit:</label>--}}
-{{--                @foreach ($parameters as $parameter)--}}
-{{--                    <label>--}}
-{{--                        <input type="radio" wire:ignore name="parameter_id" value="{{ $parameter->id }}" wire:model="parameter_id">--}}
-{{--                        {{ $parameter->end_date_order }}--}}
-{{--                    </label>--}}
-{{--                @endforeach--}}
-{{--                @error('parameter_id') <span>{{ $message }}</span> @enderror--}}
-{{--            </div>--}}
-{{--            <div>--}}
-{{--                <label for="end_date_order">End Order Date:</label>--}}
-{{--                <input type="date" name="end_date_order" id="end_date_order" wire:model.lazy="end_date_order">--}}
-{{--                @error('end_date_order') <span>{{ $message }}</span> @enderror--}}
-{{--            </div>--}}
-{{--            <button type="submit">Update Parameter</button>--}}
-{{--        </form>--}}
-{{--    </div>--}}
 
 
 
