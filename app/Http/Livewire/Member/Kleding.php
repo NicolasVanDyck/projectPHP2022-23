@@ -13,12 +13,12 @@ use Livewire\Component;
 class Kleding extends Component
 {
     public Collection $sizeNames;
-    public int $selectedSize;
+    public array $selectedSize = [];
     public Collection $products;
-    public int $selectedProduct;
+    public array $selectedProduct = [];
     public int $selectedProductPrice;
     public $selectedProductSize;
-    public int $amount;
+    public array $amount;
     public array $amounts;
     public $order;
     public \Illuminate\Database\Eloquent\Collection $productSizes;
@@ -36,9 +36,9 @@ class Kleding extends Component
     {
         $this->productSizes = ProductSize::all();
         $this->products = new Collection();
-        $this->selectedSize = 0;
-        $this->selectedProduct = 0;
-        $this->amount = 0;
+        $this->selectedSize = [];
+        $this->selectedProduct = [];
+        $this->amount = [];
         $this->getProducts();
     }
 
@@ -74,7 +74,7 @@ class Kleding extends Component
      */
     public function getSizesForSelectedProduct($productId): Collection
     {
-        $this->selectedProduct = $productId;
+        $this->selectedProduct = [$productId];
         $this->productSizes = ProductSize::all();
 
         // Return all the sizes associated with the selected product.
@@ -103,25 +103,36 @@ class Kleding extends Component
     {
         $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
 
-        // Find the product_size_id from the selected product and size.
-        $this->selectedProductSize = ProductSize::where('product_id', $this->selectedProduct)->where('size_id', $this->selectedSize)->value('id');
 
-        // If the order is not in the database, create it.
-        if (!$this->order) {
-            DB::table('orders')->insert([
-                'user_id' => auth()->user()->id,
-                'product_size_id' => $this->selectedProductSize,
-                'quantity' => $this->amount,
-                'order_date' => now(),
-            ]);
-        } else {
-            // Else, update the order.
-            DB::table('orders')->where('user_id', auth()->user()->id)->update([
-                'product_size_id' => $this->selectedProductSize,
-                'quantity' => $this->amount,
-                'order_date' => now(),
-            ]);
+        foreach ($this->selectedProduct as $index => $productId) {
+            $selectedSize = $this->selectedSize[$index];
+            $selectedAmount = $this->amount[$index];
+
+            // Find the corresponding product size
+            $selectedProductSize = ProductSize::where('product_id', $productId)
+                ->where('size_id', $selectedSize)
+                ->value('id');
+
+            // If the order is not in the database, create it.
+            if (!$this->order) {
+                DB::table('orders')->insert([
+                    'user_id' => auth()->user()->id,
+                    'product_size_id' => $selectedProductSize,
+                    'quantity' => $selectedAmount,
+                    'order_date' => now(),
+                ]);
+            } else {
+                // Else, update the order.
+                DB::table('orders')->where('user_id', auth()->user()->id)->update([
+                    'product_size_id' => $selectedProductSize,
+                    'quantity' => $selectedAmount,
+                    'order_date' => now(),
+                ]);
+            }
         }
+
+        // Find the product_size_id from the selected product and size.
+//        $this->selectedProductSize = ProductSize::where('product_id', $this->selectedProduct)->where('size_id', $this->selectedSize)->value('id');
 
 
     }

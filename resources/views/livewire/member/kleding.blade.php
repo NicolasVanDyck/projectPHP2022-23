@@ -12,11 +12,11 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($products as $product)
+                @forelse($products as $index => $product)
                     <tr>
                         <td>{{ $product->name }}</td>
                         <td>
-                            <select wire:model="selectedSize">
+                            <select wire:model="selectedSize.{{ $index }}">
                                 @foreach($this->getSizesForSelectedProduct($product->id) as $size)
                                     <option value="{{ $size->id }}">{{ $size->size }}</option>
                                 @endforeach
