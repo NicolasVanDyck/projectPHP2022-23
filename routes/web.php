@@ -31,7 +31,8 @@ Route::view('contact','contact')->name('contact');
 
 //Voor de leden
 Route::middleware(['auth'])->prefix('member/')->group(function() {
-    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+//    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+    Route::get('dashboard', [App\Http\Controllers\Member\StravaController::class,'getUserData'])->name('dashboard');
     Route::get('deelname_groep', function() { return view('member/deelname_groep');})->name('deelname_groep');
     Route::get('galerij', function() { return view('member/galerij');})->name('galerij');
     Route::get('individuele_trajecten', function() { return view('member/individuele_trajecten');})->name('individuele_trajecten');
@@ -52,6 +53,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('welkom', function() { return view('admin/welkom');})->name('welkom');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/stravaAuthentication', [App\Http\Controllers\Member\StravaController::class,'stravaAuth'])->name('stravaAuthentication');
+Route::get('/success', [App\Http\Controllers\Member\StravaController::class,'getToken']);
+
+
