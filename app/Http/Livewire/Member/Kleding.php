@@ -16,14 +16,29 @@ class Kleding extends Component
     public int $selectedSize;
     public Collection $products;
     public int $selectedProduct;
+    public int $selectedProductPrice;
     public $selectedProductSize;
     public int $amount;
+    public array $amounts;
     public $order;
     public \Illuminate\Database\Eloquent\Collection $productSizes;
 
-    public function mount()
+    protected $rules = [
+        'products' => 'array',
+        'amounts*' => 'required|integer|min:0',
+        'amount' => 'required|integer|min:1',
+        'selectedSize' => 'required',
+        'selectedProduct' => 'required',
+    ];
+
+
+    public function mount(): void
     {
         $this->productSizes = ProductSize::all();
+        $this->products = new Collection();
+        $this->selectedSize = 0;
+        $this->selectedProduct = 0;
+        $this->amount = 0;
         $this->getProducts();
     }
 
@@ -48,6 +63,7 @@ class Kleding extends Component
         $products = Product::whereIn('id', $products)->get();
 
         $this->products = $products;
+        $this->amounts = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
         return $products;
     }
 
@@ -85,12 +101,6 @@ class Kleding extends Component
      */
     public function updateOrder(): void
     {
-        $this->validate([
-            'amount' => 'required|integer|min:1',
-            'selectedSize' => 'required',
-            'selectedProduct' => 'required',
-        ]);
-
         $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
 
         // Find the product_size_id from the selected product and size.
@@ -112,6 +122,15 @@ class Kleding extends Component
                 'order_date' => now(),
             ]);
         }
+
+
+    }
+
+    public function sendForm(): void
+    {
+        $this->updateOrder();
+
+        $this->reset(['selectedSize', 'selectedProduct', 'amount']);
 
         session()->flash('message', 'Je bestelling is geplaatst!');
     }

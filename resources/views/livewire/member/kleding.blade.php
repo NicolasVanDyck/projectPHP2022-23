@@ -1,38 +1,50 @@
 <div>
     {{-- Do your work, then step back. --}}
-    {{--Display all the products in a table--}}
-    <table>
-        <thead>
-            <tr>
-                <th>Naam</th>
-                <th>Maat</th>
-            </tr>
-        </thead>
-        <tbody>
-{{--            <div wire:model="products">--}}
-            @forelse($products as $product)
+    {{--Display all the products in a form--}}
+    <form wire:submit.prevent="submitForm">
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ $product->name }}</td>
-                    <td>
-                        <select>
-                            @foreach($this->getSizesForSelectedProduct($product->id) as $size)
-                                <option value="{{ $size->id }}">{{ $size->size }}</option>
-                            @endforeach
-                        </select>
-                    </td>
+                    <th>Naam</th>
+                    <th>Maat</th>
+                    <th>Prijs</th>
+                    <th>Aantal</th>
                 </tr>
-                {{--A very thin separation line--}}
-                <tr>
-                    <td colspan="4" class="border-b border-gray-200"></td>
-                </tr>
-            @empty
-                <tr>
-                    <td class="p-2">Geen kleding gevonden</td>
-                </tr>
-            @endforelse
-{{--            </div>--}}
+            </thead>
+            <tbody>
+                @forelse($products as $product)
+                    <tr>
+                        <td>{{ $product->name }}</td>
+                        <td>
+                            <select wire:model="selectedSize">
+                                @foreach($this->getSizesForSelectedProduct($product->id) as $size)
+                                    <option value="{{ $size->id }}">{{ $size->size }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>€{{ $product->price }}</td>
+                        <td>
+                            <input type="number" min="0" max="10" value="{{ $amounts[$product->id] }}" wire:model.debounce.500ms="amounts.{{ $product->id }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="border-b border-gray-200"></td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="p-2">Geen kleding gevonden</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <x-button wire:click="sendForm" wire:loading.attr="disabled" type="submit">
+            <span wire:loading.remove>Bestellen</span>
+            <span wire:loading>Submitting...</span>
+        </x-button>
 
-                {{--{{ $products->links() }--}}
-        </tbody>
-    </table>
+    </form>
+
+
+{{--    --}}{{--Display all the products in a table--}}
+
 </div>
