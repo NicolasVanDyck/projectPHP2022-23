@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{--    <x-layout.favicons/>--}}
+{{--    <x-layout.favicon/>--}}
     <meta name="description" content={{  $description ?? 'BasisDescription' }}>
     <title>{{  $title ?? 'BasisTitel' }}</title>
     @livewireStyles
@@ -32,11 +32,15 @@
     <main>
         {{ $slot }}
     </main>
-    <footer class="text-center absolute bottom-0 w-[100%]">
-        <x-layout.footer />
-    </footer>
+</div>
+        <footer>
+            <div>
+                <x-layout.footer />
+            </div>
+        </footer>
+
     @livewireScripts
 
-</div>
+
 </body>
 </html>

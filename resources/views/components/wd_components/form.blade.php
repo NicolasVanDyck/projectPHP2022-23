@@ -1,5 +1,5 @@
 <div
-    class="block max-w-md rounded-lg p-6 dark:bg-gray-800/50">
+    class="block max-w-md rounded-lg p-6  bg-white rounded-3xl shadow-xl">
     <form>
         <div class="grid grid-cols-2 gap-4">
             <!--First name input-->

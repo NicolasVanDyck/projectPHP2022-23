@@ -11,5 +11,4 @@
             <x-wd_components.form/>
         </div>
     </div>
-
 </x-templatelayout>
