@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{--    <x-layout.favicons/>--}}
+{{--    <x-layout.favicon/>--}}
     <meta name="description" content={{  $description ?? 'BasisDescription' }}>
     <title>{{  $title ?? 'BasisTitel' }}</title>
     @livewireStyles
@@ -32,13 +32,13 @@
     <main>
         {{ $slot }}
     </main>
-    <div class="min-h-screen flex flex-col">
-        <footer class="text-center w-full py-4 bg-white rounded-3xl">
-            <div class="max-w-screen-lg mx-auto">
+</div>
+        <footer>
+            <div>
                 <x-layout.footer />
             </div>
         </footer>
-    </div>
+
     @livewireScripts
 
 

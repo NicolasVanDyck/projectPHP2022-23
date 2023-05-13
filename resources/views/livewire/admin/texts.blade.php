@@ -8,6 +8,11 @@
 {{--    </ul>--}}
 {{--</div>--}}
 <div>
+    <div class="px-4 py-2">
+        <div class="bg-white rounded-3xl shadow-xl w-full lg:w-1/2 mx-auto my-4">
+            <div class="p-4">
+                <div class="text-lg text-center sm:px-6">
+
 @foreach($texts as $text)
 
     @if(str_contains(Request::url(), 'admin'))
@@ -51,12 +56,14 @@
                 </div>
             @endif
             {{--        Om tekst op de contactpagina te tonen--}}
-
-    @endif
+        @endif
 @endforeach
-            </ul>
+         </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 
 {{--    Om tekst op de homepagina te tonen--}}
