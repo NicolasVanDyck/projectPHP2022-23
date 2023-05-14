@@ -146,4 +146,5 @@
             <livewire:activities/>
         </div>
     </section>
+    </section>
 </x-templatelayout>
