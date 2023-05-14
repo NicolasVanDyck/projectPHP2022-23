@@ -38,6 +38,9 @@ class GroupTour extends Model
         return $this->belongsTo(Group::class);
     }
 
-
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
 
 }
