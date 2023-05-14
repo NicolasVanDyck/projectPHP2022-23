@@ -20,6 +20,6 @@
                 {{$card_distance}}
             </p>
         </div>
-        <x-button wire:click="export">DOWNLOAD</x-button>
+        <x-button wire:click="export('{{$card_title}}')">DOWNLOAD</x-button>
     </div>
 </div>
