@@ -19,7 +19,8 @@
                 </div>
             </div>
         </div>
-
-
+    </div>
+    <div class="flex flex-wrap justify-center">
+        <livewire:individuele-trajecten/>
     </div>
 </x-templatelayout>
