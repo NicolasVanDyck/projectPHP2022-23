@@ -12,7 +12,7 @@ class StravaController extends Controller
 {
 
 
-    public function stravaAuth($scope = 'read_all,profile:read_all,activity:read_all')
+    public function stravaAuthentication($scope = 'read_all,profile:read_all,activity:read_all')
     {
         return Strava::authenticate($scope);
     }
@@ -64,7 +64,6 @@ class StravaController extends Controller
             $amount = $this->getAthleteStats($user->access_token, $this->getAthleteID($user->access_token))->all_ride_totals->count;
             $elevation = $this->getAthleteStats($user->access_token, $this->getAthleteID($user->access_token))->all_ride_totals->elevation_gain;
             $activities = $this->getActivities($user->access_token);
-//            dd($activities);
             return view('member.dashboard')->with(compact(['distance', 'amount', 'elevation', 'years', 'activities']));
         } else {
             return view('member.dashboard');
