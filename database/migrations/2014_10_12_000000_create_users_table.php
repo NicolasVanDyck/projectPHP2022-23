@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('username');
-            $table->dateTime('birthday');
+            $table->date('birthdate');
             $table->string('email');
             $table->string('postal_code');
             $table->string('city');
@@ -27,6 +27,9 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->boolean('is_admin')->default(false);
+            $table->string('access_token')->nullable();
+            $table->string('refresh_token')->nullable();
+            $table->string('expires_at')->nullable();
             $table->timestamps();
         });
 
