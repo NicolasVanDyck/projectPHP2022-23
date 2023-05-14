@@ -9,6 +9,7 @@
                     <th>Maat</th>
                     <th>Prijs</th>
                     <th>Aantal</th>
+                    <th>Totaal</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +26,10 @@
                         </td>
                         <td>€{{ $product->price }}</td>
                         <td>
-                            <input type="number" min="0" max="10" value="{{ $amounts[$product->id]}}" wire:model.debounce.500ms="amounts.{{ $product->id }}">
+                            <input type="number" min="0" max="10" value="{{ $amounts[$product->id] ?? 0 }}" wire:model.debounce.500ms="amounts.{{ $product->id }}">
+                        </td>
+                        <td>
+                            €{{ $this->getTotalForProduct($product->id) }}
                         </td>
                     </tr>
                     <tr>
@@ -37,6 +41,12 @@
                     </tr>
                 @endforelse
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Totaal</td>
+                    <td>€PLACEHOLDER</td>
+                    {{--TODO make a function for the grand total price. Probably have to put that somewhere too, and adjust the getTotalForProductFunction. :)--}}
+                </tr>
         </table>
         <x-button wire:loading.attr="disabled" type="submit">
             <span wire:loading.remove>Bestellen</span>

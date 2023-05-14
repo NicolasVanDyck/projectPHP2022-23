@@ -18,16 +18,15 @@ class Kleding extends Component
     public array $selectedProduct = [];
     public array $amounts = [];
     protected $order;
+    private array $totals = [];
     public \Illuminate\Database\Eloquent\Collection $productSizes;
 
     protected $rules = [
         'products' => 'array',
         'amounts.*' => 'required|integer|min:0',
-        'amount' => 'required|integer|min:1',
         'selectedSize' => 'required',
         'selectedProduct' => 'required',
     ];
-
 
     public function mount(): void
     {
@@ -43,7 +42,6 @@ class Kleding extends Component
      */
     public function getProducts(): Collection
     {
-//        $this->productSizes = ProductSize::all();
 
         $products = [];
         foreach ($this->productSizes as $productSize)
@@ -60,7 +58,7 @@ class Kleding extends Component
         $this->products = $products;
 
         $this->amounts = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
-//        dd($this->amounts);
+        $this->totals = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
         return $products;
     }
 
@@ -73,9 +71,6 @@ class Kleding extends Component
     public function getAmount(int $productId): int
     {
         return $this->amounts[$productId] ?? 0;
-//        dd($this->amounts[$productId]);
-//        dd($this->amounts[$productId] ?? 0);
-//        dd($this->selectedProduct[$productId]['amount'] ?? 0);
     }
 
     /**
@@ -86,9 +81,7 @@ class Kleding extends Component
      */
     public function getSizesForSelectedProduct($productId, $index): Collection
     {
-//        $index = $productId - 1;
         $this->selectedProduct[$index] = $productId;
-//        $this->productSizes = ProductSize::all();
 
         // Return all the sizes associated with the selected product.
         $sizes = [];
@@ -107,6 +100,15 @@ class Kleding extends Component
         return $sizeCollection;
     }
 
+    /**
+     * Get the total price of the order/selected products.
+     *
+     * @return int
+     */
+    public function getTotalForProduct($productId): int
+    {
+        return $this->amounts[$productId] * $this->products->where('id', $productId)->first()->price;
+    }
 
     /**
      * Update the Order table with the selected product_size id and amount.
@@ -117,15 +119,12 @@ class Kleding extends Component
      */
     public function updateOrder(?int $selectedProductSize, int $selectedAmount): void
     {
-//        dd($selectedProductSize, $selectedAmount);
         // If the selected product size is not null, update the order.
         if ($selectedProductSize !== null)
         {
             // Find the order in the database (if it exists
-            $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
+            $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->first();
         }
-
-        // TODO: update this so a new order gets placed if the productsize id and the user id are not in the order table.
 
         // If the order is not in the database, create it.
         if (!$this->order)
@@ -140,8 +139,7 @@ class Kleding extends Component
             ]);
         } else {
             // Else, update the order.
-            DB::table('orders')->where('user_id', auth()->user()->id)->update([
-                'product_size_id' => $selectedProductSize,
+            DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->update([
                 'quantity' => $selectedAmount,
                 'order_date' => now(),
                 'updated_at' => now(),
@@ -149,20 +147,19 @@ class Kleding extends Component
         }
     }
 
-
+    /**
+     * Submit the form and update the order table.
+     *
+     * @return void
+     */
     public function submitForm(): void
     {
         foreach ($this->selectedProduct as $index => $productId)
         {
-//            $selectedSize = $this->selectedSize[$index] ?? null;
-////            dd($selectedSize, $productId);
-//            if (null !== $selectedSize)
-//            {
+
             if (isset($this->selectedSize[$index]))
             {
                 $selectedSize = $this->selectedSize[$index];
-
-//                dd($selectedSize, $productId);
 
                 // Find the corresponding product size
                 $selectedProductSize = ProductSize::where('product_id', $productId)
@@ -170,7 +167,7 @@ class Kleding extends Component
                     ->value('id');
 
                 $selectedAmount = $this->getAmount($productId);
-//                dd($selectedProductSize, $selectedAmount);
+
                 $this->updateOrder($selectedProductSize, $selectedAmount);
             } else {
                 session()->flash('message', 'Je hebt geen maat geselecteerd!');
@@ -182,7 +179,6 @@ class Kleding extends Component
 
         session()->flash('message', 'Je bestelling is geplaatst!');
     }
-
 
     public function render()
     {
