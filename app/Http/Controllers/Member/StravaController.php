@@ -29,7 +29,8 @@ class StravaController extends Controller
         return redirect()->route('dashboard');
 
     }
-
+//TODO: getUserdata verfijnen met livewire. Nu nog teveel code in controller
+//TODO: User kunnen laten uitschrijven strava
     public function getUserData(){
         if (auth()->user()->access_token) {
 
