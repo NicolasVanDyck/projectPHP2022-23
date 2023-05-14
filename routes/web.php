@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Dusk\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------

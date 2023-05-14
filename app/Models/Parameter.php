@@ -10,6 +10,6 @@ class Parameter extends Model
     use HasFactory;
 
     protected $fillable = [
-        'endDateOrders',
+        'end_date_order',
     ];
 }
