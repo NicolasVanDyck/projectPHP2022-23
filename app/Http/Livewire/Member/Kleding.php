@@ -16,16 +16,13 @@ class Kleding extends Component
     public array $selectedSize = [];
     public Collection $products;
     public array $selectedProduct = [];
-    public int $selectedProductPrice;
-    public $selectedProductSize;
-    public array $amount;
-    public array $amounts;
-    public $order;
+    public array $amounts = [];
+    protected $order;
     public \Illuminate\Database\Eloquent\Collection $productSizes;
 
     protected $rules = [
         'products' => 'array',
-        'amounts*' => 'required|integer|min:0',
+        'amounts.*' => 'required|integer|min:0',
         'amount' => 'required|integer|min:1',
         'selectedSize' => 'required',
         'selectedProduct' => 'required',
@@ -36,23 +33,21 @@ class Kleding extends Component
     {
         $this->productSizes = ProductSize::all();
         $this->products = new Collection();
-        $this->selectedSize = [];
-        $this->selectedProduct = [];
-        $this->amount = [];
         $this->getProducts();
     }
 
     /**
      * Returns all the products from the ProductSize table.
      *
-     * @return array
+     * @return Collection
      */
-    public function getProducts()
+    public function getProducts(): Collection
     {
-        $this->productSizes = ProductSize::all();
+//        $this->productSizes = ProductSize::all();
 
         $products = [];
-        foreach ($this->productSizes as $productSize) {
+        foreach ($this->productSizes as $productSize)
+        {
             // If the product is not in the array, add it. Else, skip it.
             if (!in_array($productSize->product_id, $products)) {
                 $products[] = $productSize->product_id;
@@ -63,24 +58,44 @@ class Kleding extends Component
         $products = Product::whereIn('id', $products)->get();
 
         $this->products = $products;
+
         $this->amounts = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
+//        dd($this->amounts);
         return $products;
+    }
+
+    /**
+     * Returns the amount for a selected product.
+     *
+     * @param int $productId
+     * @return int
+     */
+    public function getAmount(int $productId): int
+    {
+        return $this->amounts[$productId] ?? 0;
+//        dd($this->amounts[$productId]);
+//        dd($this->amounts[$productId] ?? 0);
+//        dd($this->selectedProduct[$productId]['amount'] ?? 0);
     }
 
     /**
      * Returns all the sizes from the ProductSize associated with one product.
      *
+     * @param $productId
      * @return Collection
      */
-    public function getSizesForSelectedProduct($productId): Collection
+    public function getSizesForSelectedProduct($productId, $index): Collection
     {
-        $this->selectedProduct = [$productId];
-        $this->productSizes = ProductSize::all();
+//        $index = $productId - 1;
+        $this->selectedProduct[$index] = $productId;
+//        $this->productSizes = ProductSize::all();
 
         // Return all the sizes associated with the selected product.
         $sizes = [];
-        foreach ($this->productSizes as $productSize) {
-            if ($productSize->product_id == $productId) {
+        foreach ($this->productSizes as $productSize)
+        {
+            if ($productSize->product_id == $productId)
+            {
                 $sizes[] = $productSize->size_id;
             }
         }
@@ -96,99 +111,83 @@ class Kleding extends Component
     /**
      * Update the Order table with the selected product_size id and amount.
      *
+     * @param int|null $selectedProductSize
+     * @param int $selectedAmount
      * @return void
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function updateOrder(): void
+    public function updateOrder(?int $selectedProductSize, int $selectedAmount): void
     {
-        $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
-
-
-        foreach ($this->selectedProduct as $index => $productId) {
-            $selectedSize = $this->selectedSize[$index];
-            $selectedAmount = $this->amount[$index];
-
-            // Find the corresponding product size
-            $selectedProductSize = ProductSize::where('product_id', $productId)
-                ->where('size_id', $selectedSize)
-                ->value('id');
-
-            // If the order is not in the database, create it.
-            if (!$this->order) {
-                DB::table('orders')->insert([
-                    'user_id' => auth()->user()->id,
-                    'product_size_id' => $selectedProductSize,
-                    'quantity' => $selectedAmount,
-                    'order_date' => now(),
-                ]);
-            } else {
-                // Else, update the order.
-                DB::table('orders')->where('user_id', auth()->user()->id)->update([
-                    'product_size_id' => $selectedProductSize,
-                    'quantity' => $selectedAmount,
-                    'order_date' => now(),
-                ]);
-            }
+//        dd($selectedProductSize, $selectedAmount);
+        // If the selected product size is not null, update the order.
+        if ($selectedProductSize !== null)
+        {
+            // Find the order in the database (if it exists
+            $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->first();
         }
 
-        // Find the product_size_id from the selected product and size.
-//        $this->selectedProductSize = ProductSize::where('product_id', $this->selectedProduct)->where('size_id', $this->selectedSize)->value('id');
+        // TODO: update this so a new order gets placed if the productsize id and the user id are not in the order table.
 
-
+        // If the order is not in the database, create it.
+        if (!$this->order)
+        {
+            DB::table('orders')->insert([
+                'user_id' => auth()->user()->id,
+                'product_size_id' => $selectedProductSize,
+                'quantity' => $selectedAmount,
+                'order_date' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        } else {
+            // Else, update the order.
+            DB::table('orders')->where('user_id', auth()->user()->id)->update([
+                'product_size_id' => $selectedProductSize,
+                'quantity' => $selectedAmount,
+                'order_date' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 
-    public function sendForm(): void
-    {
-        $this->updateOrder();
 
-        $this->reset(['selectedSize', 'selectedProduct', 'amount']);
+    public function submitForm(): void
+    {
+        foreach ($this->selectedProduct as $index => $productId)
+        {
+//            $selectedSize = $this->selectedSize[$index] ?? null;
+////            dd($selectedSize, $productId);
+//            if (null !== $selectedSize)
+//            {
+            if (isset($this->selectedSize[$index]))
+            {
+                $selectedSize = $this->selectedSize[$index];
+
+//                dd($selectedSize, $productId);
+
+                // Find the corresponding product size
+                $selectedProductSize = ProductSize::where('product_id', $productId)
+                    ->where('size_id', $selectedSize)
+                    ->value('id');
+
+                $selectedAmount = $this->getAmount($productId);
+//                dd($selectedProductSize, $selectedAmount);
+                $this->updateOrder($selectedProductSize, $selectedAmount);
+            } else {
+                session()->flash('message', 'Je hebt geen maat geselecteerd!');
+            }
+
+        }
+
+        $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
 
         session()->flash('message', 'Je bestelling is geplaatst!');
-    }
-
-    /**
-     * Get the orders for the current logged-in user.
-     *
-     * @return array of products
-     */
-    public function getOrderProductNames(): array
-    {
-        $productName = Order::with('productsizes.products')->where('user_id', auth()->user()->id);
-
-        return $productName->productsizes->product->name;
-
-        //TODO get all the orders.
-    }
-
-    /**
-     * Get the order amount for the current logged-in user.
-     *
-     * @return int
-     */
-    public function getOrderAmount(): int
-    {
-        $orderAmount = Order::where('user_id', auth()->user()->id)->quantity;
-
-        return $orderAmount->quantity;
-
-    }
-
-
-    /**
-     * Get the order size from the product_size_id for the current logged-in user.
-     *
-     * @return string
-     */
-    public function getOrderSize()
-    {
-        $orderSize = Order::with('productsizes.sizes')->where('user_id', auth()->user()->id)->first();
-
-        return $orderSize;
     }
 
 
     public function render()
     {
-        return view('livewire.member.kleding')->layout('layouts.templatelayout');
+        return view('livewire.member.kleding', [
+            'amounts' => $this->amounts,
+        ])->layout('layouts.templatelayout');
     }
 }

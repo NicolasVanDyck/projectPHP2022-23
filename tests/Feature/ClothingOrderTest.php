@@ -83,7 +83,7 @@ class ClothingOrderTest extends TestCase
                 [
                     'selectedSize' => $size,
                     'selectedProduct' => $product,
-                    'amount' => 1,
+                    'amounts' => 1,
                     'user_id' => $user->id,
                 ]);
 
