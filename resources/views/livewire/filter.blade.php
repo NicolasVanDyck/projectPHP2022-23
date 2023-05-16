@@ -1,17 +1,6 @@
 <div>
 
     <div class="container flex justify-between items-center mx-auto">
-{{--        Filter op groep         --}}
-        <div>
-            <h3>Filter op groep:</h3>
-            <label for="group" value="group"/>
-            <select id="group" wire:model="group">
-                <option value="%">Kies hier je groep</option>
-                @foreach($groups as $g)
-                    <option value="{{ $g->id }}">{{ $g->name }}</option>
-                @endforeach
-            </select>
-        </div>
 {{--        Filter op dag           --}}
         <div>
             <h3>Filter op dag:</h3>
@@ -23,17 +12,29 @@
                 @endforeach
             </select>
         </div>
-{{--        Filter op fietstype         --}}
+{{--        Filter op groep         --}}
         <div>
-            <h3>Filter op fietstype:</h3>
-            <label for="bicycletype" value="bicycletype"/>
-            <select id="bicycletype" wire:model="bicycletype">
-                <option value="%">Kies hier je fietstype</option>
-                @foreach($bicycletypes as $b)
-                    <option value="{{ $b->id }}">{{ $b->bicycle_type }}</option>
+            <h3>Filter op groep:</h3>
+            <label for="group" value="group"/>
+            <select id="group" wire:model="group">
+                <option value="%">Kies hier je groep</option>
+                @foreach($groups as $g)
+                    <option value="{{ $g->id }}">{{ $g->name }}</option>
                 @endforeach
             </select>
         </div>
+
+{{--        Filter op fietstype         --}}
+{{--        <div>--}}
+{{--            <h3>Filter op fietstype:</h3>--}}
+{{--            <label for="bicycletype" value="bicycletype"/>--}}
+{{--            <select id="bicycletype" wire:model="bicycletype">--}}
+{{--                <option value="%">Kies hier je fietstype</option>--}}
+{{--                @foreach($bicycletypes as $b)--}}
+{{--                    <option value="{{ $b->id }}">{{ $b->bicycle_type }}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--        </div>--}}
 {{--        Filter op afstand         --}}
         <div>
             <h3>Filter op afstand:</h3>
@@ -67,7 +68,7 @@
                 </div>
             </div>
                 @endif
+                @endforeach
             @endforeach
-        @endforeach
     </div>
 </div>

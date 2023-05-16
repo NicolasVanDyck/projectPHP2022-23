@@ -12,14 +12,14 @@ class GroupTour extends Model
 
 
     protected $fillable=[
-        'startDate',
-        'endDate', ];
+        'start_date',
+        'end_date', ];
 
 
     public function usertours()
     {
         //hasONe
-        return $this->hasMany(Usertour::class);
+        return $this->hasMany(UserTour::class);
     }
 
 //    public function tour()
@@ -37,10 +37,5 @@ class GroupTour extends Model
 
         return $this->belongsTo(Group::class);
     }
-
-    protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime',
-    ];
 
 }
