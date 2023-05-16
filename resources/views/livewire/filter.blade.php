@@ -7,11 +7,12 @@
             <label for="day" value="day"/>
             <select id="day" wire:model="day">
                 <option value="%">Kies hier je dag</option>
-                @foreach($grouptours as $gt)
-                    <option value="{{ $gt->id }}">{{ $gt->start_date}} </option>
+                @foreach($groupdates as $groupdate)
+                    <option value="{{ $groupdate->id }}">{{ date('d-m-Y', strtotime($groupdate->start_date))}} </option>
                 @endforeach
             </select>
         </div>
+
 {{--        Filter op groep         --}}
         <div>
             <h3>Filter op groep:</h3>
@@ -19,22 +20,11 @@
             <select id="group" wire:model="group">
                 <option value="%">Kies hier je groep</option>
                 @foreach($groups as $g)
-                    <option value="{{ $g->id }}">{{ $g->name }}</option>
+                            <option value="{{ $g->id }}">{{ $g->name }}</option>
                 @endforeach
             </select>
         </div>
 
-{{--        Filter op fietstype         --}}
-{{--        <div>--}}
-{{--            <h3>Filter op fietstype:</h3>--}}
-{{--            <label for="bicycletype" value="bicycletype"/>--}}
-{{--            <select id="bicycletype" wire:model="bicycletype">--}}
-{{--                <option value="%">Kies hier je fietstype</option>--}}
-{{--                @foreach($bicycletypes as $b)--}}
-{{--                    <option value="{{ $b->id }}">{{ $b->bicycle_type }}</option>--}}
-{{--                @endforeach--}}
-{{--            </select>--}}
-{{--        </div>--}}
 {{--        Filter op afstand         --}}
         <div>
             <h3>Filter op afstand:</h3>
@@ -42,6 +32,7 @@
                 <label for="afstand">Aantal kilometers:
                     <output id="kilometerfilter" name="kilometerfilter">{{$afstand}}</output>
                 </label>
+
                 <input type="range" id="afstand" name="afstand" wire:model="afstand" min="{{$afstandMin}}"
                        max="{{$afstandMax}}" value="0" step="10"
                        oninput="kilometerfilter.value = afstand.value">
@@ -49,7 +40,7 @@
         </div>
     </div>
 
-{{--    Routes tonen       --}}
+{{--         Routes tonen           --}}
     <div class="container flex grow justify-center mt-5">
         @foreach($grouptours as $grouptour)
             @foreach($tours as $tour)
@@ -59,10 +50,11 @@
                 <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
                     <div class='max-w-md mx-auto'>
                         <div class='p-8'>
-                            <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>{{$grouptour->id}}</p>
-                            <p class='text-[#7C7C80] font-[15px] mt-6'>{{$grouptour->tour_id}}</p>
-                            <p class='text-[#7C7C80] font-[15px] mt-6'>{{$grouptour->start_date}}</p>
-                            <p class='text-[#7C7C80] font-[15px] mt-6'>{{$tour->amount_of_km}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Route: {{$tour->routeName}}</p>
+                            <p class='text-[#7C7C80] font-[15px] my-3'>Groep: {{$grouptour->groupName}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Datum: {{date('d-m-Y', strtotime($grouptour->start_date))}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Vertrekuur: {{date('h:i:s', strtotime($grouptour->start_date))}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Afstand: {{$tour->amount_of_km}} km</p>
                         </div>
                     </div>
                 </div>

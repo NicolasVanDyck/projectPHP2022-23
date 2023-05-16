@@ -21,19 +21,22 @@ class Filter extends Component
         $this->afstandMin = ceil(Route::min('amount_of_km'));
         $this->afstandMax = ceil(Route::max('amount_of_km'));
         $this->afstand = $this->afstandMax;
+
     }
 
     public function render()
     {
+        $now = today();
         $routes = Route::orderBy('id')->has('tours')->get();
-        $grouptours = GroupTour::orderBy('id')
-            ->where('start_date', '=', $this->day)
-            ->where('group_id','like',$this->group)
+        $groupdates = GroupTour::orderBy('start_date')->where('start_date', '>=', $now)->get();
+        $grouptours = GroupTour::orderBy('start_date')->has('group')
+//            ->where([['start_date', '=', $this->day],['group_id','like',$this->group]])
+            ->where([['id', 'like', $this->day],['group_id','like',$this->group]])
             ->get();
-        $groups = Group::orderBy('name')->with('grouptours')->get();
+        $groups = Group::orderBy('name')->has('grouptours')->get();
         $tours = Tour::orderBy('id')->whereHas('route', function ($query) {
                 $query->where('amount_of_km', '<=', $this->afstand);})->get();
-        return view('livewire.filter', compact('groups','grouptours', 'routes', 'tours'));
+        return view('livewire.filter', compact('groups','groupdates','grouptours', 'routes', 'tours'));
     }
 
 }
