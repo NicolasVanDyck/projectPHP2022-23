@@ -53,7 +53,7 @@
                             <p class='text-[#7C7C80] font-[15px]'>Route: {{$tour->routeName}}</p>
                             <p class='text-[#7C7C80] font-[15px] my-3'>Groep: {{$grouptour->groupName}}</p>
                             <p class='text-[#7C7C80] font-[15px]'>Datum: {{date('d-m-Y', strtotime($grouptour->start_date))}}</p>
-                            <p class='text-[#7C7C80] font-[15px]'>Vertrekuur: {{date('h:i:s', strtotime($grouptour->start_date))}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Vertrekuur: {{date('H:i:s', strtotime($grouptour->start_date))}}</p>
                             <p class='text-[#7C7C80] font-[15px]'>Afstand: {{$tour->amount_of_km}} km</p>
                         </div>
                     </div>
