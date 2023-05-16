@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('group_id')->nullable(false)->constrained()->restrictOnDelete();
             $table->foreignId('tour_id')->nullable(false)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->dateTime('start_date')->nullable(false);
+            $table->date('start_date')->nullable(false);
             $table->dateTime('end_date')->nullable(false);
             $table->timestamps();
         });

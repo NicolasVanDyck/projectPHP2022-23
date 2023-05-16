@@ -8,7 +8,7 @@
             <select id="day" wire:model="day">
                 <option value="%">Kies hier je dag</option>
                 @foreach($groupdates as $groupdate)
-                    <option value="{{ $groupdate->id }}">{{ date('d-m-Y', strtotime($groupdate->start_date))}} </option>
+                    <option value="{{ $groupdate }}">{{ $groupdate}} </option>
                 @endforeach
             </select>
         </div>
