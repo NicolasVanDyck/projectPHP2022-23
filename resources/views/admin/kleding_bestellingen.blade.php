@@ -15,8 +15,10 @@
         </div>
     </div>
 
+    <div>
+        @livewire('parameter-component')
 
+    </div>
 </div>
-
 
 </x-templatelayout>

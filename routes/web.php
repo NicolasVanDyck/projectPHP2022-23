@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Dusk\Http\Controllers\UserController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,18 +15,26 @@ use Laravel\Dusk\Http\Controllers\UserController;
 |
 */
 
+
+//Voor de bezoekers
+Route::get('/', function () {
+    if (\Illuminate\Support\Facades\Auth::check()) {
+        return redirect()->route('dashboard');
+    } else {
+        return view('home');
+    }
+})->name('home');
+
 //Registerpagina uitschakelen door om te leiden naar loginpagina
 Route::get('register', function () { return redirect()->route('login');});
 
-//Voor de bezoekers
-
-Route::view('/','home' )->name('home');
 //Nog bekijken i.v.m. contactformulier. Misschien moet dit een andere methode zijn dan view() (post() bv.)
 Route::view('contact','contact')->name('contact');
 
 //Voor de leden
 Route::middleware(['auth'])->prefix('member/')->group(function() {
-    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+//    Route::get('dashboard', function() { return view('member/dashboard');})->name('dashboard');
+    Route::get('dashboard', [App\Http\Controllers\Member\StravaController::class,'getUserData'])->name('dashboard');
     Route::get('deelname_groep', function() { return view('member/deelname_groep');})->name('deelname_groep');
     Route::get('galerij', function() { return view('member/galerij');})->name('galerij');
     Route::get('individuele_trajecten', function() { return view('member/individuele_trajecten');})->name('individuele_trajecten');
@@ -46,6 +55,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('welkom', function() { return view('admin/welkom');})->name('welkom');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/stravaAuthentication', [App\Http\Controllers\Member\StravaController::class,'stravaAuth'])->name('stravaAuthentication');
+Route::get('/success', [App\Http\Controllers\Member\StravaController::class,'getToken']);
+
+

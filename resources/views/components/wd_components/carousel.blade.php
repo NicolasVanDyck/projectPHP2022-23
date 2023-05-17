@@ -1,6 +1,6 @@
 <div
     id="carouselExampleCaptions"
-    class="relative"
+    class="relative pb-4"
     data-te-carousel-init
     data-te-carousel-slide>
     <!--Carousel indicators-->
