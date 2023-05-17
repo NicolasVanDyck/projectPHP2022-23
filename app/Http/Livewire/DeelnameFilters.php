@@ -12,12 +12,14 @@ class DeelnameFilters extends Component
 {
     public $group = "%";
     public $day = "%";
+    public $defaultdate;
 
     public $afstand;
     public $afstandMin, $afstandMax;
 
     public function mount()
     {
+        $this->day = $this->defaultdate;
         $this->afstandMin = ceil(GPX::min('amount_of_km'));
         $this->afstandMax = ceil(GPX::max('amount_of_km'));
         $this->afstand = $this->afstandMax;
@@ -29,16 +31,16 @@ class DeelnameFilters extends Component
         $now = today();
         $groupdates = GroupTour::orderBy('start_date')
             ->where('start_date', '>=', $now)
-            ->orWhere('group_id', 'like', $this->group)
+//            ->orWhere('group_id', 'like', $this->group)
             ->distinct()->pluck('start_date');
-//        dd($groupdates);
-        $this->day = $groupdates->first();
+        $this->defaultdate = $groupdates->first();
         $grouptours = GroupTour::orderBy('start_date')->has('group')
             ->where([['start_date', $this->day],['group_id','like',$this->group]])
+//            ->orWhere('group_id', 'like', $this->group)
             ->get();
         $groups = Group::orderBy('id')
-            ->where('id', 'like', $this->group)
-            ->orWhereHas('grouptours', function ($query) {
+//            ->where('id', 'like', $this->group)
+            ->whereHas('grouptours', function ($query) {
                 $query->where('start_date', $this->day);})
             ->get();
         $gpxes = GPX::orderBy('id')->whereHas('tour', function ($query) {

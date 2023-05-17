@@ -3,8 +3,7 @@
     <div class="container flex justify-between items-center mx-auto">
         {{--        Filter op dag           --}}
         <div>
-            <p>{{$day}}</p>
-            <h3>Filter op dag:</h3>
+            <h3>Kies eerst je dag:</h3>
             <label for="day" value="day"/>
             <select id="day" wire:model="day">
                 <option value="%">Kies hier je dag</option>
@@ -16,8 +15,7 @@
 
         {{--        Filter op groep         --}}
         <div>
-            <p>{{$group}}</p>
-            <h3>Filter op groep:</h3>
+            <h3>Filter dan op groep, indien gewenst:</h3>
             <label for="group" value="group"/>
             <select id="group" wire:model="group">
                 <option value="%">Kies hier je groep</option>
