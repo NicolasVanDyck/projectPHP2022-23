@@ -29,6 +29,20 @@ class Ledenbeheer extends Component
         'password' => null,
     ];
 
+    public $editUser = [
+        'id' => null,
+        'name' => null,
+        'username' => null,
+        'birthdate' => null,
+        'email' => null,
+        'postal_code' => null,
+        'city' => null,
+        'address' => null,
+        'phone_number' => null,
+        'mobile_number' => null,
+        'password' => null,
+    ];
+
     protected $rules = [
       'newUser.name' => 'required',
         'newUser.username' => 'required|min:5|max:30|unique:users,username',
@@ -63,10 +77,53 @@ class Ledenbeheer extends Component
 
     }
 
-    public function setNewUser()
+    public function setNewUser(User $user = null)
     {
         $this->resetErrorBag();
-        $this->reset('newUser');
+        if($user) {
+            $this->newUser['id'] = $user->id;
+            $this->newUser['name'] = $user->name;
+            $this->newUser['username'] = $user->username;
+            $this->newUser['birthdate'] = $user->birthdate;
+            $this->newUser['email'] = $user->email;
+            $this->newUser['postal_code'] = $user->postal_code;
+            $this->newUser['city'] = $user->city;
+            $this->newUser['address'] = $user->address;
+            $this->newUser['phone_number'] = $user->phone_number;
+            $this->newUser['mobile_number'] = $user->mobile_number;
+            $this->newUser['password'] = $user->password;
+        } else {
+            $this->reset('newUser');
+        }
+
+    }
+
+    public function editExistingUser(User $user)
+    {
+        $this->editUser = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'username' => $user->username,
+            'birthdate' => $user->birthdate,
+            'email' => $user->email,
+            'postal_code' => $user->postal_code,
+            'city' => $user->city,
+            'address' => $user->address,
+            'phone_number' => $user->phone_number,
+            'mobile_number' => $user->mobile_number,
+            'password' => $user->password,
+        ];
+    }
+
+    public function resetEditUser()
+    {
+        $this->reset('editUser');
+        $this->resetErrorBag();
+    }
+
+    public function updateUser(User $user) {
+        $this->validate();
+        $this->resetEditUser();
     }
 
 //    Ander bericht dan SQL error als User gekoppeld is aan een order?
