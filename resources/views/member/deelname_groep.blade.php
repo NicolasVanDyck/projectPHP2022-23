@@ -3,6 +3,6 @@
     <x-slot name="description">Op deze pagina kan je aanduiden bij welke geplande ritten je aanwezig zal zijn!</x-slot>
 
     <div>
-        @livewire('filter')
+        @livewire('deelname-filters')
     </div>
 </x-templatelayout>

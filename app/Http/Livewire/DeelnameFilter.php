@@ -6,10 +6,9 @@ use Livewire\Component;
 use App\Models\Group;
 use App\Models\GroupTour;
 use App\Models\Tour;
-use App\Models\Route;
-use DB;
+use App\Models\GPX;
 
-class Filter extends Component
+class DeelnameFilter extends Component
 {
     public $group = "%";
     public $day = "%";
@@ -21,8 +20,8 @@ class Filter extends Component
     public function mount()
     {
         $this->day = $this->defaultdate;
-        $this->afstandMin = ceil(Route::min('amount_of_km'));
-        $this->afstandMax = ceil(Route::max('amount_of_km'));
+        $this->afstandMin = ceil(GPX::min('amount_of_km'));
+        $this->afstandMax = ceil(GPX::max('amount_of_km'));
         $this->afstand = $this->afstandMax;
 
     }
@@ -30,7 +29,6 @@ class Filter extends Component
     public function render()
     {
         $now = today();
-        $routes = Route::orderBy('id')->has('tours')->get();
         $groupdates = GroupTour::where([['start_date', '>=', $now],['group_id', 'like', $this->group]])
 //            ->has('group')
             ->orderBy('start_date')
@@ -45,7 +43,7 @@ class Filter extends Component
             $query->where('start_date', $this->day);})->get();
         $tours = Tour::orderBy('id')->whereHas('route', function ($query) {
                 $query->where('amount_of_km', '<=', $this->afstand);})->get();
-        return view('livewire.filter', compact('groups','groupdates','grouptours', 'routes', 'tours'));
+        return view('livewire.deelnamefilter', compact('groups','groupdates','grouptours','tours'));
     }
 
 }

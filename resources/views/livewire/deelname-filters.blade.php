@@ -1,8 +1,9 @@
 <div>
 
     <div class="container flex justify-between items-center mx-auto">
-{{--        Filter op dag           --}}
+        {{--        Filter op dag           --}}
         <div>
+            <p>{{$day}}</p>
             <h3>Filter op dag:</h3>
             <label for="day" value="day"/>
             <select id="day" wire:model="day">
@@ -13,19 +14,20 @@
             </select>
         </div>
 
-{{--        Filter op groep         --}}
+        {{--        Filter op groep         --}}
         <div>
+            <p>{{$group}}</p>
             <h3>Filter op groep:</h3>
             <label for="group" value="group"/>
             <select id="group" wire:model="group">
                 <option value="%">Kies hier je groep</option>
                 @foreach($groups as $g)
-                            <option value="{{ $g->id }}">{{ $g->name }}</option>
+                    <option value="{{ $g->id }}">{{ $g->group }}</option>
                 @endforeach
             </select>
         </div>
 
-{{--        Filter op afstand         --}}
+        {{--        Filter op afstand         --}}
         <div>
             <h3>Filter op afstand:</h3>
             <div class="p-2">
@@ -34,33 +36,33 @@
                 </label>
 
                 <input type="range" id="afstand" name="afstand" wire:model="afstand" min="{{$afstandMin}}"
-                       max="{{$afstandMax}}" value="0" step="10"
+                       max="{{$afstandMax}}" value="0" step="5"
                        oninput="kilometerfilter.value = afstand.value">
             </div>
         </div>
     </div>
 
-{{--         Routes tonen           --}}
+    {{--         Routes tonen           --}}
     <div class="container flex grow justify-center mt-5">
         @foreach($grouptours as $grouptour)
-            @foreach($tours as $tour)
-                @if($grouptour->tour_id == $tour->id)
+            @foreach($gpxes as $gpx)
+                @if($grouptour->tour_id == $gpx->id)
             <div wire:key="grouptour_{{$grouptour->id}}"
                  class='flex items-center justify-center bg-gradient-to-br px-2 pb-4 mx'>
                 <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
                     <div class='max-w-md mx-auto'>
                         <div class='p-8'>
-                            <p class='text-[#7C7C80] font-[15px]'>Route: {{$tour->routeName}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Route: {{$gpx->name}}</p>
                             <p class='text-[#7C7C80] font-[15px] my-3'>Groep: {{$grouptour->groupName}}</p>
-                            <p class='text-[#7C7C80] font-[15px]'>Datum: {{date('d-m-Y', strtotime($grouptour->start_date))}}</p>
-                            <p class='text-[#7C7C80] font-[15px]'>Vertrekuur: {{date('H:i:s', strtotime($grouptour->start_date))}}</p>
-                            <p class='text-[#7C7C80] font-[15px]'>Afstand: {{$tour->amount_of_km}} km</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Datum: {{$grouptour->start_date}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Vertrekuur: {{$grouptour->start_time}}</p>
+                            <p class='text-[#7C7C80] font-[15px]'>Afstand: {{$gpx->amount_of_km}} km</p>
                         </div>
                     </div>
                 </div>
             </div>
-                @endif
-                @endforeach
-            @endforeach
+        @endif
+        @endforeach
+    @endforeach
     </div>
 </div>
