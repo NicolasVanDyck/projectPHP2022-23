@@ -21,39 +21,45 @@ class Tour extends Model
         return $this->morphTo();
     }
 
-    public function route()
+    public function gpx()
     {
-        return $this->belongsTo(Route::class)->withDefault();
+        return $this->hasOne(GPX::class);
     }
 
-    protected function startLocation(): Attribute
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function startLocation()
     {
         return Attribute::make(
-            get: fn($value, $attributes) => Route::find($attributes['route_id'])->start_location,
+            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->start_location,
         );
     }
 
-    protected function endLocation(): Attribute
+    public function endLocation()
     {
         return Attribute::make(
-            get: fn($value, $attributes) => Route::find($attributes['route_id'])->end_location,
+            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->end_location,
         );
     }
+
 
     protected function amountOfKm(): Attribute
     {
         return Attribute::make(
-            get: fn($value, $attributes) => Route::find($attributes['route_id'])->amount_of_km,
+            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->amount_of_km,
         );
     }
 
     protected function routeName(): Attribute
     {
         return Attribute::make(
-            get: fn($value, $attributes) => Route::find($attributes['route_id'])->name,
+            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
         );
     }
 
 
-    protected $appends = ['start_location','end_location'];
+    protected $appends = ['start_location','end_location','amount_of_km','name'];
 }

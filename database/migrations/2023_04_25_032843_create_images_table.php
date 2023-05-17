@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->uuid('id')->primary()->index();
             $table->foreignId('image_type_id')->constrained()->restrictOnDelete()->restrictOnUpdate();
+            $table->foreignId('tour_id')->nullable();
             $table->string('name')->unique()->nullable(false);
             $table->mediumText('description');
-            $table->timestamps();
             $table->string('path')->unique()->nullable(false);
+            $table->timestamps();
         });
     }
 
