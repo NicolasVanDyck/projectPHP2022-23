@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,14 +13,21 @@ class GroupTour extends Model
 
 
     protected $fillable=[
-        'startDate',
-        'endDate', ];
+        'start_date',
+        'end_date', ];
+
+    protected function groupName(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => Group::find($attributes['group_id'])->name,
+        );
+    }
 
 
     public function usertours()
     {
         //hasONe
-        return $this->hasMany(Usertour::class);
+        return $this->hasMany(UserTour::class);
     }
 
 
@@ -32,7 +40,5 @@ class GroupTour extends Model
 
         return $this->belongsTo(Group::class);
     }
-
-
 
 }

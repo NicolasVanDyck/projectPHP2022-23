@@ -31,6 +31,7 @@ class GroupTourFactory extends Factory
              'start_date' => $this ->faker->date(),
              'start_time' => $this ->faker->time(),
              'end_date' => $this ->faker->date()
+
         ];
     }
 }
