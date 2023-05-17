@@ -55,7 +55,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('welkom', function() { return view('admin/welkom');})->name('welkom');
 });
 
-Route::get('/stravaAuthentication', [App\Http\Controllers\Member\StravaController::class,'stravaAuth'])->name('stravaAuthentication');
+Route::get('/stravaAuthentication', [App\Http\Controllers\Member\StravaController::class,'stravaAuthentication'])->name('stravaAuthentication');
 Route::get('/success', [App\Http\Controllers\Member\StravaController::class,'getToken']);
 
 
