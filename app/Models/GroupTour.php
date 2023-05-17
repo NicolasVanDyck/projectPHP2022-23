@@ -22,11 +22,6 @@ class GroupTour extends Model
         return $this->hasMany(Usertour::class);
     }
 
-//    public function tour()
-//    {
-//        //hasONe
-//        return $this->belongsTo(Tour::class);
-//    }
 
     public function tours()
     {

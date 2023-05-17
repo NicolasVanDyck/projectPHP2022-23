@@ -30,12 +30,4 @@ class UserTour extends Model
         return $this->belongsTo(GroupTour::class)->withDefault();
     }
 
-    protected function startDate(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value, $attributes) => Tour::find($attributes['tour_id'])->start_date,
-        );
-    }
-
-    protected $appends = ['start_date'];
 }

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Tour;
-use App\Models\Route;
+use App\Models\GPX;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tour>
@@ -21,11 +21,7 @@ class TourFactory extends Factory
     public function definition(): array
     {
         return [
-            'route_id' => function() {
-                return Route::factory()->create()->id;
-            },
-            'start_date' => $this->faker->dateTime('now'),
-            'end_date' => $this->faker->dateTimeBetween('now', '+1 years'),
+            'g_p_x_id' => GPX::factory(),
 
         ];
     }

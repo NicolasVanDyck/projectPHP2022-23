@@ -75,4 +75,9 @@ class User extends Authenticatable
         return $this->hasMany(UserTour::class);
     }
 
+    public function gpxes()
+    {
+        return $this->hasMany(GPX::class);
+    }
+
 }

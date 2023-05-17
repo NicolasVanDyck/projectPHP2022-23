@@ -16,9 +16,7 @@ return new class extends Migration
             // Removed cascadeOnUpdate. This is not necessary I think.
             // Because the route_id is not updated.
             // Removed null on delete. This is not necessary I think.
-            $table->foreignId('route_id')->constrained();
-            $table->dateTime('start_date')->nullable(False);
-            $table->dateTime('end_date')->nullable(False);
+            $table->foreignId('g_p_x_id')->nullable(false)->restrictOnDelete()->restrictOnUpdate();
             $table->timestamps();
         });
     }
