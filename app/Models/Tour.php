@@ -40,5 +40,20 @@ class Tour extends Model
         );
     }
 
+    protected function amountOfKm(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => Route::find($attributes['route_id'])->amount_of_km,
+        );
+    }
+
+    protected function routeName(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => Route::find($attributes['route_id'])->name,
+        );
+    }
+
+
     protected $appends = ['start_location','end_location'];
 }
