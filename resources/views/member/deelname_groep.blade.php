@@ -9,5 +9,8 @@
         @livewire('deelname-filters')
     </div>
 
-    <livewire:grouptour-member/>
+    <div>
+        @livewire('grouptour-member')
+    </div>
+
 </x-templatelayout>

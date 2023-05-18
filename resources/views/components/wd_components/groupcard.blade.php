@@ -22,6 +22,7 @@
             </p>
             <div class="mt-4">
                 <button class="inline-block w-full font-bold rounded bg-info px-6 text-center pb-2 pt-2.5 text-lg uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]" wire:click="joinTour({{ $groupTour->id }})">Join Tour</button>
+                <button class="inline-block w-full font-bold rounded bg-red-600 px-6 text-center pb-2 pt-2.5 text-lg uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-[0_8px_9px_-4px_rgba(168,5,5,0.3),0_4px_18px_0_rgba(168,5,5,0.2)]" wire:click="deleteTour({{ $groupTour->id }})">Leave Tour</button>
             </div>
         </div>
     </div>

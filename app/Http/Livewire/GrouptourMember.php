@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\GroupTour;
 use App\Models\Group;
 use App\Models\Gpx;
+use App\Models\Tour;
 use App\Models\UserTour;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -13,6 +14,8 @@ class GrouptourMember extends Component
 {
     public $groupTours;
     public $userTours;
+    public $isUserTour;
+
 
 
     public function joinTour($tourId)
@@ -38,11 +41,39 @@ class GrouptourMember extends Component
             session()->flash('message', 'The group tour is not available.');
         }
     }
-
-    public function show()
+    public function deleteTour($tourId)
     {
-        UserTour::all();
+        // Get the logged-in user ID
+        $userId = Auth::id();
+
+        // Check if the user tour exists for the provided tour ID
+        $userTour = UserTour::where('user_id', $userId)->where('tour_id', $tourId)->first();
+
+        if ($userTour) {
+            // Delete the user tour
+            $userTour->delete();
+
+            // Show a success message
+            session()->flash('message', 'You have successfully left the tour.');
+        } else {
+            // Show an error message if the user tour is not found
+            session()->flash('message', 'The user tour does not exist.');
+        }
     }
+
+    public function isUserTour($tourId)
+    {
+        $userId = Auth::id();
+
+        // Check if the user tour exists for the provided tour ID
+        return UserTour::where('user_id', $userId)->where('tour_id', $tourId)->exists();
+    }
+
+//    ppublic function show()
+//{
+//    $userId = Auth::id();
+//    $this->userTours = UserTour::with('groupTour.group', 'groupTour.gpx')->where('user_id', $userId)->get();
+//}
 
     public function mount()
     {
@@ -51,7 +82,7 @@ class GrouptourMember extends Component
 
     public function render()
     {
-        return view('livewire.grouptour-member',)->with('userTours', $this->userTours);
+        return view('livewire.grouptour-member',);
     }
 }
 
