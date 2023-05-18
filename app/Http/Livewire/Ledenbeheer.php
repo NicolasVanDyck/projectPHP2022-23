@@ -72,7 +72,7 @@ class Ledenbeheer extends Component
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
         ]);
-
+        $this->newUser = [];
         $this->setNewUser();
 
     }
@@ -127,16 +127,22 @@ class Ledenbeheer extends Component
     }
 
 //    Ander bericht dan SQL error als User gekoppeld is aan een order?
-
     public function deleteUser(User $user)
     {
         $user->delete();
     }
 
+//    public function updated($propertyName, $propertyValue)
+//    {
+//        if (in_array($propertyName, ['perPage']))
+//            $this->resetPage();
+//    }
+
 
     public function render()
     {
         $users = User::orderBy('is_admin', 'desc')->paginate($this->perPage);
+//        dd($users);
         return view('livewire.ledenbeheer', compact('users'));
     }
 }
