@@ -1,41 +1,51 @@
 <div>
-    <section
-            class="p-0 mb-4 flex flex-col gap-2">
-        <div class="p-4 flex justify-between items-start gap-4">
-            <div class="relative w-64">
-                <x-input id="newText" type="text" placeholder="New text"
-                         wire:model.defer="newText.location"
-
-                             class="w-full shadow-md placeholder-gray-300"/>
-                <x-input id="newText" type="text" placeholder="New text"
-                         wire:model.defer="newText.description"
-                         class="w-full shadow-md placeholder-gray-300"/>
-<x-button wire:click="createText">Nieuwe Text</x-button>
+    <div>
+        <form>
+            <div class="relative flex-auto p-4" data-te-modal-body-ref>
+                <x-label for="name" value="Naam"/>
+                <input id="newUser.name" type="text" name="name" placeholder="naam" wire:model.defer="newUser.name"
+                       required
+                       autofocus autocomplete="name" class="block mt-1 w-full"/>
+                <x-label for="username" value="Gebruikersnaam"/>
+                <input id="newUser.username" type="text" name="username" placeholder="gebruikersnaam"
+                       wire:model.defer="newUser.username" required autofocus autocomplete="username"
+                       class="block mt-1 w-full"/>
+                <x-label for="birthdate" value="Geboortedatum"/>
+                <input id="newUser.birthdate" type="date" name="birthdate" placeholder="geboortedatum"
+                       wire:model.defer="newUser.birthdate" required autofocus autocomplete="birthdate"
+                       class="block mt-1 w-full"/>
+                <x-label for="email" value="Email"/>
+                <input id="newUser.email" type="email" name="email" wire:model.defer="newUser.email" required autofocus
+                       autocomplete="email" class="block mt-1 w-full"/>
+                <x-label for="postal_code" value="Postcode"/>
+                <input id="newUser.postal_code" type="text" name="postal_code" placeholder="postcode"
+                       wire:model.defer="newUser.postal_code" required autofocus autocomplete="zipcode"
+                       class="block mt-1 w-full"/>
+                <x-label for="city" value="Stad"/>
+                <input id="newUser.city" type="text" name="city" placeholder="stad" wire:model.defer="newUser.city"
+                       required
+                       autofocus autocomplete="city" class="block mt-1 w-full"/>
+                <x-label for="address" value="Adres"/>
+                <input id="newUser.address" type="text" name="address" placeholder="adres"
+                       wire:model.defer="newUser.address" required autofocus autocomplete="address"
+                       class="block mt-1 w-full"/>
+                <x-label for="phone" value="Telefoonnummer"/>
+                <input id="newUser.phone_number" type="text" name="phone" placeholder="telefoonnummer"
+                       wire:model.defer="newUser.phone_number" required autofocus autocomplete="phone"
+                       class="block mt-1 w-full"/>
+                <x-label for="mobile" value="Mobiel nummer"/>
+                <input id="newUser.mobile_number" type="text" name="mobile" placeholder="mobiel nummer"
+                       wire:model.defer="newUser.mobile_number" required autofocus autocomplete="mobile"
+                       class="block mt-1 w-full"/>
+                <x-label for="password" value="Wachtwoord"/>
+                <input id="newUser.password" type="password" name="password" wire:model.defer="newUser.password"
+                       required
+                       autocomplete="new-password" class="block mt-1 w-full"/>
             </div>
-
-        </div>
-        <x-input-error for="newText" class="m-4 -mt-4 w-full"/>
-        <div
-                style="display: none"
-                class="text-sky-900 bg-sky-50 border-t p-4">
-            <list type="ul" class="list-outside mx-4 text-sm">
-                <li>
-                    <b>A new genre</b> can be added by typing in the input field and pressing <b>enter</b> or
-                    <b>tab</b>. Press <b>escape</b> to undo.
-                </li>
-                <li>
-                    <b>Edit a genre</b> by clicking the
-                    icon or by clicking on the genre name. Press <b>enter</b> to save, <b>escape</b> to undo.
-                </li>
-                <li>
-                    Clicking the
-                    icon will toggle this message on and off.
-                </li>
-            </list>
-        </div>
-    </section>
-
-    <section>
+            <x-button type="submit" wire:click="createUser()">Opslaan</x-button>
+        </form>
+    </div>
+    <div>
         <table class="text-center w-full border border-gray-300">
             <colgroup>
                 <col class="w-14">
@@ -45,40 +55,53 @@
             </colgroup>
             <thead>
             <tr class="bg-gray-100 text-gray-700 [&>th]:p-2 cursor-pointer">
-                <th>
-                    <span data-tippy-content="Order by id">#</span>
-
-                </th>
-                <th>
-                <span data-tippy-content="Order by # records">
-
-                </span>
-
-                </th>
+                <th>Naam</th>
+                <th>Gebruikersnaam</th>
+                <th>Verjaardag</th>
+                <th>E-mail</th>
+                <th>Postcode</th>
+                <th>Woonplaats</th>
+                <th>Adres</th>
+                <th>Telefoonnummer</th>
+                <th>GSM</th>
                 <th></th>
-                <th class="text-left">
-                    <span data-tippy-content="Order by genre">Text</span>
-
-                </th>
+                <th>Administrator</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($texts as $text)
-            <tr class="border-t border-gray-300 [&>td]:p-2">
-                <td>{{$text->id}}</td>
-                <td>{{$text->location}}</td>
-                <td>
 
-                    <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
-
-                    </div>
-                </td>
-                <td
-                        class="text-left cursor-pointer">{{$text->description}}
-                </td>
-            </tr>
+            @foreach($users as $user)
+                <tr class="border-t border-gray-300 [&>td]:p-2">
+                    <td>{{ $user->name }}</td>
+                    <td>{{$user->username}}</td>
+                    <td>{{$user->birthdate}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->postal_code}}</td>
+                    <td>{{$user->city}}</td>
+                    <td>{{$user->address}}</td>
+                    <td>{{$user->phone_number}}</td>
+                    <td>{{$user->mobile_number}}</td>
+                    <td>
+                        <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
+                            <x-button>
+                                Aanpassen
+                            </x-button>
+                            <x-button bgcolor="rood"
+                            wire:click="deleteUser({{$user->id}})">
+                                Verwijderen
+                            </x-button>
+                        </div>
+                    </td>
+                    @if($user->is_admin)
+                        <td class="whitespace-nowrap px-6 py-4 text-2xl text-black">&#x2713;</td>
+                    @else
+                        <td class="whitespace-nowrap px-6 py-4"></td>
+                    @endif
+                </tr>
             @endforeach
             </tbody>
+
         </table>
-    </section>
+
+    </div>
 </div>

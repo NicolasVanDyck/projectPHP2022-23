@@ -50,6 +50,44 @@
 {{--                                    </div>--}}
 {{--                                    <x-button type="submit" wire:click="createUser()">Opslaan</x-button>--}}
 {{--                                </form>--}}
+
+
+{{--                                @foreach($users as $user)--}}
+{{--                                        <tr--}}
+{{--                                                wire:key="user_{{ $user->id }}"--}}
+{{--                                                class="border-t border-gray-300 [&>td]:p-2">--}}
+{{--                                            <td>{{ $user->id }}</td>--}}
+{{--                                            <td>{{ $user->name }}</td>--}}
+{{--                                            <td>--}}
+{{--                                                @if($editUser['id'] !== $user->id)--}}
+{{--                                                    <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">--}}
+{{--                                                        <x-button--}}
+{{--                                                                wire:click="editExistingUser({{ $user->id }})"--}}
+{{--                                                                class="w-5 text-gray-300 hover:text-green-600"/>--}}
+{{--                                                        <x-button bgcolor="rood"--}}
+{{--                                                                class="w-5 text-gray-300 hover:text-red-600"/>--}}
+{{--                                                    </div>--}}
+{{--                                                @endif--}}
+{{--                                            </td>--}}
+{{--                                            @if($editUser['id'] !== $user->id)--}}
+{{--                                                <td--}}
+{{--                                                        class="text-left cursor-pointer">{{ $user->name }}--}}
+{{--                                                </td>--}}
+{{--                                            @else--}}
+{{--                                                <td>--}}
+{{--                                                    <div class="flex flex-col text-left">--}}
+{{--                                                        <x-input id="edit_{{ $user->id }}" type="text"--}}
+{{--                                                                     wire:model.defer="editUser.name"--}}
+{{--                                                                        wire:keydown.enter="updateUser({{ $user->id }})"--}}
+{{--                                                                     class="w-48"/>--}}
+{{--                                                        <x-input-error for="editUser.name" class="mt-2"/>--}}
+{{--                                                    </div>--}}
+{{--                                                </td>--}}
+{{--                                            @endif--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
+
+
                                 <!-- Button trigger modal -->
                                 <x-button type="button"
                                           data-te-toggle="modal"
@@ -76,7 +114,7 @@
                                 @foreach($users as $user)
 
                                     <tr
-                                            wire:key="user_{{$user->id}}"
+{{--                                            wire:key="user_{{$user->id}}"--}}
                                             class="border-b transition duration-300 ease-in-out hover:bg-white dark:border-neutral-500 dark:hover:bg-neutral-600">
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{$user->id}}</td>
                                         <td class="whitespace-nowrap px-6 py-4 w-[50%]">{{$user->name}}</td>
@@ -89,7 +127,6 @@
                                                     data-te-target="#aanpassenModal"
                                                     data-te-ripple-init
                                                     data-te-ripple-color="light"
-
                                             >
                                                     Aanpassen
                                             </x-button>
@@ -245,11 +282,14 @@
                 >
             <div
                     data-te-modal-dialog-ref
+                    wire:key="user_{{$user->id}}"
                     class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]">
+                @foreach($users as $user)
+                    @if($editUser['id'] == $user->id)
                 <div
                         class="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
                     <div
-                            wire:key="user_{{$user->id}}"
+
                             class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
                         <!--Modal title-->
                         <h5
@@ -279,9 +319,43 @@
                     </div>
 
                     <!--Modal body-->
-                    <div class="relative flex-auto p-4" data-te-modal-body-ref>
-
-                    </div>
+{{--                    Niet zichtbaar, werkt wel buiten de modal       --}}
+<div>
+{{--    @foreach($users as $user)--}}
+{{--        <tr--}}
+{{--                wire:key="user_{{ $user->id }}"--}}
+{{--                class="border-t border-gray-300 [&>td]:p-2">--}}
+{{--            <td>{{ $user->id }}</td>--}}
+{{--            <td>{{ $user->name }}</td>--}}
+{{--            <td>--}}
+{{--                @if($editUser['id'] !== $user->id)--}}
+{{--                    <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">--}}
+{{--                        <x-button--}}
+{{--                                wire:click="editExistingUser({{ $user->id }})"--}}
+{{--                                class="w-5 text-gray-300 hover:text-green-600"/>--}}
+{{--                        <x-button bgcolor="rood"--}}
+{{--                                  class="w-5 text-gray-300 hover:text-red-600"/>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--            </td>--}}
+{{--            @if($editUser['id'] !== $user->id)--}}
+{{--                <td--}}
+{{--                        class="text-left cursor-pointer">{{ $user->name }}--}}
+{{--                </td>--}}
+{{--            @else--}}
+{{--                <td>--}}
+{{--                    <div class="flex flex-col text-left">--}}
+{{--                        <x-input id="edit_{{ $user->id }}" type="text"--}}
+{{--                                 wire:model.defer="editUser.name"--}}
+{{--                                 wire:keydown.enter="updateUser({{ $user->id }})"--}}
+{{--                                 class="w-48"/>--}}
+{{--                        <x-input-error for="editUser.name" class="mt-2"/>--}}
+{{--                    </div>--}}
+{{--                </td>--}}
+{{--            @endif--}}
+{{--        </tr>--}}
+{{--    @endforeach--}}
+</div>
 
                     <!--Modal footer-->
                     <div
@@ -302,6 +376,8 @@
                         </x-button>
                     </div>
                 </div>
+                    @endif
+                @endforeach
             </div>
         </div>
 

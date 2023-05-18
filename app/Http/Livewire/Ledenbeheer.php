@@ -15,19 +15,7 @@ class Ledenbeheer extends Component
     public $perPage = 8;
 
 
-    public $newUser =
-    [
-        'name' => null,
-        'username' => null,
-        'birthdate' => null,
-        'email' => null,
-        'postal_code' => null,
-        'city' => null,
-        'address' => null,
-        'phone_number' => null,
-        'mobile_number' => null,
-        'password' => null,
-    ];
+    public $newUser;
 
     public $editUser = [
         'id' => null,
@@ -43,26 +31,47 @@ class Ledenbeheer extends Component
         'password' => null,
     ];
 
-    protected $rules = [
-      'newUser.name' => 'required',
-        'newUser.username' => 'required|min:5|max:30|unique:users,username',
-        'newUser.birthdate' => 'required',
-        'newUser.email' => 'required|email|unique:users,email',
-        'newUser.postal_code' => 'required',
-        'newUser.city' => 'required',
-        'newUser.address' => 'required',
-        'newUser.phone_number' => 'nullable',
-        'newUser.mobile_number' => 'nullable|unique:users,mobile_number',
-        'newUser.password' => 'required|min:8',
+    protected function rules()
+    {
+        return [
+            'newUser.name' => 'required|string|max:255',
+            'newUser.username' => 'required|alpha_dash|max:255|unique:users,username',
+            'newUser.birthdate' => 'required',
+            'newUser.email' => 'required|email|max:255|unique:users,email',
+            'newUser.postal_code' => 'required|digits:4',
+            'newUser.city' => 'required|string|max:255',
+            'newUser.address' => 'required|string|max:255',
+            'newUser.phone_number' => 'nullable|digits:9',
+            'newUser.mobile_number' => 'nullable|digits:10',
+            'newUser.password' => 'required|min:8',
+        ];
+    }
+
+
+
+    protected $messages = [
+        'name.required' => 'Dit veld mag niet leeg zijn.',
+        'birthdate.required' => 'Dit veld mag niet leeg zijn.',
+        'birthdate.date_format' => 'Dit veld moet een geldige geboortedatum bevatten.',
+        'username.required' => 'Dit veld mag niet leeg zijn.',
+        'email.required' => 'Dit veld mag niet leeg zijn.',
+        'email.email' => 'Dit veld moet een geldig e-mailadres bevatten.',
+        'address.required' => 'Dit veld mag niet leeg zijn.',
+        'postal_code.required' => 'Dit veld mag niet leeg zijn.',
+        'postal_code.digits' => 'Dit veld moet een geldige postcode bevatten.',
+        'phone_number.digits' => 'Dit veld moet een geldig telefoonnummer bevatten.',
+        'mobile_number.digits' => 'Dit veld moet een geldig gsm-nummer bevatten.',
+        'password.required' => 'Dit veld mag niet leeg zijn.',
     ];
+
+
 
     public function createUser()
     {
-        $this->validate();
-
+        $this->validateOnly('newUser');
         User::create([
-            'name' => trim($this->newUser['name']),
-            'username' => trim($this->newUser['username']),
+            'name' => $this->newUser['name'],
+            'username' => $this->newUser['username'],
             'birthdate' => $this->newUser['birthdate'],
             'email' => $this->newUser['email'],
             'postal_code' => $this->newUser['postal_code'],
@@ -72,8 +81,7 @@ class Ledenbeheer extends Component
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
         ]);
-        $this->newUser = [];
-        $this->setNewUser();
+
 
     }
 
@@ -89,8 +97,8 @@ class Ledenbeheer extends Component
             $this->newUser['postal_code'] = $user->postal_code;
             $this->newUser['city'] = $user->city;
             $this->newUser['address'] = $user->address;
-            $this->newUser['phone_number'] = $user->phone_number;
-            $this->newUser['mobile_number'] = $user->mobile_number;
+//            $this->newUser['phone_number'] = $user->phone_number;
+//            $this->newUser['mobile_number'] = $user->mobile_number;
             $this->newUser['password'] = $user->password;
         } else {
             $this->reset('newUser');
@@ -122,7 +130,8 @@ class Ledenbeheer extends Component
     }
 
     public function updateUser(User $user) {
-        $this->validate();
+        $this->validateOnly('editUser.name');
+        $user->update(['name' => trim($this->editUser['name'])]);
         $this->resetEditUser();
     }
 
