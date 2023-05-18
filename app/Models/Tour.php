@@ -10,12 +10,6 @@ class Tour extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-//        'route_id', deze er ook bij??
-        'start_date',
-        'end_date',
-    ];
-
     public function tourable()
     {
         return $this->morphTo();
@@ -31,35 +25,35 @@ class Tour extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function startLocation()
-    {
-        return Attribute::make(
-            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->start_location,
-        );
-    }
-
-    public function endLocation()
-    {
-        return Attribute::make(
-            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->end_location,
-        );
-    }
-
-
-    protected function amountOfKm(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->amount_of_km,
-        );
-    }
-
-    protected function routeName(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
-        );
-    }
-
-
-    protected $appends = ['start_location','end_location','amount_of_km','name'];
+//    public function startLocation()
+//    {
+//        return Attribute::make(
+//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->start_location,
+//        );
+//    }
+//
+//    public function endLocation()
+//    {
+//        return Attribute::make(
+//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->end_location,
+//        );
+//    }
+//
+//
+//    protected function amountOfKm(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->amount_of_km,
+//        );
+//    }
+//
+//    protected function routeName(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
+//        );
+//    }
+//
+//
+//    protected $appends = ['start_location','end_location','amount_of_km','name'];
 }

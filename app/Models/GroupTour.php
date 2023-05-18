@@ -19,7 +19,7 @@ class GroupTour extends Model
     protected function groupName(): Attribute
     {
         return Attribute::make(
-            get: fn($value, $attributes) => Group::find($attributes['group_id'])->name,
+            get: fn($value, $attributes) => Group::find($attributes['group_id'])->group,
         );
     }
 
