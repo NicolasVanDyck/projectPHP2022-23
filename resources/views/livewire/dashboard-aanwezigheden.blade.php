@@ -1,15 +1,19 @@
+<div>
     <h3 class="font-bold underline">Aanwezige ritten:</h3>
     @foreach($aanwezigheden as $aanwezigheid)
-        @if(Auth::user()->id == $aanwezigheid->user_id)
+        @foreach($starturen as $startuur)
+        @if(Auth::user()->id == $aanwezigheid->user_id && $aanwezigheid->tour_id == $startuur->tour_id)
             <p>Vertrek om:</p>
-            <p>{{$aanwezigheid->start_date}}</p>
+                        <p>{{$startuur->start_date}}</p>
             @foreach($tours as $tour)
-                @foreach($routes as $route)
-                    @if($tour->id == $aanwezigheid->tour_id && $tour->route_id == $route->id)
-                        <p>Van: {{$route->start_location}}</p>
-                        <p class="mb-4">Naar: {{$route->end_location}}</p>
+                @foreach($gpxes as $gpx)
+                    @if($tour->id == $aanwezigheid->tour_id && $tour->g_p_x_id == $gpx->id)
+                        <p>Van: {{$gpx->start_location}}</p>
+                        <p class="mb-4">Naar: {{$gpx->end_location}}</p>
                     @endif
                 @endforeach
             @endforeach
         @endif
     @endforeach
+        @endforeach
+</div>
