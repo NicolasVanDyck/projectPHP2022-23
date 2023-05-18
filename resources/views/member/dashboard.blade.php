@@ -128,7 +128,7 @@
         {{--                </div>--}}
         <div class="flex flex-col row-span-3 rounded-lg">
             <div class="px-6 py-5 font-semibold border-b border-gray-100">Kalender</div>
-            <livewire:activities/>
+            @livewire('activities')
         </div>
     </section>
     </section>
