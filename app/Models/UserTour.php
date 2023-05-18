@@ -10,7 +10,7 @@ class UserTour extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['user_id', 'tour_id', 'group_tour_id'];
 
     public function user()
     {
