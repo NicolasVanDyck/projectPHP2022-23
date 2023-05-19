@@ -27,7 +27,7 @@ class UserTour extends Model
     }
     public function groupTour()
     {
-        return $this->belongsTo(GroupTour::class)->withDefault();
+        return $this->belongsTo(GroupTour::class);
     }
 
 }
