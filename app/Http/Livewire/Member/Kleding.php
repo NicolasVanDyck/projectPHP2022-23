@@ -107,7 +107,37 @@ class Kleding extends Component
      */
     public function getTotalForProduct($productId): int
     {
-        return $this->amounts[$productId] * $this->products->where('id', $productId)->first()->price;
+////        dd($productId);
+//        // Get the price from the products table:
+//        $price = Product::select('price')->where('id', $productId)->get()->first()->price;
+////        dd($price);
+//
+//        return $this->amounts[$productId] * $price;
+
+        if (isset($this->amounts[$productId])) {
+            $amount = $this->amounts[$productId];
+            $price = Product::select('price')->where('id', $productId)->value('price');
+//            dd($amount, $price);
+            return $amount * $price;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Get the total price of the order/selected products.
+     *
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        $total = 0;
+        foreach ($this->products as $product)
+        {
+            $total += $this->getTotalForProduct($product->id);
+        }
+
+        return $total;
     }
 
     /**
@@ -167,6 +197,17 @@ class Kleding extends Component
                     ->value('id');
 
                 $selectedAmount = $this->getAmount($productId);
+
+                if (empty($selectedSize) && empty($selectedAmount)) {
+                    session()->flash('message', 'Selecteer een maat en geef een hoeveelheid op voor het product.');
+                    return;
+                } elseif (empty($selectedSize)) {
+                    session()->flash('message', 'Selecteer een maat voor het product.');
+                    return;
+                } elseif (empty($selectedAmount)) {
+                    session()->flash('message', 'Geef een hoeveelheid op voor het product.');
+                    return;
+                }
 
                 $this->updateOrder($selectedProductSize, $selectedAmount);
             } else {

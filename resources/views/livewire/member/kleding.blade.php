@@ -1,6 +1,11 @@
 <div>
     {{-- Do your work, then step back. --}}
     {{--Display all the products in a form--}}
+    @if (session()->has('message'))
+        <div class="bg-green-200 text-2xl">
+            {{ session('message') }}
+        </div>
+    @endif
     <form wire:submit.prevent="submitForm">
         <table>
             <thead>
@@ -29,7 +34,7 @@
                             <input type="number" min="0" max="10" value="{{ $amounts[$product->id] ?? 0 }}" wire:model.debounce.500ms="amounts.{{ $product->id }}">
                         </td>
                         <td>
-                            €{{ $this->getTotalForProduct($product->id) }}
+                            €{{ $this->getTotalForProduct($product->id) ?? 0}}
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +49,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4" class="text-right">Totaal</td>
-                    <td>€PLACEHOLDER</td>
+                    <td>€{{ $this->getTotal() }}</td>
                     {{--TODO make a function for the grand total price. Probably have to put that somewhere too, and adjust the getTotalForProductFunction. :)--}}
                 </tr>
         </table>
