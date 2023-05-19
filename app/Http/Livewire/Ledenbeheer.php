@@ -47,6 +47,22 @@ class Ledenbeheer extends Component
         ];
     }
 
+    protected $validationAttributes = [
+        'newUser.postal_code' => 'postal code',
+    ];
+
+//    protected $rules = [
+//        'newUser.name' => 'required|string|max:255',
+//        'newUser.username' => 'required|alpha_dash|max:255|unique:users,username',
+//        'newUser.birthdate' => 'required',
+//        'newUser.email' => 'required|email|max:255|unique:users,email',
+//        'newUser.postal_code' => 'required|digits:4',
+//        'newUser.city' => 'required|string|max:255',
+//        'newUser.address' => 'required|string|max:255',
+//        'newUser.phone_number' => 'nullable|digits:9',
+//        'newUser.mobile_number' => 'nullable|digits:10',
+//        'newUser.password' => 'required|min:8',
+//    ];
 
 
     protected $messages = [
@@ -64,11 +80,9 @@ class Ledenbeheer extends Component
         'password.required' => 'Dit veld mag niet leeg zijn.',
     ];
 
-
-
     public function createUser()
     {
-        $this->validateOnly('newUser');
+        $validateData = $this->validate();
         User::create([
             'name' => $this->newUser['name'],
             'username' => $this->newUser['username'],
@@ -81,29 +95,24 @@ class Ledenbeheer extends Component
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
         ]);
-
-
     }
 
-    public function setNewUser(User $user = null)
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
+    public function resetNewUser()
+    {
+        $this->reset('newUser');
+        $this->resetErrorBag();
+    }
+
+    public function setNewUser()
     {
         $this->resetErrorBag();
-        if($user) {
-            $this->newUser['id'] = $user->id;
-            $this->newUser['name'] = $user->name;
-            $this->newUser['username'] = $user->username;
-            $this->newUser['birthdate'] = $user->birthdate;
-            $this->newUser['email'] = $user->email;
-            $this->newUser['postal_code'] = $user->postal_code;
-            $this->newUser['city'] = $user->city;
-            $this->newUser['address'] = $user->address;
-//            $this->newUser['phone_number'] = $user->phone_number;
-//            $this->newUser['mobile_number'] = $user->mobile_number;
-            $this->newUser['password'] = $user->password;
-        } else {
-            $this->reset('newUser');
-        }
-
+        $this->reset('newUser');
+        $this->showModal = true;
     }
 
     public function editExistingUser(User $user)

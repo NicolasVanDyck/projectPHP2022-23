@@ -10,6 +10,12 @@ class AdminLeden extends Component
 
     public $newUser;
 
+    public $perPage = 7;
+
+    public $selectedUser;
+
+    public $showModal = false;
+
     protected function rules()
 {
     return [
@@ -26,9 +32,25 @@ class AdminLeden extends Component
     ];
     }
 
+    protected $messages = [
+        'newUser.name.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.birthdate.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.birthdate.date_format' => 'Dit veld moet een geldige geboortedatum bevatten.',
+        'newUser.username.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.email.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.email.email' => 'Dit veld moet een geldig e-mailadres bevatten.',
+        'newUser.address.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.city.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.postal_code.required' => 'Dit veld mag niet leeg zijn.',
+        'newUser.postal_code.digits' => 'Dit veld moet een geldige postcode bevatten.',
+        'newUser.phone_number.digits' => 'Dit veld moet een geldig telefoonnummer bevatten.',
+        'newUser.mobile_number.digits' => 'Dit veld moet een geldig gsm-nummer bevatten.',
+        'newUser.password.required' => 'Dit veld mag niet leeg zijn.',
+    ];
+
     public function createUser()
     {
-        $this->validateOnly('newUser');
+        $this->validate();
         User::create([
             'name' => $this->newUser['name'],
             'username' => $this->newUser['username'],
@@ -41,8 +63,18 @@ class AdminLeden extends Component
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
         ]);
+    }
 
+    public function setNewUser()
+    {
+        $this->resetErrorBag();
+        $this->reset('newUser');
+        $this->showModal = true;
+    }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function deleteUser(User $user)
@@ -50,9 +82,20 @@ class AdminLeden extends Component
         $user->delete();
     }
 
+
+
+    public function showTracks(User $user)
+    {
+        $this->selectedUser = $user;
+        $this->showModal = true;
+//        dump($this->selectedRecord->toArray());
+    }
+
     public function render()
     {
-        $users = User::orderBy('is_admin', 'desc')->orderBy('name')->get();
+        $users = User::orderBy('is_admin', 'desc')
+            ->orderBy('name')->paginate($this->perPage);
         return view('livewire.admin-leden', compact('users'));
     }
+
 }

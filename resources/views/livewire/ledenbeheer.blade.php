@@ -6,52 +6,99 @@
                     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <div class="flex justify-evenly">
-{{--                                <form>--}}
-{{--                                    <div class="relative flex-auto p-4" data-te-modal-body-ref>--}}
-{{--                                        <x-label for="name" value="Naam"/>--}}
-{{--                                        <input id="newUser.name" type="text" name="name" placeholder="naam" wire:model.defer="newUser.name"--}}
-{{--                                               required--}}
-{{--                                               autofocus autocomplete="name" class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="username" value="Gebruikersnaam"/>--}}
-{{--                                        <input id="newUser.username" type="text" name="username" placeholder="gebruikersnaam"--}}
-{{--                                               wire:model.defer="newUser.username" required autofocus autocomplete="username"--}}
-{{--                                               class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="birthdate" value="Geboortedatum"/>--}}
-{{--                                        <input id="newUser.birthdate" type="date" name="birthdate" placeholder="geboortedatum"--}}
-{{--                                               wire:model.defer="newUser.birthdate" required autofocus autocomplete="birthdate"--}}
-{{--                                               class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="email" value="Email"/>--}}
-{{--                                        <input id="newUser.email" type="email" name="email" wire:model.defer="newUser.email" required autofocus--}}
-{{--                                               autocomplete="email" class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="postal_code" value="Postcode"/>--}}
-{{--                                        <input id="newUser.postal_code" type="text" name="postal_code" placeholder="postcode"--}}
-{{--                                               wire:model.defer="newUser.postal_code" required autofocus autocomplete="zipcode"--}}
-{{--                                               class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="city" value="Stad"/>--}}
-{{--                                        <input id="newUser.city" type="text" name="city" placeholder="stad" wire:model.defer="newUser.city"--}}
-{{--                                               required--}}
-{{--                                               autofocus autocomplete="city" class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="address" value="Adres"/>--}}
-{{--                                        <input id="newUser.address" type="text" name="address" placeholder="adres"--}}
-{{--                                               wire:model.defer="newUser.address" required autofocus autocomplete="address"--}}
-{{--                                               class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="phone" value="Telefoonnummer"/>--}}
-{{--                                        <input id="newUser.phone" type="text" name="phone" placeholder="telefoonnummer"--}}
-{{--                                               wire:model.defer="newUser.phone_number" required autofocus autocomplete="phone"--}}
-{{--                                               class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="mobile" value="Mobiel nummer"/>--}}
-{{--                                        <input id="newUser.mobile" type="text" name="mobile" placeholder="mobiel nummer"--}}
-{{--                                               wire:model.defer="newUser.mobile_number" required autofocus autocomplete="mobile"--}}
-{{--                                               class="block mt-1 w-full"/>--}}
-{{--                                        <x-label for="password" value="Wachtwoord"/>--}}
-{{--                                        <input id="newUser.password" type="password" name="password" wire:model.defer="newUser.password"--}}
-{{--                                               required--}}
-{{--                                               autocomplete="new-password" class="block mt-1 w-full"/>--}}
-{{--                                    </div>--}}
-{{--                                    <x-button type="submit" wire:click="createUser()">Opslaan</x-button>--}}
-{{--                                </form>--}}
+                                <form>
+                                    <div class="relative flex-auto p-4" data-te-modal-body-ref>
+                                        @if($errors->any())
+                                        @endif
+                                        <div>
+                                            <x-label for="name" value="Naam"/>
+                                            <x-input id="newUser.name" type="text" name="name" placeholder="naam"
+                                                     wire:model.defer="newUser.name"
+                                                     required
+                                                     autofocus autocomplete="name" class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.name" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="username" value="Gebruikersnaam"/>
+                                            <x-input id="newUser.username" type="text" name="username"
+                                                     placeholder="gebruikersnaam"
+                                                     wire:model.defer="newUser.username" required autofocus
+                                                     autocomplete="username"
+                                                     class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.username" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="birthdate" value="Geboortedatum"/>
+                                            <x-input id="newUser.birthdate" type="date" name="birthdate"
+                                                     placeholder="geboortedatum"
+                                                     wire:model.defer="newUser.birthdate" required autofocus
+                                                     autocomplete="birthdate"
+                                                     class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.birthdate" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="email" value="Email"/>
+                                            <x-input id="newUser.email" type="email" name="email"
+                                                     wire:model.defer="newUser.email" required autofocus
+                                                     autocomplete="email" class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.email" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="postal_code" value="Postcode"/>
+                                            <x-input id="newUser.postal_code" type="text" name="postal_code"
+                                                     placeholder="postcode"
+                                                     wire:model.defer="newUser.postal_code" required autofocus
+                                                     autocomplete="zipcode"
+                                                     class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.postal_code" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="city" value="Stad"/>
+                                            <x-input id="newUser.city" type="text" name="city" placeholder="stad"
+                                                     wire:model.defer="newUser.city"
+                                                     required
+                                                     autofocus autocomplete="city" class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.city" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="address" value="Adres"/>
+                                            <x-input id="newUser.address" type="text" name="address" placeholder="adres"
+                                                     wire:model.defer="newUser.address" required autofocus
+                                                     autocomplete="address"
+                                                     class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.address" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="phone_number" value="Telefoonnummer"/>
+                                            <x-input id="newUser.phone_number" type="text" name="phone"
+                                                     placeholder="telefoonnummer"
+                                                     wire:model.defer="newUser.phone_number" required autofocus
+                                                     autocomplete="phone"
+                                                     class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.phone" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="mobile_number" value="Mobiel nummer"/>
+                                            <x-input id="newUser.mobile_number" type="text" name="mobile"
+                                                     placeholder="mobiel nummer"
+                                                     wire:model.defer="newUser.mobile_number" required autofocus
+                                                     autocomplete="mobile"
+                                                     class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.mobile_number" class="mt-2"/>
+                                        </div>
+                                        <div>
+                                            <x-label for="password" value="Wachtwoord"/>
+                                            <x-input id="newUser.password" type="password" name="password"
+                                                     wire:model.defer="newUser.password"
+                                                     required
+                                                     autocomplete="new-password" class="block mt-1 w-full"/>
+                                            <x-input-error for="newUser.password" class="mt-2"/>
+                                        </div>
+                                    </div>
+                                    <x-button type="submit" wire:click="createUser()">Opslaan</x-button>
+                                </form>
 
-
+{{--        Werkt half se gat...    --}}
 {{--                                @foreach($users as $user)--}}
 {{--                                        <tr--}}
 {{--                                                wire:key="user_{{ $user->id }}"--}}
@@ -94,7 +141,7 @@
                                           data-te-target="#nieuwLidModal"
                                           data-te-ripple-init
                                           data-te-ripple-color="light"
-{{--                                          wire:click="setNewUser()"--}}
+                                          wire:click="setNewUser()"
                                 >Lid toevoegen
                                 </x-button>
                                 <div>{{$users->links()}}</div>
@@ -198,65 +245,106 @@
                     </div>
 
                     <!--Modal body-->
-                    <form>
-                    <div class="relative flex-auto p-4" data-te-modal-body-ref>
-                            <x-label for="name" value="Naam"/>
-                            <input id="newUser.name" type="text" name="name" placeholder="naam"
-                                   wire:model.defer="newUser.name"
-                                   required
-                                   autofocus autocomplete="name" class="block mt-1 w-full"/>
-                            <x-label for="username" value="Gebruikersnaam"/>
-                            <input id="newUser.username" type="text" name="username" placeholder="gebruikersnaam"
-                                   wire:model.defer="newUser.username" required autofocus autocomplete="username"
-                                   class="block mt-1 w-full"/>
-                            <x-label for="birthdate" value="Geboortedatum"/>
-                            <input id="newUser.birthdate" type="date" name="birthdate" placeholder="geboortedatum"
-                                   wire:model.defer="newUser.birthdate" required autofocus autocomplete="birthdate"
-                                   class="block mt-1 w-full"/>
-                            <x-label for="email" value="Email"/>
-                            <input id="newUser.email" type="email" name="email" wire:model.defer="newUser.email"
-                                   required autofocus
-                                   autocomplete="email" class="block mt-1 w-full"/>
-                            <x-label for="postal_code" value="Postcode"/>
-                            <input id="newUser.postal_code" type="text" name="postal_code" placeholder="postcode"
-                                   wire:model.defer="newUser.postal_code" required autofocus autocomplete="zipcode"
-                                   class="block mt-1 w-full"/>
-                            <x-label for="city" value="Stad"/>
-                            <input id="newUser.city" type="text" name="city" placeholder="stad"
-                                   wire:model.defer="newUser.city"
-                                   required
-                                   autofocus autocomplete="city" class="block mt-1 w-full"/>
-                            <x-label for="address" value="Adres"/>
-                            <input id="newUser.address" type="text" name="address" placeholder="adres"
-                                   wire:model.defer="newUser.address" required autofocus autocomplete="address"
-                                   class="block mt-1 w-full"/>
-                            <x-label for="phone" value="Telefoonnummer"/>
-                            <input id="newUser.phone" type="text" name="phone" placeholder="telefoonnummer"
-                                   wire:model.defer="newUser.phone_number" required autofocus autocomplete="phone"
-                                   class="block mt-1 w-full"/>
-                            <x-label for="mobile" value="Mobiel nummer"/>
-                            <input id="newUser.mobile" type="text" name="mobile" placeholder="mobiel nummer"
-                                   wire:model.defer="newUser.mobile_number" required autofocus autocomplete="mobile"
-                                   class="block mt-1 w-full"/>
-                            <x-label for="password" value="Wachtwoord"/>
-                            <input id="newUser.password" type="password" name="password"
-                                   wire:model.defer="newUser.password"
-                                   required
-                                   autocomplete="new-password" class="block mt-1 w-full"/>
-                    </div>
-
-                </form>
+                        <div class="relative flex-auto p-4" data-te-modal-body-ref>
+                            @if($errors->any())
+                            @endif
+                            <div>
+                                <x-label for="name" value="Naam"/>
+                                <x-input id="newUser.name" type="text" name="name" placeholder="naam"
+                                         wire:model.defer="newUser.name"
+                                         required
+                                         autofocus autocomplete="name" class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.name" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="username" value="Gebruikersnaam"/>
+                                <x-input id="newUser.username" type="text" name="username"
+                                         placeholder="gebruikersnaam"
+                                         wire:model.defer="newUser.username" required autofocus
+                                         autocomplete="username"
+                                         class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.username" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="birthdate" value="Geboortedatum"/>
+                                <x-input id="newUser.birthdate" type="date" name="birthdate"
+                                         placeholder="geboortedatum"
+                                         wire:model.defer="newUser.birthdate" required autofocus
+                                         autocomplete="birthdate"
+                                         class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.birthdate" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="email" value="Email"/>
+                                <x-input id="newUser.email" type="email" name="email"
+                                         wire:model.defer="newUser.email" required autofocus
+                                         autocomplete="email" class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.email" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="postal_code" value="Postcode"/>
+                                <x-input id="newUser.postal_code" type="text" name="postal_code"
+                                         placeholder="postcode"
+                                         wire:model.defer="newUser.postal_code" required autofocus
+                                         autocomplete="zipcode"
+                                         class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.postal_code" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="city" value="Stad"/>
+                                <x-input id="newUser.city" type="text" name="city" placeholder="stad"
+                                         wire:model.defer="newUser.city"
+                                         required
+                                         autofocus autocomplete="city" class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.city" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="address" value="Adres"/>
+                                <x-input id="newUser.address" type="text" name="address" placeholder="adres"
+                                         wire:model.defer="newUser.address" required autofocus
+                                         autocomplete="address"
+                                         class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.address" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="phone_number" value="Telefoonnummer"/>
+                                <x-input id="newUser.phone_number" type="text" name="phone"
+                                         placeholder="telefoonnummer"
+                                         wire:model.defer="newUser.phone_number" required autofocus
+                                         autocomplete="phone"
+                                         class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.phone" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="mobile_number" value="Mobiel nummer"/>
+                                <x-input id="newUser.mobile_number" type="text" name="mobile"
+                                         placeholder="mobiel nummer"
+                                         wire:model.defer="newUser.mobile_number" required autofocus
+                                         autocomplete="mobile"
+                                         class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.mobile_number" class="mt-2"/>
+                            </div>
+                            <div>
+                                <x-label for="password" value="Wachtwoord"/>
+                                <x-input id="newUser.password" type="password" name="password"
+                                         wire:model.defer="newUser.password"
+                                         required
+                                         autocomplete="new-password" class="block mt-1 w-full"/>
+                                <x-input-error for="newUser.password" class="mt-2"/>
+                            </div>
+                        </div>
                     <!--Modal footer-->
                     <div
                             class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
                         <x-button
-                                type="submit"
+                                type="button"
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
-                                wire:click="createUser()">
+                                wire:click="createUser()"
+                                wire:loading.attr="disabled"
+                        >
                             Aanmaken
                         </x-button>
-{{--                        <x-button type="submit" wire:click="createUser()">Opslaan</x-button>--}}
                         <x-button
                                 bgcolor="rood"
                                 type="button"
@@ -321,40 +409,40 @@
                     <!--Modal body-->
 {{--                    Niet zichtbaar, werkt wel buiten de modal       --}}
 <div>
-{{--    @foreach($users as $user)--}}
-{{--        <tr--}}
-{{--                wire:key="user_{{ $user->id }}"--}}
-{{--                class="border-t border-gray-300 [&>td]:p-2">--}}
-{{--            <td>{{ $user->id }}</td>--}}
-{{--            <td>{{ $user->name }}</td>--}}
-{{--            <td>--}}
-{{--                @if($editUser['id'] !== $user->id)--}}
-{{--                    <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">--}}
-{{--                        <x-button--}}
-{{--                                wire:click="editExistingUser({{ $user->id }})"--}}
-{{--                                class="w-5 text-gray-300 hover:text-green-600"/>--}}
-{{--                        <x-button bgcolor="rood"--}}
-{{--                                  class="w-5 text-gray-300 hover:text-red-600"/>--}}
-{{--                    </div>--}}
-{{--                @endif--}}
-{{--            </td>--}}
-{{--            @if($editUser['id'] !== $user->id)--}}
-{{--                <td--}}
-{{--                        class="text-left cursor-pointer">{{ $user->name }}--}}
-{{--                </td>--}}
-{{--            @else--}}
-{{--                <td>--}}
-{{--                    <div class="flex flex-col text-left">--}}
-{{--                        <x-input id="edit_{{ $user->id }}" type="text"--}}
-{{--                                 wire:model.defer="editUser.name"--}}
-{{--                                 wire:keydown.enter="updateUser({{ $user->id }})"--}}
-{{--                                 class="w-48"/>--}}
-{{--                        <x-input-error for="editUser.name" class="mt-2"/>--}}
-{{--                    </div>--}}
-{{--                </td>--}}
-{{--            @endif--}}
-{{--        </tr>--}}
-{{--    @endforeach--}}
+    @foreach($users as $user)
+        <tr
+                wire:key="user_{{ $user->id }}"
+                class="border-t border-gray-300 [&>td]:p-2">
+            <td>{{ $user->id }}</td>
+            <td>{{ $user->name }}</td>
+            <td>
+                @if($editUser['id'] !== $user->id)
+                    <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
+                        <x-button
+                                wire:click="editExistingUser({{ $user->id }})"
+                                class="w-5 text-gray-300 hover:text-green-600"/>
+                        <x-button bgcolor="rood"
+                                  class="w-5 text-gray-300 hover:text-red-600"/>
+                    </div>
+                @endif
+            </td>
+            @if($editUser['id'] !== $user->id)
+                <td
+                        class="text-left cursor-pointer">{{ $user->name }}
+                </td>
+            @else
+                <td>
+                    <div class="flex flex-col text-left">
+                        <x-input id="edit_{{ $user->id }}" type="text"
+                                 wire:model.defer="editUser.name"
+                                 wire:keydown.enter="updateUser({{ $user->id }})"
+                                 class="w-48"/>
+                        <x-input-error for="editUser.name" class="mt-2"/>
+                    </div>
+                </td>
+            @endif
+        </tr>
+    @endforeach
 </div>
 
                     <!--Modal footer-->
