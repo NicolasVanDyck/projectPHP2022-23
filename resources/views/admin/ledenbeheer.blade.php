@@ -4,7 +4,7 @@
 <x-slot name="description">Op deze pagina kan u als admin de leden beheren.</x-slot>
 
 <div>
-    @livewire('admin-leden')
+    @livewire('ledenbeheer')
 </div>
 
 
