@@ -34,7 +34,7 @@ class User extends Authenticatable
         'phone_number',
         'mobile_number',
         'password',
-
+        'is_admin'
     ];
 
     /**
@@ -47,6 +47,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+
     ];
 
     /**
