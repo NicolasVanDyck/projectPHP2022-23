@@ -1,10 +1,16 @@
 <div>
 
     {{-- Detail section --}}
-    <section class="mb-4 flex gap-2 justify-evenly">
+    <section class="mb-4 flex gap-2 justify-evenly items-center">
         <x-button wire:click="setNewUser()">
             Clublid toevoegen
         </x-button>
+        <div class="grow">
+            <x-input id="search" type="text" name="search"
+                     placeholder="Zoek een lid op naam of gebruikersnaam"
+                     wire:model.debounce.500ms="search"
+                     autofocus autocomplete="search" class="block mt-1 w-[80%] mx-auto"/>
+        </div>
         <div>{{$users->links()}}</div>
     </section>
 
@@ -19,17 +25,17 @@
             </colgroup>
             <thead>
             <tr class="bg-gray-100 text-gray-700 [&>th]:p-2 cursor-pointer">
-                <th>Naam</th>
-                <th>Gebruikersnaam</th>
-                <th>Verjaardag</th>
-                <th>E-mail</th>
-                <th>Postcode</th>
-                <th>Woonplaats</th>
-                <th>Adres</th>
-                <th>Telefoonnummer</th>
-                <th>GSM</th>
+                <th wire:click="resort('name')">Naam</th>
+                <th wire:click="resort('username')">Gebruikersnaam</th>
+                <th wire:click="resort('birthdate')">Verjaardag</th>
+                <th wire:click="resort('email')">E-mail</th>
+                <th wire:click="resort('postal_code')">Postcode</th>
+                <th wire:click="resort('city')">Woonplaats</th>
+                <th wire:click="resort('address')">Adres</th>
+                <th wire:click="resort('phone_number')">Telefoonnummer</th>
+                <th wire:click="resort('mobile_number')">GSM</th>
                 <th></th>
-                <th>Administrator</th>
+                <th wire:click="resort('is_admin')">Administrator</th>
             </tr>
             </thead>
             <tbody>
@@ -167,11 +173,11 @@
                 </div>
                     <div>
                         <x-label for="is_admin" value="Administrator"/>
-                        <x-input id="newUser.is_admin" type="checkbox"
-                                 wire:model="newUser.is_admin"
-                                 required
-                                 autocomplete="off" class="block mt-1"/>
-                        Admin?: {{var_export($newUser['is_admin'])}}
+                        <x-checkbox id="newUser.is_admin" type="checkbox"
+                                    wire:model="newUser.is_admin"
+{{--                                    required--}}
+                                    autocomplete="off" class="block mt-1"/>
+                        Admin: {{var_export($newUser['is_admin'])}}
                         <x-input-error for="newUser.is_admin" class="mt-2"/>
                     </div>
             </div>

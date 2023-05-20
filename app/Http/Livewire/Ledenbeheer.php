@@ -8,6 +8,11 @@ use App\Models\User;
 class Ledenbeheer extends Component
 {
 
+    public $search;
+
+    public $orderBy = 'name';
+    public $orderAsc = true;
+
     public $perPage = 10;
 
     public $is_admin = false;
@@ -145,11 +150,24 @@ class Ledenbeheer extends Component
         $user->delete();
     }
 
+    public function resort($column)
+    {
+        if ($this->orderBy === $column) {
+            $this->orderAsc = !$this->orderAsc;
+        } else {
+            $this->orderAsc = true;
+        }
+        $this->orderBy = $column;
+    }
+
 
     public function render()
     {
         $users = User::orderBy('is_admin', 'desc')
-            ->orderBy('name')->paginate($this->perPage);
+            ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+            ->where('name', 'like', "%{$this->search}%")
+            ->orWhere('username', 'like', "%{$this->search}%")
+            ->paginate($this->perPage);
         return view('livewire.ledenbeheer', compact('users'));
     }
 
