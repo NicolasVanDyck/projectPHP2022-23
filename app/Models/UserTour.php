@@ -29,5 +29,9 @@ class UserTour extends Model
     {
         return $this->belongsTo(GroupTour::class);
     }
+    public function gpx()
+    {
+        return $this->belongsTo(Gpx::class, 'gpx_id');
+    }
 
 }

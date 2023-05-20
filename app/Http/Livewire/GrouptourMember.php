@@ -12,52 +12,40 @@ use Livewire\Component;
 
 class GrouptourMember extends Component
 {
-    public $groupTours;
-     public $selectedTourId;
+    public $selectedTourId;
 
-    public function joinTour($groupTourId)
+    public function leaveTour($userTourId)
     {
-        // Get the logged-in user ID
-        $userId = auth()->user()->id;
+        // Find the user tour record by ID
+        $userTour = UserTour::find($userTourId);
 
-        // Assign the selected tour ID
-        $this->selectedTourId = $groupTourId;
-
-        // Check if the user is already joined to the selected tour
-        $userTour = UserTour::where('user_id', $userId)
-            ->where('tour_id', $this->selectedTourId)
-            ->first();
-
+        // Check if the user tour record exists
         if ($userTour) {
-            // Show an error message if the user is already joined
-            session()->flash('message', 'You have already joined this tour.');
-            return;
+            // Delete the user tour record
+            $userTour->delete();
+
+            // Show a success message
+            session()->flash('message', 'You have left the tour.');
         }
-
-
-        // Create a new user tour record
-        $userTour = new UserTour();
-        $userTour->user_id = $userId;
-        $userTour->tour_id = $this->selectedTourId;
-        $userTour->group_tour_id = $groupTourId; // Assign the group_tour_id value
-        $userTour->save();
-
-        // Show a success message
-        session()->flash('message', 'You have successfully joined the tour.');
-
-        // Reset the selected tour ID
-        $this->selectedTourId = null;
     }
 
     public function render()
     {
-        $groupTours = $this->getGroupTours();
         $userTours = $this->getUserTours();
+        $groupTours = $this->getGroupTours();
 
-        return view('livewire.grouptour-member', [
-            'groupTours' => $groupTours,
-            'userTours' => $userTours,
-        ]);
+        return view('livewire.grouptour-member', compact('userTours', 'groupTours'));
+    }
+
+    private function getUserTours()
+    {
+        // Get the logged-in user ID
+        $userId = Auth::id();
+
+        // Retrieve the user's registered tours
+        return UserTour::with('groupTour.gpx')
+            ->where('user_id', $userId)
+            ->get();
     }
 
     private function getGroupTours()
@@ -71,23 +59,29 @@ class GrouptourMember extends Component
             ->get();
     }
 
-    private function getUserTours()
+
+    public function joinTour()
     {
+        // Get the selected tour ID
+        $tourId = $this->selectedTourId;
+
         // Get the logged-in user ID
         $userId = Auth::id();
 
-        // Retrieve the user's registered tours
-        return UserTour::with(['groupTour.gpx', 'groupTour.tour'])
-            ->where('user_id', $userId)
-            ->get();
+        // Create a new user tour record
+        $userTour = new UserTour;
+        $userTour->user_id = $userId;
+        $userTour->group_tour_id = $tourId;
+        $userTour->save();
+
+        // Show a success message
+        session()->flash('message', 'You have joined the tour.');
+
+        // Reset the selected tour ID
+        $this->selectedTourId = null;
     }
 
 
-//    ppublic function show()
-//{
-//    $userId = Auth::id();
-//    $this->userTours = UserTour::with('groupTour.group', 'groupTour.gpx')->where('user_id', $userId)->get();
-//}
 
     public function mount()
     {
