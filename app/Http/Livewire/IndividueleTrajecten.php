@@ -3,17 +3,20 @@
 namespace App\Http\Livewire;
 
 use App\Models\GPX;
-use App\Models\User;
-use DirectoryIterator;
 use Livewire\Component;
-use phpGPX\phpGPX;
 use Storage;
 
 class IndividueleTrajecten extends Component
 {
 
+    public function delete($path)
+    {
+        $gpx = GPX::where('path', $path)->first();
+        $gpx->delete();
+        Storage::disk('public')->delete($path);
+    }
 
-    public function export($path)
+    public function download($path)
     {
 
         return Storage::disk('public')->download($path);
