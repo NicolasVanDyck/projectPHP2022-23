@@ -68,10 +68,14 @@ class GrouptourMember extends Component
         // Get the logged-in user ID
         $userId = Auth::id();
 
+        // Retrieve the selected tour based on the tour ID
+        $selectedTour = GroupTour::findOrFail($tourId);
+
         // Create a new user tour record
         $userTour = new UserTour;
         $userTour->user_id = $userId;
-        $userTour->group_tour_id = $tourId;
+        $userTour->group_tour_id = $selectedTour->id;
+        $userTour->tour_id = $selectedTour->tour_id;
         $userTour->save();
 
         // Show a success message
@@ -80,6 +84,7 @@ class GrouptourMember extends Component
         // Reset the selected tour ID
         $this->selectedTourId = null;
     }
+
 
 
 
