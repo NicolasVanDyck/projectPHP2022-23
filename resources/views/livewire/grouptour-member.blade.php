@@ -1,3 +1,4 @@
+<div>
 <div class="flex justify-center">
     <div class="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
         <h1 class="text-2xl font-bold mb-4 text-gray-900 text-center">Geregistreerde Groeps ritten</h1>
@@ -54,9 +55,7 @@
                         <p class="leading-relaxed text-lg mb-2" id="modal-end-date">Eind Datum: {{ $groupTour->end_date }}</p>
                         <p class="leading-relaxed text-lg mb-2" id="modal-amount-of-km">Hoeveel Km: {{ $groupTour->gpx->amount_of_km }}</p>
                         <div class="mt-4">
-                            <button class="inline-block w-full font-bold rounded bg-info px-6 text-center pb-2 pt-2.5 text-lg uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-md" wire:click="joinTour">
-                                Join Tour
-                            </button>
+                            <button class="inline-block w-full font-bold rounded bg-info px-6 text-center pb-2 pt-2.5 text-lg uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]" wire:click="joinTour({{ $groupTour->tour_id }})">Join Tour</button>
                         </div>
                     </div>
                 </div>
@@ -64,7 +63,7 @@
         </div>
     @endforeach
 </div>
-
+</div>
 
 
 

@@ -60,30 +60,32 @@ class GrouptourMember extends Component
     }
 
 
-    public function joinTour()
+    public function joinTour($tourId)
     {
-        // Get the selected tour ID
-        $tourId = $this->selectedTourId;
-
         // Get the logged-in user ID
         $userId = Auth::id();
 
-        // Retrieve the selected tour based on the tour ID
-        $selectedTour = GroupTour::findOrFail($tourId);
+        // Retrieve the group tour based on the provided tour ID
+        $groupTour = GroupTour::where('tour_id', $tourId)->first();
 
-        // Create a new user tour record
-        $userTour = new UserTour;
-        $userTour->user_id = $userId;
-        $userTour->group_tour_id = $selectedTour->id;
-        $userTour->tour_id = $selectedTour->tour_id;
-        $userTour->save();
+        if ($groupTour) {
+            // Store the data in the database
+            UserTour::create([
+                'user_id' => $userId,
+                'tour_id' => $groupTour->tour_id,
+                'group_tour_id' => $groupTour->id,
+            ]);
 
-        // Show a success message
-        session()->flash('message', 'You have joined the tour.');
-
-        // Reset the selected tour ID
-        $this->selectedTourId = null;
+            // Show a success message
+            session()->flash('message', 'You have joined the tour successfully.');
+        } else {
+            // Show an error message if the group tour is not found
+            session()->flash('message', 'The group tour is not available.');
+        }
     }
+
+
+
 
 
 
