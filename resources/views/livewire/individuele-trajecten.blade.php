@@ -1,10 +1,10 @@
 <div>
-    @foreach($fileArray as $file)
+    @foreach($trajecten as $traject)
         <x-wd_components.card-individuele-trajecten>
-            <x-slot:card_title>{{$file->tracks[0]->name}}</x-slot:card_title>
-            <x-slot:card_date>{{$file->metadata->time->format('d-m-Y')}}</x-slot:card_date>
-            <x-slot:card_distance>Afstand: {{round($file->tracks[0]->segments[0]->stats->distance/1000,2)}}KM
+            <x-slot:card_title>{{$traject->name}}</x-slot:card_title>
+            <x-slot:card_distance>Afstand: {{round($traject->amount_of_km/1000,2)}}KM
             </x-slot:card_distance>
+            <x-slot:card_user>Uploaded by: {{$traject->user->name}}</x-slot:card_user>
         </x-wd_components.card-individuele-trajecten>
     @endforeach
 </div>

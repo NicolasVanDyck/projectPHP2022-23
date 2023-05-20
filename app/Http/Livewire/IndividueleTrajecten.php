@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\GPX;
+use App\Models\User;
 use DirectoryIterator;
 use Livewire\Component;
 use phpGPX\phpGPX;
@@ -19,19 +21,11 @@ class IndividueleTrajecten extends Component
 
     public function render()
     {
-        $gpx = new phpGPX();
-        $fileArray = [];
 
-        $directory = Storage::files('public/gpx');
+        $trajecten = GPX::orderBy('name')->with('user')->get();
+//        dd($trajecten);
 
-        foreach ($directory as $file) {
-//            dd(Storage::url($file));
-            array_push($fileArray, $gpx->load('../storage/app/' . $file));
-        }
-//        $file = $gpx->load('../storage/app/public/gpx/Bokrijk 93 km.gpx');
-//        dd($testArray);
-//        dd($track->name);
 
-        return view('livewire.individuele-trajecten', compact('fileArray'));
+        return view('livewire.individuele-trajecten', compact('trajecten'));
     }
 }
