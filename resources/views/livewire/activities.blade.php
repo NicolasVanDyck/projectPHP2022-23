@@ -62,7 +62,7 @@
             </thead>
             <tbody>
             @forelse($activities as $activity)
-                <tr class="p-2">
+                <tr class="p-2 @if($loop->even) even:bg-gray-100 @else odd:bg-gray-200 @endif" onclick="openModal('{{ $activity->name }}', '{{ $activity->description }}')">
                     <td class="p-2">{{ $activity->name }}</td>
                     <td class="p-2 hidden md:table-cell">{{ $activity->description }}</td>
                     <td class="p-2">{{ date('d-m-Y', strtotime($activity->start_date)) }}</td>
@@ -78,11 +78,36 @@
                     <td class="p-2">Geen activiteiten gevonden</td>
                 </tr>
             @endforelse
-            {{--            {{ $activities->links() }}--}}
             </tbody>
+
+
         </table>
+        <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden px-4">
+            <div class="bg-white rounded-lg p-6">
+                <div class="flex justify-end">
+                    <button class="text-gray-500 hover:text-gray-700" onclick="closeModal()">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <h1 class="text-xl font-bold mb-4 text-center" id="modal-title"></h1>
+                <p class="leading-relaxed" id="modal-description"></p>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    function openModal(title, description) {
+        document.getElementById("modal").classList.remove("hidden");
+        document.getElementById("modal-title").textContent = title;
+        document.getElementById("modal-description").textContent = description;
+    }
+
+    function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+    }
+</script>
 
 
 
