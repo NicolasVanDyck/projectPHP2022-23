@@ -23,9 +23,9 @@
                 </div>
                 <x-button wire:click="download('{{$traject->path}}')">DOWNLOAD</x-button>
                 @if($traject->user->id == auth()->user()->id)
-                    <x-button
-                        x-data=""
-                        @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
+                    <x-button class="bg-danger"
+                              x-data=""
+                              @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
                     >DELETE
                     </x-button>
                 @endif
