@@ -1,8 +1,8 @@
 <div>
 
     {{-- Detail section --}}
-    <section class="mb-4 flex gap-2 justify-evenly items-center">
-        <x-button wire:click="setNewUser()">
+    <section class="mb-4 flex gap-2 justify-evenly items-center bg-white">
+        <x-button wire:click="setNewUser()" class="ml-5">
             Clublid toevoegen
         </x-button>
         <div class="grow">
@@ -11,20 +11,25 @@
                      wire:model.debounce.500ms="search"
                      autofocus autocomplete="search" class="block mt-1 w-[80%] mx-auto"/>
         </div>
-        <div>{{$users->links()}}</div>
+        <div class="mr-5">{{$users->links()}}</div>
     </section>
 
 
     <div>
-        <table class="text-center w-full border border-gray-300">
-            <colgroup>
-                <col class="w-14">
-                <col class="w-20">
-                <col class="w-16">
-                <col class="w-max">
-            </colgroup>
+        <table class="text-center border border-gray-300 mx-auto w-[95%]">
+{{--            Nog nuttig?? --}}
+{{--            <colgroup>--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--                <col class="w-10">--}}
+{{--            </colgroup>--}}
             <thead>
-            <tr class="bg-gray-100 text-gray-700 [&>th]:p-2 cursor-pointer">
+            <tr class="[&>th]:p-2 cursor-pointer bg-white">
                 <th wire:click="resort('name')">Naam</th>
                 <th wire:click="resort('username')">Gebruikersnaam</th>
                 <th wire:click="resort('birthdate')">Verjaardag</th>
@@ -32,8 +37,9 @@
                 <th wire:click="resort('postal_code')">Postcode</th>
                 <th wire:click="resort('city')">Woonplaats</th>
                 <th wire:click="resort('address')">Adres</th>
-                <th wire:click="resort('phone_number')">Telefoonnummer</th>
-                <th wire:click="resort('mobile_number')">GSM</th>
+{{--                Hidden, omdat anders niet alles op 1 scherm kan?--}}
+                <th wire:click="resort('phone_number')" class="lg:!hidden">Telefoonnummer</th>
+                <th wire:click="resort('mobile_number')" class="lg:!hidden">GSM</th>
                 <th></th>
                 <th wire:click="resort('is_admin')">Administrator</th>
             </tr>
@@ -41,7 +47,7 @@
             <tbody>
 
             @foreach($users as $user)
-                <tr class="border-t border-gray-300 [&>td]:p-2"
+                <tr class="border-t border-gray-300 [&>td]:p-2 hover:bg-white"
                 wire:key="user_{{$user->id}}">
                     <td>{{$user->name}}</td>
                     <td>{{$user->username}}</td>
@@ -50,8 +56,9 @@
                     <td>{{$user->postal_code}}</td>
                     <td>{{$user->city}}</td>
                     <td>{{$user->address}}</td>
-                    <td>{{$user->phone_number}}</td>
-                    <td>{{$user->mobile_number}}</td>
+{{--                    Hidden, anders alles niet op 1 scherm? --}}
+                    <td class="lg:!hidden">{{$user->phone_number}}</td>
+                    <td class="lg:!hidden">{{$user->mobile_number}}</td>
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
                             <x-button

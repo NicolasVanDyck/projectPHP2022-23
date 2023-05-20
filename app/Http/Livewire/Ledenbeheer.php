@@ -4,21 +4,15 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use Livewire\WithPagination;
 
 class Ledenbeheer extends Component
 {
-
+    use WithPagination;
     public $search;
-
     public $orderBy = 'name';
     public $orderAsc = true;
-
     public $perPage = 10;
-
-    public $is_admin = false;
-
-//    public $selectedUser;
-
     public $showModal = false;
 
     public $newUser = [
@@ -33,7 +27,7 @@ class Ledenbeheer extends Component
         'phone_number' => null,
         'mobile_number' => null,
         'password' => null,
-        'is_admin' => 0,
+        'is_admin' => false,
     ];
 
 
