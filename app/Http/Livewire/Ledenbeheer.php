@@ -10,6 +10,8 @@ class Ledenbeheer extends Component
 
     public $perPage = 10;
 
+    public $is_admin = false;
+
 //    public $selectedUser;
 
     public $showModal = false;
@@ -26,6 +28,7 @@ class Ledenbeheer extends Component
         'phone_number' => null,
         'mobile_number' => null,
         'password' => null,
+        'is_admin' => 0,
     ];
 
 
@@ -81,7 +84,7 @@ class Ledenbeheer extends Component
             'phone_number' => $this->newUser['phone_number'],
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
-//            'is_admin' => $this->newUser['is_admin'],
+            'is_admin' => $this->newUser['is_admin'],
         ]);
     }
 
@@ -100,6 +103,7 @@ class Ledenbeheer extends Component
             $this->newUser['phone_number'] = $user->phone_number;
             $this->newUser['mobile_number'] = $user->mobile_number;
             $this->newUser['password'] = $user->password;
+            $this->newUser['is_admin'] = $user->is_admin;
         } else {
             $this->reset('newUser');
         }
@@ -130,6 +134,7 @@ class Ledenbeheer extends Component
             'phone_number' => $this->newUser['phone_number'],
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
+            'is_admin' => $this->newUser['is_admin'],
         ]);
 
     }

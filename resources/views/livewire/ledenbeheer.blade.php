@@ -7,6 +7,71 @@
         </x-button>
         <div>{{$users->links()}}</div>
     </section>
+
+
+    <div>
+        <table class="text-center w-full border border-gray-300">
+            <colgroup>
+                <col class="w-14">
+                <col class="w-20">
+                <col class="w-16">
+                <col class="w-max">
+            </colgroup>
+            <thead>
+            <tr class="bg-gray-100 text-gray-700 [&>th]:p-2 cursor-pointer">
+                <th>Naam</th>
+                <th>Gebruikersnaam</th>
+                <th>Verjaardag</th>
+                <th>E-mail</th>
+                <th>Postcode</th>
+                <th>Woonplaats</th>
+                <th>Adres</th>
+                <th>Telefoonnummer</th>
+                <th>GSM</th>
+                <th></th>
+                <th>Administrator</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach($users as $user)
+                <tr class="border-t border-gray-300 [&>td]:p-2"
+                wire:key="user_{{$user->id}}">
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->username}}</td>
+                    <td>{{$user->birthdate}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->postal_code}}</td>
+                    <td>{{$user->city}}</td>
+                    <td>{{$user->address}}</td>
+                    <td>{{$user->phone_number}}</td>
+                    <td>{{$user->mobile_number}}</td>
+                    <td>
+                        <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
+                            <x-button
+                            wire:click="setNewUser({{$user->id}})">
+                                Aanpassen
+                            </x-button>
+                            <x-button bgcolor="rood"
+                                      x-data=""
+                                      @click="confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?') ? $wire.deleteUser({{$user->id}}) : ''"
+                            >
+                                Verwijderen
+                            </x-button>
+                        </div>
+                    </td>
+                    @if($user->is_admin)
+                        <td class="whitespace-nowrap px-6 py-4 text-2xl text-black">&#x2713;</td>
+                    @else
+                        <td class="whitespace-nowrap px-6 py-4"></td>
+                    @endif
+                </tr>
+            @endforeach
+            </tbody>
+
+        </table>
+
+    </div>
     <x-dialog-modal id="userModal"
                     wire:model="showModal">
         <x-slot name="title">
@@ -100,14 +165,15 @@
                              autocomplete="new-password" class="block mt-1 w-full"/>
                     <x-input-error for="newUser.password" class="mt-2"/>
                 </div>
-{{--                    <div>--}}
-{{--                        <x-label for="is_admin" value="Administrator?"/>--}}
-{{--                        <x-input id="newUser.is_admin" type="checkbox" value="0" name="is_admin"--}}
-{{--                                 wire:model.defer="newUser.is_admin"--}}
-{{--                                 required--}}
-{{--                                 autocomplete="off" class="block mt-1"/>--}}
-{{--                        <x-input-error for="newUser.is_admin" class="mt-2"/>--}}
-{{--                    </div>--}}
+                    <div>
+                        <x-label for="is_admin" value="Administrator"/>
+                        <x-input id="newUser.is_admin" type="checkbox"
+                                 wire:model="newUser.is_admin"
+                                 required
+                                 autocomplete="off" class="block mt-1"/>
+                        Admin?: {{var_export($newUser['is_admin'])}}
+                        <x-input-error for="newUser.is_admin" class="mt-2"/>
+                    </div>
             </div>
         </x-slot>
         <x-slot name="footer">
@@ -133,69 +199,5 @@
                 Verlaten</x-button>
         </x-slot>
     </x-dialog-modal>
-
-    <div>
-        <table class="text-center w-full border border-gray-300">
-            <colgroup>
-                <col class="w-14">
-                <col class="w-20">
-                <col class="w-16">
-                <col class="w-max">
-            </colgroup>
-            <thead>
-            <tr class="bg-gray-100 text-gray-700 [&>th]:p-2 cursor-pointer">
-                <th>Naam</th>
-                <th>Gebruikersnaam</th>
-                <th>Verjaardag</th>
-                <th>E-mail</th>
-                <th>Postcode</th>
-                <th>Woonplaats</th>
-                <th>Adres</th>
-                <th>Telefoonnummer</th>
-                <th>GSM</th>
-                <th></th>
-                <th>Administrator</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @foreach($users as $user)
-                <tr class="border-t border-gray-300 [&>td]:p-2"
-                wire:key="user_{{$user->id}}">
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->username}}</td>
-                    <td>{{$user->birthdate}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->postal_code}}</td>
-                    <td>{{$user->city}}</td>
-                    <td>{{$user->address}}</td>
-                    <td>{{$user->phone_number}}</td>
-                    <td>{{$user->mobile_number}}</td>
-                    <td>
-                        <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
-                            <x-button
-                            wire:click="setNewUser({{$user->id}})">
-                                Aanpassen
-                            </x-button>
-                            <x-button bgcolor="rood"
-                                      x-data=""
-                                      @click="confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?') ? $wire.deleteUser({{$user->id}}) : ''"
-                            >
-                                Verwijderen
-                            </x-button>
-                        </div>
-                    </td>
-                    @if($user->is_admin)
-                        <td class="whitespace-nowrap px-6 py-4 text-2xl text-black">&#x2713;</td>
-                    @else
-                        <td class="whitespace-nowrap px-6 py-4"></td>
-                    @endif
-                </tr>
-            @endforeach
-            </tbody>
-
-        </table>
-
-    </div>
 </div>
 
