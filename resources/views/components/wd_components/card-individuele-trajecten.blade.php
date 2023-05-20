@@ -10,15 +10,15 @@
         <div class="p-6">
             <h5
                 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                {{$card_title}}
+                {{$title}}
             </h5>
             <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-                {{$card_distance}}
+                {{$distance}}
             </p>
             <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-                {{$card_user}}
+                {{$user}}
             </p>
         </div>
-        <x-button wire:click="export('{{$card_title}}')">DOWNLOAD</x-button>
+        <x-button wire:click="export('{{$path}}')">DOWNLOAD</x-button>
     </div>
 </div>

@@ -13,10 +13,10 @@ class IndividueleTrajecten extends Component
 {
 
 
-    public function export($card_title)
+    public function export($path)
     {
 
-        return Storage::disk('public')->download('gpx/' . $card_title . '.gpx');
+        return Storage::disk('public')->download($path);
     }
 
     public function render()

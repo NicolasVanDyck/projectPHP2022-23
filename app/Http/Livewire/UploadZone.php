@@ -35,6 +35,7 @@ class UploadZone extends Component
 
 
             $path = $file->storeAs('public/gpx', $file->getClientOriginalName());
+            $path = Str::after($path, 'public/');
             if (!GPX::where('path', $path)->exists()) {
                 GPX::create([
                     'user_id' => auth()->user()->id,
@@ -54,7 +55,7 @@ class UploadZone extends Component
     public function loadGpx($path)
     {
         $this->gpx = new phpGPX();
-        $result = $this->gpx->load('../storage/app/' . $path);
+        $result = $this->gpx->load('../storage/app/public/' . $path);
 //        dd($result);
         return $result;
     }
