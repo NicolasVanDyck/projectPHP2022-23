@@ -95,9 +95,7 @@
                 <x-label for="is_admin" value="Administrator"/>
                 <x-checkbox id="newUser.is_admin" type="checkbox"
                             wire:model="newUser.is_admin"
-                            {{--                                    required--}}
                             autocomplete="off" class="block mt-1"/>
-                Admin: {{var_export($newUser['is_admin'])}}
                 <x-input-error for="newUser.is_admin" class="mt-2"/>
             </div>
         </div>
