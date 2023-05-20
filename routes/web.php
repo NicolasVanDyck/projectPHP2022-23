@@ -49,7 +49,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function() {
     Route::get('galerijbeheer', function() { return view('admin/galerijbeheer');})->name('galerijbeheer');
     Route::get('kleding_bestellingen', function() { return view('admin/kleding_bestellingen');})->name('kleding_bestellingen');
     Route::get('kledingbeheer', function() { return view('admin/kledingbeheer');})->name('kledingbeheer');
-    Route::match(['get','post'],'ledenbeheer', function() { return view('admin/ledenbeheer');})->name('ledenbeheer');
+    Route::get('ledenbeheer', function() { return view('admin/ledenbeheer');})->name('ledenbeheer');
     Route::get('trajectbeheer', function() { return view('admin/trajectbeheer');})->name('trajectbeheer');
     Route::get('webtekstbeheer', function() { return view('admin/webtekstbeheer');})->name('webtekstbeheer');
     Route::get('welkom', function() { return view('admin/welkom');})->name('welkom');

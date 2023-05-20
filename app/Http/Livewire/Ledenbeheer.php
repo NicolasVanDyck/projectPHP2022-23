@@ -8,21 +8,35 @@ use App\Models\User;
 class Ledenbeheer extends Component
 {
 
-    public $newUser;
-
     public $perPage = 10;
 
-    public $selectedUser;
+//    public $selectedUser;
 
     public $showModal = false;
 
+    public $newUser = [
+        'id' => null,
+        'name' => null,
+        'username' => null,
+        'birthdate' => null,
+        'email' => null,
+        'postal_code' => null,
+        'city' => null,
+        'address' => null,
+        'phone_number' => null,
+        'mobile_number' => null,
+        'password' => null,
+    ];
+
+
+// Validation rules
     protected function rules()
     {
         return [
             'newUser.name' => 'required|string|max:255',
-            'newUser.username' => 'required|alpha_dash|max:255|unique:users,username',
+            'newUser.username' => 'required|alpha_dash|max:255|unique:users,username,' . $this->newUser['id'],
             'newUser.birthdate' => 'required',
-            'newUser.email' => 'required|email|max:255|unique:users,email',
+            'newUser.email' => 'required|email|max:255|unique:users,email,' . $this->newUser['id'],
             'newUser.postal_code' => 'required|digits:4',
             'newUser.city' => 'required|string|max:255',
             'newUser.address' => 'required|string|max:255',
@@ -32,6 +46,7 @@ class Ledenbeheer extends Component
         ];
     }
 
+// Validation messages
     protected $messages = [
         'newUser.name.required' => 'Dit veld mag niet leeg zijn.',
         'newUser.username.alpha_dash' => 'Dit veld mag enkel letters, cijfers, underscores (_) en streepjes (-) bevatten.',
@@ -51,6 +66,7 @@ class Ledenbeheer extends Component
         'newUser.password.required' => 'Dit veld mag niet leeg zijn.',
     ];
 
+//    User aanmaken
     public function createUser()
     {
         $this->validate();
@@ -65,16 +81,32 @@ class Ledenbeheer extends Component
             'phone_number' => $this->newUser['phone_number'],
             'mobile_number' => $this->newUser['mobile_number'],
             'password' => bcrypt($this->newUser['password']),
+//            'is_admin' => $this->newUser['is_admin'],
         ]);
     }
 
-    public function setNewUser()
+    public function setNewUser(User $user = null)
     {
         $this->resetErrorBag();
-        $this->reset('newUser');
+        if($user) {
+            $this->newUser['id'] = $user->id;
+            $this->newUser['name'] = $user->name;
+            $this->newUser['username'] = $user->username;
+            $this->newUser['birthdate'] = $user->birthdate;
+            $this->newUser['email'] = $user->email;
+            $this->newUser['postal_code'] = $user->postal_code;
+            $this->newUser['city'] = $user->city;
+            $this->newUser['address'] = $user->address;
+            $this->newUser['phone_number'] = $user->phone_number;
+            $this->newUser['mobile_number'] = $user->mobile_number;
+            $this->newUser['password'] = $user->password;
+        } else {
+            $this->reset('newUser');
+        }
         $this->showModal = true;
     }
 
+//    Pagination updaten
     public function updated($propertyName, $propertyValue)
     {
         // dump($propertyName, $propertyValue);
@@ -82,19 +114,32 @@ class Ledenbeheer extends Component
             $this->resetPage();
     }
 
+//    User updaten
+    public function updateUser(User $user)
+    {
+        $this->validate();
+        $user->update([
+//            'id' => $this->newUser['id'],
+            'name' => $this->newUser['name'],
+            'username' => $this->newUser['username'],
+            'birthdate' => $this->newUser['birthdate'],
+            'email' => $this->newUser['email'],
+            'postal_code' => $this->newUser['postal_code'],
+            'city' => $this->newUser['city'],
+            'address' => $this->newUser['address'],
+            'phone_number' => $this->newUser['phone_number'],
+            'mobile_number' => $this->newUser['mobile_number'],
+            'password' => bcrypt($this->newUser['password']),
+        ]);
+
+    }
+
+//    User verwijderen
     public function deleteUser(User $user)
     {
         $user->delete();
     }
 
-
-
-//    public function showTracks(User $user)
-//    {
-//        $this->selectedUser = $user;
-//        $this->showModal = true;
-////        dump($this->selectedRecord->toArray());
-//    }
 
     public function render()
     {

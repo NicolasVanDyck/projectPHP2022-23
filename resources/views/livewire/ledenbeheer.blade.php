@@ -10,7 +10,7 @@
     <x-dialog-modal id="userModal"
                     wire:model="showModal">
         <x-slot name="title">
-            <h2>Nieuwe user aanmaken</h2>
+            <h2>{{ is_null($newUser['id']) ? 'Nieuwe gebruiker aanmaken' : 'Gegevens aanpassen' }}</h2>
         </x-slot>
         <x-slot name="content">
             <div class="relative flex-auto p-4">
@@ -76,19 +76,19 @@
                 </div>
                 <div>
                     <x-label for="phone_number" value="Telefoonnummer"/>
-                    <x-input id="newUser.phone_number" type="text" name="phone"
+                    <x-input id="newUser.phone_number" type="text" name="phone_number"
                              placeholder="telefoonnummer"
-                             wire:model.defer="newUser.phone_number" required autofocus
-                             autocomplete="phone"
+                             wire:model.defer="newUser.phone_number" autofocus
+                             autocomplete="phone_number"
                              class="block mt-1 w-full"/>
                     <x-input-error for="newUser.phone_number" class="mt-2"/>
                 </div>
                 <div>
                     <x-label for="mobile_number" value="Mobiel nummer"/>
-                    <x-input id="newUser.mobile_number" type="text" name="mobile"
+                    <x-input id="newUser.mobile_number" type="text" name="mobile_number"
                              placeholder="mobiel nummer"
-                             wire:model.defer="newUser.mobile_number" required autofocus
-                             autocomplete="mobile"
+                             wire:model.defer="newUser.mobile_number" autofocus
+                             autocomplete="mobile_number"
                              class="block mt-1 w-full"/>
                     <x-input-error for="newUser.mobile_number" class="mt-2"/>
                 </div>
@@ -100,15 +100,30 @@
                              autocomplete="new-password" class="block mt-1 w-full"/>
                     <x-input-error for="newUser.password" class="mt-2"/>
                 </div>
+{{--                    <div>--}}
+{{--                        <x-label for="is_admin" value="Administrator?"/>--}}
+{{--                        <x-input id="newUser.is_admin" type="checkbox" value="0" name="is_admin"--}}
+{{--                                 wire:model.defer="newUser.is_admin"--}}
+{{--                                 required--}}
+{{--                                 autocomplete="off" class="block mt-1"/>--}}
+{{--                        <x-input-error for="newUser.is_admin" class="mt-2"/>--}}
+{{--                    </div>--}}
             </div>
         </x-slot>
         <x-slot name="footer">
-            <x-button
-                    type="submit"
-                    wire:click="createUser()"
-                    wire:loading.attr="disabled"
-                    class="ml-2">Gegevens opslaan
-            </x-button>
+            @if(is_null($newUser['id']))
+                <x-button
+                        wire:click="createUser()"
+                        wire:loading.attr="disabled"
+                        class="ml-2">Gegevens opslaan
+                </x-button>
+            @else
+                <x-button
+                        wire:click="updateUser({{$newUser['id']}})"
+                        wire:loading.attr="disabled"
+                        class="ml-2">Aanpassingen opslaan
+                </x-button>
+            @endif
             <x-button
                     wire:click="setNewUser()"
                     wire:loading.attr="disabled"
@@ -145,8 +160,9 @@
             <tbody>
 
             @foreach($users as $user)
-                <tr class="border-t border-gray-300 [&>td]:p-2">
-                    <td>{{ $user->name }}</td>
+                <tr class="border-t border-gray-300 [&>td]:p-2"
+                wire:key="user_{{$user->id}}">
+                    <td>{{$user->name}}</td>
                     <td>{{$user->username}}</td>
                     <td>{{$user->birthdate}}</td>
                     <td>{{$user->email}}</td>
@@ -157,11 +173,14 @@
                     <td>{{$user->mobile_number}}</td>
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
-                            <x-button>
+                            <x-button
+                            wire:click="setNewUser({{$user->id}})">
                                 Aanpassen
                             </x-button>
                             <x-button bgcolor="rood"
-                                      wire:click="deleteUser({{$user->id}})">
+                                      x-data=""
+                                      @click="confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?') ? $wire.deleteUser({{$user->id}}) : ''"
+                            >
                                 Verwijderen
                             </x-button>
                         </div>
