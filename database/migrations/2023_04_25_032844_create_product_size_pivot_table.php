@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProductSizePivotTable extends Migration
 {
@@ -13,11 +14,21 @@ class CreateProductSizePivotTable extends Migration
     public function up()
     {
         Schema::create('product_size', function (Blueprint $table) {
-            $table->unsignedBigInteger('product_id')->index();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->unsignedBigInteger('size_id')->index();
-            $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade');
-            $table->primary(['product_id', 'size_id']);
+//            $table->id();
+//            $table->unsignedBigInteger('product_id')->index();
+//            $table->foreign('product_id')->references('id')->on('products')->onDelete('restrict');
+//            $table->unsignedBigInteger('size_id')->index();
+//            $table->foreign('size_id')->references('id')->on('sizes')->onDelete('restrict');
+//            $table->primary(['product_id', 'size_id']);
+
+            // Hier een destrict on delete toegevoegd, in plaats van cascade. Als de maat wordt verwijderd, kan het zijn
+            // ....dat deze nog in een order table staat.
+
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->restrictOnDelete();
+            $table->unsignedBigInteger('size_id');
+            $table->foreign('size_id')->references('id')->on('sizes')->restrictOnDelete();
         });
     }
 
