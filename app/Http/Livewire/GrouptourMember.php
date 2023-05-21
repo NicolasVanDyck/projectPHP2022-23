@@ -9,10 +9,14 @@ use App\Models\Tour;
 use App\Models\UserTour;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class GrouptourMember extends Component
 {
-    public $selectedTourId;
+
+    public $selectedGroup;
+    public $selectedDay;
+    use WithPagination;
 
     public function leaveTour($userTourId)
     {
@@ -32,10 +36,44 @@ class GrouptourMember extends Component
     public function render()
     {
         $userTours = $this->getUserTours();
-        $groupTours = $this->getGroupTours();
+        $groups = Group::all(); // Retrieve all groups for the filter options
 
-        return view('livewire.grouptour-member', compact('userTours', 'groupTours'));
+        // Get unique days from group tours for the day filter dropdown
+        $days = $this->groupTours->pluck('start_date')->unique()->sort()->toArray();
+
+        // Apply filters
+        $filteredGroupTours = $this->applyFilters();
+
+        return view('livewire.grouptour-member', compact('userTours', 'groups', 'days', 'filteredGroupTours'));
     }
+
+    private function applyFilters()
+    {
+        $groupTours = GroupTour::with('group', 'gpx')->get();
+
+        // Apply group filter if selected
+        if ($this->selectedGroup) {
+            $groupTours = $groupTours->where('group_id', $this->selectedGroup);
+        }
+
+        // Apply day filter if selected
+        if ($this->selectedDay) {
+            $groupTours = $groupTours->where('start_date', $this->selectedDay);
+        }
+
+        return $groupTours;
+    }
+
+    public function updatedSelectedGroup()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSelectedDay()
+    {
+        $this->resetPage();
+    }
+
 
     private function getUserTours()
     {
@@ -50,14 +88,23 @@ class GrouptourMember extends Component
 
     private function getGroupTours()
     {
-        // Retrieve the available group tours
-        return GroupTour::with('gpx')
-            ->whereDoesntHave('userTours', function ($query) {
-                $query->where('user_id', Auth::id());
-            })
-            ->orderBy('start_date')
-            ->get();
+        $query = GroupTour::with('gpx')
+            ->whereHas('tour', function ($query) {
+                $query->where('end_date', '>=', now()); // Filter active tours
+            });
+
+        if ($this->selectedGroup) {
+            $query->where('group_id', $this->selectedGroup);
+        }
+
+        if ($this->selectedDay) {
+            $query->whereDate('start_date', $this->selectedDay);
+        }
+
+        $this->groupTours = $query->orderBy('start_date')->get()->unique('start_date');
     }
+
+
 
 
     public function joinTour($tourId)
