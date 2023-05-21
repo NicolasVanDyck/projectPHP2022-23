@@ -36,8 +36,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Vieille Montagnestraat 11',
-            'phone_number' => '014/81.02.37',
-            'mobile_number' => '0498/63.81.49',
+            'phone_number' => '014810237',
+            'mobile_number' => '0498638149',
             'password' => Hash::make('ingrittew123'),
             'is_admin' => true,
         ]);
@@ -63,8 +63,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Vuurbergenstraat 8',
-            'phone_number' => '014/65.00.71',
-            'mobile_number' => '0475/28.59.44',
+            'phone_number' => '014650071',
+            'mobile_number' => '0475285944',
             'password' => Hash::make('lucb123'),
         ]);
 
@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Sportlaan 78',
             'phone_number' => null,
-            'mobile_number' => '0498/61.17.58',
+            'mobile_number' => '0498611758',
             'password' => Hash::make('ronyb123'),
         ]);
 
@@ -89,8 +89,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Vieille Montagnestraat 6',
-            'phone_number' => '014/81.24.11',
-            'mobile_number' => '0473/85.61.77',
+            'phone_number' => '014812411',
+            'mobile_number' => '0473856177',
             'password' => Hash::make('theob123'),
         ]);
 
@@ -103,7 +103,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Hoevenweg 31',
             'phone_number' => null,
-            'mobile_number' => '0485/68.20.59',
+            'mobile_number' => '0485682059',
             'password' => Hash::make('patrickc123'),
         ]);
 
@@ -115,8 +115,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Ringlaan 39',
-            'phone_number' => '014/81.02.17',
-            'mobile_number' => '0498/64.22.74',
+            'phone_number' => '014810217',
+            'mobile_number' => '0498642274',
             'password' => Hash::make('eddyc123'),
         ]);
 
@@ -129,7 +129,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Grotstraat 9',
             'phone_number' => null,
-            'mobile_number' => '0477/31.01.91',
+            'mobile_number' => '0477310191',
             'password' => Hash::make('lucc123'),
         ]);
 
@@ -142,7 +142,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Brouwerijdreef',
             'phone_number' => null,
-            'mobile_number' => '0473/98.64.22',
+            'mobile_number' => '0473986422',
             'password' => Hash::make('andréd123'),
         ]);
 
@@ -154,8 +154,8 @@ class UserSeeder extends Seeder
             'postal_code' => 3920,
             'city' => 'Lommel',
             'address' => 'Molse Kiezel 251',
-            'phone_number' => '011/54.09.38',
-            'mobile_number' => '0495/53.09.38',
+            'phone_number' => '011540938',
+            'mobile_number' => '0495530938',
             'password' => Hash::make('jeffdw123'),
         ]);
 
@@ -168,7 +168,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Duinstraat 9',
             'phone_number' => null,
-            'mobile_number' => '0488/27.83.43',
+            'mobile_number' => '0488278343',
             'password' => Hash::make('andrée123'),
         ]);
 
@@ -180,8 +180,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Bremstraat 29',
-            'phone_number' => '014/32.15.89',
-            'mobile_number' => '0498/52.86.15',
+            'phone_number' => '014321589',
+            'mobile_number' => '0498528615',
             'password' => Hash::make('guyf123'),
         ]);
 
@@ -193,8 +193,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Zwarte Dreeferf 5',
-            'phone_number' => '014/81.24.53',
-            'mobile_number' => '0498/57.17.20',
+            'phone_number' => '014812453',
+            'mobile_number' => '0498571720',
             'password' => Hash::make('harryg123'),
         ]);
 
@@ -207,7 +207,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Vieille Montagnestraat 4',
             'phone_number' => null,
-            'mobile_number' => '0472/97.58.20',
+            'mobile_number' => '0472975820',
             'password' => Hash::make('dannyg123'),
         ]);
 
@@ -219,8 +219,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Congostraat 5',
-            'phone_number' => '014/81.20.79',
-            'mobile_number' => '0477/97.03.97',
+            'phone_number' => '014812079',
+            'mobile_number' => '0477970397',
             'password' => Hash::make('eddyg123'),
         ]);
 
@@ -233,7 +233,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Laurierstraat 4',
             'phone_number' => null,
-            'mobile_number' => '0476/75.34.07',
+            'mobile_number' => '0476753407',
             'password' => Hash::make('fernandg123'),
         ]);
 
@@ -245,8 +245,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Kapelstraat 82',
-            'phone_number' => '011/55.10.56',
-            'mobile_number' => '0486/66.88.45',
+            'phone_number' => '011551056',
+            'mobile_number' => '0486668845',
             'password' => Hash::make('jeang123'),
         ]);
 
@@ -259,7 +259,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Pasdijk 7',
             'phone_number' => null,
-            'mobile_number' => '0473/85.37.41',
+            'mobile_number' => '0473853741',
             'password' => Hash::make('michelg123'),
         ]);
 
@@ -271,8 +271,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Rijsbergdijk 13',
-            'phone_number' => '061/097.07.96',
-            'mobile_number' => '0495/61.95.07',
+            'phone_number' => '0610970796',
+            'mobile_number' => '0495619507',
             'password' => Hash::make('henrih123'),
         ]);
 
@@ -284,8 +284,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Papenberg 21',
-            'phone_number' => '011/75.93.29',
-            'mobile_number' => '0499/72.60.15',
+            'phone_number' => '011759329',
+            'mobile_number' => '0499726015',
             'password' => Hash::make('sylvieh123'),
         ]);
 
@@ -298,7 +298,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Kapelstraat 173',
             'phone_number' => null,
-            'mobile_number' => '0497/79.12.88',
+            'mobile_number' => '0497791288',
             'password' => Hash::make('fonsj123'),
         ]);
 
@@ -310,8 +310,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Soef 143',
-            'phone_number' => '014/81.26.19',
-            'mobile_number' => '0497/65.19.18',
+            'phone_number' => '014812619',
+            'mobile_number' => '0497651918',
             'password' => Hash::make('gilbertj123'),
         ]);
 
@@ -323,8 +323,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Bankei 4',
-            'phone_number' => '014/81.07.50',
-            'mobile_number' => '0473/12.37.22',
+            'phone_number' => '014810750',
+            'mobile_number' => '0473123722',
             'password' => Hash::make('yvom123'),
         ]);
 
@@ -336,8 +336,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Meyerstraat 3',
-            'phone_number' => '014/81.08.94',
-            'mobile_number' => '0472/42.47.68',
+            'phone_number' => '014810894',
+            'mobile_number' => '0472424768',
             'password' => Hash::make('willym123'),
         ]);
 
@@ -350,7 +350,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Gustaaf Wouterstraat 4 bus 3',
             'phone_number' => null,
-            'mobile_number' => '0476/63.31.76',
+            'mobile_number' => '0476633176',
             'password' => Hash::make('eddym123'),
         ]);
 
@@ -362,8 +362,8 @@ class UserSeeder extends Seeder
             'postal_code' => 3970,
             'city' => 'Leopoldsburg',
             'address' => 'Nachtegaalstraat 2',
-            'phone_number' => '011/34.16.15',
-            'mobile_number' => '0497/24.15.00',
+            'phone_number' => '011341615',
+            'mobile_number' => '0497241500',
             'password' => Hash::make('ludoon123'),
         ]);
 
@@ -376,7 +376,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Balen-Neetlaan 33',
             'phone_number' => null,
-            'mobile_number' => '0496/85.54.89',
+            'mobile_number' => '0496855489',
             'password' => Hash::make('ludoop123'),
         ]);
 
@@ -388,8 +388,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Meyerstraat 29',
-            'phone_number' => '014/41.04.18',
-            'mobile_number' => '0472/27.40.89',
+            'phone_number' => '014410418',
+            'mobile_number' => '0472274089',
             'password' => Hash::make('chrisp123'),
         ]);
 
@@ -401,8 +401,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Vieille Montagnestraat 11',
-            'phone_number' => '014/81.02.37',
-            'mobile_number' => '0498/28.04.09',
+            'phone_number' => '014810237',
+            'mobile_number' => '0498280409',
             'password' => Hash::make('eugeenp123'),
         ]);
 
@@ -414,8 +414,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Ringlaan 35',
-            'phone_number' => '014/63.23.10',
-            'mobile_number' => '0497/57.77.93',
+            'phone_number' => '014632310',
+            'mobile_number' => '0497577793',
             'password' => Hash::make('mauricep123'),
         ]);
 
@@ -427,7 +427,7 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Papenberg 21',
-            'phone_number' => '011/75.93.29',
+            'phone_number' => '011759329',
             'mobile_number' => null,
             'password' => Hash::make('jeanpierrer123'),
         ]);
@@ -440,8 +440,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Vuurbergenstraat 8',
-            'phone_number' => '014/65.00.71',
-            'mobile_number' => '0472/.25.01.39',
+            'phone_number' => '014650071',
+            'mobile_number' => '0472250139',
             'password' => Hash::make('veroniques123'),
         ]);
 
@@ -454,7 +454,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Duinstraat 15',
             'phone_number' => null,
-            'mobile_number' => '0495/25.09.93',
+            'mobile_number' => '0495250993',
             'password' => Hash::make('alberts123'),
         ]);
 
@@ -467,7 +467,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Dalstraat 88',
             'phone_number' => null,
-            'mobile_number' => '0476/71.44.70',
+            'mobile_number' => '0476714470',
             'password' => Hash::make('clems123'),
         ]);
 
@@ -480,7 +480,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Tennislaan 1',
             'phone_number' => null,
-            'mobile_number' => '0485/66.45.11',
+            'mobile_number' => '0485664511',
             'password' => Hash::make('simonnes123'),
         ]);
 
@@ -493,7 +493,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Tennislaan 1',
             'phone_number' => null,
-            'mobile_number' => '0485/66.45.21',
+            'mobile_number' => '0485664521',
             'password' => Hash::make('dirks123'),
         ]);
 
@@ -506,7 +506,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Hendrik Consciencestraat 15',
             'phone_number' => null,
-            'mobile_number' => '0479/56.99.46',
+            'mobile_number' => '0479569946',
             'password' => Hash::make('dirks123'),
         ]);
 
@@ -519,7 +519,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Grotstraat 9',
             'phone_number' => null,
-            'mobile_number' => '0499/13.45.39',
+            'mobile_number' => '0499134539',
             'password' => Hash::make('agnesv123'),
         ]);
 
@@ -532,7 +532,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'St. Jansstraat 131',
             'phone_number' => null,
-            'mobile_number' => '0472/61.05.69',
+            'mobile_number' => '0472610569',
             'password' => Hash::make('renev123'),
         ]);
 
@@ -544,8 +544,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2490,
             'city' => 'Balen',
             'address' => 'Esdoornstraat 6',
-            'phone_number' => '014/81.73.89',
-            'mobile_number' => '0475/56.02.63',
+            'phone_number' => '014817389',
+            'mobile_number' => '0475560263',
             'password' => Hash::make('swav123'),
         ]);
 
@@ -558,7 +558,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Molenstraat 135',
             'phone_number' => null,
-            'mobile_number' => '0494/81.77.12',
+            'mobile_number' => '0494817712',
             'password' => Hash::make('victorv123'),
         ]);
 
@@ -571,7 +571,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Heilandstraat 3',
             'phone_number' => null,
-            'mobile_number' => '0498/46.39.51',
+            'mobile_number' => '0498463951',
             'password' => Hash::make('hermanv123'),
         ]);
 
@@ -584,7 +584,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol-Wezel',
             'address' => 'Tennislaan 18',
             'phone_number' => null,
-            'mobile_number' => '0475/83.93.47',
+            'mobile_number' => '0475839347',
             'password' => Hash::make('peterv123'),
         ]);
 
@@ -597,7 +597,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Zwaluwstraat 15',
             'phone_number' => null,
-            'mobile_number' => '0496/60.03.43',
+            'mobile_number' => '0496600343',
             'password' => Hash::make('ludov123'),
         ]);
 
@@ -610,7 +610,7 @@ class UserSeeder extends Seeder
             'city' => 'Lommel',
             'address' => 'Haverstraat 29',
             'phone_number' => null,
-            'mobile_number' => '0477/45.98.84',
+            'mobile_number' => '0477459884',
             'password' => Hash::make('augustv123'),
         ]);
 
@@ -622,8 +622,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Kasteeldreef 49',
-            'phone_number' => '014/81.48.58',
-            'mobile_number' => '0495/62.29.21',
+            'phone_number' => '014814858',
+            'mobile_number' => '0495622921',
             'password' => Hash::make('jeanv123'),
         ]);
 
@@ -636,7 +636,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Maalderstraat 40',
             'phone_number' => null,
-            'mobile_number' => '0475/34.10.31',
+            'mobile_number' => '0475341031',
             'password' => Hash::make('rafv123'),
         ]);
 
@@ -649,7 +649,7 @@ class UserSeeder extends Seeder
             'city' => 'Balen',
             'address' => 'Balen-Neetlaan 99',
             'phone_number' => null,
-            'mobile_number' => '0496/92.97.71',
+            'mobile_number' => '0496929771',
             'password' => Hash::make('wimv123'),
         ]);
 
@@ -661,8 +661,8 @@ class UserSeeder extends Seeder
             'postal_code' => 2400,
             'city' => 'Mol',
             'address' => 'Hulststraat 2',
-            'phone_number' => '014/81.54.10',
-            'mobile_number' => '0494/27.03.51',
+            'phone_number' => '014815410',
+            'mobile_number' => '0494270351',
             'password' => Hash::make('rogerv123'),
         ]);
 
@@ -675,7 +675,7 @@ class UserSeeder extends Seeder
             'city' => 'Mol',
             'address' => 'Ruiterstraat 21',
             'phone_number' => null,
-            'mobile_number' => '0473/17.73.74',
+            'mobile_number' => '0473177374',
             'password' => Hash::make('fredv123'),
         ]);
 
@@ -688,7 +688,7 @@ class UserSeeder extends Seeder
             'city' => 'Turnhout',
             'address' => 'Steenweg op Antwerpen 53B1',
             'phone_number' => null,
-            'mobile_number' => '0498/53.07.71',
+            'mobile_number' => '0498530771',
             'password' => Hash::make('josv123'),
         ]);
     }

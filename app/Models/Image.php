@@ -24,8 +24,8 @@ class Image extends Model
         ]);
     }
 
-    public function route()
+    public function tour()
     {
-        $this->hasOne(Route::class);
+        $this->belongsTo(Tour::class);
     }
 }

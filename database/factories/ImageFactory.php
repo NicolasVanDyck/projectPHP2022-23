@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Image;
 use App\Models\ImageType;
+use App\Models\Tour;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -37,6 +38,7 @@ class ImageFactory extends Factory
         }
 
         return [
+            'tour_id' => null,
             'image_type_id' => $this->faker->randomElement($imageTypeArray),
             'name' => $this->faker->name(),
             'description' => $this->faker->words(2, true),
