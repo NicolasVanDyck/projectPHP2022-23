@@ -20,7 +20,6 @@ class Kleding extends Component
     protected $order;
     private array $totals = [];
     public $productSizes;
-    public array $selectedIncompleteProducts = [];
 
     protected $rules = [
         'products' => 'array',
@@ -140,6 +139,28 @@ class Kleding extends Component
         return $total;
     }
 
+//    public function updatedAmounts(): void
+//    {
+//        $this->totals = $this->products->pluck('id')->mapWithKeys(function ($id) {
+//            return [$id => $this->getTotalForProduct($id)];
+//        })->toArray();
+//    }
+
+    public function restoreState($state)
+    {
+        $this->selectedProduct = $state['selectedProduct'] ?? [];
+        $this->amounts = $state['amounts'] ?? [];
+    }
+
+    public function saveState()
+    {
+        return [
+            'selectedProduct' => $this->selectedProduct,
+            'amounts' => $this->amounts,
+        ];
+    }
+
+
     /**
      * Update the Order table with the selected product_size id and amount.
      *
@@ -199,20 +220,10 @@ class Kleding extends Component
                 $selectedAmount = $this->getAmount($productId);
 
                 $this->updateOrder($selectedProductSize, $selectedAmount);
-            } elseif (!empty($this->selectedSize) && empty($this->getAmount($productId))) {
-//                dd($this->selectedSize, $this->getAmount($productId));
-                $this->selectedIncompleteProducts[] = $index;
-                session()->flash('message', 'Geef een hoeveelheid op voor het product.');
-                return;
-            } elseif (empty($this->selectedSize) && !empty($this->getAmount($productId))) {
-                $this->selectedIncompleteProducts[] = $index;
-                session()->flash('message', 'Geef een maat op voor het product.');
-                return;
-            } else {
-                session()->flash('message', 'Je bestelling is geplaatst!');
             }
         }
 
+        session()->flash('message', 'Je bestelling is geplaatst!');
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
     }
 
@@ -221,7 +232,6 @@ class Kleding extends Component
     {
         return view('livewire.member.kleding', [
             'amounts' => $this->amounts,
-            'selectedIncompleteProducts' => $this->selectedIncompleteProducts,
         ])->layout('layouts.templatelayout');
     }
 }

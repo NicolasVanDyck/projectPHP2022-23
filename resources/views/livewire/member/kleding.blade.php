@@ -3,11 +3,11 @@
     {{--Display all the products in a form--}}
     <form wire:submit.prevent="submitForm">
 
-{{--        @if (session()->has('message'))--}}
-{{--            <div class="bg-green-200 text-2xl">--}}
-{{--                {{ session('message') }}--}}
-{{--            </div>--}}
-{{--        @endif--}}
+        @if (session()->has('message'))
+            <div class="bg-green-200 text-2xl">
+                {{ session('message') }}
+            </div>
+        @endif
 
         <table>
             <thead>
@@ -42,10 +42,16 @@
                     <tr>
                         <td colspan="4" class="border-b border-gray-200"></td>
                     </tr>
-                    @if (in_array($index, $selectedIncompleteProducts))
+                    @if (empty($selectedSize[$index]) && !empty($this->getAmount($product->id)))
                         <tr>
                             <td colspan="5" class="text-red-500">
-                                Selecteer een maat of aantal voor dit product: {{ $product->name }}
+                                Gelieve een maat op te geven.
+                            </td>
+                        </tr>
+                    @elseif (!empty($selectedSize[$index]) && empty($this->getAmount($product->id)))
+                        <tr>
+                            <td colspan="5" class="text-red-500">
+                                Gelieve een hoeveelheid op te geven.
                             </td>
                         </tr>
                     @endif
