@@ -8,6 +8,15 @@ use Storage;
 
 class IndividueleTrajecten extends Component
 {
+    public $afstand;
+    public $afstandMin, $afstandMax;
+
+    public function mount()
+    {
+        $this->afstandMin = ceil(GPX::min('amount_of_km'));
+        $this->afstandMax = ceil(GPX::max('amount_of_km'));
+        $this->afstand = $this->afstandMax;
+    }
 
     public function delete($path)
     {
@@ -25,8 +34,10 @@ class IndividueleTrajecten extends Component
     public function render()
     {
 
-        $trajecten = GPX::orderBy('name')->with('user')->get();
+        $trajecten = GPX::orderBy('name')->with('user')->where('amount_of_km', '<=', $this->afstand)->get();
 //        dd($trajecten);
+//        $gpxes = GPX::orderBy('id')->where('amount_of_km', '<=', $this->afstand)->get();
+//        dd($gpxes);
 
 
         return view('livewire.individuele-trajecten', compact('trajecten'));

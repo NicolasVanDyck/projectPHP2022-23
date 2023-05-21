@@ -1,4 +1,17 @@
 <div>
+    {{--        Filter op afstand         --}}
+    <div>
+        <h3>Filter op afstand:</h3>
+        <div class="p-2">
+            <label for="afstand">Aantal kilometers:
+                <output id="kilometerfilter" name="kilometerfilter">{{$afstand}}</output>
+            </label>
+
+            <input type="range" id="afstand" name="afstand" wire:model="afstand" min="{{$afstandMin}}"
+                   max="{{$afstandMax}}" value="0" step="5"
+                   oninput="kilometerfilter.value = afstand.value">
+        </div>
+    </div>
     @foreach($trajecten as $traject)
         <div class="p-4">
             <div
