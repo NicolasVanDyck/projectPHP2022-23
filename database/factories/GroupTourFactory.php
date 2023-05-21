@@ -23,14 +23,14 @@ class GroupTourFactory extends Factory
 //         $starttime = $this->faker->time();
 //         $enddate = $this-> faker->date($startdate,'+1 week');
 
-         return [
-             'group_id' => function() {
+        return [
+            'group_id' => function () {
                 return Group::factory()->create()->id;
-                },
-             'tour_id' => Tour::factory(),
-             'start_date' => $this ->faker->date(),
-             'start_time' => $this ->faker->time(),
-             'end_date' => $this ->faker->date()
+            },
+            'tour_id' => Tour::factory(),
+            'start_date' => $this->faker->dateTimeBetween('+1 week', '+5 month'),
+            'start_time' => $this->faker->time(),
+            'end_date' => $this->faker->date()
 
         ];
     }
