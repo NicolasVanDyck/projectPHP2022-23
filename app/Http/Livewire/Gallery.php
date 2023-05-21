@@ -9,7 +9,7 @@ class Gallery extends Component
 {
     public function render()
     {
-        $images = collect(Storage::files('public/pics/leden'))->map(function ($path) {
+        $images = collect(Storage::files('public/gallerij'))->map(function ($path) {
             return asset(Storage::url($path));
         });
 
