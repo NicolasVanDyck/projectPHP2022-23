@@ -20,6 +20,7 @@ class Kleding extends Component
     protected $order;
     private array $totals = [];
     public $productSizes;
+    public array $selectedIncompleteProducts = [];
 
     protected $rules = [
         'products' => 'array',
@@ -200,9 +201,11 @@ class Kleding extends Component
                 $this->updateOrder($selectedProductSize, $selectedAmount);
             } elseif (!empty($this->selectedSize) && empty($this->getAmount($productId))) {
 //                dd($this->selectedSize, $this->getAmount($productId));
+                $this->selectedIncompleteProducts[] = $index;
                 session()->flash('message', 'Geef een hoeveelheid op voor het product.');
                 return;
             } elseif (empty($this->selectedSize) && !empty($this->getAmount($productId))) {
+                $this->selectedIncompleteProducts[] = $index;
                 session()->flash('message', 'Geef een maat op voor het product.');
                 return;
             } else {
@@ -211,13 +214,14 @@ class Kleding extends Component
         }
 
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
-
     }
+
 
     public function render()
     {
         return view('livewire.member.kleding', [
             'amounts' => $this->amounts,
+            'selectedIncompleteProducts' => $this->selectedIncompleteProducts,
         ])->layout('layouts.templatelayout');
     }
 }

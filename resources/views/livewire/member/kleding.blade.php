@@ -38,17 +38,17 @@
                         <td>
                             €{{ $this->getTotalForProduct($product->id) ?? 0}}
                         </td>
-                        <td>
-                            @if (session()->has('message') && ($product->id != null && $size->id != null))
-                                <div class="bg-green-200 text-2xl">
-                                    {{ session('message') }}
-                                </div>
-                            @endif
-                        </td>
                     </tr>
                     <tr>
                         <td colspan="4" class="border-b border-gray-200"></td>
                     </tr>
+                    @if (in_array($index, $selectedIncompleteProducts))
+                        <tr>
+                            <td colspan="5" class="text-red-500">
+                                Selecteer een maat of aantal voor dit product: {{ $product->name }}
+                            </td>
+                        </tr>
+                    @endif
                 @empty
                     <tr>
                         <td class="p-2">Geen kleding gevonden</td>
