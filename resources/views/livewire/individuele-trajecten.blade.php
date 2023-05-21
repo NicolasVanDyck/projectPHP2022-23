@@ -1,4 +1,15 @@
 <div>
+    {{--        Filter op gebruiker          --}}
+    <div>
+        <h3>Filter op leden</h3>
+        <label for="user" value="user"/>
+        <select id="user" wire:model="user">
+            <option value="%">Alle Leden</option>
+            @foreach($users as $user)
+                <option value="{{ $user->name }}">{{ $user->name}} </option>
+            @endforeach
+        </select>
+    </div>
     {{--        Filter op afstand         --}}
     <div>
         <h3>Filter op afstand:</h3>

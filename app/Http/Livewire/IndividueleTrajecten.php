@@ -3,13 +3,25 @@
 namespace App\Http\Livewire;
 
 use App\Models\GPX;
+use App\Models\User;
 use Livewire\Component;
 use Storage;
+use Livewire\WithPagination;
 
 class IndividueleTrajecten extends Component
 {
+    use WithPagination;
+
     public $afstand;
     public $afstandMin, $afstandMax;
+    public $user = "%";
+    public $perpage = 6;
+
+    public function updated($propertyName, $propertyValue)
+    {
+        // dump($propertyName, $propertyValue);
+        $this->resetPage();
+    }
 
     public function mount()
     {
@@ -33,13 +45,18 @@ class IndividueleTrajecten extends Component
 
     public function render()
     {
+        $users = User::orderBy('name')->where('name', 'like', $this->user)->get();
 
-        $trajecten = GPX::orderBy('name')->with('user')->where('amount_of_km', '<=', $this->afstand)->get();
+
+        $trajecten = GPX::orderBy('name')->with('user')
+            ->where('amount_of_km', '<=', $this->afstand)
+            ->whereRelation('user', 'name', 'like', $this->user)
+            ->paginate($this->perpage);
 //        dd($trajecten);
 //        $gpxes = GPX::orderBy('id')->where('amount_of_km', '<=', $this->afstand)->get();
 //        dd($gpxes);
 
 
-        return view('livewire.individuele-trajecten', compact('trajecten'));
+        return view('livewire.individuele-trajecten', compact('trajecten', 'users'));
     }
 }
