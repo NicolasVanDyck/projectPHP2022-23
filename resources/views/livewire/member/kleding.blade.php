@@ -1,12 +1,14 @@
 <div>
     {{-- Do your work, then step back. --}}
     {{--Display all the products in a form--}}
-    @if (session()->has('message'))
-        <div class="bg-green-200 text-2xl">
-            {{ session('message') }}
-        </div>
-    @endif
     <form wire:submit.prevent="submitForm">
+
+{{--        @if (session()->has('message'))--}}
+{{--            <div class="bg-green-200 text-2xl">--}}
+{{--                {{ session('message') }}--}}
+{{--            </div>--}}
+{{--        @endif--}}
+
         <table>
             <thead>
                 <tr>
@@ -35,6 +37,13 @@
                         </td>
                         <td>
                             €{{ $this->getTotalForProduct($product->id) ?? 0}}
+                        </td>
+                        <td>
+                            @if (session()->has('message') && ($product->id != null && $size->id != null))
+                                <div class="bg-green-200 text-2xl">
+                                    {{ session('message') }}
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     <tr>

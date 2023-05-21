@@ -19,7 +19,7 @@ class Kleding extends Component
     public array $amounts = [];
     protected $order;
     private array $totals = [];
-    public \Illuminate\Database\Eloquent\Collection $productSizes;
+    public $productSizes;
 
     protected $rules = [
         'products' => 'array',
@@ -77,9 +77,8 @@ class Kleding extends Component
      * Returns all the sizes from the ProductSize associated with one product.
      *
      * @param $productId
-     * @return Collection
      */
-    public function getSizesForSelectedProduct($productId, $index): Collection
+    public function getSizesForSelectedProduct($productId, $index)
     {
         $this->selectedProduct[$index] = $productId;
 
@@ -94,7 +93,12 @@ class Kleding extends Component
         }
 
         // Select all the sizes from the size table that are in the productsize table.
-        $sizeCollection = Size::whereIn('id', $sizes)->get();
+//        $sizeCollection = Size::whereIn('id', $sizes)->get();
+
+        // Make above query more efficient:
+        $sizeCollection = Size::whereIn('id', function ($query) use ($productId) {
+            $query->select('size_id')->from('product_size')->where('product_id', $productId);
+        })->get();
 
         $this->sizeNames = $sizeCollection;
         return $sizeCollection;
@@ -103,21 +107,16 @@ class Kleding extends Component
     /**
      * Get the total price of the order/selected products.
      *
+     * @param $productId
      * @return int
      */
     public function getTotalForProduct($productId): int
     {
-////        dd($productId);
-//        // Get the price from the products table:
-//        $price = Product::select('price')->where('id', $productId)->get()->first()->price;
-////        dd($price);
-//
-//        return $this->amounts[$productId] * $price;
-
         if (isset($this->amounts[$productId])) {
             $amount = $this->amounts[$productId];
+
             $price = Product::select('price')->where('id', $productId)->value('price');
-//            dd($amount, $price);
+
             return $amount * $price;
         }
 
@@ -198,27 +197,21 @@ class Kleding extends Component
 
                 $selectedAmount = $this->getAmount($productId);
 
-                if (empty($selectedSize) && empty($selectedAmount)) {
-                    session()->flash('message', 'Selecteer een maat en geef een hoeveelheid op voor het product.');
-                    return;
-                } elseif (empty($selectedSize)) {
-                    session()->flash('message', 'Selecteer een maat voor het product.');
-                    return;
-                } elseif (empty($selectedAmount)) {
-                    session()->flash('message', 'Geef een hoeveelheid op voor het product.');
-                    return;
-                }
-
                 $this->updateOrder($selectedProductSize, $selectedAmount);
+            } elseif (!empty($this->selectedSize) && empty($this->getAmount($productId))) {
+//                dd($this->selectedSize, $this->getAmount($productId));
+                session()->flash('message', 'Geef een hoeveelheid op voor het product.');
+                return;
+            } elseif (empty($this->selectedSize) && !empty($this->getAmount($productId))) {
+                session()->flash('message', 'Geef een maat op voor het product.');
+                return;
             } else {
-                session()->flash('message', 'Je hebt geen maat geselecteerd!');
+                session()->flash('message', 'Je bestelling is geplaatst!');
             }
-
         }
 
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
 
-        session()->flash('message', 'Je bestelling is geplaatst!');
     }
 
     public function render()
