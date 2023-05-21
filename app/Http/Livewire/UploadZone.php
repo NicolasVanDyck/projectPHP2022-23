@@ -2,9 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Crypt;
+
+use App\Models\GPX;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use phpGPX\phpGPX;
 use Str;
 
 class UploadZone extends Component
@@ -14,27 +18,33 @@ class UploadZone extends Component
     public $files = [];
     public $attachment;
     public $iteration = 0;
-    protected $rules = [
-        'files.*' => 'required|file|mimes:gpx,xml'
-    ];
+    protected $gpx;
     protected $messages = [
-        'files.*.mimes' => 'Only gpx files are allowed'
+        'files.*' => 'Only gpx files are allowed',
     ];
     protected $validationAttributes = [
         'files.*' => 'file'
     ];
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
     public function save()
     {
-        $validatedData = $this->validate();
+//        dd($this->files);
+        $this->validate();
 
         foreach ($this->files as $file) {
-            $file->storeAs('public/gpx', Str::random(40) . '.gpx');
+
+
+            $path = $file->storeAs('public/gpx', $file->getClientOriginalName());
+            $path = Str::after($path, 'public/');
+            if (!GPX::where('path', $path)->exists()) {
+                GPX::create([
+                    'user_id' => auth()->user()->id,
+                    'path' => $path,
+                    'route' => $this->loadGpx($path)->tracks[0]->segments[0]->points,
+                    'amount_of_km' => $this->loadGpx($path)->tracks[0]->segments[0]->stats->distance,
+                    'name' => $this->loadGpx($path)->tracks[0]->name,
+                ]);
+            }
         }
         //clean up
         $this->attachment = null;
@@ -42,8 +52,23 @@ class UploadZone extends Component
 
     }
 
+    public function loadGpx($path)
+    {
+        $this->gpx = new phpGPX();
+        $result = $this->gpx->load('../storage/app/public/' . $path);
+//        dd($result);
+        return $result;
+    }
+
     public function render()
     {
         return view('livewire.upload-zone');
+    }
+
+    protected function rules()
+    {
+        return [
+            'files.*' => 'required|file|mimes:gpx,xml',
+        ];
     }
 }

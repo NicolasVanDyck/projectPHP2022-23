@@ -22,12 +22,11 @@ class GPXFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => function() {
+            'user_id' => function () {
                 return User::factory()->create()->id;
             },
             'path' => $this->faker->filePath(),
-            'start_location' => $this->faker->word(),
-            'end_location' => $this->faker->word(),
+            'route' => $this->faker->text(),
             'amount_of_km' => $this->faker->randomFloat(2, 0, 200),
             'name' => $this->faker->name(),
         ];
