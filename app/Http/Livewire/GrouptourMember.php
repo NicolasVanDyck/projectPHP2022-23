@@ -10,13 +10,20 @@ use App\Models\UserTour;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class GrouptourMember extends Component
 {
 
     public $selectedGroup;
     public $selectedDay;
+    public $selectedDistance;
+
     use WithPagination;
+    protected $paginationTheme = 'tailwind';
 
     public function leaveTour($userTourId)
     {
@@ -41,15 +48,16 @@ class GrouptourMember extends Component
         // Get unique days from group tours for the day filter dropdown
         $days = $this->groupTours->pluck('start_date')->unique()->sort()->toArray();
 
-        // Apply filters
-        $filteredGroupTours = $this->applyFilters();
+        // Apply filters and paginate the results
+        $filteredGroupTours = $this->applyFilters()
+            ->paginate(6);
 
         return view('livewire.grouptour-member', compact('userTours', 'groups', 'days', 'filteredGroupTours'));
     }
 
     private function applyFilters()
     {
-        $groupTours = GroupTour::with('group', 'gpx')->get();
+        $groupTours = GroupTour::with('group', 'gpx');
 
         // Apply group filter if selected
         if ($this->selectedGroup) {
@@ -60,6 +68,14 @@ class GrouptourMember extends Component
         if ($this->selectedDay) {
             $groupTours = $groupTours->where('start_date', $this->selectedDay);
         }
+
+        // Apply distance filter if selected
+        // Uncomment the code below if you want to apply the distance filter
+        // if ($this->selectedDistance) {
+        //     $groupTours = $groupTours->whereHas('gpx', function ($query) {
+        //         $query->where('amount_of_km', '<=', $this->selectedDistance);
+        //     });
+        // }
 
         return $groupTours;
     }
@@ -101,6 +117,15 @@ class GrouptourMember extends Component
             $query->whereDate('start_date', $this->selectedDay);
         }
 
+        // Calculate the minimum and maximum distances
+//        $minDistance = $query->min('gpx.amount_of_km');
+//        $maxDistance = $query->max('gpx.amount_of_km');
+//
+//        // Set the initial selected distance to the maximum distance
+//        if (!$this->selectedDistance) {
+//            $this->selectedDistance = $maxDistance;
+//        }
+
         $this->groupTours = $query->orderBy('start_date')->get()->unique('start_date');
     }
 
@@ -140,6 +165,9 @@ class GrouptourMember extends Component
     public function mount()
     {
         $this->groupTours = GroupTour::with('group', 'gpx')->get();
+        // Get minimum and maximum distances from the database
+//        $this->minDistance = Gpx::min('amount_of_km');
+//        $this->maxDistance = Gpx::max('amount_of_km');
     }
 
    }
