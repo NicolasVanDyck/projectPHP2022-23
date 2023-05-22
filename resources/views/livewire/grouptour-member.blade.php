@@ -48,6 +48,9 @@
                             {{ $groupTour->gpx->name }}
                         </h2>
                         <p class="leading-relaxed text-lg mb-2">
+                            Group Name: {{ $groupTour->group->group }}
+                        </p>
+                        <p class="leading-relaxed text-lg mb-2">
                             Start Datum: {{ $groupTour->start_date }}
                         </p>
                         <p class="leading-relaxed text-lg mb-2">
@@ -58,9 +61,6 @@
                         </p>
                         <p class="leading-relaxed text-lg mb-2">
                             Tour ID: {{ $groupTour->tour_id }}
-                        </p>
-                        <p class="leading-relaxed text-lg mb-2">
-                            Group Name: {{ $groupTour->group->group }}
                         </p>
                     </div>
                 </div>
@@ -89,6 +89,20 @@
         </div>
     @endforeach
 </div>
+
+    @if ($showPopup)
+        <div class="fixed inset-0 flex items-center justify-center z-50">
+            <div class="bg-gray-900 bg-opacity-50 absolute inset-0"></div>
+            <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-auto relative z-50">
+                <h1 class="text-xl font-bold mb-4 text-center text-gray-900">
+                    U bent al ingeschreven voor deze groepsrit!
+                </h1>
+                <button class="block w-full font-bold rounded bg-danger px-4 py-2 text-white uppercase tracking-wider text-sm shadow-md hover:bg-danger-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]" wire:click="$set('showPopup', false)">
+                    Sluiten
+                </button>
+            </div>
+        </div>
+    @endif
 
     <!-- Pagination -->
     <div class="mt-4">

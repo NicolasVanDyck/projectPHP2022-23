@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class GrouptourMember extends Component
 {
-
+    public $showPopup;
     public $selectedGroup;
     public $selectedDay;
     public $selectedDistance;
@@ -137,22 +137,32 @@ class GrouptourMember extends Component
         // Get the logged-in user ID
         $userId = Auth::id();
 
-        // Retrieve the group tour based on the provided tour ID
-        $groupTour = GroupTour::where('tour_id', $tourId)->first();
+        // Check if the user is already registered for the tour
+        $isRegistered = UserTour::where('user_id', $userId)
+            ->where('tour_id', $tourId)
+            ->exists();
 
-        if ($groupTour) {
-            // Store the data in the database
-            UserTour::create([
-                'user_id' => $userId,
-                'tour_id' => $groupTour->tour_id,
-                'group_tour_id' => $groupTour->id,
-            ]);
-
-            // Show a success message
-            session()->flash('message', 'You have joined the tour successfully.');
+        if ($isRegistered) {
+            // Set the flag to show the pop-up message
+            $this->showPopup = true;
         } else {
-            // Show an error message if the group tour is not found
-            session()->flash('message', 'The group tour is not available.');
+            // Retrieve the group tour based on the provided tour ID
+            $groupTour = GroupTour::where('tour_id', $tourId)->first();
+
+            if ($groupTour) {
+                // Store the data in the database
+                UserTour::create([
+                    'user_id' => $userId,
+                    'tour_id' => $groupTour->tour_id,
+                    'group_tour_id' => $groupTour->id,
+                ]);
+
+                // Show a success message
+                session()->flash('message', 'You have joined the tour successfully.');
+            } else {
+                // Show an error message if the group tour is not found
+                session()->flash('message', 'The group tour is not available.');
+            }
         }
     }
 
