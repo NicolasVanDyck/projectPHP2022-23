@@ -8,7 +8,7 @@
 {{--    </ul>--}}
 {{--</div>--}}
 <div>
-    <div class="pr-4 py-4 md:py-0">
+    <div class="py-4 md:py-0 sm:pr-4">
         <div class="bg-white rounded-3xl shadow-xl w-full mx-auto">
             <div class="p-4 h-auto">
                 <div class="text-lg text-center sm:px-6">
