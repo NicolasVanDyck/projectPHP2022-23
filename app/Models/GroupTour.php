@@ -30,6 +30,12 @@ class GroupTour extends Model
         return $this->hasMany(UserTour::class);
     }
 
+    public function presences()
+    {
+        //hasONe
+        return $this->hasMany(Presence::class);
+    }
+
 
     public function tours()
     {

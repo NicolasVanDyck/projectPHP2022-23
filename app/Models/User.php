@@ -78,6 +78,11 @@ class User extends Authenticatable
         return $this->hasMany(UserTour::class);
     }
 
+    public function presences()
+    {
+        return $this->hasMany(Presence::class);
+    }
+
     public function gpxes()
     {
         return $this->hasMany(GPX::class);
