@@ -12,6 +12,8 @@ class Image extends Model
     use HasUuids;
 
     protected $fillable = [
+        'image_type_id',
+        'tour_id',
         'name',
         'description',
         'path',

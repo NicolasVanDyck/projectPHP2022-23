@@ -17,7 +17,6 @@
             <label for="afstand">Aantal kilometers:
                 <output id="kilometerfilter" name="kilometerfilter">{{$afstand}}</output>
             </label>
-
             <input type="range" id="afstand" name="afstand" wire:model="afstand" min="{{$afstandMin}}"
                    max="{{$afstandMax}}" value="0" step="5"
                    oninput="kilometerfilter.value = afstand.value">
@@ -46,14 +45,13 @@
                     </p>
                 </div>
                 <x-button wire:click="download('{{$traject->path}}')">DOWNLOAD</x-button>
-                @if($traject->user->id == auth()->user()->id)
+                @if($traject->user->id == auth()->user()->id || auth()->user()->is_admin)
                     <x-button class="bg-danger"
                               x-data=""
                               @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
                     >DELETE
                     </x-button>
                 @endif
-
             </div>
         </div>
     @endforeach
