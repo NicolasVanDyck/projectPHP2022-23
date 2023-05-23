@@ -26,7 +26,52 @@ class ProductSeeder extends Seeder
             Size::firstOrCreate(['size' => $size]);
         }
 
-        $products = Product::factory(10)->create();
+        Product::factory()->create([
+            'name' => 'Trui met korte mouwen',
+            'price' => 52.45,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Trui met lange mouwen',
+            'price' => 74.30,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Windvest',
+            'price' => 69.15,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Wintervest',
+            'price' => 113.40,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Korte broek prr met bretel',
+            'price' => 97.40,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Korte broek prr zonder bretel',
+            'price' => 81.15,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Panty met bretel',
+            'price' => 101,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Panty zonder bretel',
+            'price' => 90.10,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Panty met bretel en zonder zeem',
+            'price' => 89.60,
+        ]);
+
+        $products = Product::all();
 
         foreach ($products as $product) {
             $sizes = Size::inRandomOrder()->take($randomSize)->pluck('id');

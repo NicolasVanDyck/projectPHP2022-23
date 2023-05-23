@@ -26,7 +26,7 @@ class UserTourFactory extends Factory
 
         return [
             'user_id' => function() {
-                return User::factory()->create()->id;
+                return User::all()->random();
             },
             'tour_id' => $tourId,
             'group_tour_id' => GroupTour::factory()->create(['tour_id' => $tourId])->id,
