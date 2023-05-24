@@ -4,7 +4,7 @@
 
 
     <div class="flex flex-col sm:flex-row">
-        <div class="w-full sm:w-1/2">
+        <div class="w-full sm:w-1/2 ">
             <livewire:admin.texts/>
         </div>
         <div class="w-full sm:w-1/2">
