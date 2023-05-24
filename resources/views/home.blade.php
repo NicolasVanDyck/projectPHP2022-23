@@ -2,19 +2,19 @@
 
 <x-slot name="title">Homepagina</x-slot>
 <x-slot name="description">Welkom op de homepagina van de Wezeldrivers</x-slot>
-    {{--Text--}}
+    Text
 <div>
     <livewire:admin.texts/>
 </div>
-    {{--Sponsor--}}
+    Sponsor
 <div>
     <livewire:sponsor/>
 </div>
- {{--Activities--}}
+ Activities
 <div>
     <livewire:activities/>
 </div>
 
-    {{--Carousel--}}
+    Carousel
 <x-wd_components.carousel/>
 </x-templatelayout>

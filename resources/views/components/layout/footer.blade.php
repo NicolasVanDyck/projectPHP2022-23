@@ -1,8 +1,8 @@
 <div class="flex-grow">
-    <footer class="text-center w-full py-4 bg-white rounded-3xl shadow-md mt-auto">
+    <footer class="text-center w-full py-4 bg-transparent rounded-3xl shadow-md mt-auto">
         <div class="max-w-screen-lg mx-auto">
-            <div class="flex justify-between items-center bg-white">
-                <h4 class="font-bold text-gray-700"><div>De Wezeldrivers - © {{ date('Y') }}</div></h4>
+            <div class="flex justify-between items-center">
+                <h4 class="font-bold text-white-700"><div>De Wezeldrivers - © {{ date('Y') }}</div></h4>
 
                 <div class="m-2 text-center">
                     <h4 class="font-bold text-gray-700">Koninklijke Wezel Tennis Club</h4>
