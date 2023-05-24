@@ -14,10 +14,10 @@
                 <div>{{$images->links()}}</div>
 {{--                Extra filter op attribuut 'carousel'?           --}}
             </div>
-            <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 @foreach($images as $image)
                     <div class="flex-col mb-3"
-                    wire:key="image-{{$image->id}}"
+                    wire:key="image_{{$image->id}}"
                     >
                         <div class="flex justify-between mb-2">
                             <div>
