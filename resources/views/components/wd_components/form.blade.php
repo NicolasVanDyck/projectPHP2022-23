@@ -1,5 +1,6 @@
 <div
-    class="block max-w-md rounded-lg p-6  bg-white rounded-3xl shadow-xl">
+    class="block max-w-md rounded-lg p-6  bg-white rounded-3xl">
+
     <form>
         <div class="grid grid-cols-2 gap-4">
             <!--First name input-->
@@ -78,10 +79,11 @@
         </div>
 
         <!--Submit button-->
-        <button
+        <x-button
             type="submit"
-            class="inline-block w-full rounded bg-info px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-            Verstuur</button>
-        <a href = "mailto: abc@example.com" class="">Send Email</a>
+            class="w-full">
+            Verstuur</x-button>
+{{--        <a href = "mailto: abc@example.com" class="">Send Email</a>--}}
 </div>
+
 

@@ -6,10 +6,10 @@
     {{-- Dropdown to select a year and month --}}
 
         <div class="mt-4 mb-4 flex flex-col md:flex-row justify-between">
-            <div class="flex flex-col mb-4 md:mb-0 ">
+            <div class="flex flex-col mb-4 md:mb-0  ">
                 <label for="year" class="text-base mb-1">Jaar</label>
                 <select wire:model.debounce.500ms="selectedYear" name="year" id="year"
-                        class="text-base rounded-xl">
+                        class="text-base w-25 rounded-xl pl-2 ">
                     @foreach($years as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
@@ -19,7 +19,7 @@
             <div class="flex flex-col">
                 <label for="month" class="text-base mb-1">Maand</label>
                 <select wire:model.debounce.500ms="selectedMonth" name="month" id="month"
-                        class="text-base rounded-xl">
+                        class="text-base w-25 rounded-xl pl-6">
                     @foreach($months as $month)
                         <option value="{{ $month }}">{{ $month }}</option>
                     @endforeach

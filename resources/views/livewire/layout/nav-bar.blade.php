@@ -33,8 +33,8 @@
         </a>
 
     </div>
-    <h1 class="hidden md:block text-5xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-yellow-300 via-orange-500 to-red-950 bg-clip-text">
-        Wezel<span class="text-blue-500">Drivers</span>
+    <h1 class="hidden md:block text-5xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-yellow-300 via-red-500 to-[#99254B] bg-clip-text">
+        Wezeldrivers
     </h1>
 
 
