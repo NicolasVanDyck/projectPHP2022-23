@@ -7,7 +7,7 @@
         <div class="w-full sm:w-1/2 ">
             <livewire:admin.texts/>
         </div>
-        <div class="w-full sm:w-1/2">
+        <div class="w-full sm:w-1/2 mb-2">
             <x-wd_components.form/>
         </div>
     </div>

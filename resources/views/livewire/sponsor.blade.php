@@ -1,4 +1,4 @@
-<div class="px-8 bg-white rounded-3xl shadow-md">
+<div class="px-8 bg-gradient-to-l from-orange-400 to-rose-400 rounded-3xl shadow-md">
     <h3 class="font-bold underline text-center pt-2 text-lg">Onze sponsoren</h3>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 pb-4 h">
         @foreach(Storage::files('public/sponsor/') as $path)
