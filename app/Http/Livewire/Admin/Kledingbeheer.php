@@ -9,51 +9,76 @@ use Livewire\Component;
 class Kledingbeheer extends Component
 {
     public $sizes = [];
-    public $products = [];
+//    public array $products;
     public string $productName;
     public int $productPrice;
     public string $size;
+    public $sortField;
+    protected $queryString = ['sortField', 'sortAsc'];
+    public $search;
+    public $sortAsc = true;
+    public $active = true;
 
     public function mount()
     {
         $this->productName = '';
         $this->productPrice = 0;
-        $this->size = '';
-
-        $this->sizes = Size::all();
-        $this->products = Product::with('sizes')->get();
     }
 
     protected $rules = [
         'clothingName' => 'required|string',
         'clothingPrice' => 'required|integer',
-        'size' => 'required|string',
+        'selectedSizes' => 'required|array|min:1',
+        'selectedSizes.*' => 'string',
     ];
 
-    public function submit()
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortAsc = !$this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+
+        $this->sortField = $field;
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function store()
     {
         $this->validate();
 
-        $clothing = new Product();
-        $clothing->name = $this->productName;
-        $clothing->price = $this->productPrice;
-        $clothing->save();
+        $product = new Product();
+        $product->name = $this->productName;
+        $product->price = $this->productPrice;
+        $product->save();
 
-        $size = new Size();
-        $size->size = $this->size;
-        $size->save();
+        $product->sizes()->sync($this->sizes);
 
-        session()->flash('message', 'Kledingstuk toegevoegd!');
+        session()->flash('message', 'Product toegevoegd!');
+        $this->reset(['productName', 'productPrice', 'selectedSizes']);
     }
-
-
-
-
-
-
 
     public function render()
     {
-        return view('livewire.admin.kledingbeheer');
+        $sizes = Size::all();
+
+        $productsQuery = Product::with('sizes')
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('price', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->sortField, function ($query) {
+                $query->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+            });
+
+        $products = $productsQuery->get();
+//        dd($products);
+
+        return view('livewire.admin.kledingbeheer', compact('products', 'sizes'));
     }
 }
