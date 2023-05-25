@@ -15,7 +15,7 @@ class IndividueleTrajecten extends Component
     public $afstand;
     public $afstandMin, $afstandMax;
     public $user = "%";
-    public $perpage = 6;
+    public $perpage = 2;
 
     public function updated($propertyName, $propertyValue)
     {

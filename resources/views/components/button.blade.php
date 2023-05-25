@@ -1,12 +1,15 @@
 @props([
-    'bgcolor' => 'blauw',
+    'bgcolor' => 'oranje',
 ])
 
 @php
 
+
+
     $optionsbgcolor = [
         'blauw' => 'bg-blue-600 border-blue-600',
         'rood' => 'bg-red-600 border-red-600 active:bg-red-400',
+        'oranje' => 'bg-[#d76a5e]'
     ];
 
     $style = $optionsbgcolor[$bgcolor] ?? $optionsbgcolor['blauw'];
