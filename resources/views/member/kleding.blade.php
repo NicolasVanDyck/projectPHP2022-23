@@ -19,5 +19,7 @@
 {{--        </div>--}}
 {{--    </div>--}}
 
-    <livewire:member.kleding/>
+    <div>
+        <livewire:member.kleding/>
+    </div>
 </x-templatelayout>
