@@ -1,33 +1,36 @@
-<div x-data="{ isOpen: false, modalTitle: '', modalDescription: '' }" class="w-full max-w-md mx-auto md:mx-0 md:max-w-full mb-4 md:mb-0 md:mr-4 pt-4">
+<div x-data="{ isOpen: false, modalTitle: '', modalDescription: '' }" class="py-4">
 {{--     TODO: bg-white veranderen naar bg-slate-100/20 ivm ledendashboard --}}
 {{--     TODO: verder uitbouwen naar een foldable model? Nu worden alleen de 5 recentste getoond (zie livewire component) --}}
 {{--     TODO: de table moet nog een beetje opgemaakt worden --}}
 
     {{-- Dropdown to select a year and month --}}
-    <div class="ml-8 mt-4 flex flex-col md:flex-row">
-        <div class="flex flex-col mb-4 md:mb-0 md:mr-4">
-            <label for="year" class="text-base ml-2 mb-1">Jaar</label>
-            <select wire:model.debounce.500ms="selectedYear" name="year" id="year" class="text-base rounded-xl mr-2">
-                @foreach($years as $year)
-                    <option value="{{ $year }}">{{ $year }}</option>
-                @endforeach
-            </select>
-        </div>
 
-        <div class="flex flex-col">
-            <label for="month" class="text-base ml-2 mb-1">Maand</label>
-            <select wire:model.debounce.500ms="selectedMonth" name="month" id="month" class="text-base rounded-xl mr-2">
-                @foreach($months as $month)
-                    <option value="{{ $month }}">{{ $month }}</option>
-                @endforeach
-            </select>
+        <div class="mt-4 mb-4 flex flex-col md:flex-row justify-between">
+            <div class="flex flex-col mb-4 md:mb-0  ">
+                <label for="year" class="text-base mb-1">Jaar</label>
+                <select wire:model.debounce.500ms="selectedYear" name="year" id="year"
+                        class="text-base w-25 rounded-xl pl-2 ">
+                    @foreach($years as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="month" class="text-base mb-1">Maand</label>
+                <select wire:model.debounce.500ms="selectedMonth" name="month" id="month"
+                        class="text-base w-25 rounded-xl pl-6">
+                    @foreach($months as $month)
+                        <option value="{{ $month }}">{{ $month }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-    </div>
 
     {{-- Table with activities --}}
 
-    <div class="overflow-x-auto w-screen">
-        <table class="table-fixed m-8 p-8 shadow-xl rounded-lg bg-white text-gray-700">
+    <div>
+        <table class="table-fixed shadow-xl rounded-lg bg-white text-gray-700">
             {{-- Two column table with a name and description in the table header --}}
             <thead>
             <tr class="text-left w-screen">
@@ -47,10 +50,6 @@
                     <td class="p-2">{{ date('H:i', strtotime($activity->start_date)) }}</td>
                     <td class="p-2 hidden md:table-cell">{{ date('d-m-Y', strtotime($activity->end_date)) }}</td>
                 </tr>
-                {{-- A very thin separation line --}}
-                <tr>
-                    <td colspan="5" class="border-b border-gray-200"></td>
-                </tr>
             @empty
                 <tr>
                     <td class="p-2">Geen activiteiten gevonden</td>
@@ -59,7 +58,7 @@
             </tbody>
         </table>
 
-        <div x-show="isOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center px-4">
+        <div x-show="isOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" id="modal" class="fixed inset-0 z-10 bg-gray-900 bg-opacity-50 flex items-center justify-center px-4">
             <div class="bg-white rounded-lg p-6">
                 <div class="flex justify-end">
                     <button class="text-gray-500 hover:text-gray-700" x-on:click="isOpen = false">

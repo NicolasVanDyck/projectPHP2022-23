@@ -34,11 +34,12 @@
             <h3>Kies je afstand:</h3>
             <div class="p-2">
                 <label for="afstand">Aantal kilometers:
-                    <output id="kilometerfilter" name="kilometerfilter">{{$afstand}}</output>
+                    <output id="kilometerfilter" name="kilometerfilter">{{round($afstand/1000)}}</output>
                 </label>
 
                 <input type="range" id="afstand" name="afstand" wire:model="afstand" min="{{$afstandMin}}"
                        max="{{$afstandMax}}" value="0" step="1"
+
                        oninput="kilometerfilter.value = afstand.value">
             </div>
         </div>

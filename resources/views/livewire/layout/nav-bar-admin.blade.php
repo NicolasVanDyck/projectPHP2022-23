@@ -1,4 +1,4 @@
-<div class="container mx-auto p-4 flex">
+<div class="mx-auto p-4 flex">
     <div class="flex grow lg:grow-0 items-center mr-8 transition hover:scale-105 duration-1000">
         {{-- Logo --}}
             {{--            <img src="{{asset('icons/icons-32x32.png')}}" alt="Logo" />--}}

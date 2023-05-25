@@ -1,31 +1,43 @@
 <div>
-    {{--        Filter op gebruiker          --}}
-    <div>
-        <h3>Filter op leden</h3>
-        <label for="user" value="user"/>
-        <select id="user" wire:model="user">
-            <option value="%">Alle Leden</option>
-            @foreach($users as $user)
-                <option value="{{ $user->name }}">{{ $user->name}} </option>
-            @endforeach
-        </select>
-    </div>
-    {{--        Filter op afstand         --}}
-    <div>
-        <h3>Filter op afstand:</h3>
-        <div class="p-2">
-            <label for="afstand">Aantal kilometers:
-                <output id="kilometerfilter" name="kilometerfilter">{{$afstand}}</output>
-            </label>
-            <input type="range" id="afstand" name="afstand" wire:model="afstand" min="{{$afstandMin}}"
-                   max="{{$afstandMax}}" value="0" step="5"
-                   oninput="kilometerfilter.value = afstand.value">
+    <div class="flex">
+        <div class="flex flex-col">
+        {{-- Filter op gebruiker --}}
+        <h3 class="flex">Filter op leden</h3>
+            <div class="flex">
+                <label for="user" value="user"/>
+                <select id="user" wire:model="user">
+                    <option value="%">Alle Leden</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->name }}">{{ $user->name }} </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+
+        {{-- Filter op afstand --}}
+        <div class="flex flex-col">
+            <h3 class="flex">Filter op afstand:</h3>
+            <div class="p-2 flex">
+                <label for="afstand">Aantal kilometers:
+                    <output id="kilometerfilter" name="kilometerfilter">{{round($afstand/1000)}}</output>
+                </label>
+                <input type="range" class="accent-orange-500" id="afstand" name="afstand" wire:model="afstand"
+                       min="{{$afstandMin}}"
+                       max="{{$afstandMax}}" value="0" step="5"
+                       x-bind:value="afstand" x-on:input="kilometerfilter.value = $event.target.value">
+            </div>
         </div>
     </div>
-    @foreach($trajecten as $traject)
-        <div class="p-4">
+
+    <div class="mt-4">
+        {{ $trajecten->links() }}
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+        @foreach($trajecten as $traject)
+            <div class="p-4">
             <div
-                class="block max-w-[22rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                 <a href="#!">
                     <img
                         class="rounded-t-lg w-full"
@@ -44,15 +56,19 @@
                         Uploaded by: {{$traject->user->name}}
                     </p>
                 </div>
-                <x-button wire:click="download('{{$traject->path}}')">DOWNLOAD</x-button>
-                @if($traject->user->id == auth()->user()->id || auth()->user()->is_admin)
-                    <x-button class="bg-danger"
-                              x-data=""
-                              @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
-                    >DELETE
-                    </x-button>
+{{--                <div class="flex">--}}
+                    <x-button wire:click="download('{{$traject->path}}')">DOWNLOAD</x-button>
+                    @if($traject->user->id == auth()->user()->id || auth()->user()->is_admin)
+                        <x-button class="bg-danger-500 hover:bg-danger-600"
+                                  x-data=""
+                                  @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
+                        >DELETE
+                        </x-button>
+{{--                </div>--}}
                 @endif
             </div>
         </div>
     @endforeach
+
+    </div>
 </div>

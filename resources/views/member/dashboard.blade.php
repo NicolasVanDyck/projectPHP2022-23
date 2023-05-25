@@ -4,16 +4,16 @@
     <x-slot name="description">Welkom op het dashboard van {{auth()->user()->name}} </x-slot>
 
 
-    <div class="flex-col space-y-6  justify-between my-6">
+    <div class="flex-col justify-between pt-2">
         <div class="mr-6 text-center">
             <h1 class="text-4xl font-semibold mb-2">Dashboard van {{auth()->user()->name}} </h1>
             <h2 class="text-gray-600 ml-0.5">Vind hier al uw statistieken</h2>
         </div>
     </div>
 @if(auth()->user()->access_token == null)
-    <div class="flex">
-        <button class="font-title text-4xl rounded-lg bg-red-100"><a href="{{ route('stravaAuthentication') }}">Strava</a></button>
-    </div>
+        <div class="flex">
+                <a href="{{ route('stravaAuthentication') }}"><img src="/assets/strava/btn_strava_connectwith_orange.png" alt="strava"></a>
+        </div>
 @else
     <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
         <div class="flex items-center p-8 bg-white shadow rounded-lg">
@@ -26,7 +26,7 @@
             </div>
             <div>
                 <span class="text-2xl font-bold text-center ">{{$distance}}</span>
-                <span class="block text-gray-500">Aantal Kilometers</span>
+                <span class="block text-gray-500">Aantal kilometers</span>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
             </div>
             <div>
                 <span class="block text-2xl font-bold">{{$elevation}}</span>
-                <span class="block text-gray-500">Aantal HoogteMeters</span>
+                <span class="block text-gray-500">Aantal Hoogtemeters</span>
             </div>
 
         </div>
@@ -75,7 +75,7 @@
     </section>
     <section>
     <div class="flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg my-6">
-        <div class="px-6 py-5 font-semibold border-b border-gray-100">Gereden Kilometers</div>
+        <div class="px-6 py-5 font-semibold border-b border-gray-100">Gereden kilometers</div>
         <div class="p-4 flex-grow">
             <canvas class="scale-75"
                     data-te-chart="bar"
