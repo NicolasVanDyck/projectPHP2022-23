@@ -23,11 +23,19 @@
                             <div>
                                 <h3 class="text-lg font-medium text-gray-900">{{$image->name}}</h3>
                                 <p class="text-sm text-gray-500">{{$image->description}}</p>
+                                @if($image->in_carousel)
+                                    <p class="font-bold">Wordt getoond op de homepagina</p>
+                                @endif
                             </div>
+{{--                            Zicht in beeld als tour_id opstaat?? --}}
                             <div>
-{{--                                Tour_id = nu overal null--}}
-                                <p class="text-lg font-medium text-gray-900">{{$image->tour_id}}</p>
-                                <p class="text-sm text-gray-500">{{$image->image_type_name}}</p>
+                                @foreach($tours as $tour)
+                                    @if($image->tour_id == $tour->id)
+{{--                                        Geeft tourname niet weer?? Staat nochtans in model --}}
+                                        <p class="text-sm text-gray-500">Tour: {{$tour->tour_name}}</p>
+                                    @endif
+                                @endforeach
+                                <p class="text-sm text-gray-500">Type: {{$image->image_type_name}}</p>
                             </div>
                         </div>
                         <div class="relative group overflow-hidden rounded-lg w-[80%] h-[80%] mx-auto">
@@ -36,12 +44,11 @@
                         </div>
                         <div class="mt-3 flex justify-center">
                             <x-button
-                            wire:click="setNewImage({{$image->id}})"
+                            wire:click="setNewImage('{{$image->id}}')"
                             >Aanpassen</x-button>
                             <x-button bgcolor="rood"
-                                      wire:click="deleteImage({{$image->id}})"
                                       x-data=""
-                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage({{$image->id}}) : ''"
+                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->id}}') : ''"
                             >Verwijderen</x-button>
                         </div>
                     </div>

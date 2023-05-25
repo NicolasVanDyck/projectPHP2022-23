@@ -25,12 +25,12 @@ class Tour extends Model
         return $this->hasMany(Image::class);
     }
 
-//    public function startLocation()
-//    {
-//        return Attribute::make(
-//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->start_location,
-//        );
-//    }
+    public function tourName()
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
+        );
+    }
 //
 //    public function endLocation()
 //    {
@@ -55,5 +55,5 @@ class Tour extends Model
 //    }
 //
 //
-//    protected $appends = ['start_location','end_location','amount_of_km','name'];
+    protected $appends = ['tour_name'];
 }

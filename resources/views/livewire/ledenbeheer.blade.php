@@ -65,7 +65,7 @@
                             wire:click="setNewUser({{$user->id}})">
                                 Aanpassen
                             </x-button>
-{{--                            Om ervoor te zorgen dat admins geen andere admins kunnen verwijderen!       --}}
+{{--                            Om ervoor te zorgen dat admins niet rechtstreeks andere admins kunnen verwijderen!       --}}
                             @if($user->is_admin != 1)
                             <x-button bgcolor="rood"
                                       x-data=""

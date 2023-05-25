@@ -15,7 +15,7 @@ class ImageSeeder extends Seeder
 //        Creëer galerij images
         for($i = 1; $i <= 30; $i++) {
             Image::factory()->create([
-                'image_type_id' => 3,
+                'image_type_id' => 2,
                 'name' => 'Foto ' . $i,
                 'description' => 'Foto ' . $i,
                 'path' => '/storage/galerij/Foto' . $i . '.jpg',

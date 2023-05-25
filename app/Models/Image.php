@@ -27,6 +27,7 @@ class Image extends Model
         );
     }
 
+
     public function imagetype($imagetype = null)
     {
         $this->belongsTo(ImageType::class) ([
