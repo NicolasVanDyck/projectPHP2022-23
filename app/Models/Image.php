@@ -18,6 +18,7 @@ class Image extends Model
         'name',
         'description',
         'path',
+        'in_carousel',
     ];
 
     protected function imagetypeName(): Attribute

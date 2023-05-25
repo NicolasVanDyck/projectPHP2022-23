@@ -5,11 +5,18 @@
                 <div>
                     <label for="type" value="type"/>
                     <select id="type" wire:model="type">
-                        <option value="%">Kies hier je afbeeldingstype</option>
+                        <option value="%">Alle afbeeldingen</option>
                         @foreach($imagetypes as $it)
                             <option value="{{ $it->id }}">{{ $it->image_type }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div>
+                    <label for="homecarousel" value="homecarousel">Getoond op homepage?</label>
+                    <x-checkbox id="homecarousel" type="checkbox"
+                                wire:model="homecarousel"
+                                autocomplete="off" class="block mt-1"/>
+
                 </div>
                 <div>{{$images->links()}}</div>
 {{--                Extra filter op attribuut 'carousel'?           --}}

@@ -30,6 +30,7 @@ class FotoUpload extends Component
 
     public $showModal = false;
 
+    public $homecarousel = 0;
 
     protected function rules()
     {
@@ -85,6 +86,7 @@ class FotoUpload extends Component
             $this->newImage['name'] = $image->name;
             $this->newImage['description'] = $image->description;
             $this->newImage['path'] = $image->path;
+//            Waarom werkt in carousel hier niet?
             $this->newImage['in_carousel'] = $image->in_carousel;
         } else {
             $this->reset('newImage');
@@ -126,10 +128,17 @@ class FotoUpload extends Component
             $this->resetPage();
     }
 
+
     public function render()
     {
         $tours = Tour::get();
-        $images = Image::where('image_type_id', 'like', $this->type)->paginate($this->perPage);
+        $images = Image::where('image_type_id', 'like', $this->type)
+
+                ->when(request($this->homecarousel) == 1, function($query) {
+                    return $query->where('in_carousel', '=', $this->homecarousel);
+                })
+//            ->where('in_carousel', '=', $this->homecarousel)
+            ->paginate($this->perPage);
         $imagetypes = ImageType::get();
         return view('livewire.foto-upload', compact('images', 'imagetypes','tours'));
     }
