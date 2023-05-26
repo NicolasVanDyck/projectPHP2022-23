@@ -19,9 +19,6 @@
     h2 {
         @apply text-4xl font-title text-black;
     }
-    p {
-        @apply text-base text-gray-700;
-    }
     button {
         @apply text-base;
     }
@@ -30,6 +27,9 @@
     }
     img {
         @apply  w-16 md:w-32 lg:w-48 rounded-lg;
+    }
+    #adminText {
+        @apply text-2xl font-title font-bold;
     }
 }
 

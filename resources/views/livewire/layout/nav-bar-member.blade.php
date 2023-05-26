@@ -1,4 +1,4 @@
-<div class="container mx-auto p-4 flex">
+<div class="mx-auto p-4 flex">
     <div class="flex grow lg:grow-0 items-center mr-8 transition hover:scale-105 duration-1000">
         {{-- Logo --}}
 {{--        <a href="{{ route('dashboard') }}">--}}
@@ -32,13 +32,15 @@
                         Beheren
                     </x-nav-link>
                 @endif
-            <x-nav-link class="mr-8">
+            <x-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit"
-                            class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">
-                        Logout
-                    </button>
+                    <div class="flex w-full justify-end">
+                        <x-button type="submit"
+                                  class="bg-red-500 w-2">
+                            Logout
+                        </x-button>
+                    </div>
                 </form>
             </x-nav-link>
         </div>

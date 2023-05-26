@@ -10,7 +10,7 @@ class UserTour extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['user_id', 'tour_id', 'group_tour_id'];
 
     public function user()
     {
@@ -27,7 +27,11 @@ class UserTour extends Model
     }
     public function groupTour()
     {
-        return $this->belongsTo(GroupTour::class)->withDefault();
+        return $this->belongsTo(GroupTour::class);
+    }
+    public function gpx()
+    {
+        return $this->belongsTo(Gpx::class, 'gpx_id');
     }
 
     public function startDate()

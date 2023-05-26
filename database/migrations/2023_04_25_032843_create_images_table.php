@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->unique()->nullable(false);
             $table->mediumText('description');
             $table->string('path')->unique()->nullable(false);
+            $table->boolean('in_carousel')->default(false);
             $table->timestamps();
         });
     }

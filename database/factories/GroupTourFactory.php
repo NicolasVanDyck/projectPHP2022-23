@@ -25,7 +25,7 @@ class GroupTourFactory extends Factory
 
         return [
             'group_id' => function () {
-                return Group::factory()->create()->id;
+                return Group::all()->random();
             },
             'tour_id' => Tour::factory(),
             'start_date' => $this->faker->dateTimeBetween('+1 week', '+5 month'),

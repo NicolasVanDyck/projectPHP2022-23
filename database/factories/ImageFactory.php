@@ -25,7 +25,7 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         // Image types array.
-        $imageTypes = ['sponsor', 'route', 'image'];
+        $imageTypes = ['sponsor', 'image'];
 
         $imageTypeArray = [];
 

@@ -7,5 +7,4 @@
     @livewire('ledenbeheer')
 </div>
 
-
 </x-templatelayout>

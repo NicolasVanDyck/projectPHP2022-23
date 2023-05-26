@@ -12,7 +12,6 @@ class DashboardAanwezigheden extends Component
 {
     public function render()
     {
-//        Is extra code nodig of is UserTour::all() genoeg? Werkt zo ook, maar wat is het nu van de extra's dan?
         $aanwezigheden = UserTour::orderBy('id')->has('user')->get();
         $starturen = GroupTour::orderBy('id')->get();
         $tours = Tour::orderBy('id')->get();
