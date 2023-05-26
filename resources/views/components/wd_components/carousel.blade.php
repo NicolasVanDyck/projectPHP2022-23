@@ -1,6 +1,6 @@
 <div
     id="carouselExampleCaptions"
-    class="relative pb-4"
+    class="relative p-4 md:w-2/3 lg:w-1/2"
     data-te-carousel-init
     data-te-carousel-slide>
     <!--Carousel indicators-->
@@ -41,7 +41,7 @@
             <img
                 src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg"
                 class="block w-full"
-                alt="..." />
+                alt="..."/>
             <div
                 class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                 <h5 class="text-xl">First slide label</h5>
@@ -58,7 +58,7 @@
             <img
                 src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
                 class="block w-full"
-                alt="..." />
+                alt="..."/>
             <div
                 class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                 <h5 class="text-xl">Second slide label</h5>
@@ -75,7 +75,7 @@
             <img
                 src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
                 class="block w-full"
-                alt="..." />
+                alt="..."/>
             <div
                 class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
                 <h5 class="text-xl">Third slide label</h5>
@@ -103,7 +103,7 @@
         <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M15.75 19.5L8.25 12l7.5-7.5" />
+            d="M15.75 19.5L8.25 12l7.5-7.5"/>
       </svg>
     </span>
         <span
@@ -128,7 +128,7 @@
         <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
       </svg>
     </span>
         <span
