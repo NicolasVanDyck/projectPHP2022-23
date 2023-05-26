@@ -1,60 +1,57 @@
 <div>
-    {{--Make a datatable where the admin can update the productName, productSizes and Prices--}}
-    {{--Also it must be possible to insert new products (with names and sizes--}}
-    {{--We can work with a datatable--}}
-    <input wire:model="search"
+{{--    <input wire:model="search"
            id="search"
-           class="block w-1/4 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out"
-           placeholder="Search" type="search">
+           class="mt-2 w-1/8 pr-3 border border-gray-300 rounded-md bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:border-blue-300 focus:shadow-outline-blue sm:text-sm transition duration-150 ease-in-out"
+           placeholder="Search" type="search">--}}
 
+    {{-- Detail section --}}
+    <section class="mb-4 flex items-center align-middle justify-between">
+        <x-button wire:click="setNewProduct()" class="flex-initial w-10">
+            Product toevoegen
+        </x-button>
+        <div class="grow">
+            <x-input id="search" type="text" name="search"
+                     placeholder="Zoek een product"
+                     wire:model.debounce.500ms="search"
+                     autofocus autocomplete="search"
+                     class="flex-initial w-[20%] mt-1 mx-auto"/>
+        </div>
+{{--        <div class="mr-5">{{$products->links()}}</div>--}}
+    </section>
 
-    <table>
+    <table class="mt-2">
         <thead>
-            <tr>
-                <th class="px-6 py-4 whitespace-no-wrap text-left">Product</th>
-                <th class="px-6 py-4 whitespace-no-wrap text-left">Size</th>
-                <th class="px-6 py-4 whitespace-no-wrap text-left">Price</th>
-                <th class="px-6 py-4 whitespace-no-wrap text-left">Update</th>
+            <tr class="[&>th]:p-2 px-6 py-4 whitespace-no-wrap text-left bg-white">
+                <th wire:click="sortBy('name')" class="hover:cursor-pointer">Product</th>
+                <th>Maten</th>
+                <th wire:click="sortBy('price')" class="hover:cursor-pointer">Prijs</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach($products as $product)
-                <tr>
-                    <td class="px-6 py-4 whitespace-no-wrap">
+                <tr class="border-t border-gray-300 [&>td]:p-2 px-6 py-4 text-left hover:bg-white"
+                    wire:key="product-{{ $product->id }}">
+                    <td>
                         {{ $product->name }}
                     </td>
-                    <td class="px-6 py-4 whitespace-no-wrap">
-                        {{ $product->sizes }}
-                        {{--@foreach($product->sizes as $size)
-                            @dd($product->sizes)
+                    <td>
+                        @foreach($product->sizes as $size)
                             {{ $size->size }}
-                        @endforeach--}}
+                        @endforeach
                     </td>
-                    <td class="px-6 py-4 whitespace-no-wrap">
+                    <td>
                         {{ $product->price }}
                     </td>
-                    <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium text-indigo-600 hover:text-indigo-900">
-                        <button wire:click="update({{ $product->id }})">Update</button>
+                    <td class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
+                        <x-heroicon-m-pencil class="w-5 h-5 hover:fill-blue-500 ml-2" wire:click="setNewProduct({{$product->id}})"/>
+                        <x-heroicon-m-trash class="w-5 h-5 hover:fill-red-500 ml-2" wire:click="delete({{$product->id}})" />
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    <form wire:submit.prevent="store">
-        <input wire:model="productName" type="text" placeholder="Product Name">
-        @error('productName') <span>{{ $message }}</span> @enderror
-
-        <input wire:model="productPrice" type="text" placeholder="Product Price">
-        @error('productPrice') <span>{{ $message }}</span> @enderror
-
-        <select wire:model="selectedSizes" multiple>
-            @foreach($sizes as $size)
-                <option value="{{ $size->id }}">{{ $size->size }}</option>
-            @endforeach
-        </select>
-        @error('selectedSizes') <span>{{ $message }}</span> @enderror
-
-        <button type="submit">Add Product</button>
-    </form>
+    {{-- Modal section --}}
+    @include('components.wd_components.modalkledingbeheer')
 </div>

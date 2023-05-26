@@ -10,6 +10,10 @@ class Product extends Model
 {
     use HasFactory;
 
+    /**
+     * @var mixed|string
+     */
+    public mixed $size;
     protected $fillable = [
         'name',
         'price',
