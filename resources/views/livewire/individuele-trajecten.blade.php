@@ -54,7 +54,7 @@
                     </div>
                     <div class="flex justify-between">
                         <x-button wire:click="download('{{$traject->path}}')">DOWNLOAD</x-button>
-                        @if($traject->user->id == auth()->user()->id)
+                        @if($traject->user->id == auth()->user()->id || auth()->user()->is_admin)
                             <x-button class="bg-danger-500 hover:bg-danger-600"
                                       x-data=""
                                       @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
