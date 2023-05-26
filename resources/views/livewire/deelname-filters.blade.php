@@ -18,7 +18,6 @@
         @if($group != '%')
         <div>
             <h3>Kies uit de beschikbare dagen:</h3>
-            <p>{{$day}}</p>
             <label for="day" value="day"/>
             <select id="day" wire:model="day">
                 <option value="%">Kies hier je dag</option>
