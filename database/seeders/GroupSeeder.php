@@ -13,6 +13,20 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
-        Group::factory(3)->create();
+        Group::factory()->create([
+            'group' => 'A',
+        ]);
+
+        Group::factory()->create([
+            'group' => 'B',
+        ]);
+
+        Group::factory()->create([
+            'group' => 'C',
+        ]);
+
+        Group::factory()->create([
+            'group' => 'Dames',
+        ]);
     }
 }

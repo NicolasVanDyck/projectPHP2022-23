@@ -23,7 +23,7 @@ class GPXFactory extends Factory
     {
         return [
             'user_id' => function () {
-                return User::factory()->create()->id;
+                return User::all()->random();
             },
             'path' => $this->faker->filePath(),
             'route' => $this->faker->text(),
