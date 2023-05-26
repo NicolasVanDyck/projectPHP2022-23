@@ -17,6 +17,6 @@
 
 
 </div>
-
+<livewire:traject-beheer></livewire:traject-beheer>
 
 </x-templatelayout>
