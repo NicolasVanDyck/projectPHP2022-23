@@ -141,7 +141,7 @@ class FotoUpload extends Component
         $image = Image::where('path', $path)->first();
         $image->delete();
         $path = Str::after($path, '/storage/');
-        Storage::disk('public')->delete(Str::after($path, '/storage'));
+        Storage::disk('public')->delete($path);
 
     }
 
