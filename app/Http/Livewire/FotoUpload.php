@@ -18,8 +18,6 @@ class FotoUpload extends Component
     use WithFileUploads;
 
     public $perPage = 8;
-    public $attachment;
-    public $iteration = 0;
 
     public $type = '%';
     public $photos = [];
@@ -41,8 +39,8 @@ class FotoUpload extends Component
     protected function rules()
     {
         return [
+//            MIME = multipurpose internet mail extensions
             'photos.*' => 'required|file|mimes:jpg,png|max:1024', // 1MB Max
-//            'newImage.image' => 'required|image:jpeg,png|size:1024',
             'newImage.image_type_id' => 'required',
             'newImage.tour_id' => 'nullable',
             'newImage.name' => 'required|string|max:255|unique:images,name,' . $this->newImage['id'] . ',id',
@@ -56,9 +54,6 @@ class FotoUpload extends Component
         'photos.*.required' => 'Een foto is verplicht',
         'photos.*.mimes' => 'Een foto moet een jpeg of png zijn',
         'photos.*.max' => 'Een foto mag maximaal 1MB groot zijn',
-//        'newImage.image.required' => 'Een foto is verplicht',
-//        'newImage.image.image' => 'Een foto moet een jpeg of png zijn',
-//        'newImage.image.size' => 'Een foto mag maximaal 1MB groot zijn',
         'newImage.image_type_id.required' => 'Een type is verplicht',
         'newImage.name.required' => 'Een naam is verplicht',
         'newImage.description.required' => 'Een beschrijving is verplicht',
@@ -73,8 +68,16 @@ class FotoUpload extends Component
 
         foreach($this->photos as $photo) {
             $name = $photo->getClientOriginalName();
-            $path = '/storage/galerij/' . $photo->getClientOriginalName();
-            $photo->storeAs('public/galerij', $photo->getClientOriginalName());
+//            Onderstaande code is nodig om de extensie van de foto te verwijderen. Parameter die je opgeeft aan basename wordt verwijderd.
+            $name = Str::of($name)->basename('.' . $photo->getClientOriginalExtension());
+//            Opslaan in sponsor of imagefolder van de storage:
+            if($this->uploadType == 1) {
+                $path = '/storage/sponsor/' . $photo->getClientOriginalName();
+                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
+            } else {
+                $path = '/storage/galerij/' . $photo->getClientOriginalName();
+                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
+            }
 
             Image::create([
                 'image_type_id' => $this->uploadType,
@@ -85,8 +88,6 @@ class FotoUpload extends Component
             ]);
 
         }
-        $this->attachment = null;
-        $this->iteration++;
     }
 
 //    image.intervention.io
@@ -101,7 +102,6 @@ class FotoUpload extends Component
             $this->newImage['name'] = $image->name;
             $this->newImage['description'] = $image->description;
             $this->newImage['path'] = $image->path;
-//            Waarom werkt in carousel hier niet?
             $this->newImage['in_carousel'] = $image->in_carousel;
         } else {
             $this->reset('newImage');
@@ -123,15 +123,15 @@ class FotoUpload extends Component
         ]);
     }
 
-
-//  Delete (Of zoals bij Individuele trajecten??)
     public function deleteImage(Image $image)
     {
-        if(Storage::exists( $image->path)){
-            Storage::delete($image->path);
-
-        }else{
-            dd($image->path . ' does not exists.');
+//        Op deze manier wordt de foto uit de storage verwijderd na upload.
+        $image = Image::find($image->id);
+        if($image->image_type_id == 1) {
+            Storage::disk('local')->delete('public/sponsor/' . $image->name . '.jpg');
+        }
+        if($image->image_type_id == 2) {
+            Storage::disk('local')->delete('public/galerij/' . $image->name . '.jpg');
         }
         $image->delete();
     }
@@ -148,7 +148,9 @@ class FotoUpload extends Component
     {
         $tours = Tour::get();
         $images = Image::where('image_type_id', 'like', $this->type)
-                ->when($this->homecarousel == 1, function($query) {
+//            Zodat de laatste foto's eerst getoond worden
+            ->orderBy('created_at', 'desc')
+            ->when($this->homecarousel == 1, function($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
             ->paginate($this->perPage);
