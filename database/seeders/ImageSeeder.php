@@ -13,12 +13,13 @@ class ImageSeeder extends Seeder
     public function run(): void
     {
 //        Creëer galerij images
-        for($i = 1; $i <= 30; $i++) {
+        for($i = 1; $i <= 29; $i++) {
             Image::factory()->create([
                 'image_type_id' => 2,
                 'name' => 'Foto ' . $i,
                 'description' => 'Foto ' . $i,
                 'path' => '/storage/galerij/Foto' . $i . '.jpg',
+                'in_carousel' => 1,
             ]);
         }
 

@@ -39,14 +39,14 @@
                                 @foreach($tours as $tour)
                                     @if($image->tour_id == $tour->id)
 {{--                                        Geeft tourname niet weer?? Staat nochtans in model --}}
-                                        <p class="text-sm text-gray-500">Tour: {{$tour->tour_name}}</p>
+                                        <p class="text-sm text-gray-500">Tour: '{{$tour->tour_name}}'</p>
                                     @endif
                                 @endforeach
                                 <p class="text-sm text-gray-500">Type: {{$image->image_type_name}}</p>
                             </div>
                         </div>
                         <div class="relative group overflow-hidden rounded-lg w-[80%] h-[80%] mx-auto">
-                            <img src="{{ asset($image->path) }}" alt="{{$image->description}}}}"
+                            <img src="{{ asset($image->path) }}" alt="{{$image->description}}"
                                  class="w-full h-full object-cover object-center transition duration-300 transform hover:scale-110">
                         </div>
                         <div class="mt-3 flex justify-center">
@@ -55,7 +55,7 @@
                             >Aanpassen</x-button>
                             <x-button bgcolor="rood"
                                       x-data=""
-                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->id}}') : ''"
+                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->path}}') : ''"
                             >Verwijderen</x-button>
                         </div>
                     </div>
@@ -63,6 +63,38 @@
             </div>
         </div>
     </div>
+    <div class="flex justify-center">
+            <div class="mr-4">
+                <label for="uploadType" value="uploadType">Voor welk type wil je een afbeelding uploaden? </label>
+                <select id="uploadType" wire:model="uploadType">
+                    @foreach($imagetypes as $itype)
+                        <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <form wire:submit.prevent="saveImage">
+                <input type="file" wire:model="photos" multiple>
+
+                @error('photos.*')
+                <span class="error">{{ $message }}</span>
+                @enderror
+                @if($errors->any())
+                    {{--            @foreach($photos as $photo)--}}
+                    {{--                <p>{{$photos}}</p>--}}
+                    {{--            @endforeach--}}
+                    <div class="mb-4">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li class="text-red-500">{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <x-button type="submit">Save Images</x-button>
+            </form>
+    </div>
+{{--    @include('components.wd_components.modalimageupload')--}}
     @include('components.wd_components.modalfotobeheer')
 </div>
 
