@@ -55,7 +55,7 @@
                             >Aanpassen</x-button>
                             <x-button bgcolor="rood"
                                       x-data=""
-                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->id}}') : ''"
+                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->path}}') : ''"
                             >Verwijderen</x-button>
                         </div>
                     </div>

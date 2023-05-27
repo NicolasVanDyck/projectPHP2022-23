@@ -123,17 +123,26 @@ class FotoUpload extends Component
         ]);
     }
 
-    public function deleteImage(Image $image)
+//    public function deleteImage(Image $image)
+//    {
+////        Op deze manier wordt de foto uit de storage verwijderd na upload.
+//        $image = Image::find($image->id);
+//        if($image->image_type_id == 1) {
+//            Storage::disk('local')->delete('public/sponsor/' . $image->name . '.jpg');
+//        }
+//        if($image->image_type_id == 2) {
+//            Storage::disk('local')->delete('public/galerij/' . $image->name . '.jpg');
+//        }
+//        $image->delete();
+//    }
+
+    public function deleteImage($path)
     {
-//        Op deze manier wordt de foto uit de storage verwijderd na upload.
-        $image = Image::find($image->id);
-        if($image->image_type_id == 1) {
-            Storage::disk('local')->delete('public/sponsor/' . $image->name . '.jpg');
-        }
-        if($image->image_type_id == 2) {
-            Storage::disk('local')->delete('public/galerij/' . $image->name . '.jpg');
-        }
+        $image = Image::where('path', $path)->first();
         $image->delete();
+        $path = Str::after($path, '/storage/');
+        Storage::disk('public')->delete(Str::after($path, '/storage'));
+
     }
 
     public function updated($propertyName, $propertyValue)
