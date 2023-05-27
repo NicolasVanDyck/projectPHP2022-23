@@ -140,6 +140,7 @@ class FotoUpload extends Component
     {
         $image = Image::where('path', $path)->first();
         $image->delete();
+//        folder erafknippen om zo uit de storage te verwijderen
         $path = Str::after($path, '/storage/');
         Storage::disk('public')->delete($path);
 
