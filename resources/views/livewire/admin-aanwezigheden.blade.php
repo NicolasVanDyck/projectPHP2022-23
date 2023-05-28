@@ -6,12 +6,13 @@
                     <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
                         <div class='max-w-md mx-auto'>
                             <div class='p-8'>
-                                <p class='text-[#7C7C80] font-[15px] my-3'>Groep: {{$grouptour->groupName}}</p>
+                                <h2 class='text-2xl mb-3 font-bold text-gray-800 text-center'>{{$grouptour->gpx->name}}</h2>
                                 <p class='text-[#7C7C80] font-[15px]'>Datum: {{$grouptour->start_date}}</p>
                                 <p class='text-[#7C7C80] font-[15px]'>Vertrekuur: {{$grouptour->start_time}}</p>
+                                <p class='text-[#7C7C80] font-[15px] my-3'>Groep: {{$grouptour->groupName}}</p>
                             </div>
                             <div class="px-8">
-                                <p class="text-[#7C7C80] font-[15px]">Aanwezigheden:</p>
+                                <p class="text-[#7C7C80] font-[15px]">Aanwezigen:</p>
                             </div>
                             <div class="px-8">
                             @foreach($usertours as $usertour)

@@ -43,6 +43,22 @@
                 <x-input-error for="newImage.image_type_id" class="mt-2"/>
             </div>
                 <div>
+                    <x-label for="tour_id" value="Tour"/>
+                    <select id="newImage.tour_id" type="integer" name="tour_id"
+                            placeholder="Tour"
+                            wire:model.defer="newImage.tour_id" required autofocus
+                            autocomplete="tour_id"
+                            class="block mt-1 w-full">
+{{--                        Value of null???            --}}
+                        <option value="{{null}}">Geen tour</option>
+                        @foreach($tours as $tr)
+                            <option value="{{$tr->id}}">{{$tr->tour_name}}</option>
+                        @endforeach
+                    </select>
+                    {{--                In principe triggert dit nooit, want je moet een keuze maken    --}}
+                    <x-input-error for="newImage.image_type_id" class="mt-2"/>
+                </div>
+                <div>
                     <x-label for="in_carousel" value="Tonen op homepagina?"/>
                     <x-checkbox id="newImage.in_carousel" type="checkbox"
                                 wire:model="newImage.in_carousel"

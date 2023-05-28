@@ -5,12 +5,23 @@
                 <div>
                     <label for="type" value="type"/>
                     <select id="type" wire:model="type">
+
                         <option value="%">Alle afbeeldingen</option>
                         @foreach($imagetypes as $it)
                             <option value="{{ $it->id }}">{{ $it->image_type }}</option>
                         @endforeach
                     </select>
                 </div>
+{{--                Waarde aan tour wordt doorgegeven, maar de query wordt niet in rekening genomen?    --}}
+{{--                <div>--}}
+{{--                    <label for="tour" value="tour"/>--}}
+{{--                    <select id="tour" wire:model="tour">--}}
+{{--                        <option value="%">Alle afbeeldingen</option>--}}
+{{--                        @foreach($tours as $t)--}}
+{{--                            <option value="{{ $t->id }}">{{ $t->tour_name }}</option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <div>
                     <label for="homecarousel" value="homecarousel">Getoond op homepage?</label>
                     <x-checkbox id="homecarousel" type="checkbox"
@@ -38,7 +49,6 @@
                             <div>
                                 @foreach($tours as $tour)
                                     @if($image->tour_id == $tour->id)
-{{--                                        Geeft tourname niet weer?? Staat nochtans in model --}}
                                         <p class="text-sm text-gray-500">Tour: '{{$tour->tour_name}}'</p>
                                     @endif
                                 @endforeach
@@ -64,24 +74,27 @@
         </div>
     </div>
     <div class="flex justify-center">
+        <div class="mr-4">
+            <label for="uploadTour" value="uploadTour">Voor welke tour wil je een afbeelding uploaden? </label>
+            <select id="uploadTour" wire:model="uploadTour">
+                <option value="0">Geen tour</option>
+                @foreach($tours as $to)
+                    <option value="{{ $to->id }}">{{ $to->tour_name }}</option>
+                @endforeach
+            </select>
+        </div>
             <div class="mr-4">
-                <label for="uploadType" value="uploadType">Voor welk type wil je een afbeelding uploaden? </label>
+                <label for="uploadType" value="uploadType">Afbeeldingstype: </label>
                 <select id="uploadType" wire:model="uploadType">
                     @foreach($imagetypes as $itype)
                         <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
                     @endforeach
                 </select>
             </div>
-            <form wire:submit.prevent="saveImage">
+                    <form wire:submit.prevent="saveImage">
                 <input type="file" wire:model="photos" multiple>
 
-                @error('photos.*')
-                <span class="error">{{ $message }}</span>
-                @enderror
                 @if($errors->any())
-                    {{--            @foreach($photos as $photo)--}}
-                    {{--                <p>{{$photos}}</p>--}}
-                    {{--            @endforeach--}}
                     <div class="mb-4">
                         <ul>
                             @foreach($errors->all() as $error)

@@ -20,11 +20,15 @@ class FotoUpload extends Component
     public $perPage = 8;
 
     public $type = '%';
+
+    public $tour = '%';
     public $photos = [];
     public $showModal = false;
     public $homecarousel = 0;
 
     public $uploadType = 2;
+
+    public $uploadTour = null;
 
     public $newImage = [
         'id' => null,
@@ -81,6 +85,7 @@ class FotoUpload extends Component
 
             Image::create([
                 'image_type_id' => $this->uploadType,
+                'tour_id' => $this->uploadTour,
                 'name' => $name,
                 'description' => $name,
                 'path' => $path,
@@ -123,19 +128,6 @@ class FotoUpload extends Component
         ]);
     }
 
-//    public function deleteImage(Image $image)
-//    {
-////        Op deze manier wordt de foto uit de storage verwijderd na upload.
-//        $image = Image::find($image->id);
-//        if($image->image_type_id == 1) {
-//            Storage::disk('local')->delete('public/sponsor/' . $image->name . '.jpg');
-//        }
-//        if($image->image_type_id == 2) {
-//            Storage::disk('local')->delete('public/galerij/' . $image->name . '.jpg');
-//        }
-//        $image->delete();
-//    }
-
     public function deleteImage($path)
     {
         $image = Image::where('path', $path)->first();
@@ -158,6 +150,8 @@ class FotoUpload extends Component
     {
         $tours = Tour::get();
         $images = Image::where('image_type_id', 'like', $this->type)
+//            Werkt ook niet??
+//            ->orWhere('tour_id', 'like', $this->tour)
 //            Zodat de laatste foto's eerst getoond worden
             ->orderBy('created_at', 'desc')
             ->when($this->homecarousel == 1, function($query) {
