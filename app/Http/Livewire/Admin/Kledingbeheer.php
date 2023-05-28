@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Size;
+use Illuminate\Database\QueryException;
 use Livewire\Component;
 
 class Kledingbeheer extends Component
@@ -26,6 +28,7 @@ class Kledingbeheer extends Component
     {
         $this->productName = '';
         $this->productPrice = 0;
+        $this->getSizes();
     }
 
     public $newProduct = [
@@ -35,11 +38,16 @@ class Kledingbeheer extends Component
         'size' => null,
     ];
 
-    protected function rules() {
+    /**
+     * The rules for validation
+     *
+     * @return string[]
+     */
+    protected function rules(): array {
         return [
             'newProduct.name' => 'required|string|max:255',
-            'newProduct.price' => 'required|integer',
-            'newProduct.size' => 'required|string|max:255',
+            'newProduct.price' => 'required|numeric',
+            'newProduct.size' => 'required',
         ];
     }
 
@@ -47,10 +55,10 @@ class Kledingbeheer extends Component
     protected $messages = [
         'newProduct.name.required' => 'Dit veld mag niet leeg zijn.',
         'newProduct.price.required' => 'Dit veld mag niet leeg zijn.',
-        'newProduct.size.required' => 'Dit veld mag niet leeg zijn.',
+        'newProduct.size.required' => 'Selecteer tenminste één maat',
     ];
 
-    public function createNewProduct()
+    public function createNewProduct(): void
     {
         $this->validate();
 
@@ -62,7 +70,11 @@ class Kledingbeheer extends Component
         $this->reset(['productName', 'productPrice', 'selectedSizes']);
     }
 
-    public function setNewProduct(Product $product = null)
+    /**
+     * @param Product|null $product
+     * @return void Sets the new product
+     */
+    public function setNewProduct(Product $product = null): void
     {
         $this->resetErrorBag();
         if($product) {
@@ -78,27 +90,66 @@ class Kledingbeheer extends Component
         $this->showModal = true;
     }
 
-    public function updated($propertyName, $value,)
+    public function updated($propertyName, $value,): void
     {
-        if (in_array($propertyName, ['perPage']))
+        if ($propertyName == 'perPage')
             $this->resetPage();
 
         $this->validate();
     }
 
-    public function updateProduct(Product $product)
+    public function updateProduct(Product $product): void
     {
-        $this->validate();
 
-        $product->update([
-            'name' => $this->newProduct['name'],
-            'price' => $this->newProduct['price'],
-//            'size' => $this->newProduct['size'],
-        ]);
+        try {
+            $product->update([
+                'name' => $this->newProduct['name'],
+                'price' => $this->newProduct['price'],
+            ]);
 
-//        $this->showModal = true;
+            $selectedSizes = $this->newProduct['size'] ?? [];
 
-//        $this->reset(['productName', 'productPrice', 'selectedSizes']);
+            // Find the product_size_id for each $selectedSize
+            $productSizeIds = [];
+
+            foreach ($selectedSizes as $selectedSize) {
+                $product_size_id = $product->sizes()->where('size_id', $selectedSize)->first();
+                $productSizeIds[] = $product_size_id;
+            }
+
+            $product->sizes()->sync($selectedSizes);
+
+            $this->showModal = false;
+            $this->reset(['newProduct']);
+        } catch (QueryException $exception) {
+            if ($exception->getCode() === '23000') {
+                $existingSizes = [];
+                foreach ($selectedSizes as $selectedSize) {
+                    $size = Size::find($selectedSize);
+                    $product_size_id = $product->sizes()->where('size_id', $selectedSize)->first();
+                    if ($this->isInOrder($product_size_id)) {
+                        $existingSizes[] = $size->size;
+                    }
+
+                    // TODO breng deze code nog op orde, de maten uit de order moeten nog in de flash message komen
+                    // TODO prefill van de checkboxes moet nog gebeuren
+                }
+                $existingSizesString = implode(', ', $existingSizes);
+                session()->flash('message', 'De volgende maten zitten al in een bestelling: ' . $existingSizesString . '. Je kan deze maten niet meer verwijderen. Breng de klant op de hoogte.');
+            } else {
+                throw $exception;
+            }
+        }
+    }
+
+    public function isInOrder($product_size_id): bool
+    {
+        return Order::where('product_size_id', $product_size_id)->exists();
+    }
+
+    public function getSizes()
+    {
+        $this->sizes = Size::all();
     }
 
     public function sortBy($field)
