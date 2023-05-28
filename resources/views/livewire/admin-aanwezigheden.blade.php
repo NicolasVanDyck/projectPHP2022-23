@@ -52,7 +52,9 @@
                                     @endif
                             </div>
                         </div>
+                        <x-button wire:click="editDeelnemers({{$grouptour->id}})">Deelnemers aanpassen</x-button>
                     </div>
                 </div>
     @endforeach
+        @include('components.wd_components.modalaanwezighedenbeheer')
 </div>

@@ -90,7 +90,6 @@
                         </ul>
                     </div>
                 @endif
-
                 <x-button type="submit">Save Images</x-button>
             </form>
     </div>
