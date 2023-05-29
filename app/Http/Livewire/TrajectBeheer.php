@@ -7,8 +7,7 @@ use App\Models\GroupTour;
 use Livewire\Component;
 use App\Models\Group;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
-use Livewire\WithPagination;    // <-- Add this line
+use Livewire\WithPagination;
 
 class TrajectBeheer extends Component
 {
@@ -25,14 +24,14 @@ class TrajectBeheer extends Component
 
 
 
-
+//Haal alle groepsritten op.
 
 
     public function getGroupTours()
     {
         return GroupTour::with(['group', 'tour'])->get();
     }
-
+//duwt alles naar de view.
     public function render()
     {
         $groups = Group::pluck('group', 'id')->toArray();
@@ -42,31 +41,34 @@ class TrajectBeheer extends Component
         return view('livewire.traject-beheer', compact('groups', 'routes', 'groupTours'));
     }
 
-
+//Selecteer een groep voor de groepsrit.
     public function selectGroup($group)
     {
         $this->selectedGroup = $group;
         $this->selectedRoute = null;
         $this->selectedRouteKm = null;
     }
-
-    public function selectRoute($routeName, $routeKm)
+//Selecteer een route.
+    public function selectRoute($routeId, $routeKm)
     {
-        $this->selectedRoute = $routeName;
+        $selectedRoute = GPX::findOrFail($routeId);
+        $this->selectedRoute = $selectedRoute->id;
+        $this->selectedRouteName = $selectedRoute->name;
         $this->selectedRouteKm = $routeKm;
         $this->isNestedModalOpen = false;
     }
 
+//Sluit de geneste modal.
     public function closeNestedModal()
     {
         $this->isNestedModalOpen = false;
     }
-
+//Open  modal
     public function openModal()
     {
         $this->openModal = true;
     }
-
+//close modal
     public function closeModal()
     {
         $this->openModal = false;
@@ -74,25 +76,35 @@ class TrajectBeheer extends Component
 
     public function createGroepsrit()
     {
-        // Validate the form fields
+        // Aangepaste validatieberichten
+        $customMessages = [
+            'selectedGroup.required' => 'Selecteer een groep.',
+            'selectedRoute.required' => 'Selecteer een route.',
+            'selectedDate.required' => 'Selecteer een startdatum en -tijd.',
+            'selectedDate.before' => 'De startdatum en -tijd moeten voor de einddatum en -tijd liggen.',
+            'selectedEndDate.required' => 'Selecteer een einddatum en -tijd.',
+        ];
+
+        // Valideer de formuliervelden
         $validatedData = $this->validate([
             'selectedGroup' => 'required',
             'selectedRoute' => 'required',
-            'selectedDate' => 'required',
+            'selectedDate' => 'required|before:selectedEndDate',
             'selectedEndDate' => 'required',
-        ]);
+        ], $customMessages);
 
-        // Retrieve the group and route IDs
+
+        // Haal de groep- en route-ID's op
         $groupId = $validatedData['selectedGroup'];
         $routeId = $validatedData['selectedRoute'];
 
-        // Fetch the Group model
+        // Haal het Group model op
         $group = Group::findOrFail($groupId);
 
-        // Extract the time from the selected date
+        // Haal de tijd op van de geselecteerde datum
         $startTime = Carbon::parse($validatedData['selectedDate'])->format('H:i:s');
 
-        // Create a new GroupTour entry
+        // Maak een nieuwe GroupTour aan
         $groepsrit = GroupTour::create([
             'group_id' => $groupId,
             'tour_id' => $routeId,
@@ -101,7 +113,7 @@ class TrajectBeheer extends Component
             'end_date' => $validatedData['selectedEndDate'],
         ]);
 
-        // Dump the values being sent to the database
+        // Dump de gegevens van de nieuwe groepsrit
 //        dd([
 //            'group_id' => $group->id,
 //            'tour_id' => $routeId,
@@ -110,63 +122,20 @@ class TrajectBeheer extends Component
 //            'end_date' => $validatedData['selectedEndDate'],
 //        ]);
 
-        // Reset the form fields after successful submission
+        // // Reset de formuliervelden na succesvolle indiening
         $this->selectedGroup = '';
         $this->selectedRoute = null;
         $this->selectedRouteKm = null;
         $this->selectedDate = null;
         $this->selectedEndDate = null;
 
-        // Close the modal
+        // Stuur een succesbericht naar de gebruiker
+        session()->flash('success_message', 'Groepsrit is aangemaakt.');
+
+        // Sluit het modal als je er mee klaar bent
         $this->openModal = false;
     }
 
-//    public function createGroepsrit()
-//    {
-//        // Retrieve the form fields
-//        $selectedGroup = $this->selectedGroup;
-//        $selectedRoute = $this->selectedRoute;
-//        $selectedDate = $this->selectedDate;
-//        $selectedEndDate = $this->selectedEndDate;
-//
-//        // Retrieve the group and route IDs
-//        $groupId = $selectedGroup;
-//        $routeId = $selectedRoute;
-//
-//        // Fetch the Group model
-//        $group = Group::findOrFail($groupId);
-//
-//        // Extract the time from the selected date
-//        $startTime = Carbon::parse($selectedDate)->format('H:i:s');
-//
-////         Create a new GroupTour entry
-////        $groepsrit = GroupTour::create([
-////            'group_id' => $group->id,
-////            'tour_id' => $routeId,
-////            'start_date' => $selectedDate,
-////            'start_time' => $startTime,
-////            'end_date' => $selectedEndDate,
-////        ]);
-//
-////         Dump the values being sent to the database
-//        dd([
-//            'group_id' => $group->id,
-//            'tour_id' => $routeId,
-//            'start_date' => $selectedDate,
-//            'start_time' => $startTime,
-//            'end_date' => $selectedEndDate,
-//        ]);
-//
-//        // Reset the form fields after successful submission
-//        $this->selectedGroup = '';
-//        $this->selectedRoute = null;
-//        $this->selectedRouteKm = null;
-//        $this->selectedDate = null;
-//        $this->selectedEndDate = null;
-//
-//        // Close the modal
-//        $this->openModal = false;
-//    }
 
 
 
