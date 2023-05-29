@@ -14,7 +14,12 @@ class GroupTour extends Model
 
     protected $fillable=[
         'start_date',
-        'end_date', ];
+        'end_date',
+        'group_id',
+        'tour_id',
+        'start_time',
+        'end_date',
+        'gpx_id',];
 
     protected function groupName(): Attribute
     {

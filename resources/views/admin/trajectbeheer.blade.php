@@ -19,4 +19,6 @@
 </div>
 <livewire:traject-beheer></livewire:traject-beheer>
 
+    <livewire:show-group-tours></livewire:show-group-tours>
+
 </x-templatelayout>

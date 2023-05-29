@@ -107,44 +107,7 @@
     </div>
 </div>
 
-<div class="p-6">
-    <h1 class="text-xl font-bold underline text-center">Groepsritten</h1>
-    <div class="overflow-x-auto">
-        <table class="table-auto w-full">
-            <thead>
-            <tr>
-                <th class="px-4 py-2">Groep</th>
-                <th class="px-4 py-2">Route</th>
-                <th class="px-4 py-2">Afstand (km)</th>
-                <th class="px-4 py-2">Start Datum</th>
-                <th class="px-4 py-2">Start Tijd</th>
-                <th class="px-4 py-2">Eind Datum</th>
-                <th class="px-4 py-2">Bewerken/Verwijderen</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($groupTours as $groupTour)
-                <tr class="text-center">
-                    <td class="border-y border-gray-700 py-2">{{ $groupTour->group->group }}</td>
-                    <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->gpx->name }}</td>
-                    <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->gpx->amount_of_km }}</td>
-                    <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->start_date }}</td>
-                    <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->start_time }}</td>
-                    <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->end_date }}</td>
-                    <td class="border-y border-gray-700 px-4 py-2">
-                        <button wire:click="editGroupTour({{ $groupTour->id }})" class="text-success-500 ml-2">
-                            Bewerken
-                        </button>
-                        <button  class="text-danger-500 ml-2">
-                            Verwijderen
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+
 
 
 
