@@ -8,6 +8,7 @@ use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use LaravelIdea\Helper\App\Models\_IH_Size_C;
 use Livewire\Component;
 
 class Kleding extends Component
@@ -77,25 +78,13 @@ class Kleding extends Component
      * Returns all the sizes from the ProductSize associated with one product.
      *
      * @param $productId
+     * @param $index
+     * @return Collection
      */
-    public function getSizesForSelectedProduct($productId, $index)
+    public function getSizesForSelectedProduct($productId, $index): Collection
     {
         $this->selectedProduct[$index] = $productId;
 
-        // Return all the sizes associated with the selected product.
-        $sizes = [];
-        foreach ($this->productSizes as $productSize)
-        {
-            if ($productSize->product_id == $productId)
-            {
-                $sizes[] = $productSize->size_id;
-            }
-        }
-
-        // Select all the sizes from the size table that are in the productsize table.
-//        $sizeCollection = Size::whereIn('id', $sizes)->get();
-
-        // Make above query more efficient:
         $sizeCollection = Size::whereIn('id', function ($query) use ($productId) {
             $query->select('size_id')->from('product_size')->where('product_id', $productId);
         })->get();

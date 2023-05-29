@@ -4,13 +4,17 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductSize;
 use App\Models\Size;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Kledingbeheer extends Component
 {
     public $sizes = [];
+    public $selectedSizes = [];
     public string $productName;
     public int $productPrice;
     public string $size;
@@ -29,6 +33,7 @@ class Kledingbeheer extends Component
         $this->productName = '';
         $this->productPrice = 0;
         $this->getSizes();
+        $this->selectedSizes = [];
     }
 
     public $newProduct = [
@@ -95,11 +100,12 @@ class Kledingbeheer extends Component
         if ($propertyName == 'perPage')
             $this->resetPage();
 
-        $this->validate();
+        $this->validateOnly($propertyName);
     }
 
     public function updateProduct(Product $product): void
     {
+        $this->selectedSizes = $this->getSizesForSelectedProduct($product->id);
 
         try {
             $product->update([
@@ -109,42 +115,67 @@ class Kledingbeheer extends Component
 
             $selectedSizes = $this->newProduct['size'] ?? [];
 
-            // Find the product_size_id for each $selectedSize
-            $productSizeIds = [];
-
-            foreach ($selectedSizes as $selectedSize) {
-                $product_size_id = $product->sizes()->where('size_id', $selectedSize)->first();
-                $productSizeIds[] = $product_size_id;
-            }
-
             $product->sizes()->sync($selectedSizes);
 
             $this->showModal = false;
             $this->reset(['newProduct']);
         } catch (QueryException $exception) {
             if ($exception->getCode() === '23000') {
-                $existingSizes = [];
-                foreach ($selectedSizes as $selectedSize) {
-                    $size = Size::find($selectedSize);
-                    $product_size_id = $product->sizes()->where('size_id', $selectedSize)->first();
-                    if ($this->isInOrder($product_size_id)) {
-                        $existingSizes[] = $size->size;
-                    }
 
-                    // TODO breng deze code nog op orde, de maten uit de order moeten nog in de flash message komen
-                    // TODO prefill van de checkboxes moet nog gebeuren
-                }
-                $existingSizesString = implode(', ', $existingSizes);
-                session()->flash('message', 'De volgende maten zitten al in een bestelling: ' . $existingSizesString . '. Je kan deze maten niet meer verwijderen. Breng de klant op de hoogte.');
+                $orderSizes = $this->getSizesFromOrders();
+
+                $orderSizesString = implode(', ', $orderSizes);
+
+                session()->flash('message', 'De volgende maten zitten al in een bestelling: ' . $orderSizesString . '. Je kan deze maten niet meer verwijderen.
+                                  Vink de maat aan of breng de klant op de hoogte.');
+
             } else {
                 throw $exception;
             }
         }
     }
 
-    public function isInOrder($product_size_id): bool
+    /**
+     * Returns all the unique sizes in the Orders table.
+     *
+     * @return array
+     */
+    public function getSizesFromOrders(): array
     {
-        return Order::where('product_size_id', $product_size_id)->exists();
+        // The product_size_id's from the Orders table
+        $sizes = Order::with('productsizes.size')->get()->pluck('product_size_id')->unique();
+
+        $sizeIds = [];
+
+        // The size_id's from the ProductSize table
+        foreach ($sizes as $size) {
+            $sizeIds[] = DB::table('product_size')->where('id', $size)->pluck('size_id');
+        }
+
+        $sizeNames = [];
+
+        // The size names from the Size table
+        foreach ($sizeIds as $sizeId) {
+            $sizeNames[] = Size::find($sizeId)->pluck('size')->first();
+        }
+
+        return $sizeNames;
+    }
+
+    /**
+     * Returns all the sizes from the ProductSize associated with one product.
+     *
+     * @param int $productId
+     * @return \Illuminate\Support\Collection
+     */
+    public function getSizesForSelectedProduct(int $productId): \Illuminate\Support\Collection
+    {
+
+        $sizeCollection = Size::whereIn('id', function ($query) use ($productId) {
+            $query->select('size_id')->from('product_size')->where('product_id', $productId);
+        })->get();
+
+        return $sizeCollection;
     }
 
     public function getSizes()
@@ -176,7 +207,6 @@ class Kledingbeheer extends Component
             });
 
         $products = $productsQuery->get();
-//        dd($products);
 
         return view('livewire.admin.kledingbeheer', compact('products', ));
     }

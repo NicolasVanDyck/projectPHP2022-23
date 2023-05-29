@@ -37,7 +37,6 @@
                     </td>
                     <td>
                         @foreach($product->sizes as $size)
-                            {{--if not the last product end with a ,--}}
                             @if(!$loop->last)
                                 {{ $size->size . ', '}}
                                 @continue

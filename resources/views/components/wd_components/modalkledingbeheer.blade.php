@@ -34,13 +34,24 @@
                     {{-- Create a checkbox for each size in the sizes table --}}
                     @foreach ($sizes as $size)
                         <div class="flex items-center">
-                            <input
+{{--                            <input--}}
+{{--                                id="{{ 'size_' . $size->id }}"--}}
+{{--                                type="checkbox"--}}
+{{--                                name="sizes[{{ $size->id }}]"--}}
+{{--                                value="{{ $size->id }}"--}}
+{{--                                wire:model.defer="newProduct.size.{{ $size->id }}"--}}
+{{--                                required--}}
+{{--                                autofocus--}}
+{{--                                autocomplete="size"--}}
+{{--                                class="mr-2"--}}
+{{--                            />--}}
+                            <x-checkbox
                                 id="{{ 'size_' . $size->id }}"
-                                type="checkbox"
                                 name="sizes[{{ $size->id }}]"
                                 value="{{ $size->id }}"
                                 wire:model.defer="newProduct.size.{{ $size->id }}"
                                 required
+                                checked
                                 autofocus
                                 autocomplete="size"
                                 class="mr-2"
