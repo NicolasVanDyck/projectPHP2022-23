@@ -11,8 +11,8 @@ class DashboardAanwezigheden extends Component
 {
     public function render()
     {
-        $aanwezigheden = UserTour::orderBy('id')->has('user')->get();
         $starturen = GroupTour::orderBy('start_date')->get();
+        $aanwezigheden = UserTour::orderBy('id')->has('user')->get();
         return view('livewire.dashboard-aanwezigheden', compact('aanwezigheden', 'starturen'));
     }
 }
