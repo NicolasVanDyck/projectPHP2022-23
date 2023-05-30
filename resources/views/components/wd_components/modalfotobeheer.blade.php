@@ -1,15 +1,11 @@
 <x-dialog-modal id="imageModal"
                 wire:model="showModal">
     <x-slot name="title">
-        <h2>{{ is_null($newImage['id']) ? 'Nieuwe afbeelding aanmaken' : 'Pas ' . $newImage['name'] . ' aan' }}</h2>
+        <h2>{{ 'Pas ' . $newImage['name'] . ' aan' }}</h2>
     </x-slot>
     <x-slot name="content">
         <div class="relative flex-auto p-4">
-            @if($errors->any())
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            @endif
+{{--            Aanpassen van info      --}}
             <div>
                 <x-label for="name" value="Naam"/>
                 <x-input id="newImage.name" type="text" name="name" placeholder="naam"
@@ -27,7 +23,6 @@
                          class="block mt-1 w-full"/>
                 <x-input-error for="newImage.description" class="mt-2"/>
             </div>
-                {{--                dropdown van maken          --}}
             <div>
                 <x-label for="image_type_id" value="Type afbeelding"/>
                 <select id="newImage.image_type_id" type="integer" name="image_type_id"
@@ -49,8 +44,6 @@
                             wire:model.defer="newImage.tour_id" required autofocus
                             autocomplete="tour_id"
                             class="block mt-1 w-full">
-{{--                        Value of null???            --}}
-
                         <option value="0">Geen tour</option>
                         @foreach($tours as $tr)
                             <option value="{{$tr->id}}">{{$tr->tour_name}}</option>
