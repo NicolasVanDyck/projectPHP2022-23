@@ -57,7 +57,7 @@
                         @endforeach
                     </select>
                     {{--                In principe triggert dit nooit, want je moet een keuze maken    --}}
-                    <x-input-error for="newImage.image_type_id" class="mt-2"/>
+                    <x-input-error for="newImage.tour_id" class="mt-2"/>
                 </div>
                 <div>
                     <x-label for="in_carousel" value="Tonen op homepagina?"/>
