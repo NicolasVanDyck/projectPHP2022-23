@@ -3,11 +3,11 @@
     <x-slot name="description">Contactpagina</x-slot>
 
 
-    <div class="flex flex-col sm:flex-row">
-        <div class="w-full sm:w-1/2 ">
+    <div class="lg:flex lg:flex-col lg:justify-between ">
+        <div class="lg:flex lg:w-[400px] xl:w-[550px]">
             <livewire:admin.texts/>
         </div>
-        <div class="w-full sm:w-1/2 mb-2">
+        <div class="lg:w-[400px] xl:w-[550px]">
             <x-wd_components.form/>
         </div>
     </div>
