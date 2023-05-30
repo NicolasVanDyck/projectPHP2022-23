@@ -27,13 +27,15 @@ class Kledingbeheer extends Component
      * @var true
      */
     public bool $showModal = false;
+    public array $checkedSizes = [];
 
     public function mount()
     {
         $this->productName = '';
         $this->productPrice = 0;
         $this->getSizes();
-        $this->selectedSizes = [];
+        $this->checkedSizes = [1,2,3];
+
     }
 
     public $newProduct = [
@@ -63,6 +65,11 @@ class Kledingbeheer extends Component
         'newProduct.size.required' => 'Selecteer tenminste één maat',
     ];
 
+    /**
+     * Creates a new product.
+     *
+     * @return Void
+     */
     public function createNewProduct(): void
     {
         $this->validate();
@@ -76,6 +83,8 @@ class Kledingbeheer extends Component
     }
 
     /**
+     * Sets the values for the new product.
+     *
      * @param Product|null $product
      * @return void Sets the new product
      */
@@ -88,6 +97,7 @@ class Kledingbeheer extends Component
                 'name' => $product->name,
                 'price' => $product->price,
             ];
+            $this->selectedSizes = $this->getSizesForSelectedProduct($product->id)->pluck('id')->toArray();
         } else {
             $this->reset(['newProduct']);
         }
@@ -95,6 +105,12 @@ class Kledingbeheer extends Component
         $this->showModal = true;
     }
 
+    /**
+     * @param $propertyName
+     * The name of the property that is updated.
+     * @param $value
+     * @return void
+     */
     public function updated($propertyName, $value,): void
     {
         if ($propertyName == 'perPage')
@@ -103,9 +119,14 @@ class Kledingbeheer extends Component
         $this->validateOnly($propertyName);
     }
 
+    /**
+     * Updates the product.
+     *
+     * @param Product $product
+     * @return void
+     */
     public function updateProduct(Product $product): void
     {
-        $this->selectedSizes = $this->getSizesForSelectedProduct($product->id);
 
         try {
             $product->update([
@@ -113,16 +134,13 @@ class Kledingbeheer extends Component
                 'price' => $this->newProduct['price'],
             ]);
 
-            $selectedSizes = $this->newProduct['size'] ?? [];
-
-            $product->sizes()->sync($selectedSizes);
+            $product->sizes()->sync($this->selectedSizes);
 
             $this->showModal = false;
             $this->reset(['newProduct']);
         } catch (QueryException $exception) {
             if ($exception->getCode() === '23000') {
-
-                $orderSizes = $this->getSizesFromOrders();
+                $orderSizes = $this->getSizesForSelectedProduct($product->id)->pluck('size')->toArray();
 
                 $orderSizesString = implode(', ', $orderSizes);
 
@@ -171,19 +189,28 @@ class Kledingbeheer extends Component
     public function getSizesForSelectedProduct(int $productId): \Illuminate\Support\Collection
     {
 
-        $sizeCollection = Size::whereIn('id', function ($query) use ($productId) {
+        return Size::whereIn('id', function ($query) use ($productId) {
             $query->select('size_id')->from('product_size')->where('product_id', $productId);
         })->get();
-
-        return $sizeCollection;
     }
 
-    public function getSizes()
+    /**
+     * Gets all the sizes from the database.
+     *
+     * @return void
+     */
+    public function getSizes(): void
     {
         $this->sizes = Size::all();
     }
 
-    public function sortBy($field)
+    /**
+     * Sorts the table by the given field.
+     *
+     * @param string $field
+     * @return void
+     */
+    public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortAsc = !$this->sortAsc;
