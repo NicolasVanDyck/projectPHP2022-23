@@ -1,38 +1,39 @@
 /*import Roboto Font*/
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 /*import Monsterat Font*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /* dit is de styling per tag */
 @layer base {
-    html {
-        font-family: Montserrat, system-ui, sans-serif;
-    }
-    h1 {
-        @apply text-6xl font-title text-black;
-    }
-    h2 {
-        @apply text-4xl font-title text-black;
-    }
-    button {
-        @apply text-base;
-    }
-    a {
-        @apply text-base text-blue-500;
-    }
-    img {
-        @apply  w-16 md:w-32 lg:w-48 rounded-lg;
-    }
-    #adminText {
-        @apply text-2xl font-title font-bold;
-    }
+  html {
+    font-family: Montserrat, system-ui, sans-serif;
+  }
+
+  h1 {
+    @apply text-6xl font-title text-black;
+  }
+
+  h2 {
+    @apply text-4xl font-title text-black;
+  }
+
+  button {
+    @apply text-base;
+  }
+
+  a {
+    @apply text-base text-blue-500;
+  }
+
+  #adminText {
+    @apply text-2xl font-title font-bold;
+  }
 }
 
 [x-cloak] {
-    display: none;
+  display: none;
 }

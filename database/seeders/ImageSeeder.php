@@ -13,7 +13,7 @@ class ImageSeeder extends Seeder
     public function run(): void
     {
 //        Creëer galerij images
-        for($i = 1; $i <= 29; $i++) {
+        for ($i = 1; $i <= 29; $i++) {
             Image::factory()->create([
                 'image_type_id' => 2,
                 'name' => 'Foto ' . $i,
@@ -24,23 +24,23 @@ class ImageSeeder extends Seeder
         }
 
 //        Creëer sponsor images (if-statement binnen for-loop wilde niet werken, dus twee for-loops)
-        $sponsors = ['Sponsor Brik Pilee', 'Logo2020JPEGKlein', 'poeier', 'Hekwerk Sponsor', 'kwtc', 'logo-radesol-sponsor', 'spar', 'VanHees Sponsor'];
+        $sponsors = ['Sponser Brik Pilee', 'Logo2020JPEGKlein', 'poeier', 'Hekwerk Sponsor', 'kwtc', 'logo-radesol-sponsor', 'spar', 'VanHees Sponsor'];
 
-        for($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             Image::factory()->create([
                 'image_type_id' => 1,
                 'name' => 'Sponsor ' . $i,
                 'description' => 'Sponsor ' . $i,
-                'path' => '/storage/sponsor/' . $sponsors[$i-1] . '.jpg',
+                'path' => '/storage/sponsor/' . $sponsors[$i - 1] . '.jpg',
             ]);
         }
 
-        for($i = 4; $i <= 8; $i++) {
+        for ($i = 4; $i <= 8; $i++) {
             Image::factory()->create([
                 'image_type_id' => 1,
                 'name' => 'Sponsor ' . $i,
                 'description' => 'Sponsor ' . $i,
-                'path' => '/storage/sponsor/' . $sponsors[$i-1] . '.png',
+                'path' => '/storage/sponsor/' . $sponsors[$i - 1] . '.png',
             ]);
         }
     }
