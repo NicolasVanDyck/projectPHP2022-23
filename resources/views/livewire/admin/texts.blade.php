@@ -1,33 +1,24 @@
-{{--<div>--}}
-{{--    <ul>--}}
-{{--        @foreach($texts as $text)--}}
-{{--            <li class="text-2xl font-bold">{{ $text->id }}</li>--}}
-{{--            <li class="text-xl">{{$text->location}}</li>--}}
-{{--            <li class="text-base">{{ $text->description }}</li>--}}
-{{--        @endforeach--}}
-{{--    </ul>--}}
-{{--</div>--}}
 <div>
-    <div class="py-4 md:py-0 sm:pr-4">
-        <div class="w-full mx-auto ">
-            <div class="p-4 h-auto">
-                <div class="text-lg text-center sm:px-6">
-
-
-@foreach($texts as $text)
-
     @if(str_contains(Request::url(), 'admin'))
+    <div class='flex-col items-center justify-center bg-gradient-to-br px-2 pb-4 mx'>
+        @foreach($texts as $text)
+        <div class='mb-4 max-w-[70%] mx-auto bg-white
+        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+
+{{--    Onderstaand zorgt ervoor dat ik niet voor alle drie views een aparte component nodig heb. --}}
+{{--    Hier check ik of er 'admin' in de URL staat, om op basis daarvan het admingedeelte te tonen --}}
+{{--    Onderaan check ik dan nog een keer de URL op 'contact' en 'root', zodat ik hier ook geen extra component voor nodig heb. --}}
+
         <ul wire:key="text_{{$text->id}}">
-            <li class="text-2xl font-bold">{{ $text->id }}</li>
             <li class="text-xl">{{$text->location}}</li>
-            <li class="text-base mb-2">{{ $text->description }}</li>
+{{--    Als de 'id' van property editText != aan de 'id' van de huidige tekst in de loop, toont hij de knop.    --}}
             @if($editText['id'] !== $text->id)
-                <x-button wire:click="editExistingText({{$text->id}})" class="mb-2 text-white">Pas tekst aan</x-button>
-            @endif
-            @if($editText['id'] !== $text->id)
-                <p
-                        class="text-left cursor-pointer">
-                </p>
+{{--                Hierbinnen, zodat dit verdwijnt bij het klikken op de knop  --}}
+                <li class="text-base mb-2">{{ $text->description }}</li>
+                <x-button wire:click="editExistingText({{$text->id}})" class="mb-2 text-white">
+                    Pas tekst aan
+                </x-button>
+{{--            Is hij wel gelijk, omdat functie editExistingText de waarde van de huidige tekst als id invult, dan kan je aanpassen --}}
             @else
                 <td>
                     <div class="flex flex-col text-left">
@@ -35,82 +26,38 @@
                                           wire:model.defer="editText.description">
                                 </textarea>
                         <div class="container flex flex-row">
-                            <x-button wire:click="updateText({{ $text->id }})" class="mt-2 text-white">Opslaan
+                            <x-button wire:click="updateText({{ $text->id }})" class="mt-2 text-white">
+                                Opslaan
                             </x-button>
-                            <x-button wire:click="resetEditText()" class="mt-2 text-white">Annuleren
+                            <x-button wire:click="resetEditText()" class="mt-2 text-white">
+                                Annuleren
                             </x-button>
                         </div>
                         <x-input-error for="editText.description" class="mt-2"/>
                     </div>
                 </td>
             @endif
-        @elseif(str_contains(Request::url(), 'contact'))
-        @if($text->id == 2)
-            <div class>
-                <p>{{$text->description}}</p>
+        </ul>
+        </div>
+        @endforeach
+    </div>
+            @endif
+
+{{--    Herhaling van bovenstaande. Ik check de URL en op basis daarvan toon ik de correcte tekst in de juiste view  --}}
+        @if(str_contains(Request::url(), 'contact'))
+            <div class='mb-4 max-w-[70%] mx-auto bg-white
+        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+                <p>{{$contact->description}}</p>
             </div>
-        @endif
-        @elseif(str_contains(Request::url(), '/'))
-            @if($text->id == 1)
-                <div class>
-                    <p>{{$text->description}}</p>
+        @else
+{{--            Uitsluiten, anders toont hij deze nog eens op de admin ook--}}
+            @if(str_contains(Request::url(), 'admin'))
+            <div class="hidden"></div>
+            @else
+                <div class='mb-4 max-w-[70%] mx-auto bg-white
+        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+                    <p>{{$home->description}}</p>
                 </div>
             @endif
-            {{--        Om tekst op de contactpagina te tonen--}}
         @endif
-@endforeach
-
-         </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-
-
-{{--    Om tekst op de homepagina te tonen--}}
-{{--    @if(str_contains(Request::url(), '/'))--}}
-{{--        @if($text->id == 1)--}}
-{{--            <div class>--}}
-{{--                <p>{{$text->description}}</p>--}}
-{{--            </div>--}}
-{{--        @endif--}}
-{{--        Om tekst op de contactpagina te tonen--}}
-{{--    @elseif(str_contains(Request::url(), 'contact'))--}}
-{{--        @if($text->id == 2)--}}
-{{--            <div class>--}}
-{{--                <p>{{$text->description}}</p>--}}
-{{--            </div>--}}
-{{--        @endif--}}
-{{--        Admingedeelte--}}
-{{--    @elseif(str_contains(Request::url(), 'admin'))--}}
-{{--                <ul wire:key="text_{{$text->id}}">--}}
-{{--                    <li class="text-2xl font-bold">{{ $text->id }}</li>--}}
-{{--                    <li class="text-xl">{{$text->location}}</li>--}}
-{{--                    <li class="text-base mb-2">{{ $text->description }}</li>--}}
-{{--                        @if($editText['id'] !== $text->id)--}}
-{{--                            <x-button wire:click="editExistingText({{$text->id}})" class="mb-2 text-white">Pas tekst aan</x-button>--}}
-{{--                        @endif--}}
-{{--                        @if($editText['id'] !== $text->id)--}}
-{{--                            <p--}}
-{{--                                class="text-left cursor-pointer">--}}
-{{--                            </p>--}}
-{{--                        @else--}}
-{{--                        <td>--}}
-{{--                            <div class="flex flex-col text-left">--}}
-{{--                                <textarea id="edit_{{ $text->id }}" cols="60" rows="10"--}}
-{{--                                             wire:model.defer="editText.description">--}}
-{{--                                </textarea>--}}
-{{--                                <div class="container flex flex-row">--}}
-{{--                                    <x-button wire:click="updateText({{ $text->id }})" class="mt-2 text-white">Opslaan--}}
-{{--                                    </x-button>--}}
-{{--                                    <x-button wire:click="resetEditText()" class="mt-2 text-white">Annuleren--}}
-{{--                                    </x-button>--}}
-{{--                                </div>--}}
-{{--                                <x-input-error for="editText.description" class="mt-2"/>--}}
-{{--                            </div>--}}
-{{--                        </td>--}}
-{{--                        @endif--}}
-{{--    @endif--}}
-{{--    @endforeach--}}
-{{--    </ul>--}}
