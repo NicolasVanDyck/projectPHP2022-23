@@ -52,8 +52,25 @@ class GrouptourMember extends Component
         $filteredGroupTours = $this->applyFilters()
             ->paginate(6);
 
+        foreach ($filteredGroupTours as $groupTour) {
+            $groupTour->isRegistered = $this->isUserRegistered($groupTour->id);
+        }
+
+
         return view('livewire.grouptour-member', compact('userTours', 'groups', 'days', 'filteredGroupTours'));
     }
+
+    private function isUserRegistered($tourId)
+    {
+        $userId = Auth::id();
+
+        return UserTour::where('user_id', $userId)
+            ->whereHas('groupTour', function ($query) use ($tourId) {
+                $query->where('tour_id', $tourId);
+            })
+            ->exists();
+    }
+
 
     private function applyFilters()
     {
