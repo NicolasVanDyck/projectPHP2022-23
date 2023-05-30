@@ -129,33 +129,12 @@ class FotoUpload extends Component
             'path' => $this->newImage['path'],
             'in_carousel' => $this->newImage['in_carousel'],
         ]);
-        if ('newImage.tour_id' == "0") {
+//        Als de waarde van de optie 0 is, zal er 'null' in de database komen te staan.
+        if ($this->newImage['tour_id'] == 0) {
             $image->update([
-                null => $this->newImage['tour_id'],
+                'tour_id' => null,
             ]);
         }
-
-//        if (isEmpty('newImage.tour_id')) {
-//            $image->update([
-////            'id' => $this->newImage['id'],
-//                'image_type_id' => $this->newImage['image_type_id'],
-//                'tour_id' => null,
-//                'name' => $this->newImage['name'],
-//                'description' => $this->newImage['description'],
-//                'path' => $this->newImage['path'],
-//                'in_carousel' => $this->newImage['in_carousel'],
-//            ]);
-//
-//        } else {
-//            $image->update([
-//                //            'id' => $this->newImage['id'],
-//                'image_type_id' => $this->newImage['image_type_id'],
-//                'tour_id' => $this->newImage['tour_id'],
-//                'name' => $this->newImage['name'],
-//                'description' => $this->newImage['description'],
-//                'path' => $this->newImage['path'],
-//                'in_carousel' => $this->newImage['in_carousel'],
-//            ]);
     }
 
     public function deleteImage($path)
@@ -199,7 +178,7 @@ class FotoUpload extends Component
         //            Zodat de laatste foto's eerst getoond worden
         $images = Image::orderBy('created_at', 'desc')
 //            Waarom werkt dit niet??
-//            ->where('tour_id', '=', $this->tour)
+            ->where('tour_id', '=', $this->tour)
             ->orWhere('image_type_id', 'like', $this->type)
             ->when($this->homecarousel == 1, function($query) {
                 return $query->where('in_carousel', '=', $this->homecarousel);
@@ -208,5 +187,4 @@ class FotoUpload extends Component
         $imagetypes = ImageType::get();
         return view('livewire.foto-upload', compact('images', 'imagetypes','tours'));
     }
-
 }
