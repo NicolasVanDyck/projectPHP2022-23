@@ -57,6 +57,6 @@ class GroupTour extends Model
         return $this->belongsTo(Tour::class);
     }
 
-
+    protected $appends = ['group_name'];
 
 }

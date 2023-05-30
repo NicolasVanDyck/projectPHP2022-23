@@ -7,7 +7,7 @@
     <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
         <div class='max-w-md mx-auto'>
             <div class='p-8'>
-                <livewire:admin-aanwezigheden>
+                <livewire:admin-aanwezigheden/>
         </div>
     </div>
 
