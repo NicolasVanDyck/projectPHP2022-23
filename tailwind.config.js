@@ -19,7 +19,7 @@ module.exports = {
         // Hier kunnen nog bijkomende fonts geplaats worden die we vaak gebruiken
       },
       backgroundImage: {
-        "hero-pattern": ["url('/public/assets/background/wezeldrivers.jpg')"],
+        "hero-pattern": ["url('/public/assets/background/wezeldrivers_upscale.jpg')"],
       },
     },
   },

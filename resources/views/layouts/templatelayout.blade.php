@@ -9,9 +9,9 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bg-hero-pattern bg-cover bg-center bg-no-repeat lg:bg-center">
 <!--Hero-->
-<div class="flex flex-col h-screen bg-hero-pattern bg-cover bg-left bg-no-repeat lg:bg-center">
+<div class="flex flex-col h-screen">
     <nav>
         @auth
             @if(Auth::user()->is_admin && str_contains(Request::url(), 'admin') )
@@ -36,13 +36,9 @@
 
 
     <!--Footer-->
-
-    <footer class="mt-auto bg-[#eee]">
-        <div>
-            <x-layout.footer/>
-        </div>
-    </footer>
+    <x-layout.footer/>
 </div>
+
 @livewireScripts
 </body>
 </html>

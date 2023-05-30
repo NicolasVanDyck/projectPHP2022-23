@@ -6,7 +6,7 @@
 
     {{--Text--}}
     <div
-        class="lg:flex lg:flex-col lg:w-[400px] lg:h-[800px] lg:items-center lg:justify-between xl:w-[550px]">
+        class="lg:flex lg:flex-col lg:w-[400px] lg:items-center lg:justify-between xl:w-[550px]">
         <div class="lg:flex lg:w-[400px] xl:w-[550px]">
             <livewire:admin.texts/>
         </div>
@@ -16,7 +16,7 @@
             <livewire:activities/>
         </div>
         <div
-            class="my-auto">
+            class="mt-1 border-2 border-red-500">
             {{--Carousel--}}
             <x-wd_components.carousel/>
         </div>
