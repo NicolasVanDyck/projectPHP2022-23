@@ -8,7 +8,7 @@ komt overeen met die van de GroupTour, worden de ritten getoond --}}
                 <div class="mb-2">
                     <p><b>Rit:</b> {{$startuur->gpx->name}}</p>
                     <p><b>Groep:</b> {{$startuur->group->group}}</p>
-                    <p class="underline">Vertrek om:</p>
+                    <p class="font-bold">Vertrek om:</p>
                     <p>{{$startuur->start_date}} {{$startuur->start_time}}</p>
                 </div>
         @endif
