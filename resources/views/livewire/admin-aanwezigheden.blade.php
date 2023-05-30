@@ -38,8 +38,8 @@
 {{--Nog zien hoe ik deelnemers er niet dubbel in kunnen staan!--}}
                                 @foreach($users as $user)
 
-{{--                                            @foreach($usertours as $ust)--}}
-{{--                                    @if($ust->user_id != $user->id && $ust->group_tour_id == $grouptour->id)--}}
+{{--                                            @foreach($usertours->where('group_tour_id' == $grouptour->id) as $ust)--}}
+{{--                                    @if($ust->user_id != $user->id)--}}
                                     <option value="{{$user->id}}">{{$user->name}}</option>
 {{--                                            @endif--}}
 {{--                                    @endforeach--}}

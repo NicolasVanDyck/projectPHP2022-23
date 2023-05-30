@@ -12,16 +12,16 @@
                         @endforeach
                     </select>
                 </div>
-{{--                Waarde aan tour wordt doorgegeven, maar de query wordt niet in rekening genomen?    --}}
-{{--                <div>--}}
-{{--                    <label for="tour" value="tour"/>--}}
-{{--                    <select id="tour" wire:model="tour">--}}
-{{--                        <option value="%">Alle afbeeldingen</option>--}}
-{{--                        @foreach($tours as $t)--}}
-{{--                            <option value="{{ $t->id }}">{{ $t->tour_name }}</option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                </div>--}}
+{{--                Waarde aan tour wordt doorgegeven, maar de query wordt niet in rekening genomen?--}}
+                <div>
+                    <label for="tour" value="tour"/>
+                    <select id="tour" wire:model="tour">
+                        <option value="%">Alle ritten</option>
+                        @foreach($tours as $t)
+                            <option value="{{ $t->id }}">{{ $t->tour_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div>
                     <label for="homecarousel" value="homecarousel">Getoond op homepage?</label>
                     <x-checkbox id="homecarousel" type="checkbox"
@@ -77,7 +77,7 @@
         <div class="mr-4">
             <label for="uploadTour" value="uploadTour">Voor welke tour wil je een afbeelding uploaden? </label>
             <select id="uploadTour" wire:model="uploadTour">
-                <option value="0">Geen tour</option>
+                <option value="">Geen tour</option>
                 @foreach($tours as $to)
                     <option value="{{ $to->id }}">{{ $to->tour_name }}</option>
                 @endforeach

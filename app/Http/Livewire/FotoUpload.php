@@ -9,7 +9,9 @@ use Livewire\Component;
 use App\Models\Image;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Illuminate\Http\Request;
 use Str;
+use function PHPUnit\Framework\isEmpty;
 
 class FotoUpload extends Component
 {
@@ -117,8 +119,9 @@ class FotoUpload extends Component
     public function updateImage(Image $image)
     {
         $this->validate();
+
         $image->update([
-//            'id' => $this->newImage['id'],
+            //            'id' => $this->newImage['id'],
             'image_type_id' => $this->newImage['image_type_id'],
             'tour_id' => $this->newImage['tour_id'],
             'name' => $this->newImage['name'],
@@ -126,6 +129,33 @@ class FotoUpload extends Component
             'path' => $this->newImage['path'],
             'in_carousel' => $this->newImage['in_carousel'],
         ]);
+        if ('newImage.tour_id' == "0") {
+            $image->update([
+                null => $this->newImage['tour_id'],
+            ]);
+        }
+
+//        if (isEmpty('newImage.tour_id')) {
+//            $image->update([
+////            'id' => $this->newImage['id'],
+//                'image_type_id' => $this->newImage['image_type_id'],
+//                'tour_id' => null,
+//                'name' => $this->newImage['name'],
+//                'description' => $this->newImage['description'],
+//                'path' => $this->newImage['path'],
+//                'in_carousel' => $this->newImage['in_carousel'],
+//            ]);
+//
+//        } else {
+//            $image->update([
+//                //            'id' => $this->newImage['id'],
+//                'image_type_id' => $this->newImage['image_type_id'],
+//                'tour_id' => $this->newImage['tour_id'],
+//                'name' => $this->newImage['name'],
+//                'description' => $this->newImage['description'],
+//                'path' => $this->newImage['path'],
+//                'in_carousel' => $this->newImage['in_carousel'],
+//            ]);
     }
 
     public function deleteImage($path)
@@ -146,17 +176,34 @@ class FotoUpload extends Component
     }
 
 
+//    public function render()
+//    {
+//        $tours = Tour::get();
+//        //            Zodat de laatste foto's eerst getoond worden
+//        $images = Image::orderBy('created_at', 'desc')
+//            ->where('image_type_id', 'like', $this->type)
+//            //            Werkt ook niet??
+////            ->orWhere(function ($query) {
+////                return $query->where('tour_id', 'like', $this->tour);})
+//            ->when($this->homecarousel == 1, function($query) {
+//                    return $query->where('in_carousel', '=', $this->homecarousel);
+//                })
+//                        ->paginate($this->perPage);
+//        $imagetypes = ImageType::get();
+//        return view('livewire.foto-upload', compact('images', 'imagetypes','tours'));
+//    }
+
     public function render()
     {
         $tours = Tour::get();
-        $images = Image::where('image_type_id', 'like', $this->type)
-//            Werkt ook niet??
-//            ->orWhere('tour_id', 'like', $this->tour)
-//            Zodat de laatste foto's eerst getoond worden
-            ->orderBy('created_at', 'desc')
+        //            Zodat de laatste foto's eerst getoond worden
+        $images = Image::orderBy('created_at', 'desc')
+//            Waarom werkt dit niet??
+//            ->where('tour_id', '=', $this->tour)
+            ->orWhere('image_type_id', 'like', $this->type)
             ->when($this->homecarousel == 1, function($query) {
-                    return $query->where('in_carousel', '=', $this->homecarousel);
-                })
+                return $query->where('in_carousel', '=', $this->homecarousel);
+            })
             ->paginate($this->perPage);
         $imagetypes = ImageType::get();
         return view('livewire.foto-upload', compact('images', 'imagetypes','tours'));

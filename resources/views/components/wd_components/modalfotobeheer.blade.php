@@ -50,7 +50,8 @@
                             autocomplete="tour_id"
                             class="block mt-1 w-full">
 {{--                        Value of null???            --}}
-                        <option value="{{null}}">Geen tour</option>
+
+                        <option value="0">Geen tour</option>
                         @foreach($tours as $tr)
                             <option value="{{$tr->id}}">{{$tr->tour_name}}</option>
                         @endforeach
@@ -68,25 +69,11 @@
         </div>
     </x-slot>
     <x-slot name="footer">
-        @if(is_null($newImage['id']))
-            <x-button
-                    wire:click="createImage()"
-                    wire:loading.attr="disabled"
-                    class="ml-2">Gegevens opslaan
-            </x-button>
-            <x-button
-                    wire:click="setNewImage()"
-                    wire:loading.attr="disabled"
-                    class="ml-2">Formulier resetten
-            </x-button>
-        @else
             <x-button
                     wire:click="updateImage('{{$newImage['id']}}')"
                     wire:loading.attr="disabled"
                     class="ml-2">Aanpassingen opslaan
             </x-button>
-        @endif
-
         <x-button bgcolor="rood" @click="show = false">
             Verlaten</x-button>
     </x-slot>
