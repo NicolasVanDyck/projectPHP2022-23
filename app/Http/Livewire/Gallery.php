@@ -6,18 +6,38 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use App\Models\GroupTour;
 use App\Models\Image;
+use Livewire\WithPagination;
 
 class Gallery extends Component
 {
+    use WithPagination;
+
+    public $date = null;
+
+    public $groupToursPerPage = 3;
+    public $overigePerPage = 8;
+
+    public function resetDate()
+    {
+        $this->date = null;
+    }
+
+    public function updated($propertyName, $propertyValue)
+    {
+        // dump($propertyName, $propertyValue);
+        if (in_array($propertyName, ['groupToursPerPage','overigePerPage']))
+            $this->resetPage();
+    }
     public function render()
     {
-//        $images = collect(Storage::files('public/galerij'))->map(function ($path) {
-//            return asset(Storage::url($path));
-//        });
-        $grouptours = GroupTour::orderBy('start_date','desc')->get();
+        $grouptours = GroupTour::orderBy('start_date','desc')
+            ->when($this->date != null, function($query) {
+                $query->where('start_date', '=', $this->date);})
+            ->paginate($this->groupToursPerPage);
         $photos = Image::all();
+        $overigephotos = Image::where([['tour_id', '=', null],['image_type_id','=',2]])->paginate($this->overigePerPage);
 
-        return view('livewire.gallery', compact('grouptours','photos'));
+        return view('livewire.gallery', compact('grouptours','photos','overigephotos'));
     }
 
 }

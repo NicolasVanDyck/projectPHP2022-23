@@ -1,6 +1,6 @@
 <div>
 
-    {{-- Detail section --}}
+{{--    Filter ledenbeheer op naam of gebruikersnaam --}}
     <section class="mb-4 flex gap-2 justify-evenly items-center bg-white">
         <x-button wire:click="setNewUser()" class="ml-5">
             Clublid toevoegen
