@@ -51,9 +51,8 @@
     <div class="flex flex-wrap">
         @foreach($filteredGroupTours as $groupTour)
             <div class="p-1 pt-3 md:w-1/3">
-                <div x-data="{ isOpen: false }" class="block max-w-[22rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 relative hover:bg-slate-100">
-                    <div x-on:click="isOpen = true">
-                        <img class="rounded-t-lg w-full" src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg" alt=""/>
+                <div  class="block max-w-[22rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 relative hover:bg-slate-100">
+                    <img class="rounded-t-lg w-full" src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg" alt=""/>
                         <div class="p-6">
                             <h2 class="font-semibold underline decoration-indigo-500 mb-2">
                                 {{ $groupTour->gpx->name }}
@@ -81,7 +80,6 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         @endforeach
