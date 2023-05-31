@@ -2,37 +2,47 @@
 
     <div class="flex justify-center">
     <div class="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6 mb-4">
-        <!-- Group Filter -->
+        <!-- Groep Filter -->
         <div class="flex items-center mb-2">
-            <label class="mr-2">Group:</label>
+            <label class="mr-2">Groep:</label>
             <select wire:model="selectedGroup" class="border border-gray-300 rounded-lg px-4 py-2">
-                <option value="">All</option>
+                <option value="">Alles</option>
                 @foreach($groups as $group)
                     <option value="{{ $group->id }}">{{ $group->group }}</option>
                 @endforeach
             </select>
         </div>
 
-        <!-- Day Filter -->
+        <!-- Dag Filter -->
         <div class="flex items-center">
-            <label class="mr-2">Day:</label>
+            <label class="mr-2">Dag:</label>
             <select wire:model="selectedDay" class="border border-gray-300 rounded-lg px-4 py-2">
-                <option value="">All</option>
+                <option value="">Alles</option>
                 @foreach($days as $day)
                     <option value="{{ $day }}">{{ $day }}</option>
                 @endforeach
             </select>
         </div>
-
-{{--    <div class="flex items-center">--}}
-{{--        <label class="mr-2">Distance:</label>--}}
-{{--        <input type="range" min="{{ $minDistance }}" max="{{ $maxDistance }}" value="0" step="5" wire:model="selectedDistance" class="border border-gray-300 rounded-lg px-4 py-2">--}}
-{{--        <span class="ml-2">{{ $selectedDistance }} km</span>--}}
-{{--    </div>--}}
-</div>
+        <!-- Afstand Filter -->
+    <div class="flex items-center">
+        <label class="mr-2">Afstand:</label>
+        <input type="range" min="{{ $minDistance }}" max="{{ $maxDistance }}" value="{{ $selectedDistance }}" step="5" wire:model="selectedDistance" class="border border-gray-300 rounded-lg px-4 py-2">
+        <span class="ml-2">{{ $selectedDistance }} km</span>
     </div>
 
-    <!-- Pagination links -->
+
+
+        <!-- Reset Filter -->
+        <div class="mt-4">
+            <button wire:click="resetFilters" class="bg-gray-500 text-white px-4 py-2 rounded-lg">
+                Reset Filters
+            </button>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- Pagination -->
     <div class="mt-4">
         {{ $filteredGroupTours->links() }}
     </div>
@@ -65,7 +75,6 @@
                             </p>
                             <div class="mt-4">
                                 @if ($groupTour->isRegistered)
-                                    <!-- Add this condition -->
                                     <button class="inline-block w-full font-bold rounded bg-red-500 px-6 text-center pb-2 pt-2.5 text-lg uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-red-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]" wire:click="leaveTour('{{ $groupTour->tour_id }}')">Verlaat de groepsrit</button>
                                 @else
                                     <button class="inline-block w-full font-bold rounded bg-info px-6 text-center pb-2 pt-2.5 text-lg uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]" wire:click="joinTour('{{ $groupTour->tour_id }}')">Ik rij mee!</button>

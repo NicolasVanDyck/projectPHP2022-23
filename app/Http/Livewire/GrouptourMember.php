@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\GroupTour;
 use App\Models\Group;
-use App\Models\Gpx;
+use App\Models\GPX;
 use App\Models\Tour;
 use App\Models\UserTour;
 use Illuminate\Support\Facades\Auth;
@@ -14,15 +14,19 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-
 class GrouptourMember extends Component
 {
     public $showPopup;
     public $selectedGroup;
+    public $filteredGroupToursByDay;
     public $selectedDay;
+
     public $selectedDistance;
+    public $minDistance;
+    public $maxDistance;
 
     use WithPagination;
+
     protected $paginationTheme = 'tailwind';
 
     public function leaveTour($userTourId)
@@ -46,67 +50,77 @@ class GrouptourMember extends Component
         $groups = Group::all(); // Retrieve all groups for the filter options
 
         // Get unique days from group tours for the day filter dropdown
-        $days = $this->groupTours->pluck('start_date')->unique()->sort()->toArray();
+        $days = GroupTour::pluck('start_date')->unique()->sort()->toArray();
 
         // Apply filters and paginate the results
         $filteredGroupTours = $this->applyFilters()
             ->paginate(6);
 
         foreach ($filteredGroupTours as $groupTour) {
-            $groupTour->isRegistered = $this->isUserRegistered($groupTour->id);
+            $groupTour->isRegistered = $this->isUserRegistered($groupTour->tour_id, $groupTour->group_id);
         }
 
+        // Filter the group tours based on the selected group
+        $filteredGroupToursByGroup = $this->applyGroupFilter()->pluck('start_date');
+
+        // Filter the available dates based on the selected group
+        $days = GroupTour::whereIn('start_date', $filteredGroupToursByGroup)
+            ->pluck('start_date')
+            ->unique()
+            ->sort()
+            ->toArray();
 
         return view('livewire.grouptour-member', compact('userTours', 'groups', 'days', 'filteredGroupTours'));
     }
 
-    private function isUserRegistered($tourId)
+    private function isUserRegistered($tourId, $groupId)
     {
         $userId = Auth::id();
 
         return UserTour::where('user_id', $userId)
-            ->whereHas('groupTour', function ($query) use ($tourId) {
-                $query->where('tour_id', $tourId);
+            ->whereHas('groupTour', function ($query) use ($tourId, $groupId) {
+                $query->where('tour_id', $tourId)
+                    ->where('group_id', $groupId);
             })
             ->exists();
     }
-
 
     private function applyFilters()
     {
         $groupTours = GroupTour::with('group', 'gpx');
 
-        // Apply group filter if selected
         if ($this->selectedGroup) {
             $groupTours = $groupTours->where('group_id', $this->selectedGroup);
         }
 
-        // Apply day filter if selected
         if ($this->selectedDay) {
             $groupTours = $groupTours->where('start_date', $this->selectedDay);
         }
 
-        // Apply distance filter if selected
-        // Uncomment the code below if you want to apply the distance filter
-        // if ($this->selectedDistance) {
-        //     $groupTours = $groupTours->whereHas('gpx', function ($query) {
-        //         $query->where('amount_of_km', '<=', $this->selectedDistance);
-        //     });
-        // }
+        if ($this->selectedDistance) {
+            $groupTours = $groupTours->whereHas('gpx', function ($query) {
+                $query->where('amount_of_km', '>=', $this->selectedDistance);
+            });
+        }
 
         return $groupTours;
     }
 
-    public function updatedSelectedGroup()
+    private function applyGroupFilter()
     {
-        $this->resetPage();
-    }
+        $groupTours = GroupTour::with('group', 'gpx');
 
-    public function updatedSelectedDay()
-    {
-        $this->resetPage();
-    }
+        if ($this->selectedGroup) {
+            $groupTours = $groupTours->where('group_id', $this->selectedGroup);
+        }
 
+        if ($this->selectedDay) {
+            $filteredGroupIds = GroupTour::where('start_date', $this->selectedDay)->pluck('group_id')->toArray();
+            $groupTours = $groupTours->whereIn('group_id', $filteredGroupIds);
+        }
+
+        return $groupTours->get();
+    }
 
     private function getUserTours()
     {
@@ -119,84 +133,39 @@ class GrouptourMember extends Component
             ->get();
     }
 
-    private function getGroupTours()
+    public function resetFilters()
     {
-        $query = GroupTour::with('gpx')
-            ->whereHas('tour', function ($query) {
-                $query->where('end_date', '>=', now()); // Filter active tours
-            });
-
-        if ($this->selectedGroup) {
-            $query->where('group_id', $this->selectedGroup);
-        }
-
-        if ($this->selectedDay) {
-            $query->whereDate('start_date', $this->selectedDay);
-        }
-
-        // Calculate the minimum and maximum distances
-//        $minDistance = $query->min('gpx.amount_of_km');
-//        $maxDistance = $query->max('gpx.amount_of_km');
-//
-//        // Set the initial selected distance to the maximum distance
-//        if (!$this->selectedDistance) {
-//            $this->selectedDistance = $maxDistance;
-//        }
-
-        $this->groupTours = $query->orderBy('start_date')->get()->unique('start_date');
+        $this->selectedGroup = null;
+        $this->selectedDay = null;
+        $this->selectedDistance = null;
+        $this->resetPage();
     }
 
-
-
-
-    public function joinTour($tourId)
+    public function updatedSelectedGroup()
     {
-        // Get the logged-in user ID
-        $userId = Auth::id();
-
-        // Check if the user is already registered for the tour
-        $isRegistered = UserTour::where('user_id', $userId)
-            ->where('tour_id', $tourId)
-            ->exists();
-
-        if ($isRegistered) {
-            // Set the flag to show the pop-up message
-            $this->showPopup = true;
-        } else {
-            // Retrieve the group tour based on the provided tour ID
-            $groupTour = GroupTour::where('tour_id', $tourId)->first();
-
-            if ($groupTour) {
-                // Store the data in the database
-                UserTour::create([
-                    'user_id' => $userId,
-                    'tour_id' => $groupTour->tour_id,
-                    'group_tour_id' => $groupTour->id,
-                ]);
-
-                // Show a success message
-                session()->flash('message', 'You have joined the tour successfully.');
-            } else {
-                // Show an error message if the group tour is not found
-                session()->flash('message', 'The group tour is not available.');
-            }
-        }
+        $this->resetPage();
+        $this->selectedDay = null;
     }
 
-
-
-
-
-
+    public function updatedSelectedDay()
+    {
+        $this->resetPage();
+    }
 
     public function mount()
     {
-        $this->groupTours = GroupTour::with('group', 'gpx')->get();
         // Get minimum and maximum distances from the database
-//        $this->minDistance = Gpx::min('amount_of_km');
-//        $this->maxDistance = Gpx::max('amount_of_km');
+        $this->minDistance = GPX::min('amount_of_km');
+        $this->maxDistance = GPX::max('amount_of_km');
     }
 
-   }
+    public function filterByDistance()
+    {
+        $this->resetPage();
+    }
 
-
+    public function updatedSelectedDistance()
+    {
+        $this->resetPage();
+    }
+}
