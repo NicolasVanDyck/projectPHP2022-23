@@ -74,7 +74,7 @@ class GrouptourMember extends Component
     }
 
 // Controleert of de gebruiker is geregistreerd voor een specifieke tour en groep.
-
+// hier zit t probleem denk ik?
     private function isUserRegistered($tourId, $groupId)
     {
         $userId = Auth::id();
