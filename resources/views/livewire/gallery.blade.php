@@ -8,9 +8,9 @@
                     <x-button wire:click="resetDate()">Toon alle foto's</x-button>
                 @endif
             </div>
-        </div>
-        <div>
-            {{$grouptours->links()}}
+            <div>
+                {{$grouptours->links()}}
+            </div>
         </div>
             @foreach($grouptours as $gt)
                 <div class="my-4">
