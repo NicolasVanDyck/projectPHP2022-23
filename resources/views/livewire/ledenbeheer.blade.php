@@ -51,7 +51,7 @@
                 wire:key="user_{{$user->id}}">
                     <td>{{$user->name}}</td>
                     <td>{{$user->username}}</td>
-                    <td>{{$user->birthdate}}</td>
+                    <td>{{date('d/m/Y', strtotime($user->birthdate))}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->postal_code}}</td>
                     <td>{{$user->city}}</td>
