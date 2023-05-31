@@ -5,9 +5,7 @@
         <div class='mb-4 max-w-[70%] mx-auto bg-white
         rounded-3xl shadow-xl overflow-hidden text-center p-4'>
 
-{{--    Onderstaand zorgt ervoor dat ik niet voor alle drie views een aparte component nodig heb. --}}
-{{--    Hier check ik of er 'admin' in de URL staat, om op basis daarvan het admingedeelte te tonen --}}
-{{--    Onderaan check ik dan nog een keer de URL op 'contact' en 'root', zodat ik hier ook geen extra component voor nodig heb. --}}
+{{--    Onderstaande zorgt ervoor dat er geen aparte component nodig is voor alle drie de views . --}}
 
         <ul wire:key="text_{{$text->id}}">
             <li class="text-xl">{{$text->location}}</li>
@@ -43,7 +41,7 @@
     </div>
             @endif
 
-{{--    Herhaling van bovenstaande. Ik check de URL en op basis daarvan toon ik de correcte tekst in de juiste view  --}}
+{{--    De URL wordt gecheckt en op basis daarvan wordt de juiste tekst getoond  --}}
         @if(str_contains(Request::url(), 'contact'))
             <div class='mb-4 max-w-[70%] mx-auto bg-white
         rounded-3xl shadow-xl overflow-hidden text-center p-4'>
