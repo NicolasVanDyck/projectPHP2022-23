@@ -5,6 +5,7 @@
             <p>Aanwezigen:</p>
             <ul>
         @foreach($users as $user)
+{{--            --}}
             @if($usertour->tour_id == 1 && $usertour->user_id == $user->id)
                 <li>{{$user->name}}</li>
             @endif
@@ -12,5 +13,4 @@
 </ul>
         </div>
     @endforeach
-
 </div>

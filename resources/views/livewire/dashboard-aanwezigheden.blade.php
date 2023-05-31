@@ -1,19 +1,17 @@
 <div>
     <h3 class="font-bold underline">Aanwezige ritten:</h3>
-    @foreach($aanwezigheden as $aanwezigheid)
-        @foreach($starturen as $startuur)
+    @foreach($starturen as $startuur)
+        @foreach($aanwezigheden as $aanwezigheid)
+{{--            Als de ingelogde user overeenkomt met de user in de UserTour en de Tour van de UserTour
+komt overeen met die van de GroupTour, worden de ritten getoond --}}
         @if(Auth::user()->id == $aanwezigheid->user_id && $aanwezigheid->tour_id == $startuur->tour_id)
-            <p>Vertrek om:</p>
-                        <p>{{$startuur->start_date}}</p>
-            @foreach($tours as $tour)
-                @foreach($gpxes as $gpx)
-                    @if($tour->id == $aanwezigheid->tour_id && $tour->g_p_x_id == $gpx->id)
-                        <p>Van: {{$gpx->start_location}}</p>
-                        <p class="mb-4">Naar: {{$gpx->end_location}}</p>
-                    @endif
-                @endforeach
-            @endforeach
+                <div class="mb-2">
+                    <p><b>Rit:</b> {{$startuur->gpx->name}}</p>
+                    <p><b>Groep:</b> {{$startuur->group->group}}</p>
+                    <p class="font-bold">Vertrek om:</p>
+                    <p>{{$startuur->start_date}} {{$startuur->start_time}}</p>
+                </div>
         @endif
-    @endforeach
         @endforeach
+    @endforeach
 </div>

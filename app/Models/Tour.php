@@ -31,29 +31,6 @@ class Tour extends Model
             get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
         );
     }
-//
-//    public function endLocation()
-//    {
-//        return Attribute::make(
-//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->end_location,
-//        );
-//    }
-//
-//
-//    protected function amountOfKm(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->amount_of_km,
-//        );
-//    }
-//
-//    protected function routeName(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
-//        );
-//    }
-//
-//
+
     protected $appends = ['tour_name'];
 }

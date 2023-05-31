@@ -7,7 +7,10 @@ use App\Models\Text;
 
 class Texts extends Component
 {
-    public $editText = ['id' => null, 'description' => null];
+    public $editText = [
+        'id' => null,
+        'description' => null
+    ];
 
     protected $rules = [
         'editText.description' => 'required|unique:texts,location',
@@ -36,20 +39,15 @@ class Texts extends Component
         ]);
 
         $this->resetEditText();
-//        $this->emit('saved');
     }
 
 
     public function render()
     {
         $texts = Text::orderBy('id')->get();
+        $home = Text::where('id', 1)->first();
+        $contact = Text::where('id', 2)->first();
 
-
-        return view('livewire.admin.texts', compact('texts'));
-
-
+        return view('livewire.admin.texts', compact('texts', 'home','contact'));
     }
-
-
-
 }
