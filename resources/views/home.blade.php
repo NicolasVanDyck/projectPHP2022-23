@@ -5,22 +5,31 @@
 
 
     {{--Text--}}
-    <div
-        class="lg:flex lg:flex-col lg:w-[400px] lg:items-center lg:justify-between xl:w-[550px]">
-        <div class="lg:flex lg:w-[400px] xl:w-[550px]">
+    <div class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
+        <div class="flex w-1/2 h-1/2 items-center">
             <livewire:admin.texts/>
         </div>
-        {{--Activities--}}
-        <div class="lg:w-[400px] xl:w-[550px] md:mt-20">
-            <h3 class="text-2xl text-center">Geplande activiteiten</h3>
+    </div>
+    {{--Activities--}}
+    <div class="flex sm:justify-between bg-[#c7daea]">
+        <div class="hidden sm:flex mx-auto mt-5 w-1/3">
+            <img src="assets/images/cycling.webp" alt="sky" class="w-[300px] h-full mix-blend-multiply">
+        </div>
+        <div class="flex flex-col mx-auto sm:mx-0 sm:w-1/2 mt-5">
+            <h3 class="text-2xl text-center text-gray-800">Geplande activiteiten</h3>
             <livewire:activities/>
         </div>
+    </div>
+    {{--Carousel--}}
+    <div class="flex sm:justify-between bg-[#c7daea]">
         <div
-            class="mt-1 border-2 border-red-500">
-            {{--Carousel--}}
+            class="flex flex-col mx-auto sm:mx-0 sm:w-1/2 mt-5">
+            <h3 class="text-2xl text-center text-gray-800">Foto's</h3>
             <x-wd_components.carousel/>
         </div>
+        <div class="hidden sm:flex mt-5 w-1/3">
+            <img src="assets/images/cycling_sprint.webp" alt="sprint" class="w-[300px] h-full mix-blend-multiply">
+        </div>
     </div>
-
 
 </x-templatelayout>
