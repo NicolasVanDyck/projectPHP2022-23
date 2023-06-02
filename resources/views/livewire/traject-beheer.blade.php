@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 @if (session()->has('success_message'))
-                    <div class="bg-green-500 text-white py-2 px-4 rounded-lg mt-4">
+                    <div class="bg-green-500 text-white py-2 px-4 text-center rounded-lg mt-4">
                         {{ session('success_message') }}
                     </div>
                 @endif

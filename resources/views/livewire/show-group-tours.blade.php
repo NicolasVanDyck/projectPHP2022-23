@@ -29,9 +29,9 @@
                     <th class="px-4 py-2">Groep</th>
                     <th class="px-4 py-2">Route</th>
                     <th class="px-4 py-2">Afstand (km)</th>
-                    <th class="px-4 py-2">Start Datum</th>
-                    <th class="px-4 py-2">Start Tijd</th>
-                    <th class="px-4 py-2">Eind Datum</th>
+                    <th class="px-4 py-2">Startdatum</th>
+                    <th class="px-4 py-2">Starttijd</th>
+                    <th class="px-4 py-2">Einddatum</th>
                     <th class="px-4 py-2">Bewerken/Verwijderen</th>
                 </tr>
                 </thead>
@@ -93,17 +93,17 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="startDate" class="block font-bold mb-1">Start Datum:</label>
+                            <label for="startDate" class="block font-bold mb-1">Startdatum:</label>
                             <input type="date" wire:model="editGroupTour.start_date"
                                    class="border-gray-300 border rounded-md p-2 w-full">
                         </div>
                         <div class="mb-4">
-                            <label for="startTime" class="block font-bold mb-1">Start Tijd:</label>
+                            <label for="startTime" class="block font-bold mb-1">Starttijd:</label>
                             <input type="time" wire:model="editGroupTour.start_time"
                                    class="border-gray-300 border rounded-md p-2 w-full">
                         </div>
                         <div class="mb-4">
-                            <label for="endDate" class="block font-bold mb-1">Eind Datum:</label>
+                            <label for="endDate" class="block font-bold mb-1">Eind datum:</label>
                             <input type="date" wire:model="editGroupTour.end_date"
                                    class="border-gray-300 border rounded-md p-2 w-full">
                         </div>

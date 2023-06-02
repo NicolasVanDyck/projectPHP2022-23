@@ -24,30 +24,25 @@ class TrajectBeheer extends Component
 
 
 
-//Haal alle groepsritten op.
 
-
-    public function getGroupTours()
-    {
-        return GroupTour::with(['group', 'tour'])->get();
-    }
 //duwt alles naar de view.
     public function render()
     {
         $groups = Group::pluck('group', 'id')->toArray();
         $routes = GPX::all();
-        $groupTours = $this->getGroupTours();
+        $groupTours = GroupTour::with(['group', 'tour'])->get();
 
         return view('livewire.traject-beheer', compact('groups', 'routes', 'groupTours'));
     }
 
+
 //Selecteer een groep voor de groepsrit.
-    public function selectGroup($group)
-    {
-        $this->selectedGroup = $group;
-        $this->selectedRoute = null;
-        $this->selectedRouteKm = null;
-    }
+//    public function selectGroup($group)
+//    {
+//        $this->selectedGroup = $group;
+//        $this->selectedRoute = null;
+//        $this->selectedRouteKm = null;
+//    }
 //Selecteer een route.
     public function selectRoute($routeId, $routeKm)
     {

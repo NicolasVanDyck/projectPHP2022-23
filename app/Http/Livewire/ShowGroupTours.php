@@ -41,12 +41,15 @@ class ShowGroupTours extends Component
         // Haal de paginerende groepsritten op
         $groupTours = $this->getGroupTours()->paginate(5);
 
+//        $this->resetPage();
+
         return view('livewire.show-group-tours', compact('groups', 'routes', 'groupTours'));
     }
 //Bevestig het verwijderen van een groepsrit
     public function confirmDeleteGroupTour($groupId)
     {
         $this->confirmingDelete = $groupId;
+
     }
 //Verwijder een groepsrit
     public function deleteGroupTour($groupTourId)
@@ -57,7 +60,10 @@ class ShowGroupTours extends Component
         $this->groupTours = GroupTour::with(['group', 'gpx'])->get();
         $this->confirmingDelete = false;
 
+
         session()->flash('delete', 'Groepsrit is verwijderd.');
+
+        return redirect()->to('/admin/trajectbeheer');
     }
 
 
