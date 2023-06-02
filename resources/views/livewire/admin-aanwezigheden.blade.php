@@ -15,8 +15,7 @@
                                 <p class="text-[#7C7C80] font-[15px]">Aanwezigen:</p>
                             </div>
                             <div class="px-8">
-                            @foreach($usertours as $usertour)
-                                @if($grouptour->id == $usertour->group_tour_id)
+                            @foreach($grouptour->usertours as $usertour)
                                         <div class="flex items-center mb-1 justify-between"
                                         wire:key="usertour_{{$usertour->id}}">
                                             <div>
@@ -28,23 +27,21 @@
                                                 </x-button>
                                             </div>
                                         </div>
-                                @endif
-
                                 @endforeach
                             </div>
                             <div class="flex">
                                 <select id="deelname" wire:model="deelname">
                                     <option value="">Kies een deelnemer</option>
 {{--Nog zien hoe ik deelnemers er niet dubbel in kunnen staan!--}}
-                                @foreach($users as $user)
-
-{{--                                            @foreach($usertours->where('group_tour_id' == $grouptour->id) as $ust)--}}
-{{--                                    @if($ust->user_id != $user->id)--}}
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-{{--                                            @endif--}}
-{{--                                    @endforeach--}}
-                                    @endforeach
+                                        @foreach($users as $user)
+                                            @if($grouptour->usertours)
+                                            @foreach($grouptour->usertours as $u)
+                                                @if($user->id != $u->user_id)
+                                                    <option value="{{$user->id}}">{{$user->name}}</option>@endif
+                                            @endforeach
+                                        @endforeach
                                 </select>
+
                                 @if($deelname != null)
                                 <x-button wire:click="addDeelname({{$grouptour->id}},{{$grouptour->tour_id}})">Voeg toe</x-button>
 {{--Waarom werkt onderstaande niet???--}}
@@ -53,9 +50,7 @@
                                     @endif
                             </div>
                         </div>
-                        <x-button wire:click="editDeelnemers({{$grouptour->id}})">Deelnemers aanpassen</x-button>
                     </div>
                 </div>
     @endforeach
-        @include('components.wd_components.modalaanwezighedenbeheer')
 </div>

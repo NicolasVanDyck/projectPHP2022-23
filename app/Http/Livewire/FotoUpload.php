@@ -163,15 +163,32 @@ class FotoUpload extends Component
     public function render()
     {
         $tours = Tour::get();
-        //            Zodat de laatste foto's eerst getoond worden
-        $images = Image::orderBy('created_at', 'desc')
-//            Waarom werkt dit niet??
-            ->where('tour_id', '=', $this->tour)
-            ->orWhere('image_type_id', 'like', $this->type)
-            ->when($this->homecarousel == 1, function($query) {
-                return $query->where('in_carousel', '=', $this->homecarousel);
-            })
-            ->paginate($this->perPage);
+
+//      Alles ophalen
+        if($this->type == '%') {
+            $images = Image::orderBy('created_at', 'desc')
+                ->when($this->homecarousel == 1, function($query) {
+                    return $query->where('in_carousel', '=', $this->homecarousel);
+                })
+                ->paginate($this->perPage);
+        }
+        //        Sponsor opvragen, houdt verder geen rekening met tour_id, want is niet nodig.
+        elseif($this->type == 1) {
+            $images = Image::where('image_type_id', '=', 1)
+                ->orderBy('created_at', 'desc')
+                ->when($this->homecarousel == 1, function($query) {
+                    return $query->where('in_carousel', '=', $this->homecarousel);
+                })
+                ->paginate($this->perPage);
+//      Images ophalen en verder filteren op tour_id
+        } else {
+            $images = Image::orderBy('created_at', 'desc')
+                ->where('tour_id', 'like', $this->tour)
+                ->when($this->homecarousel == 1, function($query) {
+                    return $query->where('in_carousel', '=', $this->homecarousel);
+                })
+                ->paginate($this->perPage);
+        }
         $imagetypes = ImageType::get();
         return view('livewire.foto-upload', compact('images', 'imagetypes','tours'));
     }
