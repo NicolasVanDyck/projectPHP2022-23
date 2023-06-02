@@ -17,8 +17,9 @@
 
     <div>
         @livewire('parameter-component')
-
     </div>
+
+    <livewire:admin.kledingbestellingen />
 </div>
 
 </x-templatelayout>
