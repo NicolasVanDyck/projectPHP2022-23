@@ -39,7 +39,7 @@
                         @endforeach
                     </td>
                     <td>
-                        {{ $product->price }}
+                        € {{ $product->price }}
                     </td>
                     <td class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
                         <x-heroicon-m-pencil class="w-5 h-5 hover:fill-blue-500 ml-2" wire:click="setNewProduct({{$product->id}})"/>
