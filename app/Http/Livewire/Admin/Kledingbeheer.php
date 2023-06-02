@@ -4,9 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\ProductSize;
 use App\Models\Size;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -17,25 +15,19 @@ class Kledingbeheer extends Component
     public $selectedSizes = [];
     public string $productName;
     public int $productPrice;
-    public string $size;
+//    public string $size;
     public $sortField;
-    protected $queryString = ['sortField', 'sortAsc'];
     public $search;
     public $sortAsc = true;
     public $active = true;
-    /**
-     * @var true
-     */
     public bool $showModal = false;
-    public array $checkedSizes = [];
+    public bool $errorModal = false;
 
-    public function mount()
+    public function mount(): void
     {
         $this->productName = '';
         $this->productPrice = 0;
         $this->getSizes();
-        $this->checkedSizes = [1,2,3];
-
     }
 
     public $newProduct = [
@@ -45,25 +37,39 @@ class Kledingbeheer extends Component
         'size' => null,
     ];
 
-    /**
-     * The rules for validation
-     *
-     * @return string[]
-     */
-    protected function rules(): array {
-        return [
-            'newProduct.name' => 'required|string|max:255',
-            'newProduct.price' => 'required|numeric',
-            'newProduct.size' => 'required',
-        ];
-    }
+    // Validation rules
+    protected $rules = [
+        'newProduct.name' => 'required|string|max:255',
+        'newProduct.price' => 'required|numeric',
+    ];
 
     // Validation messages
     protected $messages = [
         'newProduct.name.required' => 'Dit veld mag niet leeg zijn.',
         'newProduct.price.required' => 'Dit veld mag niet leeg zijn.',
-        'newProduct.size.required' => 'Selecteer tenminste één maat',
+        'newProduct.price.numeric' => 'Dit veld moet een geldig getal bevatten.',
     ];
+
+    /**
+     * Shows the modal
+     *
+     * @return void
+     */
+    public function showModal(): void
+    {
+        $this->showModal = !$this->showModal;
+        $this->reset(['newProduct', 'selectedSizes']);
+    }
+
+    /**
+     * Closes the error modal.
+     *
+     * @return void
+     */
+    public function closeErrorModal(): void
+    {
+        $this->errorModal = false;
+    }
 
     /**
      * Creates a new product.
@@ -72,14 +78,37 @@ class Kledingbeheer extends Component
      */
     public function createNewProduct(): void
     {
-        $this->validate();
+        $this->resetErrorBag();
+        $this->newProduct = $this->validate($this->rules, $this->messages);
 
-        Product::create([
+        $newProduct = Product::create([
             'name' => $this->newProduct['name'],
             'price' => $this->newProduct['price'],
         ]);
 
-        $this->reset(['productName', 'productPrice', 'selectedSizes']);
+        $newProduct->sizes()->sync($this->selectedSizes);
+
+        $this->showModal = false;
+    }
+
+    /**
+     * Deletes the product.
+     *
+     * @param Product $product
+     * @return void
+     */
+    public function deleteProduct(Product $product): void
+    {
+        try {
+            $product->sizes()->detach();
+            $product->delete();
+        } catch (QueryException $exception) {
+            if ($exception->getCode() === '23000') {
+                $this->errorModal = true;
+            } else {
+                throw $exception;
+            }
+        }
     }
 
     /**
@@ -113,9 +142,6 @@ class Kledingbeheer extends Component
      */
     public function updated($propertyName, $value,): void
     {
-        if ($propertyName == 'perPage')
-            $this->resetPage();
-
         $this->validateOnly($propertyName);
     }
 
@@ -127,6 +153,8 @@ class Kledingbeheer extends Component
      */
     public function updateProduct(Product $product): void
     {
+        // Validation
+        $this->newProduct = $this->validate($this->rules, $this->messages);
 
         try {
             $product->update([
@@ -137,7 +165,7 @@ class Kledingbeheer extends Component
             $product->sizes()->sync($this->selectedSizes);
 
             $this->showModal = false;
-            $this->reset(['newProduct']);
+            $this->reset(['newProduct', 'selectedSizes']);
         } catch (QueryException $exception) {
             if ($exception->getCode() === '23000') {
                 $orderSizes = $this->getSizesForSelectedProduct($product->id)->pluck('size')->toArray();

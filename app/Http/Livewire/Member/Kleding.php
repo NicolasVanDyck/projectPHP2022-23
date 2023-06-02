@@ -128,13 +128,6 @@ class Kleding extends Component
         return $total;
     }
 
-//    public function updatedAmounts(): void
-//    {
-//        $this->totals = $this->products->pluck('id')->mapWithKeys(function ($id) {
-//            return [$id => $this->getTotalForProduct($id)];
-//        })->toArray();
-//    }
-
     public function restoreState($state)
     {
         $this->selectedProduct = $state['selectedProduct'] ?? [];
@@ -159,10 +152,10 @@ class Kleding extends Component
      */
     public function updateOrder(?int $selectedProductSize, int $selectedAmount): void
     {
-        // If the selected product size is not null, update the order.
+        // If the selected product size is not null, the order is updated.
         if ($selectedProductSize !== null)
         {
-            // Find the order in the database (if it exists
+            // Finds the order in the database (if it exists)
             $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->first();
         }
 

@@ -31,7 +31,6 @@
                         </div>
                     @endif
                     <x-label for="size" value="Maat" wire:model="sizes"/>
-                    {{-- Create a checkbox for each size in the sizes table --}}
                     @foreach ($sizes as $size)
                         <div class="flex items-center">
                             <input
@@ -46,7 +45,6 @@
                     @endforeach
                     <x-input-error for="newProduct.size" class="mt-2" />
                 </div>
-
         </div>
     </x-slot>
 
@@ -57,11 +55,6 @@
                 wire:click="createNewProduct()"
                 wire:loading.attr="disabled"
                 class="ml-2">Gegevens opslaan
-            </x-button>
-            <x-button
-                wire:click="setNewProduct()"
-                wire:loading.attr="disabled"
-                class="ml-2">Formulier resetten
             </x-button>
         @else
 {{--            @dd($newProduct['id'])--}}
