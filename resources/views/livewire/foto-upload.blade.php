@@ -6,14 +6,15 @@
                 <div>
                     <label for="type" value="type"/>
                     <select id="type" wire:model="type">
-                        <option value="%">Alle afbeeldingen</option>
                         @foreach($imagetypes as $it)
                             <option value="{{ $it->id }}">{{ $it->image_type }}</option>
                         @endforeach
+                            <option value="%">Overige</option>
                     </select>
                 </div>
 {{--                Filter rit      --}}
 {{--                Waarde aan tour wordt doorgegeven, maar de query wordt niet in rekening genomen?--}}
+                @if($type == 1)
                 <div>
                     <label for="tour" value="tour"/>
                     <select id="tour" wire:model="tour">
@@ -29,11 +30,9 @@
                     <x-checkbox id="homecarousel" type="checkbox"
                                 wire:model="homecarousel"
                                 autocomplete="off" class="block mt-1"/>
-
                 </div>
-{{--                Links voor pagination       --}}
+                @endif
                 <div>{{$images->links()}}</div>
-{{--                Extra filter op attribuut 'carousel'?           --}}
             </div>
 {{--            Tonen van alle foto's       --}}
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -56,7 +55,9 @@
                                         <p class="text-sm text-gray-500">Tour: '{{$tour->tour_name}}'</p>
                                     @endif
                                 @endforeach
-                                <p class="text-sm text-gray-500">Type: {{$image->image_type_name}}</p>
+                                @if($image->image_type_id != null)
+                                    <p class="text-sm text-gray-500">Type: {{$image->image_type_name}}</p>
+                                @endif
                             </div>
                         </div>
 {{--                        Foto + beschrijving         --}}
@@ -99,6 +100,7 @@
                     @foreach($imagetypes as $itype)
                         <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
                     @endforeach
+                    <option value="">Overige</option>
                 </select>
             </div>
 {{--        Opslaan en errors       --}}

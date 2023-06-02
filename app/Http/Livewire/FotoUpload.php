@@ -9,9 +9,7 @@ use Livewire\Component;
 use App\Models\Image;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Illuminate\Http\Request;
 use Str;
-use function PHPUnit\Framework\isEmpty;
 
 class FotoUpload extends Component
 {
@@ -21,7 +19,7 @@ class FotoUpload extends Component
 
     public $perPage = 8;
 
-    public $type = '%';
+    public $type = 1;
 
     public $tour = '%';
     public $photos = [];
@@ -31,7 +29,7 @@ class FotoUpload extends Component
     public $homecarousel = 0;
 
 //    Op 2, omdat gewone images meer zullen voorkomen dan sponsorimages
-    public $uploadType = 2;
+    public $uploadType = 1;
 
     public $uploadTour = null;
 
@@ -84,23 +82,40 @@ class FotoUpload extends Component
 //            Onderstaande code is nodig om de extensie van de foto te verwijderen. Parameter die je opgeeft aan basename wordt verwijderd.
             $name = Str::of($name)->basename('.' . $photo->getClientOriginalExtension());
 //            Opslaan in sponsor of imagefolder van de storage:
-            if($this->uploadType == 1) {
-                $path = '/storage/sponsor/' . $photo->getClientOriginalName();
-                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
-            } else {
+            if($this->uploadType == '') {
                 $path = '/storage/galerij/' . $photo->getClientOriginalName();
                 $photo->storeAs('public/galerij', $photo->getClientOriginalName());
+                Image::create([
+                    'image_type_id' => null,
+                    'tour_id' => $this->uploadTour,
+                    'name' => $name,
+                    'description' => $name,
+                    'path' => $path,
+                    'in_carousel' => 1,
+                ]);
+            } elseif ($this->uploadType == 1){
+                $path = '/storage/galerij/' . $photo->getClientOriginalName();
+                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
+                Image::create([
+                    'image_type_id' => $this->uploadType,
+                    'tour_id' => $this->uploadTour,
+                    'name' => $name,
+                    'description' => $name,
+                    'path' => $path,
+                    'in_carousel' => 1,
+                ]);
+            } else {
+                $path = '/storage/sponsor/' . $photo->getClientOriginalName();
+                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
+                Image::create([
+                    'image_type_id' => $this->uploadType,
+                    'tour_id' => $this->uploadTour,
+                    'name' => $name,
+                    'description' => $name,
+                    'path' => $path,
+                    'in_carousel' => 1,
+                ]);
             }
-
-            Image::create([
-                'image_type_id' => $this->uploadType,
-                'tour_id' => $this->uploadTour,
-                'name' => $name,
-                'description' => $name,
-                'path' => $path,
-                'in_carousel' => 1,
-            ]);
-
         }
     }
 
@@ -165,16 +180,19 @@ class FotoUpload extends Component
         $tours = Tour::get();
 
 //      Alles ophalen
-        if($this->type == '%') {
+
+
+        if($this->type == 1) {
             $images = Image::orderBy('created_at', 'desc')
+                ->where('tour_id', 'like', $this->tour)
                 ->when($this->homecarousel == 1, function($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
                 ->paginate($this->perPage);
         }
         //        Sponsor opvragen, houdt verder geen rekening met tour_id, want is niet nodig.
-        elseif($this->type == 1) {
-            $images = Image::where('image_type_id', '=', 1)
+        elseif($this->type == 2) {
+            $images = Image::where('image_type_id', '=', $this->type)
                 ->orderBy('created_at', 'desc')
                 ->when($this->homecarousel == 1, function($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
@@ -183,7 +201,7 @@ class FotoUpload extends Component
 //      Images ophalen en verder filteren op tour_id
         } else {
             $images = Image::orderBy('created_at', 'desc')
-                ->where('tour_id', 'like', $this->tour)
+                ->where('image_type_id', null)
                 ->when($this->homecarousel == 1, function($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })

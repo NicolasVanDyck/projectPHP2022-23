@@ -6,7 +6,6 @@ use App\Models\GroupTour;
 use Livewire\Component;
 use App\Models\UserTour;
 use App\Models\User;
-use Symfony\Component\Console\Input\Input;
 
 class AdminAanwezigheden extends Component
 {
@@ -17,16 +16,11 @@ class AdminAanwezigheden extends Component
 
     public function addDeelname($grouptourid, $tourid)
     {
-        if(UserTour::where([['user_id','=',$this->deelname],
-            ['group_tour_id', '=', $grouptourid]])->exists());
-//        Toastmessage, indien dit triggert?
-        else
         UserTour::create([
             'user_id' => $this->deelname,
             'group_tour_id' => $grouptourid,
             'tour_id' => $tourid,
         ]);
-
     }
 
     public function deleteDeelname(UserTour $usertour)
@@ -41,10 +35,9 @@ class AdminAanwezigheden extends Component
         $usertours = UserTour::with('user')->get();
         $grouptours = GroupTour::with('usertours.user')
             ->orderBy('start_date')
-//            Aangeven tussen dit en twee weken
-            ->whereBetween('start_date', [$today, today()->addDays(14)])
+//            Aangeven tussen dit en twee weken. Om te testen zetten we dit af.
+//            ->whereBetween('start_date', [$today, today()->addDays(14)])
             ->get();
-//        dd($grouptours);
         return view('livewire.admin-aanwezigheden', compact('users','grouptours','usertours'));
     }
 }

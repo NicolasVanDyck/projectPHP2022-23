@@ -32,22 +32,15 @@
                             <div class="flex">
                                 <select id="deelname" wire:model="deelname">
                                     <option value="">Kies een deelnemer</option>
-{{--Nog zien hoe ik deelnemers er niet dubbel in kunnen staan!--}}
                                         @foreach($users as $user)
-                                            @if($grouptour->usertours)
-                                            @foreach($grouptour->usertours as $u)
-                                                @if($user->id != $u->user_id)
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>@endif
-                                            @endforeach
+                                            @if(!in_array($user->id, $grouptour->usertours->pluck('user_id')->toArray()))
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
                                         @endforeach
                                 </select>
-
                                 @if($deelname != null)
-                                <x-button wire:click="addDeelname({{$grouptour->id}},{{$grouptour->tour_id}})">Voeg toe</x-button>
-{{--Waarom werkt onderstaande niet???--}}
-                                    {{--                                @else--}}
-{{--                                    <x-button disabled>Voeg toe</x-button>--}}
-                                    @endif
+                                    <x-button wire:click="addDeelname({{$grouptour->id}},{{$grouptour->tour_id}})">Voeg toe</x-button>
+                                @endif
                             </div>
                         </div>
                     </div>
