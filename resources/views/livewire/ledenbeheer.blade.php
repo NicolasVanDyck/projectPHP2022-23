@@ -1,6 +1,6 @@
 <div>
 
-    {{-- Detail section --}}
+{{--    Filter ledenbeheer op naam of gebruikersnaam --}}
     <section class="mb-4 flex gap-2 justify-evenly items-center bg-white">
         <x-button wire:click="setNewUser()" class="ml-5">
             Clublid toevoegen
@@ -51,7 +51,7 @@
                 wire:key="user_{{$user->id}}">
                     <td>{{$user->name}}</td>
                     <td>{{$user->username}}</td>
-                    <td>{{$user->birthdate}}</td>
+                    <td>{{date('d/m/Y', strtotime($user->birthdate))}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->postal_code}}</td>
                     <td>{{$user->city}}</td>

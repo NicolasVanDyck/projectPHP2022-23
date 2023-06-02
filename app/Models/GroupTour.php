@@ -14,7 +14,12 @@ class GroupTour extends Model
 
     protected $fillable=[
         'start_date',
-        'end_date', ];
+        'end_date',
+        'group_id',
+        'tour_id',
+        'start_time',
+        'end_date',
+        'gpx_id',];
 
     protected function groupName(): Attribute
     {
@@ -30,11 +35,11 @@ class GroupTour extends Model
         return $this->hasMany(UserTour::class);
     }
 
-    public function presences()
-    {
-        //hasONe
-        return $this->hasMany(Presence::class);
-    }
+//    public function presences()
+//    {
+//        //hasONe
+//        return $this->hasMany(Presence::class);
+//    }
 
 
     public function tours()
@@ -57,6 +62,6 @@ class GroupTour extends Model
         return $this->belongsTo(Tour::class);
     }
 
-
+    protected $appends = ['group_name'];
 
 }

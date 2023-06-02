@@ -9,6 +9,8 @@ class ProductSize extends Model
 {
     use HasFactory;
 
+    public mixed $size;
+
     /**
      * The table associated with the model.
      */
