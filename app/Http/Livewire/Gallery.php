@@ -31,8 +31,7 @@ class Gallery extends Component
     public function render()
     {
 //        Join GroupTour, Tour and Image tables
-        $grouptours = GroupTour::with('tour')
-            ->with('tour.images')
+        $grouptours = GroupTour::with('tour.images')
             ->has('tour.images')
             ->orderBy('start_date','desc')
             ->when($this->date != null, function($query) {
