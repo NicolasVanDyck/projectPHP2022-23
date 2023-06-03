@@ -90,3 +90,10 @@ Route::get('/stravaAuthentication', [App\Http\Controllers\Member\StravaControlle
 Route::get('/success', [App\Http\Controllers\Member\StravaController::class, 'getToken']);
 
 
+// Mail
+
+Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
+Route::post('/password-reset/{token}', 'App\Http\Controllers\PasswordResetController@resetPasswordForm')->name('password.reset.form');
+Route::post('/password-reset/{token}', 'App\Http\Controllers\PasswordResetController@resetPassword')->name('password.reset.update');
+
+
