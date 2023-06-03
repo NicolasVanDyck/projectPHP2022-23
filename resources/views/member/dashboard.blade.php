@@ -4,132 +4,119 @@
     <x-slot name="description">Welkom op het dashboard van {{auth()->user()->name}} </x-slot>
 
 
-    <div class="flex-col justify-between pt-2">
-        <div class="mr-6 text-center">
-            <h1 class="text-4xl font-semibold mb-2">Dashboard van {{auth()->user()->name}} </h1>
-            <h2 class="text-gray-600 ml-0.5">Vind hier al uw statistieken</h2>
-        </div>
-    </div>
-@if(auth()->user()->access_token == null)
-        <div class="flex">
-                <a href="{{ route('stravaAuthentication') }}"><img src="/assets/strava/btn_strava_connectwith_orange.png" alt="strava"></a>
-        </div>
-@else
-    <section class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <div class="flex items-center p-8 bg-white shadow rounded-lg">
-            <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 bg-purple-100 rounded-full  mr-6" >
-                <svg class="h-10 w-10 "  width="8" height="8" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
-                    <circle cx="5" cy="18" r="3" />
-                    <circle cx="19" cy="18" r="3" />
-                    <polyline points="12 19 12 15 9 12 14 8 16 11 19 11" />
-                    <circle cx="17" cy="5" r="1" /></svg>
-            </div>
-            <div>
-                <span class="text-2xl font-bold text-center ">{{$distance}}</span>
-                <span class="block text-gray-500">Aantal kilometers</span>
-            </div>
-        </div>
+    @if(auth()->user()->access_token == null)
+        <div class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
 
-        <div class="flex items-center p-8 bg-white shadow rounded-lg">
-            <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
-                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
+            <div class="flex-col justify-between pt-2 ">
+                <div class="mr-6 text-center">
+                    <h1 class="text-4xl font-semibold mb-2">Dashboard van {{auth()->user()->name}} </h1>
+                </div>
             </div>
-            <div>
-                <span class="block text-2xl font-bold">{{$elevation}}</span>
-                <span class="block text-gray-500">Aantal Hoogtemeters</span>
+            <div class="flex">
+                <a href="{{ route('stravaAuthentication') }}"><img
+                        src="/assets/strava/btn_strava_connectwith_orange.png"
+                        alt="strava"></a>
             </div>
+        </div>
+    @else
+        <section class="flex flex-col">
+            <div class="flex">
+                <div class="flex items-center w-1/3 p-4 m-2 mr-1 bg-[#c7daea] shadow rounded-lg">
+                    <div
+                        class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 bg-blue-800/50 rounded-full  mr-6">
+                        <svg class="h-5 w-5 " width="3" height="3" viewBox="0 0 24 24" stroke-width="2"
+                             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z"/>
+                            <circle cx="5" cy="18" r="3"/>
+                            <circle cx="19" cy="18" r="3"/>
+                            <polyline points="12 19 12 15 9 12 14 8 16 11 19 11"/>
+                            <circle cx="17" cy="5" r="1"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-base font-bold text-center ">{{$distance}}</span>
+                        <span class="hidden sm:block text-gray-500">Aantal kilometers</span>
+                    </div>
+                </div>
+                <div class="flex items-center w-1/3 p-4 m-2 mx-1 bg-[#c7daea] shadow rounded-lg">
+                    <div
+                        class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 text-green-600 bg-green-100 rounded-full mr-6">
+                        <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             class="h-5 w-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-base font-bold">{{$elevation}}</span>
+                        <span class="hidden sm:block text-gray-500">Aantal Hoogtemeters</span>
+                    </div>
 
-        </div>
-        <div class="flex items-center p-8 bg-white shadow rounded-lg">
-            <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
-                <svg class="h-8 w-8"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
-                    <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
-                    <circle cx="15" cy="9" r="1"  /></svg>
-            </div>
-            <div>
-                <span class="inline-block text-2xl font-bold">{{$amount}}</span>
-                <span class="block text-gray-500">Totaal aantal ritten</span>
-            </div>
-        </div>
-
-        <div class="flex items-center p-8 bg-white shadow rounded-lg">
-            <div class="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-blue-600 bg-blue-100 rounded-full mr-6">
-                <svg class="h-8 w-8 text-black"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />
-                    <rect x="9" y="3" width="6" height="4" rx="2" />  <path d="M9 14l2 2l4 -4" /></svg>
-            </div>
-            <div>
-              @livewire('dashboard-aanwezigheden')
-                <x-button
-                    type="button" onclick="window.location.href='{{ route('deelname_groep') }}'"
-                    class="rounded border-2 border-primary px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-                    data-te-ripple-init>
-                    Wijzigen
-                </x-button>
-            </div>
-        </div>
-    </section>
-    <section>
-    <div class="flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg my-6">
-        <div class="px-6 py-5 font-semibold border-b border-gray-100">Gereden kilometers</div>
-        <div class="p-4 flex-grow">
-            <canvas class="scale-75"
-                    data-te-chart="bar"
-                    data-te-dataset-label="Kilometers"
-                    data-te-labels="['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December']"
-                    data-te-dataset-data="[{{implode(",",array_values($years))}}]">
-            </canvas>
-        </div>
-    </div>
-
-    {{--            KLASSEMENT--}}
-    <section class="py-4">
-        <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-            <div class="px-6 py-5 font-semibold border-b border-gray-100">KLASSEMENT</div>
-            <div class="p-4 flex-grow">
-                <canvas class="scale-75"
-                        data-te-chart="bar"
-                        data-te-dataset-label="Klassement"
-                        data-te-labels="['Groep A', 'Groep B' , 'Groep C','MTB','0']"
-                        data-te-dataset-data="[2112, 2343, 2545,1234,112]">
-                </canvas>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-            <div class="px-6 py-5 font-semibold border-b border-gray-100">Activiteiten</div>
-            <div class="flex flex-wrap justify-center">
-                @foreach($activities as $activity)
-                    <x-wd_components.card>
-                        <x-slot:card_title>{{$activity->name}}</x-slot:card_title>
-                        <x-slot:card_date>{{date('d-m-Y',strtotime($activity->start_date))}}</x-slot:card_date>
-                        <x-slot:card_distance>Afstand: {{round($activity->distance/1000,2)}} KM</x-slot:card_distance>
-                        <x-slot:card_time>Tijd: {{gmdate("H:i:s",$activity->elapsed_time)}}</x-slot:card_time>
-                        <x-slot:card_elevation>Hoogtemeters: {{round($activity->total_elevation_gain,2)}} m</x-slot:card_elevation>
-                    </x-wd_components.card>
-                @endforeach
+                </div>
+                <div class="flex items-center w-1/3 p-4 m-2 ml-1 bg-[#c7daea] shadow rounded-lg">
+                    <div
+                        class="inline-flex flex-shrink-0 items-center justify-center h-8 w-8 text-red-600 bg-red-100 rounded-full mr-6">
+                        <svg class="h-5 w-5" width="3" height="3" viewBox="0 0 24 24" stroke-width="2"
+                             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z"/>
+                            <path
+                                d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3"/>
+                            <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3"/>
+                            <circle cx="15" cy="9" r="1"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-base font-bold">{{$amount}}</span>
+                        <span class="hidden sm:block text-gray-500">Aantal ritten</span>
+                    </div>
+                </div>
 
             </div>
-        </div>
-    </section>
-<livewire:upload-zone/>
+        </section>
+
+        <section class="flex flex-col sm:flex-row">
+            <div class="flex flex-col sm:w-1/2 m-2 bg-[#c7daea] shadow rounded-lg">
+                <div class="font-semibold border-b p-5 text-center border-gray-100">Gereden kilometers</div>
+                <div class="w-full">
+                    <canvas class="p-2"
+                            data-te-chart="bar"
+                            data-te-dataset-label="Kilometers"
+                            data-te-labels="['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December']"
+                            data-te-dataset-data="[{{implode(",",array_values($years))}}]">
+                    </canvas>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:w-1/2 bg-[#c7daea] m-2 shadow rounded-lg">
+                <div class="p-5 text-center font-semibold border-b border-gray-100">Strava activiteiten</div>
+                <div class="flex flex-wrap justify-center">
+                    @foreach($activities as $activity)
+                        <x-wd_components.card>
+                            <x-slot:card_title>{{$activity->name}}</x-slot:card_title>
+                            <x-slot:card_date>{{date('d-m-Y',strtotime($activity->start_date))}}</x-slot:card_date>
+                            <x-slot:card_distance>Afstand: {{round($activity->distance/1000,2)}}KM
+                            </x-slot:card_distance>
+                            <x-slot:card_time>
+                                Tijd: {{gmdate("H:i:s",$activity->elapsed_time)}}</x-slot:card_time>
+                            <x-slot:card_elevation>Hoogtemeters: {{round($activity->total_elevation_gain,2)}}m
+                            </x-slot:card_elevation>
+                        </x-wd_components.card>
+                    @endforeach
+                </div>
+                <nav>{!! $activities->links() !!}</nav>
+            </div>
+        </section>
+        <livewire:upload-zone/>
     @endif
-
-    {{--            KALENDER/Nog niet ingevuld--}}
+    <div class="flex flex-col bg-[#c7daea] m-2 shadow rounded-lg">
+        @livewire('dashboard-aanwezigheden')
+    </div>
+    {{--            KALENDER       --}}
     <section class="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
-        {{--                <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">--}}
-        {{--                    <div class="px-6 py-5 font-semibold border-b border-gray-100">Kalender</div>--}}
-        {{--                    <img src="https://michelzbinden.com/images/2023/vi/nl/kalender-mei-2023-50mz.jpg" alt="">--}}
-        {{--                </div>--}}
-        <div class="flex flex-col row-span-3 rounded-lg">
-            <div class="px-6 py-5 font-semibold border-b border-gray-100">Kalender</div>
-            @livewire('activities')
+        <div class="flex flex-col mx-auto sm:w-2/3 mt-5">
+            <h3 class="text-2xl text-center text-gray-800">Geplande activiteiten</h3>
+            <livewire:activities/>
         </div>
     </section>
-    </section>
+
 </x-templatelayout>

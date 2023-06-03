@@ -9,7 +9,7 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="">
+<body>
 <!--Hero-->
 <nav class="bg-[#0C090A]">
     @auth
@@ -29,7 +29,10 @@
     {{ $slot }}
 </main>
 <!--Footer-->
-<x-layout.footer/>
+<footer class="mt-auto bg-[#f5f5f5]">
+    <x-layout.footer/>
+</footer>
+
 
 @livewireScripts
 </body>

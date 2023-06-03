@@ -1,8 +1,4 @@
 <div x-data="{ isOpen: false, modalTitle: '', modalDescription: '' }" class="pt-2 pb-8">
-    {{--     TODO: bg-white veranderen naar bg-slate-100/20 ivm ledendashboard --}}
-    {{--     TODO: verder uitbouwen naar een foldable model? Nu worden alleen de 5 recentste getoond (zie livewire component) --}}
-    {{--     TODO: de table moet nog een beetje opgemaakt worden --}}
-
     {{-- Dropdown to select a year and month --}}
 
     <div class="mt-4 mb-4 flex justify-between">
