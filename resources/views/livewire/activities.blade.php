@@ -2,7 +2,7 @@
     {{-- Dropdown to select a year and month --}}
 
     <div class="mt-4 mb-4 flex justify-between">
-        <div class="flex flex-col mb-4 md:mb-0  ">
+        <div class="flex flex-col mb-4 md:mb-0">
             <label for="year" class="flex justify-center text-base mb-1">Jaar</label>
             <select wire:model.debounce.500ms="selectedYear" name="year" id="year"
                     class="text-base text-gray-800 w-[90px] rounded-xl pl-2 ">

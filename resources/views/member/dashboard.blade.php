@@ -108,15 +108,15 @@
         </section>
         <livewire:upload-zone/>
     @endif
-    <div class="flex flex-col bg-[#c7daea] m-2 shadow rounded-lg">
-        @livewire('dashboard-aanwezigheden')
-    </div>
-    {{--            KALENDER       --}}
-    <section class="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
-        <div class="flex flex-col mx-auto sm:w-2/3 mt-5">
-            <h3 class="text-2xl text-center text-gray-800">Geplande activiteiten</h3>
+    <div class="sm:flex">
+        <div class="flex flex-col bg-[#c7daea] m-2 shadow rounded-lg sm:w-1/2">
+            @livewire('dashboard-aanwezigheden')
+        </div>
+        {{--            KALENDER       --}}
+        <div class="flex flex-col bg-[#c7daea] m-2 shadow rounded-lg sm:w-1/2">
+            <div class="p-5 text-center font-semibold border-b border-gray-100">Geplande activiteiten</div>
             <livewire:activities/>
         </div>
-    </section>
+    </div>
 
 </x-templatelayout>
