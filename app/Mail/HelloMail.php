@@ -13,13 +13,22 @@ class HelloMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+//    public $voornaam;
+//    public $achternaam;
+//    public $email;
+//    public $message;
     /**
      * Create a new message instance.
      */
     public function __construct()
     {
-        //
+
+//        $this->voornaam = $voornaam;
+//        $this->achternaam = $achternaam;
+//        $this->email = $email;
+//        $this->bericht = $bericht;
     }
+
 
     /**
      * Get the message envelope.
@@ -27,7 +36,7 @@ class HelloMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Hello Mail',
+            subject: 'Contactformulier',
         );
     }
 
