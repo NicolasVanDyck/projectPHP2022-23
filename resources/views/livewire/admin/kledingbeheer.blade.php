@@ -13,6 +13,7 @@
         </div>
     </section>
 
+    {{-- Table section --}}
     <table class="mt-2">
         <thead>
             <tr class="[&>th]:p-2 px-6 py-4 whitespace-no-wrap text-left bg-white">

@@ -25,7 +25,7 @@
 
 {{--    --}}{{-- Data inserting part  --}}
     <div>
-        <h1><u> Parameter</u></h1>
+        <h3><u> Parameter</u></h3>
         <form wire:submit.prevent="store">
             @csrf
             <div>
@@ -45,7 +45,7 @@
 {{--     Data Deleting part--}}
     @isset($parameters)
         <div>
-            <h1><u>Delete Parameter</u></h1>
+            <h3><u>Delete Parameter</u></h3>
             <form wire:submit.prevent="destroy">
                 <div>
                     <label for="parameter_id_delete">Select parameter to delete:</label>
@@ -67,7 +67,7 @@
 {{--     Data Updating part--}}
     @isset($parameters)
         <div>
-            <h1><u>Edit Parameter</u></h1>
+            <h3><u>Edit Parameter</u></h3>
             @if (session()->has('message'))
                 <div>{{ session('message') }}</div>
             @endif
