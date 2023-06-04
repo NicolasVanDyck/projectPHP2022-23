@@ -5,9 +5,9 @@
 
 
 
-    <div>
-        @livewire('deelname-filters')
-    </div>
+{{--    <div>--}}
+{{--        @livewire('deelname-filters')--}}
+{{--    </div>--}}
 
     <div>
         @livewire('grouptour-member')
