@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\GroupTour;
 use App\Models\Group;
-use App\Models\Gpx;
+use App\Models\GPX;
 use App\Models\Tour;
 use App\Models\UserTour;
 use Illuminate\Support\Facades\Auth;
@@ -14,172 +14,150 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-
 class GrouptourMember extends Component
 {
-    public $showPopup;
-    public $selectedGroup;
-    public $selectedDay;
-    public $selectedDistance;
+    public $selectedGroup; // Geselecteerde groep voor de filteropties
+    public $filteredGroupToursByDay; // Gefilterde groepstoertochten op basis van dag
+    public $selectedDay; // Geselecteerde dag voor de filteropties
+
+    public $selectedDistance; // Geselecteerde afstand voor de filteropties
+    public $minDistance; // Minimale afstand van GPX-bestanden
+    public $maxDistance; // Maximale afstand van GPX-bestanden
 
     use WithPagination;
-    protected $paginationTheme = 'tailwind';
 
-    public function leaveTour($userTourId)
+
+// Verlaat een tour door de gebruikerstour te verwijderen.
+    public function leaveTour($groupTourId)
     {
-        // Find the user tour record by ID
-        $userTour = UserTour::find($userTourId);
+        $deleted = UserTour::where('group_tour_id', '=', (int)$groupTourId)
+            ->where('user_id', '=', Auth::id())->delete();
 
-        // Check if the user tour record exists
-        if ($userTour) {
-            // Delete the user tour record
-            $userTour->delete();
-
-            // Show a success message
-            session()->flash('message', 'You have left the tour.');
-        }
+        // Toon een succesbericht
+        session()->flash('message', 'You have left the tour.');
     }
 
     public function render()
     {
         $userTours = $this->getUserTours();
-        $groups = Group::all(); // Retrieve all groups for the filter options
+        $groups = Group::all(); // Haal alle groepen op voor de filteropties
 
-        // Get unique days from group tours for the day filter dropdown
-        $days = $this->groupTours->pluck('start_date')->unique()->sort()->toArray();
-
-        // Apply filters and paginate the results
+        // Pas filters toe en paginateer de resultaten
         $filteredGroupTours = $this->applyFilters()
             ->paginate(6);
+
+        foreach ($filteredGroupTours as $groupTour) {
+            $groupTour->isRegistered = $this->isUserRegistered($groupTour->id);
+        }
+
+        // Filter de groepstoertochten op basis van de geselecteerde groep
+        $filteredGroupToursByGroup = $this->applyGroupFilter()->pluck('start_date');
+
+        // Filter de beschikbare data op basis van de geselecteerde groep
+        $days = GroupTour::whereIn('start_date', $filteredGroupToursByGroup)
+            ->pluck('start_date')
+            ->unique()
+            ->sort()
+            ->toArray();
+
+        // Haal de minimale en maximale afstand op uit de database
+        $this->minDistance = GPX::min('amount_of_km');
+        $this->maxDistance = GPX::max('amount_of_km');
 
         return view('livewire.grouptour-member', compact('userTours', 'groups', 'days', 'filteredGroupTours'));
     }
 
+// Controleert of de gebruiker is geregistreerd voor een specifieke tour en groep.
+    private function isUserRegistered($grouptourId)
+    {
+        $userId = Auth::id();
+
+        return UserTour::where('user_id', $userId)
+            ->where('group_tour_id', $grouptourId)
+            ->exists();
+    }
+
+    // FILTERS
+    //Past de filters toe op de groepstours op basis van de geselecteerde opties.
     private function applyFilters()
     {
         $groupTours = GroupTour::with('group', 'gpx');
 
-        // Apply group filter if selected
+        // Filter op geselecteerde groep indien gespecificeerd
         if ($this->selectedGroup) {
             $groupTours = $groupTours->where('group_id', $this->selectedGroup);
         }
 
-        // Apply day filter if selected
+        // Filter op geselecteerde dag indien gespecificeerd
         if ($this->selectedDay) {
             $groupTours = $groupTours->where('start_date', $this->selectedDay);
         }
 
-        // Apply distance filter if selected
-        // Uncomment the code below if you want to apply the distance filter
-        // if ($this->selectedDistance) {
-        //     $groupTours = $groupTours->whereHas('gpx', function ($query) {
-        //         $query->where('amount_of_km', '<=', $this->selectedDistance);
-        //     });
-        // }
+//         Filter op geselecteerde afstand indien gespecificeerd
+        if ($this->selectedDistance) {
+            $groupTours = $groupTours->whereHas('gpx', function ($query) {
+                $query->where('amount_of_km', '>=', $this->selectedDistance);
+            });
+        }
 
         return $groupTours;
     }
 
-    public function updatedSelectedGroup()
+// Past de groepsfilter toe op de groepstours op basis van de geselecteerde opties.
+    private function applyGroupFilter()
     {
-        $this->resetPage();
-    }
+        $groupTours = GroupTour::with('group', 'gpx');
 
-    public function updatedSelectedDay()
-    {
-        $this->resetPage();
-    }
+        // Filter op geselecteerde groep indien gespecificeerd
+        if ($this->selectedGroup) {
+            $groupTours = $groupTours->where('group_id', $this->selectedGroup);
+        }
 
+        // Haal de geconfigureerde lijst van groepstours op
+        return $groupTours->get();
+    }
 
     private function getUserTours()
     {
-        // Get the logged-in user ID
+        // Haal de ingelogde gebruiker ID op
         $userId = Auth::id();
 
-        // Retrieve the user's registered tours
+        // Haal de geregistreerde toertochten van de gebruiker op
         return UserTour::with('groupTour.gpx')
             ->where('user_id', $userId)
             ->get();
     }
 
-    private function getGroupTours()
+    public function resetFilters()
     {
-        $query = GroupTour::with('gpx')
-            ->whereHas('tour', function ($query) {
-                $query->where('end_date', '>=', now()); // Filter active tours
-            });
-
-        if ($this->selectedGroup) {
-            $query->where('group_id', $this->selectedGroup);
-        }
-
-        if ($this->selectedDay) {
-            $query->whereDate('start_date', $this->selectedDay);
-        }
-
-        // Calculate the minimum and maximum distances
-//        $minDistance = $query->min('gpx.amount_of_km');
-//        $maxDistance = $query->max('gpx.amount_of_km');
-//
-//        // Set the initial selected distance to the maximum distance
-//        if (!$this->selectedDistance) {
-//            $this->selectedDistance = $maxDistance;
-//        }
-
-        $this->groupTours = $query->orderBy('start_date')->get()->unique('start_date');
+        // Reset de filteropties
+        $this->selectedGroup = null;
+        $this->selectedDay = null;
+        $this->selectedDistance = null;
+        $this->resetPage();
     }
 
-
-
-
-    public function joinTour($tourId)
+    public function joinTour($grouptourId)
     {
-        // Get the logged-in user ID
+        // Haal de ingelogde gebruiker ID op
         $userId = Auth::id();
 
-        // Check if the user is already registered for the tour
+        // Controleer of de gebruiker al is geregistreerd voor de tour
         $isRegistered = UserTour::where('user_id', $userId)
-            ->where('tour_id', $tourId)
+            ->where('group_tour_id', $grouptourId)
             ->exists();
 
-        if ($isRegistered) {
-            // Set the flag to show the pop-up message
-            $this->showPopup = true;
-        } else {
-            // Retrieve the group tour based on the provided tour ID
-            $groupTour = GroupTour::where('tour_id', $tourId)->first();
+            // Haal de groepstour op basis van de opgegeven tour ID
+            $groupTour = GroupTour::find($grouptourId);
+//            $groupTour = GroupTour::where('group_id', $groupTour->group_id)->first();
 
-            if ($groupTour) {
-                // Store the data in the database
-                UserTour::create([
-                    'user_id' => $userId,
-                    'tour_id' => $groupTour->tour_id,
-                    'group_tour_id' => $groupTour->id,
-                ]);
+            UserTour::create([
+            'user_id' => $userId,
+            'tour_id' => $groupTour->tour_id,
+            'group_tour_id' => $groupTour->id,
 
-                // Show a success message
-                session()->flash('message', 'You have joined the tour successfully.');
-            } else {
-                // Show an error message if the group tour is not found
-                session()->flash('message', 'The group tour is not available.');
-            }
-        }
+        ]);
+
     }
 
-
-
-
-
-
-
-    public function mount()
-    {
-        $this->groupTours = GroupTour::with('group', 'gpx')->get();
-        // Get minimum and maximum distances from the database
-//        $this->minDistance = Gpx::min('amount_of_km');
-//        $this->maxDistance = Gpx::max('amount_of_km');
-    }
-
-   }
-
-
+}

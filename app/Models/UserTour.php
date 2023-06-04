@@ -41,6 +41,15 @@ class UserTour extends Model
         );
     }
 
-    protected $appends = ['start_date'];
+    public function userName()
+    {
+        return Attribute::make(
+            get: fn($value, $attributes) => User::find($attributes['user_id'])->name,
+        );
+    }
+
+
+
+    protected $appends = ['start_date','user_name'];
 
 }

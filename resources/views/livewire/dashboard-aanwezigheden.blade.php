@@ -23,4 +23,4 @@
             Wijzigen
         </x-button>
     </div>
-</div>
+]</div>
