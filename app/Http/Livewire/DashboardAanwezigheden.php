@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\UserTour;
-use App\Models\Group;
-use App\Models\GroupTour;
 
 class DashboardAanwezigheden extends Component
 {
+    public $perpage = 3;
+
     public function render()
     {
-        $starturen = GroupTour::orderBy('start_date')->get();
-        $aanwezigheden = UserTour::orderBy('id')->has('user')->get();
-        return view('livewire.dashboard-aanwezigheden', compact('aanwezigheden', 'starturen'));
+        $userAanwezigheden = UserTour::join('users', 'user_tours.user_id', '=', 'users.id',)
+            ->join('group_tours', 'user_tours.group_tour_id', '=', 'group_tours.id')
+            ->join('tours', 'user_tours.tour_id', '=', 'tours.id')
+            ->where('user_id', Auth::id())
+            ->paginate($this->perpage);
+        return view('livewire.dashboard-aanwezigheden', compact('userAanwezigheden'));
     }
 }

@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Strava;
 
 class StravaController extends Controller
 {
-
-
     public function stravaAuthentication($scope = 'read_all,profile:read_all,activity:read_all')
     {
         return Strava::authenticate($scope);
     }
+
     public function getToken(Request $request)
     {
         $token = Strava::token($request->code);
@@ -29,12 +30,10 @@ class StravaController extends Controller
         return redirect()->route('dashboard');
 
     }
-//TODO: getUserdata verfijnen met livewire. Nu nog teveel code in controller
-//TODO: User kunnen laten uitschrijven strava
-    public function getUserData(){
+
+    public function getUserData()
+    {
         if (auth()->user()->access_token) {
-
-
             //get the user
             $user = User::find(auth()->user()->id);
             $years = ['Jan' => 0, 'Feb' => 0, 'Mar' => 0, 'Apr' => 0, 'May' => 0, 'Jun' => 0, 'Jul' => 0, 'Aug' => 0, 'Sep' => 0, 'Oct' => 0, 'Nov' => 0, 'Dec' => 0];
@@ -47,24 +46,17 @@ class StravaController extends Controller
                     'access_token' => $refresh->access_token,
                     'refresh_token' => $refresh->refresh_token
                 ]);
-//                foreach ($this->getActivities($user->access_token) as $activity) {
-//                    Carbon::parse($activity->start_date)->format('M');
-//                    $years[Carbon::parse($activity->start_date)->format('M')] += $activity->distance;
-//                }
-//            } else {
-//                foreach ($this->getActivities($user->access_token) as $activity) {
-//                    Carbon::parse($activity->start_date)->format('M');
-//                    $years[Carbon::parse($activity->start_date)->format('M')] += round($activity->distance);
-//                }
             }
             foreach ($this->getActivities($user->access_token) as $activity) {
-                    Carbon::parse($activity->start_date)->format('M');
-                    $years[Carbon::parse($activity->start_date)->format('M')] += round($activity->distance);
-                }
+                Carbon::parse($activity->start_date)->format('M');
+                $years[Carbon::parse($activity->start_date)->format('M')] += round($activity->distance / 1000);
+            }
             $distance = $this->getAthleteStats($user->access_token, $this->getAthleteID($user->access_token))->all_ride_totals->distance;
             $amount = $this->getAthleteStats($user->access_token, $this->getAthleteID($user->access_token))->all_ride_totals->count;
             $elevation = $this->getAthleteStats($user->access_token, $this->getAthleteID($user->access_token))->all_ride_totals->elevation_gain;
             $activities = $this->getActivities($user->access_token);
+            $activities = $this->paginate($activities, 1);
+            $activities->setPath('dashboard');
             return view('member.dashboard')->with(compact(['distance', 'amount', 'elevation', 'years', 'activities']));
         } else {
             return view('member.dashboard');
@@ -87,5 +79,16 @@ class StravaController extends Controller
     {
         $athleteID = Strava::athlete($access_token)->id;
         return $athleteID;
+    }
+
+    //custom pagination for activities
+    public function paginate($items, $perPage = 1, $page = null)
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $total = count($items);
+        $currentpage = $page;
+        $offset = ($currentpage * $perPage) - $perPage;
+        $itemstoshow = array_slice($items, $offset, $perPage);
+        return new LengthAwarePaginator($itemstoshow, $total, $perPage);
     }
 }

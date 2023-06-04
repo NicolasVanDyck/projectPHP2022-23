@@ -52,11 +52,7 @@ class IndividueleTrajecten extends Component
             ->where('amount_of_km', '<=', $this->afstand)
             ->whereRelation('user', 'name', 'like', $this->user)
             ->paginate($this->perpage);
-//        dd($trajecten);
-//        $gpxes = GPX::orderBy('id')->where('amount_of_km', '<=', $this->afstand)->get();
-//        dd($gpxes);
-
-
+        
         return view('livewire.individuele-trajecten', compact('trajecten', 'users'));
     }
 }

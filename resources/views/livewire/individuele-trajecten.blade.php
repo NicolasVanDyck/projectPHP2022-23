@@ -1,6 +1,6 @@
 <div>
-    <div class="flex flex-col sm:flex-row">
-        <div class="flex flex-col">
+    <div class="flex flex-col sm:flex-row sm:justify-between">
+        <div class="flex flex-col text-gray-800">
             {{-- Filter op gebruiker --}}
             <h3 class="flex">Filter op leden</h3>
             <div class="flex">
@@ -15,8 +15,8 @@
         </div>
 
         {{-- Filter op afstand --}}
-        <div class="flex flex-col">
-            <h3 class="flex">Filter op afstand:</h3>
+        <div class="flex flex-col text-gray-800">
+            <h3 class="flex sm:mx-auto">Filter op afstand:</h3>
             <div class="p-2 flex">
                 <label for="afstand">Aantal kilometers:
                     <output id="kilometerfilter" name="kilometerfilter">{{round($afstand/1000)}}</output>
@@ -37,9 +37,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         @foreach($trajecten as $traject)
             <div class="p-4">
-                <div class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                <div
+                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <a href="#!">
-                        <img class="rounded-t-lg w-full" src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg" alt=""/>
+                        <img class="rounded-t-lg w-full" src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
+                             alt=""/>
                     </a>
                     <div class="p-6">
                         <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">

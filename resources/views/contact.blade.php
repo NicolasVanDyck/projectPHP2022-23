@@ -3,18 +3,20 @@
     <x-slot name="description">Contactpagina</x-slot>
 
 
-    <div class="lg:flex lg:flex-col lg:justify-between ">
-        <div class="lg:flex lg:w-[400px] xl:w-[550px]">
-            <livewire:admin.texts/>
-        </div>
-        <div class="lg:w-[400px] xl:w-[550px]">
-            @if(session('success'))
+    <div
+        class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
+        <div class="md:w-1/2 h-screen">
+            <div class="pt-20">
+                <livewire:admin.texts/>
+            </div>
+            <div class="mt-20">
+             @if(session('success'))
                 <div class="bg-success text-white">
                     {{ session('success') }}
                 </div>
             @endif
-
-            <x-wd_components.form/>
+                <x-wd_components.form/>
+            </div>
         </div>
     </div>
 </x-templatelayout>
