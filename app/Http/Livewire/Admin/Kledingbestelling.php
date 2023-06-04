@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\OrderExport;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductSize;
@@ -61,7 +62,7 @@ class Kledingbestelling extends Component
     }
 
 
-    // Make a collection of the orders, the product name, the size name and the user name, the amount and the price.
+    // Make a collection of the orders, the product name, the size name and the username, the amount and the price.
     public function getOrders(): \Illuminate\Support\Collection
     {
         $orders = Order::get();
@@ -87,7 +88,7 @@ class Kledingbestelling extends Component
 
     public function exportToExcel()
     {
-        //
+        return \Excel::download(new OrderExport, 'orders.xlsx');
     }
 
 
