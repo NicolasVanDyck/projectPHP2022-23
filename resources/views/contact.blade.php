@@ -10,6 +10,11 @@
                 <livewire:admin.texts/>
             </div>
             <div class="mt-20">
+             @if(session('success'))
+                <div class="bg-success text-white">
+                    {{ session('success') }}
+                </div>
+            @endif
                 <x-wd_components.form/>
             </div>
         </div>
