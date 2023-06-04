@@ -128,21 +128,6 @@ class Kleding extends Component
         return $total;
     }
 
-    public function restoreState($state)
-    {
-        $this->selectedProduct = $state['selectedProduct'] ?? [];
-        $this->amounts = $state['amounts'] ?? [];
-    }
-
-    public function saveState()
-    {
-        return [
-            'selectedProduct' => $this->selectedProduct,
-            'amounts' => $this->amounts,
-        ];
-    }
-
-
     /**
      * Update the Order table with the selected product_size id and amount.
      *
