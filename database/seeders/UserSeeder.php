@@ -456,6 +456,7 @@ class UserSeeder extends Seeder
             'phone_number' => null,
             'mobile_number' => '0495250993',
             'password' => Hash::make('alberts123'),
+            'is_admin' => true,
         ]);
 
         User::factory()->create([
