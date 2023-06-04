@@ -15,7 +15,6 @@ class Kledingbeheer extends Component
     public $selectedSizes = [];
     public string $productName;
     public int $productPrice;
-//    public string $size;
     public $sortField;
     public $search;
     public $sortAsc = true;
