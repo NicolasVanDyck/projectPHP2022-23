@@ -94,16 +94,16 @@ Route::get('/success', [App\Http\Controllers\Member\StravaController::class, 'ge
 // Mail
 
 Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
-Route::post('/password-reset/{token}', 'App\Http\Controllers\PasswordResetController@resetPasswordForm')->name('password.reset.form');
+//Route::post('/password-reset/{token}', 'App\Http\Controllers\PasswordResetController@resetPasswordForm')->name('password.reset.form');
 
-//Route::post('contact', function () {
-//    // Validate the form input
-//
-//
-//    // Send the email
-//    Mail::to('hello@example.com')->send(new HelloMail());
-//
-//    // Redirect back or to a success page
-//    return redirect()->back()->with('success', 'Email sent successfully!');
-//})->name('contact.submit');
+Route::post('contact', function () {
+    // Validate the form input
+
+
+    // Send the email
+    Mail::to('hello@example.com')->send(new HelloMail());
+
+    // Redirect back or to a success page
+    return redirect()->back()->with('success', 'Email sent successfully!');
+})->name('contact.submit');
 
