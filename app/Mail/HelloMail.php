@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class HelloMail extends Mailable
 {
@@ -16,9 +17,9 @@ class HelloMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($voornaam, $achternaam, $email,$dropdown ,$bericht,)
+    public function __construct($voornaam, $achternaam, $email, $dropdown, $bericht,)
     {
-
+//
         $this->voornaam = $voornaam;
         $this->achternaam = $achternaam;
         $this->email = $email;
@@ -34,6 +35,7 @@ class HelloMail extends Mailable
     {
         return new Envelope(
             subject: 'Contactformulier',
+            from: $this->email,
         );
     }
 
@@ -50,6 +52,7 @@ class HelloMail extends Mailable
                 'email' => $this->email,
                 'dropdown' => $this->dropdown,
                 'bericht' => $this->bericht,
+
             ],
         );
     }
