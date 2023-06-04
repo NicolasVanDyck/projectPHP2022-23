@@ -3,12 +3,15 @@
     <x-slot name="description">Contactpagina</x-slot>
 
 
-    <div class="lg:flex lg:flex-col lg:justify-between ">
-        <div class="lg:flex lg:w-[400px] xl:w-[550px]">
-            <livewire:admin.texts/>
-        </div>
-        <div class="lg:w-[400px] xl:w-[550px]">
-            <x-wd_components.form/>
+    <div
+        class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
+        <div class="md:w-1/2 h-screen">
+            <div class="pt-20">
+                <livewire:admin.texts/>
+            </div>
+            <div class="mt-20">
+                <x-wd_components.form/>
+            </div>
         </div>
     </div>
 </x-templatelayout>
