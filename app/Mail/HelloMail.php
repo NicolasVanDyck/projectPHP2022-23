@@ -13,20 +13,17 @@ class HelloMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-//    public $voornaam;
-//    public $achternaam;
-//    public $email;
-//    public $message;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($voornaam, $achternaam, $email,$dropdown ,$bericht,)
     {
 
-//        $this->voornaam = $voornaam;
-//        $this->achternaam = $achternaam;
-//        $this->email = $email;
-//        $this->bericht = $bericht;
+        $this->voornaam = $voornaam;
+        $this->achternaam = $achternaam;
+        $this->email = $email;
+        $this->dropdown = $dropdown;
+        $this->bericht = $bericht;
     }
 
 
@@ -47,6 +44,13 @@ class HelloMail extends Mailable
     {
         return new Content(
             markdown: 'emails.hello',
+            with: [
+                'voornaam' => $this->voornaam,
+                'achternaam' => $this->achternaam,
+                'email' => $this->email,
+                'dropdown' => $this->dropdown,
+                'bericht' => $this->bericht,
+            ],
         );
     }
 

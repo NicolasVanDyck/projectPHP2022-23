@@ -1,16 +1,15 @@
 <x-mail::message>
-# Introduction
+    <h2>Vraag vanuit het contactformulier</h2>
 
-TEST TEST TEST
-{{--    <p>{{$voornaam}}</p>--}}
-{{--    <p>{{$achternaam}}</p>--}}
-{{--    <p>{{$email}}</p>--}}
-{{--    <p>{{$bericht}}</p>--}}
+Het bericht kom van {{$voornaam}} {{$achternaam}} met het emailadres {{$email}}.<br>
+{{$voornaam}} wil graag iets weten over: {{$dropdown}}.<br>
+Vraag: {{$bericht}}.
 
-{{--<x-mail::button :url="''">--}}
-{{--Button Text--}}
-{{--</x-mail::button>--}}
 
-Thanks,<br>
-{{ config('app.name') }}
+Klik op de knop hieronder om de vraag te beantwoorden.
+    <x-mail::button :url="'mailto:' . $email">
+        Beantwoord e-mail
+    </x-mail::button>
+
 </x-mail::message>
+

@@ -1,7 +1,7 @@
 <div
     class="block max-w-md rounded-lg p-6 mx-auto  bg-white">
 
-    <form action="{{ route('contact') }}" method="POST">
+    <form action="{{ route('contact.submit') }}" method="POST">
         @csrf
         <div class="grid grid-cols-2 gap-4">
             <!--First name input-->
@@ -15,7 +15,9 @@
                     class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-black peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.9] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                 >Voornaam
                 </label>
-            </div>
+            </div>@error('voornaam')
+            <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
+            @enderror
 
             <!--Last name input-->
             <div class="relative mb-6" data-te-input-wrapper-init>
@@ -28,7 +30,9 @@
                     class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-black peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
                 >Achternaam
                 </label>
-            </div>
+            </div>@error('achternaam')
+            <div class="text-red-500 mt-2 text-sm">{{ $message }}</div>
+            @enderror
         </div>
 
         <!--Email input-->
@@ -42,23 +46,26 @@
             >E-mailadres
             </label>
         </div>
+        @error('email')
+        <div class="text-red-500 text-sm">{{ $message }}</div>
+        @enderror
         <!--Dropdown-->
 
         <div class="relative mb-6">
-            <select data-te-select-init data-te-select-size="lg">
-                <option value="1">
+            <select name="dropdown" data-te-select-init data-te-select-size="lg">
+                <option value="Proefrit">
                     <li>
                         <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
                            href="#" data-te-dropdown-item-ref>Proefrit</a></li>
                 </option>
 
-                <option value="2">
+                <option value="Vraag">
                     <li>
                         <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
                            href="#" data-te-dropdown-item-ref>Vraag</a></li>
                 </option>
 
-                <option value="3">
+                <option value="Andere">
                     <li>
                         <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
                            href="#" data-te-dropdown-item-ref>Andere</a></li>
@@ -79,6 +86,9 @@
             >Type hier uw vraag
             </label>
         </div>
+        @error('bericht')
+        <div class="text-red-500 text-sm">{{ $message }}</div>
+        @enderror
 
         <!--Submit button-->
         <x-button
