@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
     <!-- Successmelding weergeven als de sessievariabele 'success' bestaat -->
     @if (session()->has('success'))
         <div class="bg-green-200 text-green-800 text-center border-green-900 p-4 mb-4">

@@ -54,19 +54,19 @@
             <x-button
                 wire:click="createNewProduct()"
                 wire:loading.attr="disabled"
-                class="ml-2">Gegevens opslaan
+                class="ml-2">Gegevens opslaan & verlaten
             </x-button>
         @else
 {{--            @dd($newProduct['id'])--}}
             <x-button
                 wire:click="updateProduct({{$newProduct['id']}})"
                 wire:loading.attr="disabled"
-                class="ml-2">Aanpassingen opslaan
+                class="ml-2">Aanpassingen opslaan & verlaten
             </x-button>
         @endif
 
         <x-button bgcolor="rood" @click="show = false" wire:loading.attr="disabled">
-            Verlaten
+            Annuleren
         </x-button>
     </x-slot>
 </x-dialog-modal>

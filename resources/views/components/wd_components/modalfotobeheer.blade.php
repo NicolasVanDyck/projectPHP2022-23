@@ -23,6 +23,7 @@
                          class="block mt-1 w-full"/>
                 <x-input-error for="newImage.description" class="mt-2"/>
             </div>
+
             <div>
                 <x-label for="image_type_id" value="Type afbeelding"/>
                 <select id="newImage.image_type_id" type="integer" name="image_type_id"
@@ -37,6 +38,7 @@
 {{--                In principe triggert dit nooit, want je moet een keuze maken    --}}
                 <x-input-error for="newImage.image_type_id" class="mt-2"/>
             </div>
+                @if($newImage['image_type_id'] == 1)
                 <div>
                     <x-label for="tour_id" value="Tour"/>
                     <select id="newImage.tour_id" type="integer" name="tour_id"
@@ -59,6 +61,7 @@
                                 autocomplete="off" class="block mt-1"/>
                     <x-input-error for="newImage.in_carousel" class="mt-2"/>
                 </div>
+            @endif
         </div>
     </x-slot>
     <x-slot name="footer">

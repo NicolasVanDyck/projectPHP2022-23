@@ -105,7 +105,7 @@
             <x-button
                     wire:click="createUser()"
                     wire:loading.attr="disabled"
-                    class="ml-2">Gegevens opslaan
+                    class="ml-2">Gegevens opslaan & verlaten
             </x-button>
             <x-button
                     wire:click="setNewUser()"
@@ -116,11 +116,11 @@
             <x-button
                     wire:click="updateUser({{$newUser['id']}})"
                     wire:loading.attr="disabled"
-                    class="ml-2">Aanpassingen opslaan
+                    class="ml-2">Aanpassingen opslaan & verlaten
             </x-button>
         @endif
 
         <x-button bgcolor="rood" @click="show = false">
-            Verlaten</x-button>
+            Annuleren </x-button>
     </x-slot>
 </x-dialog-modal>
