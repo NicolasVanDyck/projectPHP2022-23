@@ -24,6 +24,8 @@ class GrouptourMember extends Component
     public $minDistance; // Minimale afstand van GPX-bestanden
     public $maxDistance; // Maximale afstand van GPX-bestanden
 
+    public $perPage = 6; // Aantal resultaten per pagina
+
     use WithPagination;
 
 
@@ -37,6 +39,21 @@ class GrouptourMember extends Component
         session()->flash('message', 'You have left the tour.');
     }
 
+    public function updated($propertyName, $propertyValue)
+    {
+        if (in_array($propertyName, ['selectedDay', 'selectedGroup', 'selectedDistance', 'perPage'])) {
+            $this->resetPage();
+        }
+    }
+
+    public function mount()
+    {
+        // Haal de minimale en maximale afstand op uit de database
+        $this->minDistance = ceil(GPX::min('amount_of_km'));
+        $this->maxDistance = ceil(GPX::max('amount_of_km'));
+        $this->selectedDistance = $this->maxDistance;
+    }
+
     public function render()
     {
         $userTours = $this->getUserTours();
@@ -44,7 +61,7 @@ class GrouptourMember extends Component
 
         // Pas filters toe en paginateer de resultaten
         $filteredGroupTours = $this->applyFilters()
-            ->paginate(6);
+            ->paginate($this->perPage);
 
         foreach ($filteredGroupTours as $groupTour) {
             $groupTour->isRegistered = $this->isUserRegistered($groupTour->id);
@@ -60,25 +77,29 @@ class GrouptourMember extends Component
             ->sort()
             ->toArray();
 
-        // Haal de minimale en maximale afstand op uit de database
-        $this->minDistance = GPX::min('amount_of_km');
-        $this->maxDistance = GPX::max('amount_of_km');
+//        // Haal de minimale en maximale afstand op uit de database
+//        $this->minDistance = GPX::min('amount_of_km');
+//        $this->maxDistance = GPX::max('amount_of_km');
 
         return view('livewire.grouptour-member', compact('userTours', 'groups', 'days', 'filteredGroupTours'));
     }
 
 // Controleert of de gebruiker is geregistreerd voor een specifieke tour en groep.
-    private function isUserRegistered($grouptourId)
+
+    private function getUserTours()
     {
+        // Haal de ingelogde gebruiker ID op
         $userId = Auth::id();
 
-        return UserTour::where('user_id', $userId)
-            ->where('group_tour_id', $grouptourId)
-            ->exists();
+        // Haal de geregistreerde toertochten van de gebruiker op
+        return UserTour::with('groupTour.gpx')
+            ->where('user_id', $userId)
+            ->get();
     }
 
     // FILTERS
     //Past de filters toe op de groepstours op basis van de geselecteerde opties.
+
     private function applyFilters()
     {
         $groupTours = GroupTour::with('group', 'gpx');
@@ -96,7 +117,7 @@ class GrouptourMember extends Component
 //         Filter op geselecteerde afstand indien gespecificeerd
         if ($this->selectedDistance) {
             $groupTours = $groupTours->whereHas('gpx', function ($query) {
-                $query->where('amount_of_km', '>=', $this->selectedDistance);
+                $query->where('amount_of_km', '<=', $this->selectedDistance);
             });
         }
 
@@ -104,6 +125,16 @@ class GrouptourMember extends Component
     }
 
 // Past de groepsfilter toe op de groepstours op basis van de geselecteerde opties.
+
+    private function isUserRegistered($grouptourId)
+    {
+        $userId = Auth::id();
+
+        return UserTour::where('user_id', $userId)
+            ->where('group_tour_id', $grouptourId)
+            ->exists();
+    }
+
     private function applyGroupFilter()
     {
         $groupTours = GroupTour::with('group', 'gpx');
@@ -115,17 +146,6 @@ class GrouptourMember extends Component
 
         // Haal de geconfigureerde lijst van groepstours op
         return $groupTours->get();
-    }
-
-    private function getUserTours()
-    {
-        // Haal de ingelogde gebruiker ID op
-        $userId = Auth::id();
-
-        // Haal de geregistreerde toertochten van de gebruiker op
-        return UserTour::with('groupTour.gpx')
-            ->where('user_id', $userId)
-            ->get();
     }
 
     public function resetFilters()
@@ -147,11 +167,11 @@ class GrouptourMember extends Component
             ->where('group_tour_id', $grouptourId)
             ->exists();
 
-            // Haal de groepstour op basis van de opgegeven tour ID
-            $groupTour = GroupTour::find($grouptourId);
+        // Haal de groepstour op basis van de opgegeven tour ID
+        $groupTour = GroupTour::find($grouptourId);
 //            $groupTour = GroupTour::where('group_id', $groupTour->group_id)->first();
 
-            UserTour::create([
+        UserTour::create([
             'user_id' => $userId,
             'tour_id' => $groupTour->tour_id,
             'group_tour_id' => $groupTour->id,
