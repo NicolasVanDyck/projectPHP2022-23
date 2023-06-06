@@ -1,30 +1,22 @@
 @props([
-    'bgcolor' => 'sky-blue',
+    'type' => 'sky-blue',
 ])
 
 @php
 
 
 
-    $optionsbgcolor = [
-        'blauw' => 'bg-blue-600 border-blue-600',
-        'rood' => 'bg-red-600 active:bg-red-400',
-        'oranje' => 'bg-[#d76a5e]',
-
-        'sky-blue' => 'bg-[#5e9ad7] border-blue-200',
-        'grey' => 'bg-[#d7d7d7]',
+    $options = [
+        'sky-blue' => 'bg-[#5e9ad7] border-blue-200 hover:bg-blue-400',
+        'red' => 'bg-danger-500 border-red-200 hover:bg-danger-600',
+        'gray' => 'bg-gray-500 border-gray-200 hover:bg-gray-600'
     ];
 
-    $style = $optionsbgcolor[$bgcolor] ?? $optionsbgcolor['sky-blue'];
-    if($bgcolor == 'sky-blue')
-        $active = 'focus:bg-blue-400';
-    else
-        $active = 'bg-red-400';
-
+    $style = $options[$type] ?? $options['sky-blue'];
 
 @endphp
 
-<button {{ $attributes->merge(['class' => "$style $active w-32 text-center text-white py-1 rounded-lg font-bold shadow-black/25 shadow-lg
+<button {{ $attributes->merge(['class' => "$style w-32 text-center text-white py-1 rounded-lg font-bold shadow-black/25 shadow-lg
 border-2 hover:scale-105"]) }}>
     {{ $slot }}
 </button>
