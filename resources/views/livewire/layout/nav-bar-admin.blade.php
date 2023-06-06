@@ -12,9 +12,6 @@
             <x-nav-link href="{{ route('fotobeheer') }}" :active="request()->routeIs('fotobeheer')">
                 Fotobeheer
             </x-nav-link>
-            <x-nav-link href="{{ route('galerijbeheer') }}" :active="request()->routeIs('galerijbeheer')">
-                Galerijbeheer
-            </x-nav-link>
             <x-nav-link href="{{ route('kleding_bestellingen') }}" :active="request()->routeIs('kleding_bestellingen')">
                 Kleding bestellingen
             </x-nav-link>
@@ -60,7 +57,6 @@
                     <div class="block px-4 py-2 text-xl border-b border-blue-800 text-blue-800">{{auth()->user()->name}}</div>
                     <x-dropdown-link href="{{ route('aanwezighedenbeheer') }}">Aanwezighedenbeheer</x-dropdown-link>
                     <x-dropdown-link href="{{ route('fotobeheer') }}">Fotobeheer</x-dropdown-link>
-                    <x-dropdown-link href="{{ route('galerijbeheer') }}">Galerijbeheer</x-dropdown-link>
                     <x-dropdown-link href="{{ route('kleding_bestellingen') }}">Kleding bestellingen</x-dropdown-link>
                     <x-dropdown-link href="{{ route('kledingbeheer') }}">Kledingbeheer</x-dropdown-link>
                     <x-dropdown-link href="{{ route('ledenbeheer') }}">Ledenbeheer</x-dropdown-link>
