@@ -16,6 +16,10 @@ class Ledenbeheer extends Component
     public $perPage = 10;
     public $showModal = false;
 
+    protected $listeners = [
+        'delete-genre' => 'deleteUser',
+    ];
+
     public $newUser = [
         'id' => null,
         'name' => null,
@@ -98,7 +102,7 @@ class Ledenbeheer extends Component
 
         $this->dispatchBrowserEvent('swal:toast', [
             'background' => 'success',
-            'html' => "Gebruiker <b><i>{$this->newUser['name']}</i></b> succesvol toegevoegd!",
+            'html' => "Gebruiker <b><i>{$this->newUser['name']}</i></b> werd succesvol toegevoegd!",
         ]);
     }
 

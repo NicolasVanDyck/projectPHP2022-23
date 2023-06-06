@@ -1,4 +1,4 @@
-<div class="text-black">
+<div>
 
 {{--    Filter ledenbeheer op naam of gebruikersnaam --}}
     <section class="mb-4 flex gap-2 justify-evenly items-center bg-white">
@@ -65,9 +65,17 @@
                             @if($user->is_admin != 1)
                                 <x-heroicon-m-trash
                                         x-data=""
-                                        @click="confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?') ? $wire.deleteUser({{$user->id}}) : ''"
+                                        @click="$dispatch('swal:confirm', {
+                                        html: 'Verwijder {{ $user->name }}?',
+                                        confirmButtonText: 'Verwijder deze gebruiker',
+                                        next: {
+                                        event: 'delete-genre',
+                                        params: {
+                                        id: {{ $user->id }}
+                                        }
+                                        }
+                                        })"
                                         class="w-5 h-5 hover:fill-red-500 ml-2"/>
-
                             @endif
                         </div>
                     </td>
