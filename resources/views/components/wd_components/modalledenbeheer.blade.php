@@ -64,7 +64,7 @@
                 <x-label for="address" value="Adres"/>
                 <x-input id="newUser.address" type="text" name="address" placeholder="adres"
                          wire:model.defer="newUser.address" required autofocus
-                         autocomplete="address"
+{{--                         autocomplete="address"--}}
                          class="block mt-1 w-full"/>
                 <x-input-error for="newUser.address" class="mt-2"/>
             </div>

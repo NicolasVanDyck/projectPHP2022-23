@@ -41,7 +41,6 @@ class Ledenbeheer extends Component
             'newUser.address' => 'required|string|max:255',
             'newUser.phone_number' => 'nullable|digits:9',
             'newUser.mobile_number' => 'nullable|digits:10',
-            'newUser.password' => 'required|min:8',
         ];
 
 // Validation messages
@@ -61,17 +60,15 @@ class Ledenbeheer extends Component
         'newUser.postal_code.digits' => 'Dit veld moet een geldige postcode bevatten.',
         'newUser.phone_number.digits' => 'Dit veld moet een geldig telefoonnummer bevatten (maximum 8 cijfers).',
         'newUser.mobile_number.digits' => 'Dit veld moet een geldig gsm-nummer bevatten (maximum 9 cijfers).',
-        'newUser.password.required' => 'Dit veld mag niet leeg zijn.',
     ];
     private User $user;
-    public bool $showPassword;
 
-    public function mount()
-    {
-        $this->showPassword = false;
-    }
-
-    public function toggleModal()
+    /**
+     * Toggles the modal
+     *
+     * @return void
+     */
+    public function toggleModal(): void
     {
         $this->showModal = !$this->showModal;
     }
@@ -119,10 +116,17 @@ class Ledenbeheer extends Component
     }
 
 //    Pagination updaten
-    public function updated($propertyName, $propertyValue)
+
+    /**
+     * Updates the pagination when the perPage variable is changed
+     *
+     * @param string $propertyName
+     * @param $propertyValue
+     * @return void
+     */
+    public function updated(string $propertyName, $propertyValue): void
     {
-        // dump($propertyName, $propertyValue);
-        if (in_array($propertyName, ['perPage']))
+        if ($propertyName == 'perPage')
             $this->resetPage();
     }
 
@@ -132,16 +136,21 @@ class Ledenbeheer extends Component
      * @param User $user
      * @return void
      */
-    public function showUser(User $user)
+    public function showUser(User $user): void
     {
         $this->toggleModal();
         $this->user = $user;
         $this->newUser = $user->toArray();
-//        dd($this->user);
     }
 
-//    User updaten
-    public function updateUser(User $user)
+
+    /**
+     * Updates the user information
+     *
+     * @param User $user
+     * @return void
+     */
+    public function updateUser(User $user): void
     {
         $this->resetErrorBag();
         $this->rules['newUser.email'] = 'required';
@@ -158,20 +167,30 @@ class Ledenbeheer extends Component
             'address' => $this->newUser['address'],
             'phone_number' => $this->newUser['phone_number'],
             'mobile_number' => $this->newUser['mobile_number'],
-            'password' => bcrypt($this->newUser['password']),
             'is_admin' => $this->newUser['is_admin'],
         ]);
 
         $this->toggleModal();
     }
 
-//    User verwijderen
-    public function deleteUser(User $user)
+    /**
+     * Deletes the user
+     *
+     * @param User $user
+     * @return void
+     */
+    public function deleteUser(User $user): void
     {
         $user->delete();
     }
 
-    public function resort($column)
+    /**
+     * Sorts the table by the given column
+     *
+     * @param string $column
+     * @return void
+     */
+    public function resort(string $column): void
     {
         if ($this->orderBy === $column)
         {
