@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\WelcomeMail;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
@@ -88,6 +89,10 @@ class Ledenbeheer extends Component
             'password' => bcrypt($this->newUser['password']),
             'is_admin' => $this->newUser['is_admin'],
         ]);
+
+        \Mail::to($this->newUser['email'])
+            ->send(new WelcomeMail($this->newUser['name'], $this->newUser['password']));
+
         $this->showModal = false;
     }
 
