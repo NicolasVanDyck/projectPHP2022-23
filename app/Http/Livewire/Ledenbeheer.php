@@ -90,10 +90,16 @@ class Ledenbeheer extends Component
             'is_admin' => $this->newUser['is_admin'],
         ]);
 
+//        Stuur mail ter bevestiging van registratie
         \Mail::to($this->newUser['email'])
             ->send(new WelcomeMail($this->newUser['name'], $this->newUser['password']));
 
         $this->showModal = false;
+
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Gebruiker <b><i>{$this->newUser['name']}</i></b> succesvol toegevoegd!",
+        ]);
     }
 
     public function setNewUser(User $user = null)
@@ -145,12 +151,22 @@ class Ledenbeheer extends Component
         ]);
         $this->showModal = false;
 
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Aanpassingen voor <b><i>{$this->newUser['name']}</i></b> doorgevoerd.",
+        ]);
+
+
     }
 
 //    User verwijderen
     public function deleteUser(User $user)
     {
         $user->delete();
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'danger',
+            'html' => "$user->name verwijderd!",
+        ]);
     }
 
     public function resort($column)
