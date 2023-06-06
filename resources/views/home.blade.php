@@ -1,34 +1,34 @@
 <x-templatelayout>
 
-<x-slot name="title">Homepagina</x-slot>
-<x-slot name="description">Welkom op de homepagina van de Wezeldrivers</x-slot>
+    <x-slot name="title">Homepagina</x-slot>
+    <x-slot name="description">Welkom op de homepagina van de Wezeldrivers</x-slot>
 
-    <div class='flex items-center justify-center bg-gradient-to-br px-2 pb-4 mx'>
-        <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
-            <div class='max-w-md mx-auto'>
-                <div class='p-8'>
-                    <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>Welkom bij de wezeldrivers</p>
-                    <p class='text-[#7C7C80] font-[15px] mt-6'>Welkom op de website van de Wezel Drivers - de fietsvereniging voor fietsers van alle niveaus in de regio Wezel. Onze vereniging is opgericht om de passie voor fietsen te delen en samen te genieten van de mooie fietsroutes in onze regio.
 
-                        Op deze website vindt u alles wat u moet weten over onze vereniging en de activiteiten die we organiseren. Of u nu een ervaren wielrenner bent of net begint met fietsen, bij de Wezel Drivers is er altijd een plek voor u.</p>
-                </div>
-            </div>
+    {{--Text--}}
+    <div class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
+        <div class="flex w-1/2 h-1/2 items-center">
+            <livewire:admin.texts/>
         </div>
-
-{{--        Sponsor--}}
-        <div class='w-full max-w-md  mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
-          <div>
-              @livewire('sponsor')
-          </div>
+    </div>
+    {{--Activities--}}
+    <div
+        class="flex flex-col md:flex-row md:flex-wrap sm:justify-between bg-[#c7daea] md:h-screen">
+        <div class="hidden md:block md:w-1/3 my-auto">
+            <img src="assets/images/cycling.webp" alt="sky"
+                 class="mix-blend-multiply w-1/2 mx-auto">
+        </div>
+        <div class="md:w-2/3 mx-auto my-auto">
+            <div class="flex flex-col mx-auto sm:w-2/3 mt-5">
+                <h3 class="text-2xl text-center text-gray-800">Geplande activiteiten</h3>
+                <livewire:activities/>
+            </div>
+            {{--Carousel--}}
+            <div
+                class="flex flex-col mx-auto sm:w-2/3 md:max-w-xl my-5">
+                <h3 class="text-2xl text-center text-gray-800">Foto's</h3>
+                <x-wd_components.carousel/>
+            </div>
         </div>
     </div>
 
-    {{--Activities--}}
-    <h2 class="text-4xl pl-8">Activiteiten</h2>
-    <livewire:activities/>
-
-
-
-    {{--Carousel--}}
-    <x-wd_components.carousel></x-wd_components.carousel>
 </x-templatelayout>

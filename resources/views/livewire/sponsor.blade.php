@@ -1,18 +1,14 @@
 <div>
-    <h1>Onze Sponsoren</h1>
-
-    @if ($images ?? false)
-        <div class="image-gallery">
-            @foreach ($images->take(5) as $image)
-                <div class="image-wrapper">
-                    <img src="{{ asset('storage/'.$image->image_path) }}" class="img-fluid">
-                    <p>{{ $image->name }}</p>
-                    <p>{{ $image->description }}</p>
+    <div class="flex flex-wrap justify-center">
+        @foreach($images as $image)
+            <div
+                class="flex transform transition duration-500 hover:scale-105 bg-[#f5f5f5]">
+                <div class="p-2 flex flex-wrap h-full">
+                    <img class="object-contain mix-blend-multiply max-w-[100px] h-[70px]"
+                         src="{{ asset($image->path) }}"
+                         alt="{{$image->description}}">
                 </div>
-            @endforeach
-        </div>
-    @else
-        <p>No images found.</p>
-    @endif
-
+            </div>
+        @endforeach
+    </div>
 </div>

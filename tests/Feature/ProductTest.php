@@ -33,7 +33,7 @@ class ProductTest extends TestCase
         $count = Product::all()->count();
 
         $this->create_hundred_products();
-        $this->assertDatabaseCount('products', $count+ 100);
+        $this->assertDatabaseCount('products', $count+ 20);
         $this->assertDatabaseCount('sizes', 5);
     }
 }

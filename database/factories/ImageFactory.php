@@ -4,12 +4,12 @@ namespace Database\Factories;
 
 use App\Models\Image;
 use App\Models\ImageType;
-
+use App\Models\Tour;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Image>
+ * @extends Factory<Image>
  */
 class ImageFactory extends Factory
 {
@@ -22,7 +22,11 @@ class ImageFactory extends Factory
      */
     public function definition(): array
     {
+
         static $imageTypeIds;
+
+        // Image types array.
+        $imageTypes = ['Rit', 'Sponsor'];
 
         if (!isset($imageTypeIds)) {
             $imageTypeIds = ImageType::pluck('id')->toArray();
@@ -40,6 +44,7 @@ class ImageFactory extends Factory
         }
 
         return [
+            'tour_id' => null,
             'image_type_id' => $this->faker->randomElement($imageTypeArray),
             'name' => $this->faker->name(),
             'description' => $this->faker->words(2,true),

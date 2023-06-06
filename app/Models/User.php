@@ -29,9 +29,12 @@ class User extends Authenticatable
         'birthdate',
         'email',
         'postal_code',
+        'city',
         'address',
         'phone_number',
+        'mobile_number',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -44,6 +47,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+
     ];
 
     /**
@@ -72,6 +76,16 @@ class User extends Authenticatable
     public function usertours()
     {
         return $this->hasMany(UserTour::class);
+    }
+
+    public function presences()
+    {
+        return $this->hasMany(Presence::class);
+    }
+
+    public function gpxes()
+    {
+        return $this->hasMany(GPX::class);
     }
 
 }

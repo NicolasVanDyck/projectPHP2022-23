@@ -19,7 +19,10 @@
                 </div>
             </div>
         </div>
+    </div>
 
-
+    <div class="flex">
+        <livewire:individuele-trajecten/>
+        {{--        TODO: x-data en @click, zie teams chat voor meer informatie--}}
     </div>
 </x-templatelayout>

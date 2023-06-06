@@ -14,9 +14,9 @@ class Order extends Model
         'quantity',
     ];
 
-    public function products()
+    public function productsizes()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductSize::class);
     }
 
     public function users()

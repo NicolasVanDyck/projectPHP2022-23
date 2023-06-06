@@ -1,14 +1,6 @@
-<div class="container mx-auto p-4 flex justify-between">
+<div class="mx-auto px-2 py-4 flex justify-between">
     {{-- left navigation--}}
-    <div class="flex items-center space-x-2 transition hover:scale-105 duration-1000">
-        {{-- Logo --}}
-{{--        <a href="{{ route('dashboard') }}">--}}
-{{--            <img src="{{asset('icons/favicon-32x32.png')}}" alt="Logo" />--}}
-{{--        </a>--}}
-        <h1>De Wezeldrivers</h1>
-    </div>
-
-    <div class="relative flex items-center space-x-2">
+    <div class="relative space-x-5 pr-2">
         @guest
             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                 Home
@@ -21,4 +13,20 @@
             </x-nav-link>
         @endguest
     </div>
+
+    {{--    --}}{{-- right navigation--}}
+    {{--    <div class="flex w-[80px] transition hover:scale-105 duration-1000">--}}
+    {{--        --}}{{-- Logo--}}
+    {{--        <a href="{{ route('dashboard') }}">--}}
+    {{--            <img src="{{asset('assets/logo/favicon.png')}}" alt="Logo" class=""/>--}}
+    {{--        </a>--}}
+
+    {{--    </div>--}}
 </div>
+
+
+
+
+
+
+
