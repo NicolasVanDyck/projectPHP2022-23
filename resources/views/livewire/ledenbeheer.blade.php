@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
 
 {{--    Filter ledenbeheer op naam of gebruikersnaam --}}
     <section class="mb-4 flex gap-2 justify-evenly items-center bg-white">
@@ -17,7 +17,7 @@
 
     <div>
         <table class="text-center border border-gray-300 mx-auto w-[95%]">
-{{--            Nog nuttig?? --}}
+{{--            Eventueel nog voor CSS? --}}
 {{--            <colgroup>--}}
 {{--                <col class="w-10">--}}
 {{--                <col class="w-10">--}}
@@ -31,15 +31,15 @@
             <thead>
             <tr class="[&>th]:p-2 cursor-pointer bg-white">
                 <th wire:click="resort('name')">Naam</th>
-                <th wire:click="resort('username')">Gebruikersnaam</th>
-                <th wire:click="resort('birthdate')">Verjaardag</th>
-                <th wire:click="resort('email')">E-mail</th>
-                <th wire:click="resort('postal_code')">Postcode</th>
-                <th wire:click="resort('city')">Woonplaats</th>
-                <th wire:click="resort('address')">Adres</th>
+                <th wire:click="resort('username')"class="xs:hidden lg:table-cell">Gebruikersnaam</th>
+                <th wire:click="resort('birthdate')"class="xs:hidden lg:table-cell">Verjaardag</th>
+                <th wire:click="resort('email')"class="xs:hidden md:table-cell">E-mail</th>
+                <th wire:click="resort('postal_code')" class="xs:hidden xl:table-cell">Postcode</th>
+                <th wire:click="resort('city')" class="xs:hidden  xl:table-cell">Woonplaats</th>
+                <th wire:click="resort('address')" class="xs:hidden  xl:table-cell">Adres</th>
 {{--                Hidden, omdat anders niet alles op 1 scherm kan?--}}
-                <th wire:click="resort('phone_number')" class="lg:!hidden">Telefoonnummer</th>
-                <th wire:click="resort('mobile_number')" class="lg:!hidden">GSM</th>
+                <th wire:click="resort('phone_number')" class="xs:hidden 2xl:table-cell">Telefoonnummer</th>
+                <th wire:click="resort('mobile_number')" class="xs:hidden 2xl:table-cell">GSM</th>
                 <th></th>
                 <th wire:click="resort('is_admin')">Administrator</th>
             </tr>
@@ -50,36 +50,31 @@
                 <tr class="border-t border-gray-300 [&>td]:p-2 hover:bg-white"
                 wire:key="user_{{$user->id}}">
                     <td>{{$user->name}}</td>
-                    <td>{{$user->username}}</td>
-                    <td>{{date('d/m/Y', strtotime($user->birthdate))}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->postal_code}}</td>
-                    <td>{{$user->city}}</td>
-                    <td>{{$user->address}}</td>
+                    <td class="xs:hidden lg:table-cell">{{$user->username}}</td>
+                    <td class="xs:hidden lg:table-cell">{{date('d/m/Y', strtotime($user->birthdate))}}</td>
+                    <td class="xs:hidden md:table-cell">{{$user->email}}</td>
+                    <td class="xs:hidden xl:table-cell">{{$user->postal_code}}</td>
+                    <td class="xs:hidden xl:table-cell">{{$user->city}}</td>
+                    <td class="xs:hidden xl:table-cell">{{$user->address}}</td>
 {{--                    Hidden, anders alles niet op 1 scherm? --}}
-                    <td class="lg:!hidden">{{$user->phone_number}}</td>
-                    <td class="lg:!hidden">{{$user->mobile_number}}</td>
+                    <td class="xs:hidden 2xl:table-cell">{{$user->phone_number}}</td>
+                    <td class="xs:hidden 2xl:table-cell">{{$user->mobile_number}}</td>
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
-                            <x-button
-                            wire:click="setNewUser({{$user->id}})">
-                                Aanpassen
-                            </x-button>
-{{--                            Om ervoor te zorgen dat admins niet rechtstreeks andere admins kunnen verwijderen!       --}}
+                            <x-heroicon-m-pencil class="w-5 h-5 hover:fill-blue-500 ml-2" wire:click="setNewUser({{$user->id}})"/>
                             @if($user->is_admin != 1)
-                            <x-button bgcolor="rood"
-                                      x-data=""
-                                      @click="confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?') ? $wire.deleteUser({{$user->id}}) : ''"
-                            >
-                                Verwijderen
-                            </x-button>
+                                <x-heroicon-m-trash
+                                        x-data=""
+                                        @click="confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?') ? $wire.deleteUser({{$user->id}}) : ''"
+                                        class="w-5 h-5 hover:fill-red-500 ml-2"/>
+
                             @endif
                         </div>
                     </td>
                     @if($user->is_admin)
-                        <td class="whitespace-nowrap px-6 py-4 text-2xl text-black">&#x2713;</td>
+                        <td class="text-2xl text-black">&#x2713;</td>
                     @else
-                        <td class="whitespace-nowrap px-6 py-4"></td>
+                        <td></td>
                     @endif
                 </tr>
             @endforeach

@@ -72,6 +72,9 @@ class Ledenbeheer extends Component
     public function createUser()
     {
         $this->validate();
+        if($this->newUser['is_admin'] == null) {
+            $this->newUser['is_admin'] = false;
+        }
         User::create([
             'name' => $this->newUser['name'],
             'username' => $this->newUser['username'],
@@ -85,6 +88,7 @@ class Ledenbeheer extends Component
             'password' => bcrypt($this->newUser['password']),
             'is_admin' => $this->newUser['is_admin'],
         ]);
+        $this->showModal = false;
     }
 
     public function setNewUser(User $user = null)
@@ -113,7 +117,7 @@ class Ledenbeheer extends Component
     public function updated($propertyName, $propertyValue)
     {
         // dump($propertyName, $propertyValue);
-        if (in_array($propertyName, ['perPage']))
+        if (in_array($propertyName, ['perPage', 'search']))
             $this->resetPage();
     }
 
@@ -122,7 +126,6 @@ class Ledenbeheer extends Component
     {
         $this->validate();
         $user->update([
-//            'id' => $this->newUser['id'],
             'name' => $this->newUser['name'],
             'username' => $this->newUser['username'],
             'birthdate' => $this->newUser['birthdate'],
@@ -135,6 +138,7 @@ class Ledenbeheer extends Component
             'password' => bcrypt($this->newUser['password']),
             'is_admin' => $this->newUser['is_admin'],
         ]);
+        $this->showModal = false;
 
     }
 
