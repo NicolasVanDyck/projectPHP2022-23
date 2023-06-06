@@ -83,6 +83,7 @@
                                       }
                                       }
                                       })"
+{{--                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->path}}') : ''"--}}
                                     >Verwijderen</x-button>
 
                         </div>

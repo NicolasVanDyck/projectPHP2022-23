@@ -172,7 +172,9 @@ class FotoUpload extends Component
     {
         $image = Image::where('path', $path)->first();
         $image->delete();
-//        folder erafknippen om zo uit de storage te verwijderen
+//      Maak een string van de array, anders werkt de Str::after niet
+        $path = implode($path);
+        //        Geef de rest van de string terug na het eerste voorkomen van de gegeven waarde
         $path = Str::after($path, '/storage/');
         Storage::disk('public')->delete($path);
         $this->dispatchBrowserEvent('swal:toast', [

@@ -189,8 +189,11 @@ class Kleding extends Component
                 $this->updateOrder($selectedProductSize, $selectedAmount);
             }
         }
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Je bestelling is geplaatst!",
+        ]);
 
-        session()->flash('message', 'Je bestelling is geplaatst!');
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
     }
 
