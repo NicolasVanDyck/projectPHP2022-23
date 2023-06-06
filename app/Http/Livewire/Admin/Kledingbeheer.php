@@ -78,7 +78,7 @@ class Kledingbeheer extends Component
     public function createNewProduct(): void
     {
         $this->resetErrorBag();
-        $this->newProduct = $this->validate($this->rules, $this->messages);
+        $this->validate($this->rules, $this->messages);
 
         $newProduct = Product::create([
             'name' => $this->newProduct['name'],
@@ -153,7 +153,7 @@ class Kledingbeheer extends Component
     public function updateProduct(Product $product): void
     {
         // Validation
-        $this->newProduct = $this->validate($this->rules, $this->messages);
+        $this->validate($this->rules, $this->messages);
 
         try {
             $product->update([
