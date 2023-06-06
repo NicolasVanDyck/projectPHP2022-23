@@ -12,7 +12,7 @@
                 <x-input id="newUser.name" type="text" name="name" placeholder="naam"
                          wire:model.defer="newUser.name"
                          required
-                         autofocus autocomplete="name" class="block mt-1 w-full"/>
+                         autofocus class="block mt-1 w-full"/>
                 <x-input-error for="newUser.name" class="mt-2"/>
             </div>
             <div>
@@ -20,7 +20,7 @@
                 <x-input id="newUser.username" type="text" name="username"
                          placeholder="gebruikersnaam"
                          wire:model.defer="newUser.username" required autofocus
-                         autocomplete="username"
+                         {{--autocomplete="username"--}}
                          class="block mt-1 w-full"/>
                 <x-input-error for="newUser.username" class="mt-2"/>
             </div>
@@ -29,7 +29,7 @@
                 <x-input id="newUser.birthdate" type="date" name="birthdate"
                          placeholder="geboortedatum"
                          wire:model.defer="newUser.birthdate" required autofocus
-                         autocomplete="birthdate"
+                         {{--autocomplete="birthdate"--}}
                          class="block mt-1 w-full"/>
                 <x-input-error for="newUser.birthdate" class="mt-2"/>
             </div>
@@ -37,7 +37,8 @@
                 <x-label for="email" value="Email"/>
                 <x-input id="newUser.email" type="email" name="email"
                          wire:model.defer="newUser.email" required autofocus
-                         autocomplete="email" class="block mt-1 w-full"/>
+                         {{--autocomplete="email"--}}
+                         class="block mt-1 w-full"/>
                 <x-input-error for="newUser.email" class="mt-2"/>
             </div>
             <div>
@@ -45,7 +46,7 @@
                 <x-input id="newUser.postal_code" type="text" name="postal_code"
                          placeholder="postcode"
                          wire:model.defer="newUser.postal_code" required autofocus
-                         autocomplete="zipcode"
+                         {{--autocomplete="zipcode"--}}
                          class="block mt-1 w-full"/>
                 <x-input-error for="newUser.postal_code" class="mt-2"/>
             </div>
@@ -54,7 +55,9 @@
                 <x-input id="newUser.city" type="text" name="city" placeholder="stad"
                          wire:model.defer="newUser.city"
                          required
-                         autofocus autocomplete="city" class="block mt-1 w-full"/>
+                         autofocus
+                         {{--autocomplete="city"--}}
+                         class="block mt-1 w-full"/>
                 <x-input-error for="newUser.city" class="mt-2"/>
             </div>
             <div>
@@ -70,7 +73,7 @@
                 <x-input id="newUser.phone_number" type="text" name="phone_number"
                          placeholder="telefoonnummer"
                          wire:model.defer="newUser.phone_number" autofocus
-                         autocomplete="phone_number"
+                         {{--autocomplete="phone_number"--}}
                          class="block mt-1 w-full"/>
                 <x-input-error for="newUser.phone_number" class="mt-2"/>
             </div>
@@ -79,24 +82,15 @@
                 <x-input id="newUser.mobile_number" type="text" name="mobile_number"
                          placeholder="mobiel nummer"
                          wire:model.defer="newUser.mobile_number" autofocus
-                         autocomplete="mobile_number"
+                         {{--autocomplete="mobile_number"--}}
                          class="block mt-1 w-full"/>
                 <x-input-error for="newUser.mobile_number" class="mt-2"/>
-            </div>
-            <div>
-                <x-label for="password" value="Wachtwoord"/>
-                <x-input id="newUser.password" type="password" name="password"
-                         wire:model.defer="newUser.password"
-                         required
-                         autocomplete="new-password" class="block mt-1 w-full"/>
-                <x-input-error for="newUser.password" class="mt-2"/>
             </div>
             <div>
                 <x-label for="is_admin" value="Administrator"/>
                 <x-checkbox id="newUser.is_admin" type="checkbox"
                             wire:model="newUser.is_admin"
                             autocomplete="off" class="block mt-1"/>
-                <x-input-error for="newUser.is_admin" class="mt-2"/>
             </div>
         </div>
     </x-slot>
@@ -120,7 +114,7 @@
             </x-button>
         @endif
 
-        <x-button bgcolor="rood" @click="show = false">
+        <x-button bgcolor="rood" wire:click="toggleModal()">
             Verlaten</x-button>
     </x-slot>
 </x-dialog-modal>

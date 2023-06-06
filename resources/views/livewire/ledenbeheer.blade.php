@@ -17,17 +17,6 @@
 
     <div>
         <table class="text-center border border-gray-300 mx-auto w-[95%]">
-{{--            Nog nuttig?? --}}
-{{--            <colgroup>--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--                <col class="w-10">--}}
-{{--            </colgroup>--}}
             <thead>
             <tr class="[&>th]:p-2 cursor-pointer bg-white">
                 <th wire:click="resort('name')">Naam</th>
@@ -47,7 +36,7 @@
             <tbody>
 
             @foreach($users as $user)
-                <tr class="border-t border-gray-300 [&>td]:p-2 hover:bg-white"
+                <tr class="border-t border-gray-300 [&>td]:p-2 hover:bg-grey text-black"
                 wire:key="user_{{$user->id}}">
                     <td>{{$user->name}}</td>
                     <td>{{$user->username}}</td>
@@ -62,7 +51,7 @@
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
                             <x-button
-                            wire:click="setNewUser({{$user->id}})">
+                            wire:click="showUser({{ $user }})">
                                 Aanpassen
                             </x-button>
 {{--                            Om ervoor te zorgen dat admins niet rechtstreeks andere admins kunnen verwijderen!       --}}
@@ -84,10 +73,9 @@
                 </tr>
             @endforeach
             </tbody>
-
         </table>
-
     </div>
-@include('components.wd_components.modalledenbeheer')
+
+    @include('components.wd_components.modalledenbeheer')
 </div>
 
