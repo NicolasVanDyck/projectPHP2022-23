@@ -25,7 +25,7 @@
     @endguest
 
 </nav>
-<main class="border-t-2 border-blue-900 lg:border-none text-gray-50">
+<main class="border-t-2 border-blue-900 lg:border-none text-gray-800">
     {{ $slot }}
 </main>
 <!--Footer-->
