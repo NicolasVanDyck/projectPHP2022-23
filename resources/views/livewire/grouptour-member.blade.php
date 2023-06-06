@@ -111,22 +111,26 @@
     </div>
 
     {{--    Aangemelde Groeps ritten--}}
-    <div class="flex justify-center w-screen">
-        <div class="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-2xl font-bold mb-4 text-gray-900 text-center">Geregistreerde Groeps ritten</h1>
+    @if($userTours->count() > 0)
+        <div class="flex justify-center w-screen">
+            <div class="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-bold mb-4 text-gray-900 text-center">Geregistreerde Groeps ritten</h1>
 
-            <div class="grid grid-cols-2 gap-4">
-                @foreach($userTours as $userTour)
-                    <div class="bg-gray-100 rounded-lg p-4 mb-4">
-                        <p class="text-gray-900 font-bold text-lg underline decoration-indigo-500 mb-2">{{ $userTour->groupTour->gpx->name }}</p>
-                        <p class="text-gray-700 text-sm mb-2">Start Datum: {{ $userTour->groupTour->start_date }}</p>
-                        <p class="text-gray-700 text-sm mb-2">Eind Datum: {{ $userTour->groupTour->end_date }}</p>
-                        <p class="text-gray-700 text-sm mb-2">Aantal
-                            Kilometer: {{ $userTour->groupTour->gpx->amount_of_km }} km</p>
-                        <p class="text-gray-700 text-sm mb-2">Groep Naam: {{ $userTour->groupTour->group->group }}</p>
-                    </div>
-                @endforeach
+                <div class="grid grid-cols-2 gap-4">
+                    @foreach($userTours as $userTour)
+                        <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                            <p class="text-gray-900 font-bold text-lg underline decoration-indigo-500 mb-2">{{ $userTour->groupTour->gpx->name }}</p>
+                            <p class="text-gray-700 text-sm mb-2">Start
+                                Datum: {{ $userTour->groupTour->start_date }}</p>
+                            <p class="text-gray-700 text-sm mb-2">Eind Datum: {{ $userTour->groupTour->end_date }}</p>
+                            <p class="text-gray-700 text-sm mb-2">Aantal
+                                Kilometer: {{ $userTour->groupTour->gpx->amount_of_km }} km</p>
+                            <p class="text-gray-700 text-sm mb-2">Groep
+                                Naam: {{ $userTour->groupTour->group->group }}</p>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 </div>
