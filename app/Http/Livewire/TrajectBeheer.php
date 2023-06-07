@@ -125,7 +125,11 @@ class TrajectBeheer extends Component
         $this->selectedEndDate = null;
 
         // Stuur een succesbericht naar de gebruiker
-        session()->flash('success_message', 'Groepsrit is aangemaakt.');
+//        session()->flash('success_message', 'Groepsrit is aangemaakt.');
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Groepsrit is aangemaakt.",
+        ]);
 
         // Sluit het modal als je er mee klaar bent
         $this->openModal = false;

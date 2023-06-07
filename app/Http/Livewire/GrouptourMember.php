@@ -120,6 +120,8 @@ class GrouptourMember extends Component
                 $query->where('amount_of_km', '<=', $this->selectedDistance);
             });
         }
+//       orderd de groepstours op startdatum
+        $groupTours = $groupTours->orderBy('start_date');
 
         return $groupTours;
     }

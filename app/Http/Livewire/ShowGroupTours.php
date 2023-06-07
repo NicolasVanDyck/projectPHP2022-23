@@ -60,8 +60,10 @@ class ShowGroupTours extends Component
         $this->groupTours = GroupTour::with(['group', 'gpx'])->get();
         $this->confirmingDelete = false;
 
-
-        session()->flash('delete', 'Groepsrit is verwijderd.');
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'danger',
+            'html' => "Groepsrit is verwijderd.",
+        ]);
 
         return redirect()->to('/admin/trajectbeheer');
     }
@@ -82,7 +84,11 @@ class ShowGroupTours extends Component
         // Reset de editGroupTour-property en sluit het modalvenster
         $this->editGroupTour = null;
 
-        session()->flash('success', 'Groepsrit is aangepast.');
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Groepsrit is aangepast.",
+        ]);
+
     }
     public function cancelEdit()
     {
