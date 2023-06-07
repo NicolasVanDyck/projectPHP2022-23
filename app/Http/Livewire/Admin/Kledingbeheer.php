@@ -15,13 +15,16 @@ class Kledingbeheer extends Component
     public $selectedSizes = [];
     public string $productName;
     public int $productPrice;
-//    public string $size;
     public $sortField;
     public $search;
     public $sortAsc = true;
     public $active = true;
     public bool $showModal = false;
     public bool $errorModal = false;
+
+    protected $listeners = [
+        'delete-product' => 'deleteProduct',
+    ];
 
     public function mount(): void
     {
@@ -79,7 +82,7 @@ class Kledingbeheer extends Component
     public function createNewProduct(): void
     {
         $this->resetErrorBag();
-        $this->newProduct = $this->validate($this->rules, $this->messages);
+        $this->validate($this->rules, $this->messages);
 
         $newProduct = Product::create([
             'name' => $this->newProduct['name'],
@@ -89,6 +92,11 @@ class Kledingbeheer extends Component
         $newProduct->sizes()->sync($this->selectedSizes);
 
         $this->showModal = false;
+
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => $this->newProduct['name'] . " werd aangemaakt!",
+        ]);
     }
 
     /**
@@ -102,6 +110,10 @@ class Kledingbeheer extends Component
         try {
             $product->sizes()->detach();
             $product->delete();
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'danger',
+                'html' => "$product->name werd verwijderd!",
+            ]);
         } catch (QueryException $exception) {
             if ($exception->getCode() === '23000') {
                 $this->errorModal = true;
@@ -154,7 +166,7 @@ class Kledingbeheer extends Component
     public function updateProduct(Product $product): void
     {
         // Validation
-        $this->newProduct = $this->validate($this->rules, $this->messages);
+        $this->validate($this->rules, $this->messages);
 
         try {
             $product->update([
@@ -165,15 +177,23 @@ class Kledingbeheer extends Component
             $product->sizes()->sync($this->selectedSizes);
 
             $this->showModal = false;
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'success',
+                'html' => "$product->name werd aangepast!",
+            ]);
             $this->reset(['newProduct', 'selectedSizes']);
         } catch (QueryException $exception) {
             if ($exception->getCode() === '23000') {
                 $orderSizes = $this->getSizesForSelectedProduct($product->id)->pluck('size')->toArray();
 
                 $orderSizesString = implode(', ', $orderSizes);
-
-                session()->flash('message', 'De volgende maten zitten al in een bestelling: ' . $orderSizesString . '. Je kan deze maten niet meer verwijderen.
-                                  Vink de maat aan of breng de klant op de hoogte.');
+                $this->dispatchBrowserEvent('swal:toast', [
+                    'background' => 'warning',
+                    'html' => "'De volgende maten zitten al in een bestelling: ' . $orderSizesString . '. Je kan deze maten niet meer verwijderen.
+                                  Vink de maat aan of breng de klant op de hoogte.'",
+                ]);
+//                session()->flash('message', 'De volgende maten zitten al in een bestelling: ' . $orderSizesString . '. Je kan deze maten niet meer verwijderen.
+//                                  Vink de maat aan of breng de klant op de hoogte.');
 
             } else {
                 throw $exception;

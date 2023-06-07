@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
 
 {{--    TODO: parameter endDate--}}
     <div class="flex flex-wrap">
@@ -8,6 +8,7 @@
     <div class="flex">
         <div class="lg:mx-auto">
             <form wire:submit.prevent="submitForm">
+                @csrf
                 @if (session()->has('message'))
                     <div class="bg-green-200 text-2xl">
                         {{ session('message') }}

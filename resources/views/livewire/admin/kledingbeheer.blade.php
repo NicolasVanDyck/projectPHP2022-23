@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
     {{-- Detail section --}}
     <section class="mb-4 flex items-center align-middle justify-between">
         <x-button wire:click="showModal()" class="flex-initial w-10">
@@ -13,6 +13,7 @@
         </div>
     </section>
 
+    {{-- Table section --}}
     <table class="mt-2">
         <thead>
             <tr class="[&>th]:p-2 px-6 py-4 whitespace-no-wrap text-left bg-white">
@@ -39,11 +40,22 @@
                         @endforeach
                     </td>
                     <td>
-                        € {{ $product->price }}
+                        €{{ $product->price }}
                     </td>
                     <td class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
                         <x-heroicon-m-pencil class="w-5 h-5 hover:fill-blue-500 ml-2" wire:click="setNewProduct({{$product->id}})"/>
-                        <x-heroicon-m-trash class="w-5 h-5 hover:fill-red-500 ml-2" wire:click="deleteProduct({{$product->id}})" />
+                        <x-heroicon-m-trash class="w-5 h-5 hover:fill-red-500 ml-2"
+                                            x-data=""
+                                            @click="$dispatch('swal:confirm', {
+                                      html: 'Verwijder {{ $product->name }}?',
+                                      confirmButtonText: 'Verwijder deze foto',
+                                      next: {
+                                      event: 'delete-product',
+                                      params: {
+                                      id: {{ $product->id }}
+                                      }
+                                      }
+                                      })" />
                     </td>
                 </tr>
             @endforeach

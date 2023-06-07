@@ -128,21 +128,6 @@ class Kleding extends Component
         return $total;
     }
 
-    public function restoreState($state)
-    {
-        $this->selectedProduct = $state['selectedProduct'] ?? [];
-        $this->amounts = $state['amounts'] ?? [];
-    }
-
-    public function saveState()
-    {
-        return [
-            'selectedProduct' => $this->selectedProduct,
-            'amounts' => $this->amounts,
-        ];
-    }
-
-
     /**
      * Update the Order table with the selected product_size id and amount.
      *
@@ -204,8 +189,11 @@ class Kleding extends Component
                 $this->updateOrder($selectedProductSize, $selectedAmount);
             }
         }
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Je bestelling is geplaatst!",
+        ]);
 
-        session()->flash('message', 'Je bestelling is geplaatst!');
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
     }
 

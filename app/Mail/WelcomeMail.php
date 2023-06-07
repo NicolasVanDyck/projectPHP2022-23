@@ -8,25 +8,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
-class HelloMail extends Mailable
+class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($voornaam, $achternaam, $email, $dropdown, $bericht,)
+    public function __construct($naam, $paswoord)
     {
-//
-        $this->voornaam = $voornaam;
-        $this->achternaam = $achternaam;
-        $this->email = $email;
-        $this->dropdown = $dropdown;
-        $this->bericht = $bericht;
+        //
+        $this->naam = $naam;
+        $this->paswoord = $paswoord;
     }
-
 
     /**
      * Get the message envelope.
@@ -34,8 +29,7 @@ class HelloMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contactformulier',
-            from: $this->email,
+            subject: 'Welkom bij de Wezeldrivers!',
         );
     }
 
@@ -45,15 +39,11 @@ class HelloMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.hello',
+            view: 'emails.welcome',
             with: [
-                'voornaam' => $this->voornaam,
-                'achternaam' => $this->achternaam,
-                'email' => $this->email,
-                'dropdown' => $this->dropdown,
-                'bericht' => $this->bericht,
-
-            ],
+                'naam' => $this->naam,
+                'paswoord' => $this->paswoord,
+            ]
         );
     }
 

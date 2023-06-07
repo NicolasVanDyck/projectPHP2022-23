@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\MailController;
+use App\Mail\HelloMail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Dusk\Http\Controllers\UserController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 
 
 /*
@@ -88,5 +93,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 //Voor Strava
 Route::get('/stravaAuthentication', [App\Http\Controllers\Member\StravaController::class, 'stravaAuthentication'])->name('stravaAuthentication');
 Route::get('/success', [App\Http\Controllers\Member\StravaController::class, 'getToken']);
+
+
+// Mail
+Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
+Route::post('/contact', [MailController::class, 'submitForm'])->name('contact.submit');
 
 

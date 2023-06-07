@@ -25,13 +25,18 @@ class FotoUpload extends Component
     public $photos = [];
     public $showModal = false;
 
+    protected $listeners = [
+        'delete-image' => 'deleteImage',
+    ];
+
 //    Op 0, zodat checkbox standaard niet aangevinkt staat.
     public $homecarousel = 0;
 
-//    Op 2, omdat gewone images meer zullen voorkomen dan sponsorimages
+//    Op 1, omdat gewone images meer zullen voorkomen dan sponsorimages.
     public $uploadType = 1;
 
-    public $uploadTour = null;
+//    Waarde invullen, anders null en dan toont hij de images niet.
+    public $uploadTour = 1;
 
     public $newImage = [
         'id' => null,
@@ -86,8 +91,6 @@ class FotoUpload extends Component
                 $path = '/storage/galerij/' . $photo->getClientOriginalName();
                 $photo->storeAs('public/galerij', $photo->getClientOriginalName());
                 Image::create([
-                    'image_type_id' => null,
-                    'tour_id' => $this->uploadTour,
                     'name' => $name,
                     'description' => $name,
                     'path' => $path,
@@ -109,13 +112,16 @@ class FotoUpload extends Component
                 $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
                 Image::create([
                     'image_type_id' => $this->uploadType,
-                    'tour_id' => $this->uploadTour,
                     'name' => $name,
                     'description' => $name,
                     'path' => $path,
                     'in_carousel' => 1,
                 ]);
             }
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'success',
+                'html' => "Foto('s) werd(en) succesvol toegevoegd!",
+            ]);
         }
     }
 
@@ -155,6 +161,10 @@ class FotoUpload extends Component
                 'tour_id' => null,
             ]);
         }
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => $this->newImage['name'] . " werd aangepast!",
+        ]);
     }
 
 //    Verwijder uit de database én de storage
@@ -162,9 +172,16 @@ class FotoUpload extends Component
     {
         $image = Image::where('path', $path)->first();
         $image->delete();
-//        folder erafknippen om zo uit de storage te verwijderen
+//      Maak een string van de array, anders werkt de Str::after niet
+        $path = implode($path);
+        //        Geef de rest van de string terug na het eerste voorkomen van de gegeven waarde
         $path = Str::after($path, '/storage/');
         Storage::disk('public')->delete($path);
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'danger',
+            'html' => "$image->name verwijderd!",
+        ]);
+
     }
 
 //    Paginator bijwerken
@@ -179,9 +196,7 @@ class FotoUpload extends Component
     {
         $tours = Tour::get();
 
-//      Alles ophalen
-
-
+//      Ritten ophalen
         if($this->type == 1) {
             $images = Image::orderBy('created_at', 'desc')
                 ->where('tour_id', 'like', $this->tour)
@@ -190,7 +205,7 @@ class FotoUpload extends Component
                 })
                 ->paginate($this->perPage);
         }
-        //        Sponsor opvragen, houdt verder geen rekening met tour_id, want is niet nodig.
+        //        Sponsor ophalen, houdt verder geen rekening met tour_id, want is niet nodig.
         elseif($this->type == 2) {
             $images = Image::where('image_type_id', '=', $this->type)
                 ->orderBy('created_at', 'desc')
@@ -198,7 +213,7 @@ class FotoUpload extends Component
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
                 ->paginate($this->perPage);
-//      Images ophalen en verder filteren op tour_id
+//      Images zonder type ophalen (overige)
         } else {
             $images = Image::orderBy('created_at', 'desc')
                 ->where('image_type_id', null)

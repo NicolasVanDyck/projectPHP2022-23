@@ -39,6 +39,10 @@ class Texts extends Component
         ]);
 
         $this->resetEditText();
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => " De tekst op de $text->location-pagina werd aangepast!",
+        ]);
     }
 
 
