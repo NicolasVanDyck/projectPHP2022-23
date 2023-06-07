@@ -30,17 +30,19 @@ class HelloMail extends Mailable
 
     /**
      * Get the message envelope.
+     *
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contactformulier',
-            from: $this->email,
+            subject: 'Contactformulier', // onderwerp van de mail
+            from: $this->email, // afzender van de mail
         );
     }
 
     /**
      * Get the message content definition.
+     * Stuurt de data van het contactformulier naar de mail.
      */
     public function content(): Content
     {
