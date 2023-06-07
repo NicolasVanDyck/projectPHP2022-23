@@ -11,8 +11,14 @@ class AdminAanwezigheden extends Component
 {
 
     public $deelname;
-    public $showModal = false;
     public $grouptourid;
+
+    public $grouptour;
+
+    public function mount()
+    {
+        $this->grouptour = GroupTour::orderBy('start_date')->first()->id;
+    }
 
     public function addDeelname($grouptourid, $tourid)
     {
@@ -30,14 +36,18 @@ class AdminAanwezigheden extends Component
 
     public function render()
     {
-        $today = today();
+        $startdate = today()->subDays(1);
+        $enddate = today()->addDays(14);
         $users = User::all();
         $usertours = UserTour::with('user')->get();
         $grouptours = GroupTour::with('usertours.user')
             ->orderBy('start_date')
-//            Aangeven tussen dit en twee weken. Om te testen zetten we dit af.
-//            ->whereBetween('start_date', [$today, today()->addDays(14)])
+            ->where('id', $this->grouptour)
+            ->whereBetween('start_date', [$startdate, $enddate])
             ->get();
-        return view('livewire.admin-aanwezigheden', compact('users','grouptours','usertours'));
+        $grouptourdropdowns = GroupTour::orderBy('start_date')
+            ->whereBetween('start_date', [$startdate, $enddate])
+            ->get();
+        return view('livewire.admin-aanwezigheden', compact('startdate','enddate', 'users','grouptours','usertours','grouptourdropdowns'));
     }
 }
