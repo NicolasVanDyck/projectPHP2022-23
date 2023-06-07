@@ -1,7 +1,7 @@
 <x-mail::message>
     <h2>Vraag vanuit het contactformulier</h2>
 
-Het bericht kom van {{$voornaam}} {{$achternaam}}.<br>
+Het bericht komt van {{$voornaam}} {{$achternaam}}.<br>
 Het emailadres is: {{$email}}.<br>
 {{$voornaam}} wil graag iets weten over: {{$dropdown}}.<br>
 Vraag: {{$bericht}}<br>

@@ -1,5 +1,5 @@
 <div>
-    <div class="flex flex-col sm:flex-row sm:justify-between">
+    <div class="flex justify-between flex-wrap">
         <div class="flex flex-col text-gray-800">
             {{-- Filter op gebruiker --}}
             <h3 class="flex">Filter op leden</h3>
@@ -27,6 +27,20 @@
                        x-bind:value="afstand" x-on:input="kilometerfilter.value = $event.target.value">
             </div>
         </div>
+
+        {{-- Aantal ritten per pagina --}}
+        <div class="flex flex-col text-gray-800">
+            <h3 class="flex">Per Page</h3>
+            <div class="flex">
+                <label for="perPage" value="perPage"/>
+                <select id="perPage" wire:model="perPage">
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="mt-4">
@@ -34,11 +48,11 @@
     </div>
 
     <!-- Grid of trajects -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+    <div class="flex flex-wrap justify-center">
         @foreach($trajecten as $traject)
             <div class="p-4">
                 <div
-                    class="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                    class="block max-w-[22rem] rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <a href="#!">
                         <img class="rounded-t-lg w-full" src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
                              alt=""/>
@@ -55,12 +69,12 @@
                         </p>
                     </div>
                     <div class="flex justify-between">
-                        <x-button wire:click="download('{{$traject->path}}')">DOWNLOAD</x-button>
+                        <x-button wire:click="download('{{$traject->path}}')">Download</x-button>
                         @if($traject->user->id == auth()->user()->id || auth()->user()->is_admin)
-                            <x-button class="bg-danger-500 hover:bg-danger-600"
+                            <x-button type="red"
                                       x-data=""
-                                      @click="confirm('Are you sure you want to delete this item?') ? $wire.delete('{{$traject->path}}') : false"
-                            >DELETE
+                                      @click="confirm('Ben je zeker dat je dit traject wilt verwijderen?') ? $wire.delete('{{$traject->path}}') : false"
+                            >Delete
                             </x-button>
                         @endif
                     </div>

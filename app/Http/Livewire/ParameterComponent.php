@@ -33,7 +33,10 @@ class ParameterComponent extends Component
             'end_date_order' => $this->end_date_order,
         ]);
 
-        session()->flash('message', 'Parameter created successfully.');
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Parameter met einddatum " . date('d/m/Y', strtotime($this->end_date_order)) . " werd aangemaakt!",
+        ]);
 
         $this->reset();
         $this->mount();
@@ -49,6 +52,10 @@ class ParameterComponent extends Component
         $this->reset('parameter_id_delete');
         $this->reset();
         $this->mount();
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'danger',
+            'html' => "Parameter werd verwijderd!",
+        ]);
     }
 
     public function render()
@@ -73,7 +80,10 @@ class ParameterComponent extends Component
 
         $this->emit('parameterUpdated');
 
-        session()->flash('message', 'Parameter updated successfully.');
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Parameter werd aangepast naar " . date('d/m/Y', strtotime($this->end_date_order)) . "!",
+        ]);
         $this->reset(['selectedParameterId', 'end_date_order']);
     }
 

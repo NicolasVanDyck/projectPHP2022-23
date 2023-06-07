@@ -15,12 +15,13 @@ class IndividueleTrajecten extends Component
     public $afstand;
     public $afstandMin, $afstandMax;
     public $user = "%";
-    public $perpage = 2;
+    public $perPage = 1;
 
     public function updated($propertyName, $propertyValue)
     {
-        // dump($propertyName, $propertyValue);
-        $this->resetPage();
+        if (in_array($propertyName, ['user', 'afstand', 'perPage'])) {
+            $this->resetPage();
+        }
     }
 
     public function mount()
@@ -51,8 +52,8 @@ class IndividueleTrajecten extends Component
         $trajecten = GPX::orderBy('name')->with('user')
             ->where('amount_of_km', '<=', $this->afstand)
             ->whereRelation('user', 'name', 'like', $this->user)
-            ->paginate($this->perpage);
-        
+            ->paginate($this->perPage);
+
         return view('livewire.individuele-trajecten', compact('trajecten', 'users'));
     }
 }

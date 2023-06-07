@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
     <div class="bg-white mb-10 py-6 sm:py-8 lg:py-12 shadow-xl rounded-lg bg-slate-100/20">
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
             <div class="flex justify-between">
@@ -73,8 +73,19 @@
 {{--                        Image verwijderen                   --}}
                             <x-button bgcolor="rood"
                                       x-data=""
-                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->path}}') : ''"
-                            >Verwijderen</x-button>
+                                      @click="$dispatch('swal:confirm', {
+                                      html: 'Verwijder {{ $image->name }}?',
+                                      confirmButtonText: 'Verwijder deze foto',
+                                      next: {
+                                      event: 'delete-image',
+                                      params: {
+                                      path: '{{ $image->path }}'
+                                      }
+                                      }
+                                      })"
+{{--                                      @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->path}}') : ''"--}}
+                                    >Verwijderen</x-button>
+
                         </div>
                     </div>
                 @endforeach
@@ -83,26 +94,27 @@
     </div>
 {{--            Uploadzone          --}}
     <div class="flex justify-center">
+        {{--        Welk afbeeldingstype hoort bij de foto's?       --}}
+        <div class="mr-4">
+            <label for="uploadType" value="uploadType">Afbeeldingstype: </label>
+            <select id="uploadType" wire:model="uploadType">
+                @foreach($imagetypes as $itype)
+                    <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
+                @endforeach
+                <option value="">Overige</option>
+            </select>
+        </div>
 {{--        Aan welke tour wil je images linken?        --}}
+        @if($uploadType == 1)
         <div class="mr-4">
             <label for="uploadTour" value="uploadTour">Voor welke tour wil je een afbeelding uploaden? </label>
             <select id="uploadTour" wire:model="uploadTour">
-                <option value="">Geen tour</option>
                 @foreach($tours as $to)
                     <option value="{{ $to->id }}">{{ $to->tour_name }}</option>
                 @endforeach
             </select>
         </div>
-{{--        Welk afbeeldingstype hoort bij de foto's?       --}}
-            <div class="mr-4">
-                <label for="uploadType" value="uploadType">Afbeeldingstype: </label>
-                <select id="uploadType" wire:model="uploadType">
-                    @foreach($imagetypes as $itype)
-                        <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
-                    @endforeach
-                    <option value="">Overige</option>
-                </select>
-            </div>
+        @endif
 {{--        Opslaan en errors       --}}
                     <form wire:submit.prevent="saveImage">
 {{--                        Multiple om aan te duiden dat je meerdere afbeeldingen tegelijkertijd kan uploaden--}}

@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
 
 {{--    TODO: parameter endDate--}}
     <div class="flex flex-wrap">

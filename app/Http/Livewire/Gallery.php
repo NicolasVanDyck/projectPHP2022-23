@@ -24,22 +24,23 @@ class Gallery extends Component
 
     public function updated($propertyName, $propertyValue)
     {
-        // dump($propertyName, $propertyValue);
-        if (in_array($propertyName, ['groupToursPerPage','overigePerPage']))
+        if (in_array($propertyName, ['groupToursPerPage', 'overigePerPage']))
             $this->resetPage();
     }
+
     public function render()
     {
 //        Join GroupTour, Tour and Image tables
         $grouptours = GroupTour::with('tour.images')
             ->has('tour.images')
-            ->orderBy('start_date','desc')
-            ->when($this->date != null, function($query) {
-                $query->where('start_date', '=', $this->date);})
+            ->orderBy('start_date', 'desc')
+            ->when($this->date != null, function ($query) {
+                $query->where('start_date', '=', $this->date);
+            })
             ->paginate($this->groupToursPerPage);
-        $photos = Image::where([['tour_id', '=', null],['image_type_id','=',2]])->paginate($this->overigePerPage);
+        $photos = Image::where([['tour_id', '=', null], ['image_type_id', '=', 1]])->paginate($this->overigePerPage);
 
-        return view('livewire.gallery', compact('grouptours','photos'));
+        return view('livewire.gallery', compact('grouptours', 'photos'));
     }
 
 }
