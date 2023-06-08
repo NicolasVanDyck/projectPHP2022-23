@@ -36,7 +36,12 @@ class GrouptourMember extends Component
             ->where('user_id', '=', Auth::id())->delete();
 
         // Toon een succesbericht
-        session()->flash('message', 'You have left the tour.');
+//        session()->flash('message', 'You have left the tour.');
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'danger',
+            'html' => "Uitgeschreven voor de groepsrit.",
+        ]);
+
     }
 
     public function updated($propertyName, $propertyValue)
@@ -178,6 +183,12 @@ class GrouptourMember extends Component
             'tour_id' => $groupTour->tour_id,
             'group_tour_id' => $groupTour->id,
 
+        ]);
+
+        // Toon een succesbericht
+        $this->dispatchBrowserEvent('swal:toast', [
+            'background' => 'success',
+            'html' => "Je bent ingeschreven voor de groepsrit.",
         ]);
 
     }
