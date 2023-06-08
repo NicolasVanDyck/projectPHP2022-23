@@ -40,7 +40,9 @@ class Ledenbeheer extends Component
             'newUser.name' => 'required|string|max:255',
             'newUser.username' => 'required|alpha_dash|max:255|unique:users,username,',
             'newUser.birthdate' => 'required',
-            'newUser.email' => 'required',
+//            'newUser.email' => 'required|email|max:255|unique:users,email,',
+            // Write regex for email
+            'newUser.email' => 'required|email|max:255|unique:users,email,',
             'newUser.postal_code' => 'required|digits:4',
             'newUser.city' => 'required|string|max:255',
             'newUser.address' => 'required|string|max:255',
@@ -148,7 +150,7 @@ class Ledenbeheer extends Component
         if ($propertyName == 'perPage') {
           $this->resetPage();
         }
-            
+
     }
 
     /**

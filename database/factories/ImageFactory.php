@@ -32,7 +32,6 @@ class ImageFactory extends Factory
             $imageTypeIds = ImageType::pluck('id')->toArray();
         }
 
-        $imageTypes = ['sponsor', 'route', 'image'];
         $imageTypeArray = [];
 
         // Create image types and append to the array if not in the array yet.
