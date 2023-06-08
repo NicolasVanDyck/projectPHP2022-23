@@ -1,9 +1,9 @@
-<div class="text-black">
+<div>
 
-{{--    TODO: parameter endDate--}}
+    {{--    TODO: parameter endDate--}}
     <div class="flex flex-wrap">
-        <h2 class="flex-grow text-center underline pb-2 lg:">Plaats hier uw bestelling</h2>
-{{--        <td>{{ $parameter->end_date_order }}</td>--}}
+        <h2 class="flex-grow text-center pb-2 text-white">Plaats hier uw bestelling</h2>
+        {{--        <td>{{ $parameter->end_date_order }}</td>--}}
     </div>
     <div class="flex">
         <div class="lg:mx-auto">
@@ -15,7 +15,7 @@
                     </div>
                 @endif
                 <table class="table-auto">
-                    <thead>
+                    <thead class="text-white">
                     <tr>
                         <th>Naam</th>
                         <th class="hidden sm:table-cell">Maat</th>
@@ -27,8 +27,8 @@
                     <tbody>
                     @forelse($products as $index => $product)
                         <tr>
-                            <td class="border-y-2 border-orange-500 sm:border-none md:border-none ">
-                                <div>
+                            <td class="border-y-2 border-blue-400 sm:border-none md:border-none ">
+                                <div class="text-white">
                                     {{ $product->name }}
                                 </div>
                                 <div class="sm:hidden ">
@@ -53,14 +53,14 @@
                                     @endforeach
                                 </select>
                             </td>
-                            <td class="border-collapse border-y-2 border-orange-500 sm:border-none md:border-none">
+                            <td class="border-collapse border-y-2 border-blue-400 sm:border-none md:border-none text-white">
                                 €{{ $product->price }}</td>
                             <td class="hidden sm:table-cell ">
                                 <input type="number" min="0" max="10"
                                        value="{{ $amounts[$product->id] ?? 0 }}"
                                        wire:model.debounce.500ms="amounts.{{ $product->id }}">
                             </td>
-                            <td class="border-collapse border-y-2 border-orange-500 sm:border-none md:border-none">
+                            <td class="border-collapse border-y-2 border-blue-400 sm:border-none md:border-none text-white">
                                 €{{ $this->getTotalForProduct($product->id) ?? 0}}
                             </td>
                         </tr>
@@ -86,7 +86,7 @@
                     <tfoot>
                     <tr>
                         <td colspan="4" class="text-right">Totaal</td>
-                        <td class="border-collapse border-t-2 border-orange-500 sm:border-none md:border-none">
+                        <td class="border-collapse border-t-2 border-blue-400 sm:border-none md:border-none">
                             €{{ $this->getTotal() }}</td>
                     </tr>
                     </tfoot>
@@ -101,5 +101,5 @@
         </div>
     </div>
 </div>
-    </div>
+</div>
 </div>

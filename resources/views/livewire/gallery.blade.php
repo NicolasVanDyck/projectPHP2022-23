@@ -1,8 +1,8 @@
 <div>
-    <div class="p-4 bg-[#F5F5F5]">
+    <div class="p-4">
         <div class="mb-4 flex items-center justify-between">
             <div class="mt-4 flex items-center text-black">
-                <label for="start-datepicker" class="block font-medium text-gray-700">Zoek op datum: </label>
+                <label for="start-datepicker" class="block font-medium text-white">Zoek op datum: </label>
                 <input type="date" id="start-datepicker" wire:model="date" class="form-control mt-1">
                 @if($date != null)
                     <x-button wire:click="resetDate()" class="ml-2">Toon alle foto's</x-button>
@@ -14,7 +14,7 @@
         </div>
         @foreach($grouptours as $gt)
             <div class="my-4">
-                <p class="text-black">
+                <p class="text-white">
                     Rit: {{$gt->tour->tour_name}} {{date('d/m/Y', strtotime($gt->start_date))}}</p>
             </div>
             <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">

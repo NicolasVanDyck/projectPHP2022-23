@@ -3,7 +3,7 @@
     <div class="flex justify-between flex-wrap">
         <!-- Groep Filter -->
         <div class="flex flex-col text-gray-800">
-            <label for="selectedGroup" class="mr-2">Groep:</label>
+            <label for="selectedGroup" class="mr-2 text-white">Groep:</label>
             <select id="selectedGroup" wire:model="selectedGroup"
                     class="border border-gray-300 rounded-lg px-4 py-2">
                 <option value="">Alles</option>
@@ -15,7 +15,7 @@
 
         <!-- Dag Filter -->
         <div class="flex flex-col text-gray-800">
-            <label for="selectedDay" class="mr-2">Dag:</label>
+            <label for="selectedDay" class="mr-2 text-white">Dag:</label>
             <select id="selectedDay" wire:model="selectedDay" class="border border-gray-300 rounded-lg px-4 py-2">
                 <option value="">Alles</option>
                 @foreach($days as $day)
@@ -26,9 +26,9 @@
 
         {{-- Filter op afstand --}}
         <div class="flex flex-col text-gray-800">
-            <h3 class="flex sm:mx-auto">Filter op afstand:</h3>
+            <h3 class="flex sm:mx-auto text-white">Filter op afstand:</h3>
             <div class="p-2 flex">
-                <label for="selectedDistance">Aantal kilometers:
+                <label for="selectedDistance" class="text-white">Aantal kilometers:
                     <output id="kilometerfilter" name="kilometerfilter">{{$selectedDistance}}</output>
                 </label>
                 <input type="range" class="accent-blue-400" id="selectedDistance" name="selectedDistance"
@@ -41,7 +41,7 @@
 
         {{-- Aantal ritten per pagina --}}
         <div class="flex flex-col text-gray-800">
-            <h3 class="flex">Per Page</h3>
+            <h3 class="flex text-white">Per Page</h3>
             <div class="flex">
                 <label for="perPage" value="perPage"/>
                 <select id="perPage" wire:model="perPage">
@@ -113,8 +113,8 @@
     {{--    Aangemelde Groeps ritten--}}
     @if($userTours->count() > 0)
         <div class="flex justify-center w-screen">
-            <div class="w-full max-w-3xl bg-white rounded-lg shadow-lg p-6">
-                <h1 class="text-2xl font-bold mb-4 text-gray-900 text-center">Geregistreerde Groeps ritten</h1>
+            <div class="w-full m-11 max-w-3xl bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-bold mb-4 text-center">Geregistreerde Groeps ritten</h1>
 
                 <div class="grid grid-cols-2 gap-4">
                     @foreach($userTours as $userTour)
