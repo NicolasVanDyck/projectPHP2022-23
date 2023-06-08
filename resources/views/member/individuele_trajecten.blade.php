@@ -4,9 +4,9 @@
         rijden
     </x-slot>
 
-    <div class='p-8'>
-        <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>INDIVIDUELE TRAJECTEN!</p>
-        <p class='text-[#7C7C80] font-[15px] mt-6'>Welkom op de website van de Wezel Drivers - de
+    <div class='p-8 text-white'>
+        <p class='font-bold text-[22px] leading-7 mb-1'>INDIVIDUELE TRAJECTEN!</p>
+        <p class='font-[15px] mt-6'>Welkom op de website van de Wezel Drivers - de
             fietsvereniging voor fietsers van alle niveaus in de regio Wezel. Onze vereniging is opgericht
             om de passie voor fietsen te delen en samen te genieten van de mooie fietsroutes in onze regio.
 
