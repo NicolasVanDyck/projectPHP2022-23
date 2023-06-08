@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MailController;
+use App\Http\Livewire\Member\MyOrder;
 use App\Mail\HelloMail;
 use Illuminate\Support\Facades\Route;
 use Laravel\Dusk\Http\Controllers\UserController;
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->prefix('member/')->group(function () {
     Route::get('kleding', function () {
         return view('member/kleding');
     })->name('kleding');
+    Route::get('kleding/mijn-bestelling', MyOrder::class)->name('mijn-bestelling'); // Livewire component
     Route::get('profile.show', function () {
         return view('profile.show');
     })->name('profile.show');
