@@ -95,8 +95,8 @@
                                 <x-button
                                     type="red"
                                     x-data=""
-                                    @click="confirm('Ben je zeker dat je wilt uitschrijven?') ? $wire.leaveTour('{{ $groupTour->id }}') : false"
-                                >Uitschrijven
+                                    wire:click="leaveTour('{{ $groupTour->id }}')">
+                                    Uitschrijven
                                 </x-button>
                             @else
                                 <x-button
