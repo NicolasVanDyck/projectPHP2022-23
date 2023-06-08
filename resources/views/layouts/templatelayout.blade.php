@@ -9,9 +9,9 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bg-[#073360]">
 <!--Hero-->
-<nav class="bg-[#0C090A]">
+<nav>
     @auth
         @if(Auth::user()->is_admin && str_contains(Request::url(), 'admin') )
             @livewire('layout.nav-bar-admin')
@@ -25,7 +25,7 @@
     @endguest
 
 </nav>
-<main class="border-t-2 border-blue-900 lg:border-none text-gray-800">
+<main>
     {{ $slot }}
 </main>
 <!--Footer-->

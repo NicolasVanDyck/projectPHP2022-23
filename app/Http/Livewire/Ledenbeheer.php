@@ -105,12 +105,12 @@ class Ledenbeheer extends Component
         \Mail::to($this->newUser['email'])
             ->send(new WelcomeMail($this->newUser['name'], $this->newUser['password']));
 
-        $this->showModal = false;
-
         $this->dispatchBrowserEvent('swal:toast', [
             'background' => 'success',
             'html' => "Gebruiker <b><i>{$this->newUser['name']}</i></b> werd succesvol toegevoegd!",
         ]);
+
+        $this->showModal = false;
     }
 
     public function setNewUser(User $user = null)
@@ -181,6 +181,7 @@ class Ledenbeheer extends Component
         $this->validate($this->rules, $this->messages);
 
         $user->update([
+            'id' => $this->newUser['id'],
             'name' => $this->newUser['name'],
             'username' => $this->newUser['username'],
             'birthdate' => $this->newUser['birthdate'],

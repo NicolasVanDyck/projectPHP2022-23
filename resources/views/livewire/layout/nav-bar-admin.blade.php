@@ -1,19 +1,11 @@
 <div class="mx-auto p-4 flex">
-    <div class="flex grow lg:grow-0 items-center mr-8 transition hover:scale-105 duration-1000">
-        {{-- Logo --}}
-            {{--            <img src="{{asset('icons/icons-32x32.png')}}" alt="Logo" />--}}
-        <h1>De Wezeldrivers</h1>
-    </div>
     @auth
-        <div class="flex flex-grow text-center space-x-4 hidden lg:block">
+        <div class="flex-grow text-center space-x-4 hidden lg:block">
             <x-nav-link href="{{ route('aanwezighedenbeheer') }}" :active="request()->routeIs('aanwezighedenbeheer')">
                 Aanwezighedenbeheer
             </x-nav-link>
             <x-nav-link href="{{ route('fotobeheer') }}" :active="request()->routeIs('fotobeheer')">
                 Fotobeheer
-            </x-nav-link>
-            <x-nav-link href="{{ route('galerijbeheer') }}" :active="request()->routeIs('galerijbeheer')">
-                Galerijbeheer
             </x-nav-link>
             <x-nav-link href="{{ route('kleding_bestellingen') }}" :active="request()->routeIs('kleding_bestellingen')">
                 Kleding bestellingen
@@ -43,11 +35,11 @@
                 </form>
             </x-nav-link>
         </div>
-    <div class="hidden lg:block">
-        <img class="rounded-full h-12 w-12"
-             src="{{ $avatar }}"
-             alt="{{ auth()->user()->name }}">
-    </div>
+        <div class="hidden lg:block">
+            <img class="rounded-full h-12 w-12"
+                 src="{{ $avatar }}"
+                 alt="{{ auth()->user()->name }}">
+        </div>
         <div class="lg:hidden">
             <x-dropdown align="right" width="48">
                 avatar
@@ -57,10 +49,10 @@
                          alt="{{ auth()->user()->name }}">
                 </x-slot>
                 <x-slot name="content">
-                    <div class="block px-4 py-2 text-xl border-b border-blue-800 text-blue-800">{{auth()->user()->name}}</div>
+                    <div
+                        class="block px-4 py-2 text-xl border-b border-blue-800 text-blue-800">{{auth()->user()->name}}</div>
                     <x-dropdown-link href="{{ route('aanwezighedenbeheer') }}">Aanwezighedenbeheer</x-dropdown-link>
                     <x-dropdown-link href="{{ route('fotobeheer') }}">Fotobeheer</x-dropdown-link>
-                    <x-dropdown-link href="{{ route('galerijbeheer') }}">Galerijbeheer</x-dropdown-link>
                     <x-dropdown-link href="{{ route('kleding_bestellingen') }}">Kleding bestellingen</x-dropdown-link>
                     <x-dropdown-link href="{{ route('kledingbeheer') }}">Kledingbeheer</x-dropdown-link>
                     <x-dropdown-link href="{{ route('ledenbeheer') }}">Ledenbeheer</x-dropdown-link>

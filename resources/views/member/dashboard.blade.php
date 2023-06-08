@@ -8,14 +8,21 @@
         <div class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
 
             <div class="flex-col justify-between pt-2 ">
-                <div class="mr-6 text-center">
-                    <h1 class="text-4xl font-semibold mb-2">Dashboard van {{auth()->user()->name}} </h1>
+                <div class="flex m-auto text-center p-4">
+                    <h1 class="text-white m-2">Welkom, {{auth()->user()->name}} !</h1>
                 </div>
-            </div>
-            <div class="flex">
-                <a href="{{ route('stravaAuthentication') }}"><img
-                        src="/assets/strava/btn_strava_connectwith_orange.png"
-                        alt="strava"></a>
+                <div class="flex m-auto text-center p-4">
+                    <p class="text-white w-[400px] mx-auto sm:m-0">
+                        Om je activiteiten te kunnen zien moet je eerst je Strava account koppelen.
+                        Klik op de onderstaande knop om je Strava account te koppelen.
+                    </p>
+                </div>
+                <div class="flex h-[200px]">
+                    <a class="flex m-auto sm:my-auto sm:ml-[100px]"
+                       href="{{ route('stravaAuthentication') }}"><img
+                            src="/assets/strava/btn_strava_connectwith_orange.png"
+                            alt="strava"></a>
+                </div>
             </div>
         </div>
     @else

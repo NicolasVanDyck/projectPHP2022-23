@@ -10,6 +10,7 @@ class MailController extends Controller
 {
     public function submitForm(Request $request)
     {
+        // validatie regels
         $customMessages = [
             'voornaam.required' => 'Het voornaam veld is verplicht.',
             'voornaam.min' => 'Het voornaam veld moet minimaal :min tekens bevatten.',
@@ -30,14 +31,17 @@ class MailController extends Controller
             'bericht' => 'required|min:10',
         ], $customMessages);
 
+        // data uit het formulier halen
         $voornaam = $request->input('voornaam');
         $achternaam = $request->input('achternaam');
         $email = $request->input('email');
         $dropdown = $request->input('dropdown');
         $bericht = $request->input('bericht');
 
+        // mail versturen
         Mail::to('hello@example.com')->send(new HelloMail($voornaam, $achternaam, $email,$dropdown ,$bericht));
 
+        // tonen van bedankt bericht
         return redirect()->back()->with('success', 'Email met succes verstuurd!');
     }
 }

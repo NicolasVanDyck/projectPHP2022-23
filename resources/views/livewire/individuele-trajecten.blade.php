@@ -2,7 +2,7 @@
     <div class="flex justify-between flex-wrap">
         <div class="flex flex-col text-gray-800">
             {{-- Filter op gebruiker --}}
-            <h3 class="flex">Filter op leden</h3>
+            <h3 class="flex text-white">Filter op leden</h3>
             <div class="flex">
                 <label for="user" value="user"/>
                 <select id="user" wire:model="user">
@@ -16,9 +16,9 @@
 
         {{-- Filter op afstand --}}
         <div class="flex flex-col text-gray-800">
-            <h3 class="flex sm:mx-auto">Filter op afstand:</h3>
+            <h3 class="flex sm:mx-auto text-white">Filter op afstand:</h3>
             <div class="p-2 flex">
-                <label for="afstand">Aantal kilometers:
+                <label for="afstand" class="text-white">Aantal kilometers:
                     <output id="kilometerfilter" name="kilometerfilter">{{round($afstand/1000)}}</output>
                 </label>
                 <input type="range" class="accent-orange-500" id="afstand" name="afstand" wire:model="afstand"
@@ -29,8 +29,8 @@
         </div>
 
         {{-- Aantal ritten per pagina --}}
-        <div class="flex flex-col text-gray-800">
-            <h3 class="flex">Per Page</h3>
+        <div class="flex flex-col">
+            <h3 class="flex text-white">Per Page</h3>
             <div class="flex">
                 <label for="perPage" value="perPage"/>
                 <select id="perPage" wire:model="perPage">

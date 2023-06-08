@@ -1,5 +1,4 @@
 <div class="mx-auto px-2 py-4 flex justify-between">
-    {{-- left navigation--}}
     <div class="relative space-x-5 pr-2">
         @guest
             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
@@ -13,15 +12,6 @@
             </x-nav-link>
         @endguest
     </div>
-
-    {{--    --}}{{-- right navigation--}}
-    {{--    <div class="flex w-[80px] transition hover:scale-105 duration-1000">--}}
-    {{--        --}}{{-- Logo--}}
-    {{--        <a href="{{ route('dashboard') }}">--}}
-    {{--            <img src="{{asset('assets/logo/favicon.png')}}" alt="Logo" class=""/>--}}
-    {{--        </a>--}}
-
-    {{--    </div>--}}
 </div>
 
 

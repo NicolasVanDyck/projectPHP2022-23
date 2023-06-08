@@ -21,6 +21,8 @@ class AdminAanwezigheden extends Component
             'group_tour_id' => $grouptourid,
             'tour_id' => $tourid,
         ]);
+
+        $this->reset('deelname');
     }
 
     public function deleteDeelname(UserTour $usertour)

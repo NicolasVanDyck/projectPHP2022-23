@@ -57,6 +57,9 @@ Route::middleware(['auth'])->prefix('member/')->group(function () {
     Route::get('profile.show', function () {
         return view('profile.show');
     })->name('profile.show');
+    Route::get('reset-password', function () {
+        return view('auth.reset-password');
+    })->name('reset-password');
 });
 
 //Voor de admins
@@ -67,9 +70,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('fotobeheer', function () {
         return view('admin/fotobeheer');
     })->name('fotobeheer');
-    Route::get('galerijbeheer', function () {
-        return view('admin/galerijbeheer');
-    })->name('galerijbeheer');
     Route::get('kleding_bestellingen', function () {
         return view('admin/kleding_bestellingen');
     })->name('kleding_bestellingen');

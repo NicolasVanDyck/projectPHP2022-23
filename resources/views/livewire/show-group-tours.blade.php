@@ -1,21 +1,7 @@
 <div class="text-black">
-    <!-- Successmelding weergeven als de sessievariabele 'success' bestaat -->
-    @if (session()->has('success'))
-        <div class="bg-green-200 text-green-800 text-center border-green-900 p-4 mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <!-- Foutmelding weergeven als de sessievariabele 'delete' bestaat -->
-    @if (session()->has('delete'))
-        <div class="bg-red-200 text-red-800 text-center p-4 mb-4">
-            {{ session('delete') }}
-        </div>
-    @endif
-
     <!-- Paginering weergeven als $groupTours een instantie is van LengthAwarePaginator -->
     <div class="mt-4">
-        @if ($groupTours instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        @if ($groupTours)
             {{ $groupTours->links() }}
         @endif
     </div>

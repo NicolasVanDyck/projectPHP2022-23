@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -76,11 +78,6 @@ class User extends Authenticatable
     public function usertours()
     {
         return $this->hasMany(UserTour::class);
-    }
-
-    public function presences()
-    {
-        return $this->hasMany(Presence::class);
     }
 
     public function gpxes()

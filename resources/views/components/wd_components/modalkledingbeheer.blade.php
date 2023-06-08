@@ -8,7 +8,7 @@
             @if($errors->any())
             @endif
             <div class="mt-2">
-                <x-label for="name" value="Naam"/>
+                <x-label for="newProduct.name" value="Naam"/>
                 <x-input id="newProduct.name" type="text" name="name" placeholder="naam"
                          wire:model.defer="newProduct.name"
                          required
@@ -16,7 +16,7 @@
                 <x-input-error for="newProduct.name" class="mt-2"/>
             </div>
             <div class="mt-2">
-                <x-label for="price" value="Prijs in €"/>
+                <x-label for="newProduct.price" value="Prijs in €"/>
                 <x-input id="newProduct.price" type="text" name="prijs"
                          placeholder="prijs in €"
                          wire:model.defer="newProduct.price" required autofocus
