@@ -1,4 +1,4 @@
-<div>
+<div class="text-black">
 
 {{--    Filter ledenbeheer op naam of gebruikersnaam --}}
     <section class="mb-4 flex gap-2 justify-evenly items-center bg-white">
