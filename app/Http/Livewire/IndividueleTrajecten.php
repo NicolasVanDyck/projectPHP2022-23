@@ -36,8 +36,6 @@ class IndividueleTrajecten extends Component
     {
         $gpx = GPX::where('path', $path)->first();
         $gpx->delete();
-        $tours = Tour::where('g_p_x_id', $gpx->id)->first();
-        $tours->delete();
         Storage::disk('public')->delete($path);
     }
 
