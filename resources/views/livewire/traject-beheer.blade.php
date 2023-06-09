@@ -21,9 +21,8 @@
                         </div>
                         <h1 class="text-xl font-bold mb-4 text-center" id="nested-modal-title">Selecteer hier de route</h1>
                         <p class="leading-relaxed" id="nested-modal-description">Hier vind je alle routes die voor de Wezeldrivers beschikbaar zijn</p>
-
+                        <!-- Itereer over de routes en toon ze in een grid -->
                         <div class="grid grid-cols-3 gap-4 mt-4">
-                            <!-- Itereer over de routes en toon ze in een grid -->
                             @foreach($routes as $route)
                                 <div class="bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-info-200"
                                      x-bind:class="{ 'bg-blue-200': {{ $route->id }} === selectedRoute }"

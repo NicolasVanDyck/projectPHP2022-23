@@ -47,6 +47,20 @@
         rounded-3xl shadow-xl overflow-hidden text-center p-4'>
                 <p>{{$contact->description}}</p>
             </div>
+        @elseif(str_contains(Request::url(), 'individuele_trajecten'))
+            <div class='mb-4 max-w-[70%] mx-auto bg-white
+        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+                <p>{{$individuele_trajecten->description}}</p>
+        @elseif(str_contains(Request::url(), 'kleding'))
+            <div class='mb-4 max-w-[70%] mx-auto bg-white
+        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+                <p>{{$kleding->description}}</p>
+            </div>
+                @elseif(str_contains(Request::url(), 'groep'))
+                    <div class='mb-4 max-w-[70%] mx-auto bg-white
+        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+                        <p>{{$groep->description}}</p>
+                    </div>
         @else
 {{--            Uitsluiten, anders toont hij deze nog eens op de admin ook--}}
             @if(str_contains(Request::url(), 'admin'))

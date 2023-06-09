@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 
 use App\Models\GPX;
+use App\Models\Tour;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -43,6 +44,10 @@ class UploadZone extends Component
                     'route' => $this->loadGpx($path)->tracks[0]->segments[0]->points,
                     'amount_of_km' => $this->loadGpx($path)->tracks[0]->segments[0]->stats->distance,
                     'name' => $this->loadGpx($path)->tracks[0]->name,
+                ]);
+                $gpx_id = GPX::where('path', $path)->pluck('id');
+                Tour::create([
+                    'g_p_x_id' => $gpx_id[0],
                 ]);
             }
         }

@@ -114,8 +114,8 @@
             </x-button>
         @endif
 
-        <x-button bgcolor="rood" wire:click="toggleModal()">
-            Verlaten
+        <x-button type="red" wire:click="toggleModal()">
+            Annuleren
         </x-button>
     </x-slot>
 </x-dialog-modal>

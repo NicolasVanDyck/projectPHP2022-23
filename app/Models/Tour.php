@@ -10,6 +10,11 @@ class Tour extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'g_p_x_id',
+    ];
+    protected $appends = ['tour_name'];
+
     public function tourable()
     {
         return $this->morphTo();
@@ -31,6 +36,4 @@ class Tour extends Model
             get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
         );
     }
-
-    protected $appends = ['tour_name'];
 }

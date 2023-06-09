@@ -31,10 +31,8 @@
             <thead>
             <tr class="text-left w-screen">
                 <th class="text-base p-2 w-1/6">Activiteit</th>
-                {{--                <th class="text-base p-2 hidden md:table-cell w-3/6">Beschrijving</th>--}}
                 <th class="text-base p-2 w-1/6">Startdatum</th>
                 <th class="text-base p-2 w-1/6">Starttijd</th>
-                {{--                <th class="text-base p-2 hidden md:table-cell w-1/6">Einddatum</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -42,10 +40,8 @@
                 <tr class="p-2 @if($loop->even) even:bg-gray-100 @else odd:bg-gray-200 @endif"
                     x-on:click="isOpen = true; modalTitle = '{{ $activity->name }}'; modalDescription = '{{ $activity->description }}'">
                     <td class="p-2">{{ $activity->name }}</td>
-                    {{--                    <td class="p-2 hidden md:table-cell">{{ $activity->description }}</td>--}}
                     <td class="p-2">{{ date('d-m-Y', strtotime($activity->start_date)) }}</td>
                     <td class="p-2">{{ date('H:i', strtotime($activity->start_date)) }}</td>
-                    {{--                    <td class="p-2 hidden md:table-cell">{{ date('d-m-Y', strtotime($activity->end_date)) }}</td>--}}
                 </tr>
             @empty
                 <tr>

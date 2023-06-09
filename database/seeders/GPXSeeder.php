@@ -13,6 +13,8 @@ class GPXSeeder extends Seeder
      */
     public function run(): void
     {
-        GPX::factory(3)->create();
+//        GPX::factory(3)->create();
+
+
     }
 }

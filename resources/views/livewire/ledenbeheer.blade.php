@@ -15,8 +15,8 @@
     </section>
 
 
-    <div>
-        <table class="text-center border border-gray-300 mx-auto w-[95%] mb-4">
+    <div class="mb-4">
+        <table class="text-center border border-gray-300 mx-auto w-[95%]">
             <thead>
             <tr class="[&>th]:p-2 cursor-pointer bg-white">
                 <th wire:click="resort('name')">Naam</th>
@@ -24,9 +24,8 @@
                 <th wire:click="resort('birthdate')"class="xs:hidden lg:table-cell">Verjaardag</th>
                 <th wire:click="resort('email')"class="xs:hidden md:table-cell">E-mail</th>
                 <th wire:click="resort('postal_code')" class="xs:hidden xl:table-cell">Postcode</th>
-                <th wire:click="resort('city')" class="xs:hidden xl:table-cell">Woonplaats</th>
-                <th wire:click="resort('address')" class="xs:hidden xl:table-cell">Adres</th>
-                {{--Hidden, omdat anders niet alles op 1 scherm kan?--}}
+                <th wire:click="resort('city')" class="xs:hidden  xl:table-cell">Woonplaats</th>
+                <th wire:click="resort('address')" class="xs:hidden  xl:table-cell">Adres</th>
                 <th wire:click="resort('phone_number')" class="xs:hidden 2xl:table-cell">Telefoonnummer</th>
                 <th wire:click="resort('mobile_number')" class="xs:hidden 2xl:table-cell">GSM</th>
                 <th></th>
@@ -49,7 +48,7 @@
                 </div>
             @else
             @foreach($users as $user)
-                <tr class="border-t border-gray-300 [&>td]:p-2 hover:bg-grey text-black"
+                <tr class="border-t border-gray-300 [&>td]:p-2 bg-white hover:bg-blue-200"
                 wire:key="user_{{$user->id}}">
                     <td>{{$user->name}}</td>
                     <td class="xs:hidden lg:table-cell">{{$user->username}}</td>
@@ -58,13 +57,12 @@
                     <td class="xs:hidden xl:table-cell">{{$user->postal_code}}</td>
                     <td class="xs:hidden xl:table-cell">{{$user->city}}</td>
                     <td class="xs:hidden xl:table-cell">{{$user->address}}</td>
-                    {{--Hidden, anders alles niet op 1 scherm? --}}
                     <td class="xs:hidden 2xl:table-cell">{{$user->phone_number}}</td>
                     <td class="xs:hidden 2xl:table-cell">{{$user->mobile_number}}</td>
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
+                            <x-heroicon-m-pencil class="w-5 h-5 hover:fill-green-500 ml-2" wire:click="setNewUser({{$user->id}})"/>
                             {{--Om ervoor te zorgen dat admins niet rechtstreeks andere admins kunnen verwijderen!--}}
-                            <x-heroicon-m-pencil class="w-5 h-5 hover:fill-blue-500 ml-2" wire:click="showUser({{ $user }})"/>
                             @if($user->is_admin != 1)
                                 <x-heroicon-m-trash
                                         x-data=""

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\GPX;
+use App\Models\Tour;
 use App\Models\User;
 use Livewire\Component;
 use Storage;
@@ -35,6 +36,8 @@ class IndividueleTrajecten extends Component
     {
         $gpx = GPX::where('path', $path)->first();
         $gpx->delete();
+        $tours = Tour::where('g_p_x_id', $gpx->id)->first();
+        $tours->delete();
         Storage::disk('public')->delete($path);
     }
 
