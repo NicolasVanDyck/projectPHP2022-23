@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content={{  $description ?? 'BasisDescription' }}>
     <title>{{  $title ?? 'BasisTitel' }}</title>
-    <link rel="icon" href="{{asset('assets/logo/favicon.png')}}" type="icon"/>
+    <link rel="icon" href="{{asset('assets/logo/Logo WZD.png')}}" type="icon"/>
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

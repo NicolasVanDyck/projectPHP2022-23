@@ -1,4 +1,17 @@
 <div class="text-black">
+    @if($images->isEmpty())
+        <div class="container flex mx-auto my-2">
+            <div class="bg-white mx-auto max-w-md shadow-2xl rounded-2xl">
+                <p class="text-center justify-center p-4">
+                    Er kunnen geen foto's met deze criteria gevonden worden.
+                    Mogelijk is er nog geen foto geüpload die hieraan voldoet.
+                </p>
+                <div class="flex justify-center">
+                    <x-button wire:click="resetTour" class="mb-2">Ga terug</x-button>
+                </div>
+            </div>
+        </div>
+    @else
     <div class="bg-white mb-4 py-6 sm:py-8 lg:py-12 shadow-xl rounded-lg bg-slate-100/20">
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
             <div class="flex flex-col lg:flex-row justify-between">
@@ -128,6 +141,7 @@
                 <x-button class="mb-2" type="submit">Save Images</x-button>
             </form>
     </div>
+    @endif
     @include('components.wd_components.modalfotobeheer')
 </div>
 

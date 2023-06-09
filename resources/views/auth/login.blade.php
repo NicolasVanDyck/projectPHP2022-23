@@ -1,4 +1,8 @@
 <x-templatelayout>
+
+    <x-slot name="title">Login</x-slot>
+    <x-slot name="description">Loginpagina van de Wezeldrivers</x-slot>
+
     <div class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
         <div class="h-screen pt-20 md:w-1/2">
             <x-authentication-card>

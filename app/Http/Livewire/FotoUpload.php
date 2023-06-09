@@ -75,6 +75,11 @@ class FotoUpload extends Component
         'newImage.path.unique' => 'Het pad naar deze foto bestaat al. Je geeft je foto best een andere naam.',
     ];
 
+    public function resetTour()
+    {
+        $this->type = 1;
+    }
+
     public function saveImage()
     {
         $this->validate([
