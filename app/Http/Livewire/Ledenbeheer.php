@@ -193,7 +193,6 @@ class Ledenbeheer extends Component
             'mobile_number' => $this->newUser['mobile_number'],
             'is_admin' => $this->newUser['is_admin'],
         ]);
-        $this->showModal = false;
 
         $this->dispatchBrowserEvent('swal:toast', [
             'background' => 'success',
