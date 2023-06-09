@@ -1,5 +1,8 @@
 <div class="flex justify-between">
     @auth
+        <div class="h-12 w-12 m-2" name="logo">
+            <img src="{{ asset('assets/logo/Logo WZD.png') }}" alt="Logo" width="200" height="200">
+        </div>
         <div class="px-2 py-4 flex justify-between">
             <div class="hidden ml-2 lg:flex relative space-x-5 pr-2">
             <x-nav-link href="{{ route('aanwezighedenbeheer') }}" :active="request()->routeIs('aanwezighedenbeheer')">
@@ -34,15 +37,16 @@
                     </button>
                 </form>
             </x-nav-link>
+            </div>
         </div>
-        </div>
+
         <div class="hidden lg:block m-2">
             <img class="rounded-full h-12 w-12"
                  src="{{ $avatar }}"
                  alt="{{ auth()->user()->name }}">
         </div>
-        <div class="lg:hidden">
-            <x-dropdown align="right" width="48">
+        <div class="lg:hidden flex">
+            <x-dropdown width="48">
                 avatar
                 <x-slot name="trigger">
                     <img class="m-2 rounded-full h-12 w-12 cursor-pointer"

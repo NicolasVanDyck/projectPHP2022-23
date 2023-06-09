@@ -1,4 +1,4 @@
-<div class="w-[400px] mx-auto bg-white rounded-xl">
+<div class="w-[90%] sm:w-[400px] mx-auto bg-white rounded-xl">
     <div class="mx-auto px-5">
         <div class="flex justify-center items-center">
             {{ $logo }}

@@ -1,3 +1,3 @@
 <a href="/">
-    <img src="{{ asset('assets/logo/Logo WZD.png') }}" alt="Logo" width="200" height="200">
+    <img src="{{ asset('assets/logo/Logo WZD.png') }}" alt="Logo" width=160 height="160">
 </a>
