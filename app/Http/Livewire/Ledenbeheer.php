@@ -236,6 +236,11 @@ class Ledenbeheer extends Component
         $this->orderBy = $column;
     }
 
+    public function resetSearch()
+    {
+        $this->search = '';
+    }
+
     public function render()
     {
         $users = User::orderBy('is_admin', 'desc')

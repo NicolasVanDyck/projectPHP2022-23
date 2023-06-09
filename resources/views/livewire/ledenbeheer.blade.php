@@ -15,7 +15,7 @@
     </section>
 
 
-    <div class="mb-3">
+    <div class="mb-4">
         <table class="text-center border border-gray-300 mx-auto w-[95%]">
             <thead>
             <tr class="[&>th]:p-2 cursor-pointer bg-white">
@@ -34,6 +34,19 @@
             </thead>
             <tbody>
 
+            @if($users->isEmpty())
+                <div class="container flex mx-auto my-2">
+                    <div class="bg-white mx-auto max-w-md shadow-2xl rounded-2xl">
+                        <p class="text-center justify-center p-4">
+                            Er kunnen geen users met de naam/gebruikersnaam {{$search}} gevonden worden.
+                            Mogelijk heeft u een spelfout gemaakt.
+                        </p>
+                        <div class="flex justify-center">
+                            <x-button wire:click="resetSearch" class="mb-2">Ga terug</x-button>
+                        </div>
+                    </div>
+                </div>
+            @else
             @foreach($users as $user)
                 <tr class="border-t border-gray-300 [&>td]:p-2 bg-white hover:bg-blue-200"
                 wire:key="user_{{$user->id}}">
@@ -74,6 +87,7 @@
                     @endif
                 </tr>
             @endforeach
+            @endif
             </tbody>
         </table>
     </div>
