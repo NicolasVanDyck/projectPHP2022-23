@@ -26,7 +26,7 @@
                             @foreach($routes as $route)
                                 <div class="bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-info-200"
                                      x-bind:class="{ 'bg-blue-200': {{ $route->id }} === selectedRoute }"
-                                     x-on:click="$wire.selectRoute({{ $route->id }}, '{{ $route->km }}')">
+                                     x-on:click="$wire.selectRoute({{ $route->id }}, '{{ $route->amount_of_km }}')">
                                     <h2 class="text-lg font-bold">{{ $route->name }}</h2>
                                     <p>{{ $route->amount_of_km }} km</p>
                                 </div>
