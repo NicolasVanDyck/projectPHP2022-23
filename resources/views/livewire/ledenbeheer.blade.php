@@ -24,8 +24,8 @@
                 <th wire:click="resort('birthdate')"class="xs:hidden lg:table-cell">Verjaardag</th>
                 <th wire:click="resort('email')"class="xs:hidden md:table-cell">E-mail</th>
                 <th wire:click="resort('postal_code')" class="xs:hidden xl:table-cell">Postcode</th>
-                <th wire:click="resort('city')" class="xs:hidden  xl:table-cell">Woonplaats</th>
-                <th wire:click="resort('address')" class="xs:hidden  xl:table-cell">Adres</th>
+                <th wire:click="resort('city')" class="xs:hidden xl:table-cell">Woonplaats</th>
+                <th wire:click="resort('address')" class="xs:hidden xl:table-cell">Adres</th>
                 {{--Hidden, omdat anders niet alles op 1 scherm kan?--}}
                 <th wire:click="resort('phone_number')" class="xs:hidden 2xl:table-cell">Telefoonnummer</th>
                 <th wire:click="resort('mobile_number')" class="xs:hidden 2xl:table-cell">GSM</th>

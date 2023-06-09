@@ -1,6 +1,7 @@
-<div class="mx-auto p-4 flex">
+<div class="flex justify-between">
     @auth
-        <div class="flex-grow text-center space-x-4 hidden lg:block">
+        <div class="px-2 py-4 flex justify-between">
+            <div class="hidden ml-2 lg:flex relative space-x-5 pr-2">
             <x-nav-link href="{{ route('aanwezighedenbeheer') }}" :active="request()->routeIs('aanwezighedenbeheer')">
                 Aanwezighedenbeheer
             </x-nav-link>
@@ -25,17 +26,17 @@
             <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 Dashboard
             </x-nav-link>
-            <x-nav-link class="mr-8">
+            <x-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit"
-                            class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">
+                    <button class="text-red-500">
                         Logout
                     </button>
                 </form>
             </x-nav-link>
         </div>
-        <div class="hidden lg:block">
+        </div>
+        <div class="hidden lg:block m-2">
             <img class="rounded-full h-12 w-12"
                  src="{{ $avatar }}"
                  alt="{{ auth()->user()->name }}">
@@ -44,7 +45,7 @@
             <x-dropdown align="right" width="48">
                 avatar
                 <x-slot name="trigger">
-                    <img class="rounded-full h-8 w-8 cursor-pointer"
+                    <img class="m-2 rounded-full h-12 w-12 cursor-pointer"
                          src="{{ $avatar }}"
                          alt="{{ auth()->user()->name }}">
                 </x-slot>
@@ -62,7 +63,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                                class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">
+                                class="block text-red-500 w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">
                             Logout
                         </button>
                     </form>

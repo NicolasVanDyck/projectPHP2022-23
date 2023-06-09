@@ -1,7 +1,7 @@
 <div class="flex justify-between">
     @auth
         <div class="px-2 py-4 flex justify-between">
-            <div class="hidden lg:flex relative space-x-5 pr-2">
+            <div class="hidden ml-2 lg:flex relative space-x-5 pr-2">
                 <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     Dashboard
                 </x-nav-link>
@@ -45,7 +45,7 @@
             <x-dropdown align="right" width="48" class="m-2">
                 avatar
                 <x-slot name="trigger">
-                    <img class="rounded-full h-12 w-12 m-2 cursor-pointer"
+                    <img class="m-2 rounded-full h-12 w-12 m-2 cursor-pointer"
                          src="{{ $avatar }}"
                          alt="{{ auth()->user()->name }}">
                 </x-slot>
@@ -65,7 +65,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                                class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">
+                                class="block w-full text-red-500 text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">
                             Logout
                         </button>
                     </form>

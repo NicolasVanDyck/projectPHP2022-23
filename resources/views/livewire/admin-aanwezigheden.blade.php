@@ -1,4 +1,4 @@
-<div class="bg-blue-400 p-4">
+<div class="bg-[#073360] p-4">
     @if($grouptours->isEmpty())
         <div class="container flex">
             <div class="bg-white mx-auto max-w-md shadow-2xl rounded-2xl">
@@ -12,7 +12,7 @@
         </div>
     @else
     <div class="flex sm:justify-around md:justify-center items-center">
-        <h3 class="mx-2 my-4">Kies de rit die je wil beheren:</h3>
+        <h3 class="mx-2 my-4 text-white">Kies de rit die je wil beheren:</h3>
         <label for="grouptour" value="grouptour"/>
         <select class="mr-2" id="grouptour" wire:model="grouptour">
             @foreach($grouptourdropdowns as $g)
@@ -53,7 +53,7 @@
                             @endforeach
                         </div>
                         <div class="flex justify-evenly mt-2">
-                            <select id="deelname" wire:model="deelname" class="w-2/3">
+                            <select id="deelname" wire:model="deelname" class="w-2/3 mb-4">
                                 <option value="">Voeg een deelnemer toe</option>
                                 @foreach($users as $user)
                                     @if(!in_array($user->id, $grouptour->usertours->pluck('user_id')->toArray()))
