@@ -1,4 +1,8 @@
 <x-templatelayout>
+
+    <x-slot name="title">Profiel</x-slot>
+    <x-slot name="description">Pas hier je profielgegevens aan</x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profiel') }}

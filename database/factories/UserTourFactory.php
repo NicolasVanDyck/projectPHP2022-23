@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
 use App\Models\GroupTour;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserTour;

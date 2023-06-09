@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\GPX;
+use App\Models\Tour;
 use App\Models\GroupTour;
 use Livewire\Component;
 use App\Models\Group;

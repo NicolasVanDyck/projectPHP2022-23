@@ -16,9 +16,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ImageSeeder::class);
         $this->call(UserTourSeeder::class);
+
+        // TODO add more seeders here...
         $this->call(ActivitySeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(OrderSeeder::class);
         $this->call(TextSeeder::class);
+        $this->call(GPXSeeder::class);
     }
 }

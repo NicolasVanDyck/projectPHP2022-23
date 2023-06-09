@@ -6,7 +6,7 @@
     <x-slot name="content">
         <div class="relative flex-auto p-4">
 {{--            Aanpassen van info      --}}
-            <div>
+            <div class="mb-2">
                 <x-label for="newImage.name" value="Naam"/>
                 <x-input id="newImage.name" type="text" name="name" placeholder="naam"
                          wire:model.defer="newImage.name"
@@ -14,7 +14,7 @@
                          autofocus autocomplete="name" class="block mt-1 w-full"/>
                 <x-input-error for="newImage.name" class="mt-2"/>
             </div>
-            <div>
+            <div class="mb-2">
                 <x-label for="newImage.description" value="Omschrijving"/>
                 <x-input id="newImage.description" type="text" name="description"
                          placeholder="Omschrijving"
@@ -24,7 +24,7 @@
                 <x-input-error for="newImage.description" class="mt-2"/>
             </div>
 
-            <div>
+            <div class="mb-2">
                 <x-label for="newImage.image_type_id" value="Type afbeelding"/>
                 <select id="newImage.image_type_id" type="integer" name="image_type_id"
                         placeholder="Type afbeelding"
@@ -39,7 +39,7 @@
                 <x-input-error for="newImage.image_type_id" class="mt-2"/>
             </div>
                 @if($newImage['image_type_id'] == 1)
-                <div>
+                <div class="mb-2">
                     <x-label for="newImage.tour_id" value="Tour"/>
                     <select id="newImage.tour_id" type="integer" name="tour_id"
                             placeholder="Tour"
@@ -54,8 +54,8 @@
                     {{--                In principe triggert dit nooit, want je moet een keuze maken    --}}
                     <x-input-error for="newImage.tour_id" class="mt-2"/>
                 </div>
-                <div>
-                    <x-label for="newImage.in_carousel" value="Tonen op homepagina?"/>
+                <div class="flex flex-row">
+                    <x-label class="mr-2" for="newImage.in_carousel" value="Tonen op homepagina?"/>
                     <x-checkbox id="newImage.in_carousel" type="checkbox"
                                 wire:model="newImage.in_carousel"
                                 autocomplete="off" class="block mt-1"/>
@@ -68,9 +68,9 @@
             <x-button
                     wire:click="updateImage('{{$newImage['id']}}')"
                     wire:loading.attr="disabled"
-                    class="ml-2">Aanpassingen opslaan
+                    class="mr-2">Aanpassingen opslaan
             </x-button>
-        <x-button bgcolor="rood" @click="show = false">
+        <x-button type="red" @click="show = false">
             Verlaten</x-button>
     </x-slot>
 </x-dialog-modal>
