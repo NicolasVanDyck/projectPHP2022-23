@@ -6,7 +6,7 @@
                 <div class="p-2 flex flex-wrap h-full">
                     <img class="object-contain mix-blend-multiply max-w-[100px] h-[70px]"
                          src="{{ asset($image->path) }}"
-                         alt="{{$image->description}}">
+                         alt="{{ $image->description }}">
                 </div>
             </div>
         @endforeach
