@@ -51,7 +51,10 @@ class Texts extends Component
         $texts = Text::orderBy('id')->get();
         $home = Text::where('id', 1)->first();
         $contact = Text::where('id', 2)->first();
+        $individuele_trajecten = Text::where('id', 3)->first();
+        $kleding = Text::where('id', 4)->first();
+        $groep = Text::where('id', 5)->first();
 
-        return view('livewire.admin.texts', compact('texts', 'home','contact'));
+        return view('livewire.admin.texts', compact('texts', 'home','contact','individuele_trajecten','kleding','groep'));
     }
 }
