@@ -12,8 +12,7 @@ return new class extends Migration {
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('g_p_x_id')->nullable(false)->unsigned();
-            $table->foreign('g_p_x_id')->references('id')->on('g_p_x_e_s')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('g_p_x_id')->constrained('g_p_x_e_s')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
