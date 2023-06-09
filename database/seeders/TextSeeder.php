@@ -32,7 +32,7 @@ class TextSeeder extends Seeder
         ]);
 
         Text::factory()->create([
-            'location' => 'kleiding',
+            'location' => 'kleding',
             'description' => 'Op deze pagina vindt u een overzicht van de beschikbare kledingstukken.
              U kunt het gewenste kledingstuk selecteren en de gewenste maat kiezen. Klik vervolgens op de knop "Bestellen".'
         ]);
