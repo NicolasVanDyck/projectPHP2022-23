@@ -5,8 +5,10 @@
 
     @foreach($orders as $order)
         <div>
-            @dd($order)
-            {{ $order}}
+{{--            @dd($order)--}}
+{{--            {{ $order}}--}}
         </div>
     @endforeach
+
+    {{ $products }}
 </div>
