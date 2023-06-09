@@ -6,6 +6,7 @@ use Database\Seeders\ImageSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\UserTourSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Tests\TestCase;
 
 class AllSeedersTest extends TestCase
