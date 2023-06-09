@@ -112,7 +112,7 @@
             </x-button>
         @endif
 
-        <x-button bgcolor="rood" @click="show = false">
+        <x-button type="red" @click="show = false">
             Annuleren </x-button>
     </x-slot>
 </x-dialog-modal>

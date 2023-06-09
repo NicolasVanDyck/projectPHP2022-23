@@ -9,7 +9,7 @@
 
             <div class="flex-col justify-between pt-2 ">
                 <div class="flex m-auto text-center p-4">
-                    <h1 class="text-white m-2">Welkom, {{auth()->user()->name}} !</h1>
+                    <h1 class="text-white m-2">Welkom, {{auth()->user()->name}}!</h1>
                 </div>
                 <div class="flex m-auto text-center p-4">
                     <p class="text-white w-[400px] mx-auto sm:m-0">
