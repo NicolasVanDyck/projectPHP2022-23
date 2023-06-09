@@ -113,28 +113,28 @@ class Ledenbeheer extends Component
         $this->showModal = false;
     }
 
-//    public function setNewUser(User $user = null)
-//    {
-//        $this->showModal = true;
-//
-//        $this->resetErrorBag();
-//        if($user) {
-//            $this->newUser['id'] = $user->id;
-//            $this->newUser['name'] = $user->name;
-//            $this->newUser['username'] = $user->username;
-//            $this->newUser['birthdate'] = $user->birthdate;
-//            $this->newUser['email'] = $user->email;
-//            $this->newUser['postal_code'] = $user->postal_code;
-//            $this->newUser['city'] = $user->city;
-//            $this->newUser['address'] = $user->address;
-//            $this->newUser['phone_number'] = $user->phone_number;
-//            $this->newUser['mobile_number'] = $user->mobile_number;
-//            $this->newUser['password'] = $user->password;
-//            $this->newUser['is_admin'] = $user->is_admin;
-//        } else {
-//            $this->reset('newUser');
-//        }
-//    }
+    public function setNewUser(User $user = null)
+    {
+        $this->showModal = true;
+
+        $this->resetErrorBag();
+        if($user) {
+            $this->newUser['id'] = $user->id;
+            $this->newUser['name'] = $user->name;
+            $this->newUser['username'] = $user->username;
+            $this->newUser['birthdate'] = $user->birthdate;
+            $this->newUser['email'] = $user->email;
+            $this->newUser['postal_code'] = $user->postal_code;
+            $this->newUser['city'] = $user->city;
+            $this->newUser['address'] = $user->address;
+            $this->newUser['phone_number'] = $user->phone_number;
+            $this->newUser['mobile_number'] = $user->mobile_number;
+            $this->newUser['password'] = $user->password;
+            $this->newUser['is_admin'] = $user->is_admin;
+        } else {
+            $this->reset('newUser');
+        }
+    }
 
 //    Pagination updaten
 
