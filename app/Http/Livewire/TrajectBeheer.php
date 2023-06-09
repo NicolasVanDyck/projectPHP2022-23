@@ -30,7 +30,7 @@ class TrajectBeheer extends Component
     public function render()
     {
         $groups = Group::pluck('group', 'id')->toArray();
-        $routes = Tour::all();
+        $routes = GPX::all();
         $groupTours = GroupTour::with(['group', 'tour'])->get();
 
         return view('livewire.traject-beheer', compact('groups', 'routes', 'groupTours'));
