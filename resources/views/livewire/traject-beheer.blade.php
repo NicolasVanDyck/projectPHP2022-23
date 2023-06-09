@@ -28,7 +28,7 @@
                                      x-bind:class="{ 'bg-blue-200': {{ $route->id }} === selectedRoute }"
                                      x-on:click="$wire.selectRoute({{ $route->id }}, '{{ $route->km }}')">
                                     <h2 class="text-lg font-bold">{{ $route->name }}</h2>
-                                    <p>{{ $route->km }} km</p>
+                                    <p>{{ $route->amount_of_km }} km</p>
                                 </div>
                             @endforeach
                         </div>
