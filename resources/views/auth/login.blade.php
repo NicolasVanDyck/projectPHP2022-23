@@ -7,7 +7,9 @@
         <div class="h-screen pt-20 md:w-1/2">
             <x-authentication-card>
                 <x-slot name="logo">
-                    <x-authentication-card-logo/>
+                    <div class="mt-4">
+                        <x-authentication-card-logo/>
+                    </div>
                 </x-slot>
 
                 <x-validation-errors class="mb-4"/>

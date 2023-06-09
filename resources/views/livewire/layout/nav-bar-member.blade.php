@@ -1,5 +1,8 @@
 <div class="flex justify-between">
     @auth
+        <div class="h-12 w-12 m-2" name="logo">
+            <x-authentication-card-logo />
+        </div>
         <div class="px-2 py-4 flex justify-between">
             <div class="hidden ml-2 lg:flex relative space-x-5 pr-2">
                 <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
