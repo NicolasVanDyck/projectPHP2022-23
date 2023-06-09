@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\GPX;
+use App\Models\Tour;
 use App\Models\GroupTour;
 use Livewire\Component;
 use App\Models\Group;
@@ -29,7 +30,7 @@ class TrajectBeheer extends Component
     public function render()
     {
         $groups = Group::pluck('group', 'id')->toArray();
-        $routes = GPX::all();
+        $routes = Tour::all();
         $groupTours = GroupTour::with(['group', 'tour'])->get();
 
         return view('livewire.traject-beheer', compact('groups', 'routes', 'groupTours'));
