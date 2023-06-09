@@ -16,7 +16,7 @@
 
 
     <div>
-        <table class="text-center border border-gray-300 mx-auto w-[95%]">
+        <table class="text-center border border-gray-300 mx-auto w-[95%] mb-4">
             <thead>
             <tr class="[&>th]:p-2 cursor-pointer bg-white">
                 <th wire:click="resort('name')">Naam</th>
