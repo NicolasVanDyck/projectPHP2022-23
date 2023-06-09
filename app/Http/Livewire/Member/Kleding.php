@@ -197,6 +197,22 @@ class Kleding extends Component
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
     }
 
+    /**
+     * Checks if auth user has orders
+     *
+     * @return bool
+     */
+    public function hasOrders(): bool
+    {
+        return Order::where('user_id', auth()->user()->id)->exists();
+    }
+
+
+    public function redirectToMyOrder()
+    {
+        return redirect()->route('mijn-bestelling');
+    }
+
 
     public function render()
     {

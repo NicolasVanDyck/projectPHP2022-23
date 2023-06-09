@@ -5,6 +5,23 @@
         <h2 class="flex-grow text-center pb-2 text-white">Plaats hier uw bestelling</h2>
         {{--        <td>{{ $parameter->end_date_order }}</td>--}}
     </div>
+
+    {{--Link to kleding/mijn-bestelling if the use already has an order in the Orders table--}}
+    @if( $this->hasOrders() )
+        <div class="flex mb-10 mt-4">
+            <div class="lg:mx-auto flex flex-row ">
+                <h4 class="text-center pb-2 text-white m-2">U heeft al een bestelling geplaatst. Pas deze hier aan:</h4>
+
+                {{--A button --}}
+                <x-button
+                    class="text-center pb-2 text-white m-2"
+                    wire:click="redirectToMyOrder">
+                    Mijn bestelling
+                </x-button>
+            </div>
+        </div>
+    @endif
+
     <div class="flex">
         <div class="lg:mx-auto">
             <form wire:submit.prevent="submitForm">
@@ -100,6 +117,4 @@
             </form>
         </div>
     </div>
-</div>
-</div>
 </div>

@@ -252,6 +252,7 @@ class Kledingbeheer extends Component
         $this->sizes = Size::all();
     }
 
+
     /**
      * Sorts the table by the given field.
      *
