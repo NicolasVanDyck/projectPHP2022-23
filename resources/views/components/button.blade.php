@@ -8,7 +8,7 @@
 
     $options = [
         'sky-blue' => 'bg-[#5e9ad7] border-blue-200 hover:bg-blue-400',
-        'red' => 'bg-danger-500 border-red-200 hover:bg-danger-600',
+        'red' => 'bg-red-600 border-red-200',
         'gray' => 'bg-gray-500 border-gray-200 hover:bg-gray-600'
     ];
 

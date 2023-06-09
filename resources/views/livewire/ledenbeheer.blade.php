@@ -49,6 +49,7 @@
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
                             <x-heroicon-m-pencil class="w-5 h-5 hover:fill-green-500 ml-2" wire:click="setNewUser({{$user->id}})"/>
+                            {{--Om ervoor te zorgen dat admins niet rechtstreeks andere admins kunnen verwijderen!--}}
                             @if($user->is_admin != 1)
                                 <x-heroicon-m-trash
                                         x-data=""
@@ -74,10 +75,9 @@
                 </tr>
             @endforeach
             </tbody>
-
         </table>
-
     </div>
-@include('components.wd_components.modalledenbeheer')
+
+    @include('components.wd_components.modalledenbeheer')
 </div>
 

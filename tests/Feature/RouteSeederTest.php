@@ -11,6 +11,9 @@ class RouteSeederTest extends TestCase
 {
     use RefreshDatabase;
 
+    // Reset the testdatabase:
+
+
     /**
      * Runs the RouteSeeder before each test.
      */

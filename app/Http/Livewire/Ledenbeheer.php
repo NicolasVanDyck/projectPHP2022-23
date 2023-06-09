@@ -35,23 +35,20 @@ class Ledenbeheer extends Component
         'is_admin' => false,
     ];
 
-
-// Validation rules
-    protected function rules()
-    {
-        return [
+    // Validation rules
+    protected $rules = [
             'newUser.name' => 'required|string|max:255',
-            'newUser.username' => 'required|alpha_dash|max:255|unique:users,username,' . $this->newUser['id'],
+            'newUser.username' => 'required|alpha_dash|max:255|unique:users,username,',
             'newUser.birthdate' => 'required',
-            'newUser.email' => 'required|email|max:255|unique:users,email,' . $this->newUser['id'],
+//            'newUser.email' => 'required|email|max:255|unique:users,email,',
+            // Write regex for email
+            'newUser.email' => 'required|email|max:255|unique:users,email,',
             'newUser.postal_code' => 'required|digits:4',
             'newUser.city' => 'required|string|max:255',
             'newUser.address' => 'required|string|max:255',
             'newUser.phone_number' => 'nullable|digits:9',
             'newUser.mobile_number' => 'nullable|digits:10',
-            'newUser.password' => 'required|min:8',
         ];
-    }
 
 // Validation messages
     protected $messages = [
@@ -70,8 +67,18 @@ class Ledenbeheer extends Component
         'newUser.postal_code.digits' => 'Dit veld moet een geldige postcode bevatten.',
         'newUser.phone_number.digits' => 'Dit veld moet een geldig telefoonnummer bevatten (maximum 8 cijfers).',
         'newUser.mobile_number.digits' => 'Dit veld moet een geldig gsm-nummer bevatten (maximum 9 cijfers).',
-        'newUser.password.required' => 'Dit veld mag niet leeg zijn.',
     ];
+    private User $user;
+
+    /**
+     * Toggles the modal
+     *
+     * @return void
+     */
+    public function toggleModal(): void
+    {
+        $this->showModal = !$this->showModal;
+    }
 
 //    User aanmaken
     public function createUser()
@@ -108,6 +115,8 @@ class Ledenbeheer extends Component
 
     public function setNewUser(User $user = null)
     {
+        $this->showModal = true;
+
         $this->resetErrorBag();
         if($user) {
             $this->newUser['id'] = $user->id;
@@ -125,21 +134,52 @@ class Ledenbeheer extends Component
         } else {
             $this->reset('newUser');
         }
-        $this->showModal = true;
     }
 
 //    Pagination updaten
-    public function updated($propertyName, $propertyValue)
+
+    /**
+     * Updates the pagination when the perPage variable is changed
+     *
+     * @param string $propertyName
+     * @param $propertyValue
+     * @return void
+     */
+    public function updated(string $propertyName, $propertyValue): void
     {
-        // dump($propertyName, $propertyValue);
-        if (in_array($propertyName, ['perPage', 'search']))
-            $this->resetPage();
+        if ($propertyName == 'perPage') {
+          $this->resetPage();
+        }
+
     }
 
-//    User updaten
-    public function updateUser(User $user)
+    /**
+     * Shows the modal with the user information and prefills the form
+     *
+     * @param User $user
+     * @return void
+     */
+    public function showUser(User $user): void
     {
-        $this->validate();
+        $this->toggleModal();
+        $this->user = $user;
+        $this->newUser = $user->toArray();
+    }
+
+
+    /**
+     * Updates the user information
+     *
+     * @param User $user
+     * @return void
+     */
+    public function updateUser(User $user): void
+    {
+        $this->resetErrorBag();
+        $this->rules['newUser.email'] = 'required';
+        $this->rules['newUser.username'] = 'required';
+        $this->validate($this->rules, $this->messages);
+
         $user->update([
             'id' => $this->newUser['id'],
             'name' => $this->newUser['name'],
@@ -161,10 +201,16 @@ class Ledenbeheer extends Component
         ]);
 
 
+        $this->toggleModal();
     }
 
-//    User verwijderen
-    public function deleteUser(User $user)
+    /**
+     * Deletes the user
+     *
+     * @param User $user
+     * @return void
+     */
+    public function deleteUser(User $user): void
     {
         $user->delete();
         $this->dispatchBrowserEvent('swal:toast', [
@@ -173,16 +219,22 @@ class Ledenbeheer extends Component
         ]);
     }
 
-    public function resort($column)
+    /**
+     * Sorts the table by the given column
+     *
+     * @param string $column
+     * @return void
+     */
+    public function resort(string $column): void
     {
-        if ($this->orderBy === $column) {
+        if ($this->orderBy === $column)
+        {
             $this->orderAsc = !$this->orderAsc;
         } else {
             $this->orderAsc = true;
         }
         $this->orderBy = $column;
     }
-
 
     public function render()
     {
@@ -193,5 +245,4 @@ class Ledenbeheer extends Component
             ->paginate($this->perPage);
         return view('livewire.ledenbeheer', compact('users'));
     }
-
 }
