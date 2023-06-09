@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Livewire\Member;
-
+use App\Models\Product;
+use App\Models\ProductSize;
+use App\Models\Size;
 use Livewire\Component;
 
 class MyOrder extends Component
@@ -11,38 +13,61 @@ class MyOrder extends Component
     public $sizes;
     public $products;
 
+    private \Illuminate\Support\Collection $product;
+
     public function mount()
     {
-        $this->orders = auth()->user()->orders;
-        $this->sizes = auth()->user()->orders->pluck('product_size_id');
-        dd($this->sizes);
-        $this->products = $this->getProductProperty();
+        $this->orders = $this->getOrdersForUser();
     }
 
-    public function getSizesProperty()
+    public function getOrdersForUser()
     {
-        return $this->orders;
+        $orders = auth()->user()->orders;
+        return $orders;
     }
 
-    public function getProductProperty()
+
+    public function getSizeFromProductSize($productSizeId)
     {
-        return $this->orders->pluck('productsizes.product.name');
+        $sizeID = ProductSize::where('id', $productSizeId)->pluck('size_id');
+
+        $sizeName = Size::where('id', $sizeID)->value('size');
+
+        return $sizeName;
     }
 
-    public function updateQuantity($id)
+    public function getProductsFromOrder($productSizeId)
     {
-        $order = auth()->user()->orders()->where('id', $id)->first();
-        $order->update([
-            'quantity' => $this->orders->quantity,
-        ]);
+        $productID = ProductSize::where('id', $productSizeId)->pluck('product_id');
+
+        $productName = Product::where('id', $productID)->value('name');
+
+        $this->product = $productID;
+
+        return $productName;
     }
 
-    public function deleteOrder($id)
+    public function getPriceFromOrder($productSizeId)
     {
-        $order = auth()->user()->orders()->where('id', $id)->first();
-        $order->delete();
-        $this->orders = auth()->user()->orders;
+        $productID = ProductSize::where('id', $productSizeId)->pluck('product_id');
+
+        $productPrice = Product::where('id', $productID)->value('price');
+
+        return $productPrice;
     }
+
+    public function returnTotalPrice($productSizeId, $amount): float|int
+    {
+        $price = $this->getPriceFromOrder($productSizeId);
+
+        return $price * $amount;
+    }
+
+    public function redirectToOrder()
+    {
+        return redirect()->route('kleding');
+    }
+
 
     public function render()
     {

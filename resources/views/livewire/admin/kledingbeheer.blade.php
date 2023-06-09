@@ -48,7 +48,7 @@
                                             x-data=""
                                             @click="$dispatch('swal:confirm', {
                                       html: 'Verwijder {{ $product->name }}?',
-                                      confirmButtonText: 'Verwijder deze foto',
+                                      confirmButtonText: 'Verwijder dit kledingstuk',
                                       next: {
                                       event: 'delete-product',
                                       params: {
