@@ -1,4 +1,7 @@
-<x-guest-layout>
+<x-templatelayout>
+    <x-slot name="title">Vraag je paswoord aan</x-slot>
+    <x-slot name="description">Op deze pagina kan u als een paswoord aanvragen beheren.</x-slot>
+
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -33,4 +36,4 @@
             </div>
         </form>
     </x-authentication-card>
-</x-guest-layout>
+</x-templatelayout>
