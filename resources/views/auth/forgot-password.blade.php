@@ -1,10 +1,8 @@
 <x-templatelayout>
     <x-slot name="title">Vraag je paswoord aan</x-slot>
-    <x-slot name="description">Op deze pagina kan u als een paswoord aanvragen beheren.</x-slot>
+    <x-slot name="description">Op deze pagina kan u een nieuw paswoord aanvragen.</x-slot>
 
     <x-authentication-card>
-
-
         <x-slot name="logo">
             <img src="{{ asset('assets/logo/Logo WZD.png') }}" class="mt-2 h-[50%] w-[50%]" />
         </x-slot>
@@ -26,7 +24,7 @@
             @csrf
 
             <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
+                <x-label for="email" value="{{ __('E-mail') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             </div>
 

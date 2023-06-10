@@ -1,4 +1,4 @@
-<div class="flex justify-between px-6 text-sm">
+<div class="flex justify-between items-center px-6 text-sm">
     <h4 class="font-bold text-white-700">
         <div>De Wezeldrivers - © {{ date('Y') }}</div>
     </h4>

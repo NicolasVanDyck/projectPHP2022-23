@@ -1,10 +1,10 @@
 <x-templatelayout>
-    <x-slot name="title">Vraag je paswoord aan</x-slot>
-    <x-slot name="description">Op deze pagina kan u als een paswoord aanvragen beheren.</x-slot>
+    <x-slot name="title">Stel je paswoord in</x-slot>
+    <x-slot name="description">Op deze pagina kan u een nieuw paswoord instellen.</x-slot>
 
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="{{ asset('assets/logo/Logo WZD.png') }}" class="mt-2 h-[50%] w-[50%]" />
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -15,23 +15,23 @@
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
             <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
+                <x-label for="email" value="{{ __('E-mail') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
+                <x-label for="password" value="{{ __('Paswoord') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
             </div>
 
             <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
+                <x-label for="password_confirmation" value="{{ __('Bevestig Paswoord') }}" />
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <x-button>
-                    {{ __('Reset Password') }}
+                    {{ __('Stel nieuw paswoord in') }}
                 </x-button>
             </div>
         </form>
