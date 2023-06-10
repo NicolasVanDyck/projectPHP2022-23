@@ -1,17 +1,14 @@
 <div>
-    <div class="flex justify-between flex-wrap">
+    <div class="flex justify-between flex-wrap mx-2">
+        {{-- Filter op gebruiker --}}
         <div class="flex flex-col text-gray-800">
-            {{-- Filter op gebruiker --}}
-            <h3 class="flex text-white">Filter op leden</h3>
-            <div class="flex">
-                <label for="user" value="user"/>
-                <select id="user" wire:model="user">
-                    <option value="%">Alle Leden</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->name }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <label for="user" class="mr-2 text-white">Filter op leden:</label>
+            <select id="user" class="border border-gray-300 rounded-lg px-4 py-2" wire:model="user">
+                <option value="%">Alle Leden</option>
+                @foreach($users as $user)
+                    <option value="{{ $user->name }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         {{-- Filter op afstand --}}
@@ -29,22 +26,20 @@
         </div>
 
         {{-- Aantal ritten per pagina --}}
-        <div class="flex flex-col">
-            <h3 class="flex text-white">Per Page</h3>
-            <div class="flex">
-                <label for="perPage" value="perPage"/>
-                <select id="perPage" wire:model="perPage">
-                    <option value="1">1</option>
-                    <option value="3">3</option>
-                    <option value="6">6</option>
-                    <option value="9">9</option>
-                </select>
-            </div>
+        <div class="flex flex-col text-gray-800">
+            <h3 class="flex text-white"></h3>
+            <label for="perPage" class="mr-2 text-white">Per Page</label>
+            <select class="border border-gray-300 rounded-lg px-4 py-2" id="perPage" wire:model="perPage">
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
         </div>
     </div>
 
-    <div class="mt-4">
-        {{ $trajecten->links() }}
+    <div class="mt-4 mx-2">
+        {{ $trajecten->links()}}
     </div>
 
     <!-- Grid of trajects -->
