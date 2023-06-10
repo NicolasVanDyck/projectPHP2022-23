@@ -5,7 +5,7 @@
 
 
     @if(auth()->user()->access_token == null)
-        <div class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
+        <div class="bg-hero-pattern2 bg-cover bg-center bg-no-repeat h-screen">
 
             <div class="flex-col justify-between pt-2 ">
                 <div class="flex m-auto text-center p-4">
