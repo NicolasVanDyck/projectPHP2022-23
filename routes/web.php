@@ -98,7 +98,7 @@ Route::get('/success', [App\Http\Controllers\Member\StravaController::class, 'ge
 
 
 // Mail
-Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
+//Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
 Route::post('/contact', [MailController::class, 'submitForm'])->name('contact.submit');
 
 
