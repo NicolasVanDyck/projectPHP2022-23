@@ -1,9 +1,9 @@
 <div>
     <div>
-        <div>
-            <!-- Knop om het modal te openen -->
-            <x-button wire:click="openModal" class="bg-danger w-full">Maak je groepsrit</x-button>
+        <div class="flex items-center justify-center">
+            <x-button wire:click="openModal" class="w-9/12">Maak je groepsrit</x-button>
         </div>
+
 
         <div>
             <div x-data="{ isNestedModalOpen: @entangle('isNestedModalOpen'), openModal: @entangle('openModal'), selectedRoute: @entangle('selectedRoute'), selectedRouteName: @entangle('selectedRouteName'), selectedRouteKm: @entangle('selectedRouteKm'), selectedDate: @entangle('selectedDate'), selectedEndDate: @entangle('selectedEndDate') }"
@@ -77,16 +77,18 @@
                             <!-- Invoerveld voor het selecteren van de startdatum en -tijd -->
                             <div class="mt-4">
                                 <label for="start-datepicker" class="block font-medium text-gray-700">Start datum en tijd:</label>
-                                <input type="datetime-local" id="start-datepicker" wire:model="selectedDate" class="form-control mt-1">
+                                <input type="datetime-local" id="start-datepicker" wire:model="selectedDate" class="form-control mt-1" >
                                 @error('selectedDate')
-                                <div class="text-red-500 mt-2">{{ @$message }}</div>@enderror
+                                <div class="text-red-500 mt-2">{{ @$message }}</div>
+                                @enderror
                             </div>
                             <!-- Invoerveld voor het selecteren van de einddatum en -tijd -->
                             <div class="mt-4">
                                 <label for="end-datepicker" class="block font-medium text-gray-700">Eind datum en tijd:</label>
-                                <input type="datetime-local" id="end-datepicker" wire:model="selectedEndDate" class="form-control mt-1">
+                                <input type="datetime-local" id="end-datepicker" wire:model="selectedEndDate" class="form-control mt-1" maxlength="4">
                                 @error('selectedEndDate')
-                                <div class="text-red-500 mt-2">{{ @$message }}</div>@enderror
+                                <div class="text-red-500 mt-2">{{ @$message }}</div>
+                                @enderror
                             </div>
                         @endif
                         <!-- Knop om de groepsrit aan te maken /pas actief als alle selected heeft -->
@@ -94,14 +96,8 @@
                                 :disabled="!selectedGroup || !selectedRoute || !selectedDate || !selectedEndDate">Maak je groepsrit
                         </button>
 
-
                     </div>
                 </div>
-                @if (session()->has('success_message'))
-                    <div class="bg-green-500 text-white py-2 px-4 text-center rounded-lg mt-4">
-                        {{ session('success_message') }}
-                    </div>
-                @endif
             </div>
         </div>
     </div>

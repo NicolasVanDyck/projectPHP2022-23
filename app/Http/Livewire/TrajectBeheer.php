@@ -26,6 +26,7 @@ class TrajectBeheer extends Component
 
 
 
+
 //duwt alles naar de view.
     public function render()
     {
@@ -79,15 +80,17 @@ class TrajectBeheer extends Component
             'selectedDate.required' => 'Selecteer een startdatum en -tijd.',
             'selectedDate.before' => 'De startdatum en -tijd moeten voor de einddatum en -tijd liggen.',
             'selectedEndDate.required' => 'Selecteer een einddatum en -tijd.',
+            'selectedDate.after_or_equal' => 'De startdatum moet morgen zijn. ',
         ];
 
-        // Valideer de formuliervelden
+// Valideer de formuliervelden
         $validatedData = $this->validate([
             'selectedGroup' => 'required',
             'selectedRoute' => 'required',
-            'selectedDate' => 'required|before:selectedEndDate',
+            'selectedDate' => 'required|before:selectedEndDate|after_or_equal:tomorrow',
             'selectedEndDate' => 'required',
         ], $customMessages);
+
 
 
         // Haal de groep- en route-ID's op
