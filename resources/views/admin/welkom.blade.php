@@ -4,7 +4,7 @@
     <x-slot name="description">Op deze pagina kan u als admin zien welke onderdelen u kan beheren.</x-slot>
 
     <div class="bg-hero-pattern3 bg-cover bg-center bg-no-repeat h-screen">
-        <div class='flex items-center justify-center px-2 pb-4'>
+        <div class='flex m-2 max-w-[500px] border-2 border-red-600'>
             <div class='w-full max-w-3xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
                 <div class='max-w-3xl mx-auto'>
                     <div class='p-8'>
