@@ -5,17 +5,17 @@
 
     <div
         class="bg-hero-pattern bg-cover bg-center bg-no-repeat h-screen">
-        <div class="md:w-1/2 h-screen">
+        <div class="md:w-1/2">
             <div class="pt-20">
                 <livewire:admin.texts/>
-            </div>
             <div class="mt-20">
              @if(session('success'))
                 <div class="bg-success text-white">
                     {{ session('success') }}
                 </div>
             @endif
-                <x-wd_components.form/>
+                     <x-wd_components.form/>
+                 </div>
             </div>
         </div>
     </div>
