@@ -99,7 +99,7 @@ class Kleding extends Component
      * @param $productId
      * @return int
      */
-    public function getTotalForProduct($productId): int
+    public function getTotalForProduct($productId): int|float
     {
         if (isset($this->amounts[$productId])) {
             $amount = $this->amounts[$productId];

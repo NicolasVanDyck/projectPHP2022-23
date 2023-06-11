@@ -12,12 +12,15 @@ class MyOrder extends Component
     public $orders;
     public $sizes;
     public $products;
+    public bool $myOrderInfoModal = false;
 
     private \Illuminate\Support\Collection $product;
+    public int|float $sumOfOrders;
 
     public function mount()
     {
         $this->orders = $this->getOrdersForUser();
+        $this->sumOfOrders($this->orders);
     }
 
     public function getOrdersForUser()
@@ -61,6 +64,31 @@ class MyOrder extends Component
         $price = $this->getPriceFromOrder($productSizeId);
 
         return $price * $amount;
+    }
+
+    public function sumOfOrders($orders): void
+    {
+        $sumOfOrders = 0;
+
+        foreach($orders as $order)
+        {
+            $productSizeId = $order->product_size_id;
+            $amount = $order->quantity;
+
+            $price = $this->getPriceFromOrder($productSizeId);
+            $sumOfOrders += $price * $amount;
+        }
+
+        $this->sumOfOrders = $sumOfOrders;
+    }
+
+    public function deleteOrder($orderId): void
+    {
+        $order = auth()->user()->orders()->where('id', $orderId)->first();
+
+        $order->delete();
+
+        $this->orders = $this->getOrdersForUser();
     }
 
     public function redirectToOrder()

@@ -9,9 +9,9 @@
     {{--Link to kleding/mijn-bestelling if the use already has an order in the Orders table--}}
     @if( $this->hasOrders() )
         <div class="flex mb-10 mt-4">
-            <div class="lg:mx-auto flex flex-row ">
+            <div class="flex flex-row lg:ml-[17.5%]">
                 <x-button
-                    class="p-2 text-white m-2 w-auto bg-[#11253e] hover:bg-[#11253e]"
+                    class="p-2 text-white m-2 w-auto bg-[#11253e] hover:bg-[#11253e] active:bg-[#11253e]"
                     wire:click="redirectToMyOrder">
                     Mijn bestelling
                 </x-button>
