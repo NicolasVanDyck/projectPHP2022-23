@@ -17,7 +17,7 @@
                 <p class="text-white">
                     Rit: {{$gt->tour->tour_name}} {{date('d/m/Y', strtotime($gt->start_date))}}</p>
             </div>
-            <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
+            <div class="container mx-auto px-5 py-2 lg:pt-12">
                 <div class="-m-1 flex flex-wrap md:-m-2">
                     @foreach($gt->tour->images as $photo)
                         <div class="flex w-full md:w-1/3">

@@ -66,7 +66,7 @@
                                     @endif
                                 @endforeach
                                     @if($image->in_carousel)
-{{--                                        <x-heroicon-m-home class="h-6 w-6 text-[#073360]"></x-heroicon-m-home>--}}
+                                        <x-heroicon-m-home class="h-6 w-6 text-[#073360]"></x-heroicon-m-home>
                                     @endif
                             </div>
                         </div>
