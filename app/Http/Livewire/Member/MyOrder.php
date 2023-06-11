@@ -93,7 +93,12 @@ class MyOrder extends Component
     {
         $order = auth()->user()->orders()->where('id', $orderId)->first();
 
-        $order->delete();
+        if (!$order) {
+            return;
+        } else {
+            $order->delete();
+        }
+
 
         $this->orders = $this->getOrdersForUser();
     }

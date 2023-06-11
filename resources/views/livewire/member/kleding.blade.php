@@ -84,13 +84,13 @@
                     @if (empty($selectedSize[$index]) && !empty($this->getAmount($product->id)))
                         <tr class="text-xs @lg:text-md">
                             <td colspan="5" class="text-red-500">
-                                Gelieve een maat op te geven.
+                                <span class="ml-4">Gelieve een maat op te geven.</span>
                             </td>
                         </tr>
                     @elseif (!empty($selectedSize[$index]) && empty($this->getAmount($product->id)))
                         <tr class="text-xs @lg:text-md">
                             <td colspan="5" class="text-red-500">
-                                Gelieve een hoeveelheid op te geven.
+                                <span class="ml-4">Gelieve een hoeveelheid op te geven.</span>
                             </td>
                         </tr>
                     @endif

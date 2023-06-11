@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use LaravelIdea\Helper\App\Models\_IH_Size_C;
 use Livewire\Component;
@@ -160,25 +161,37 @@ class Kleding extends Component
             $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->first();
         }
 
-        // If the order is not in the database, create it.
-        if (!$this->order)
-        {
-            DB::table('orders')->insert([
-                'user_id' => auth()->user()->id,
-                'product_size_id' => $selectedProductSize,
-                'quantity' => $selectedAmount,
-                'order_date' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        } else {
-            // Else, update the order.
-            DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->update([
-                'quantity' => $selectedAmount,
-                'order_date' => now(),
-                'updated_at' => now(),
-            ]);
+        try {
+            // If the order is not in the database, create it.
+            if (!$this->order)
+            {
+                DB::table('orders')->insert([
+                    'user_id' => auth()->user()->id,
+                    'product_size_id' => $selectedProductSize,
+                    'quantity' => $selectedAmount,
+                    'order_date' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } else {
+                // Else, update the order.
+                DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->update([
+                    'quantity' => $selectedAmount,
+                    'order_date' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        } catch (QueryException $exception) {
+            if ($exception->getCode() === '23000') {
+                $this->dispatchBrowserEvent('swal:toast', [
+                    'background' => 'error',
+                    'html' => "Er is iets misgegaan. Probeer het opnieuw.",
+                ]);
+            } else {
+                throw $exception;
+            }
         }
+
     }
 
 
@@ -201,11 +214,9 @@ class Kleding extends Component
                 'html' => "De deadline is verstreken! Je kunt nu geen bestellingen meer plaatsen.",
             ]);
         } else {
-            foreach ($this->selectedProduct as $index => $productId)
-            {
+            foreach ($this->selectedProduct as $index => $productId) {
 
-                if (isset($this->selectedSize[$index]))
-                {
+                if (isset($this->selectedSize[$index])) {
                     $selectedSize = $this->selectedSize[$index];
 
                     // Find the corresponding product size
@@ -215,13 +226,22 @@ class Kleding extends Component
 
                     $selectedAmount = $this->getAmount($productId);
 
-                    $this->updateOrder($selectedProductSize, $selectedAmount);
+                    if ($selectedAmount === 0) {
+
+//                        dd($selectedAmount);
+                        $this->dispatchBrowserEvent('swal:toast', [
+                            'background' => 'error',
+                            'html' => "Je hebt geen aantal ingevuld voor " . Product::where('id', $productId)->value('name') . ".",
+                        ]);
+                    } else {
+                        $this->updateOrder($selectedProductSize, $selectedAmount);
+                        $this->dispatchBrowserEvent('swal:toast', [
+                            'background' => 'success',
+                            'html' => "Je bestelling is geplaatst!",
+                        ]);
+                    }
                 }
             }
-            $this->dispatchBrowserEvent('swal:toast', [
-                'background' => 'success',
-                'html' => "Je bestelling is geplaatst!",
-            ]);
 
             $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
         }
