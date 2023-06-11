@@ -2,7 +2,7 @@
     <div class="p-4">
         <div class="mb-4 flex items-center justify-between">
             <div class="mt-4 flex items-center text-black">
-                <label for="start-datepicker" class="block font-medium text-white">Zoek op datum: </label>
+                <label for="start-datepicker" class="block font-medium text-white mr-2">Zoek op datum: </label>
                 <input type="date" id="start-datepicker" wire:model="date" class="form-control mt-1">
                 @if($date != null)
                     <x-button wire:click="resetDate()" class="ml-2">Toon alle foto's</x-button>
