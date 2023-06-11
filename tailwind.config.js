@@ -20,6 +20,8 @@ module.exports = {
       },
       backgroundImage: {
         "hero-pattern": ["url('/public/assets/background/wezeldrivers_upscale.jpg')"],
+        "hero-pattern2": ["url('/public/assets/background/wezeldrivers_clublid.jpg')"],
+        "hero-pattern3": ["url('/public/assets/background/wezeldrivers_admin.jpg')"],
       },
     },
   },

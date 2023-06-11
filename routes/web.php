@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

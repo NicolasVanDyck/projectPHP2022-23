@@ -9,7 +9,7 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#073360]">
+<body class="bg-[#073360] min-h-screen ">
 <!--Hero-->
 <nav>
     @auth
@@ -29,7 +29,7 @@
     {{ $slot }}
 </main>
 <!--Footer-->
-<footer class="mt-auto bg-[#f5f5f5]">
+<footer class="mt-auto bg-[#f5f5f5] sticky top-[100vh]">
     <x-layout.footer/>
 </footer>
 
