@@ -6,25 +6,25 @@
         <div class="px-2 py-4 flex justify-between">
             <div class="hidden ml-2 lg:flex relative space-x-5 pr-2">
             <x-nav-link href="{{ route('aanwezighedenbeheer') }}" :active="request()->routeIs('aanwezighedenbeheer')">
-                Aanwezighedenbeheer
+                Aanwezigheden
             </x-nav-link>
             <x-nav-link href="{{ route('fotobeheer') }}" :active="request()->routeIs('fotobeheer')">
-                Fotobeheer
+                Foto's
             </x-nav-link>
             <x-nav-link href="{{ route('kleding_bestellingen') }}" :active="request()->routeIs('kleding_bestellingen')">
-                Kleding bestellingen
+               Bestellingen
             </x-nav-link>
             <x-nav-link href="{{ route('kledingbeheer') }}" :active="request()->routeIs('kledingbeheer')">
                 Kledingbeheer
             </x-nav-link>
             <x-nav-link href="{{ route('ledenbeheer') }}" :active="request()->routeIs('ledenbeheer')">
-                Ledenbeheer
+                Leden
             </x-nav-link>
             <x-nav-link href="{{ route('trajectbeheer') }}" :active="request()->routeIs('trajectbeheer')">
-                Trajectbeheer
+                Traject
             </x-nav-link>
             <x-nav-link href="{{ route('webtekstbeheer') }}" :active="request()->routeIs('webtekstbeheer')">
-                Webtekstbeheer
+                Webtekst
             </x-nav-link>
             <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 Dashboard
