@@ -6,7 +6,7 @@
     <div class="mt-20 @container">
         <div class="@md:ml-0 @md:-mt-10">
             <div class="text-white flex flex-row text-2xl font-semibold mb-10 @md:text-black @md:mt-10 @md:ml-2">
-                <div class="text-[#ffffff] ml-4">Mijn bestelling</div>
+                <div class="text-[#ffffff] ml-2 underline underline-offset-8">Mijn bestelling</div>
                 <x-heroicon-m-information-circle
                     wire:click="myOrderInfoModal"
                     class="w-10 h-10 fill-green-200 hover:fill-green-100 ml-2 hover:cursor-pointer self-center transform sm:hover:scale-110"
@@ -22,23 +22,29 @@
                             grid grid-cols-1 gap-4 text-grey text-lg max-w-[90%] @md:max-w-[100%]
                             @md:text-lg @sm:text-md">
                     @foreach($orders as $order)
-                        <div class="min-h-[3rem] shadow-xl p-2 mb-0.5 relative flex flex-col
-                                    @md:mb-1 @md:mr-2 rounded-md bg-[#204770] @md:min-h-[175px]
-                                    bg-gradient-to-bl from-[#204770] to-[#073360]">
-                            <span class="@md:mb-2 text-[#ffffff] font-semibold @sm:text-md">{{ $this->getProductsFromOrder($order->product_size_id) }}</span>
-                            <span class="@md:mb-2 text-[#cdd6df] @sm:text-sm text-md">{{ $this->getSizeFromProductSize($order->product_size_id) }} * {{ $order->quantity }}</span>
+                        <div class="bg-gradient-to-r from-[#b5c2cf] p-[1px] to-[#517090] rounded-md">
+                            <div class="min-h-[3rem] shadow-xl p-2 relative flex flex-col
+                                    rounded-md bg-[#041f3a]
+                                    @md:min-h-[175px]
+                                    bg-gradient-to-bl from-[#041f3a] to-[#073360]
 
-                            <span class=" @xl:mt-10 mt-10 flex flex-row">
-                                <span class="absolute bottom-0 mb-2 text-[#e6ebef]">totaal: € {{$this->getPriceFromOrder($order->product_size_id)}} </span>
+                                    ">
+                                <span class="text-white @sm:text-md">{{ $this->getProductsFromOrder($order->product_size_id) }}</span>
+                                <span class="text-white/90 @sm:text-sm text-md">{{ $this->getSizeFromProductSize($order->product_size_id) }} * {{ $order->quantity }}</span>
+
+                                <span class=" @xl:mt-10 mt-10 flex flex-row">
+                                <span class="absolute bottom-0 text-[#e6ebef]">totaal: € {{$this->getPriceFromOrder($order->product_size_id)}} </span>
                                 <x-heroicon-m-trash class="w-6 h-6 m-2
                                                        absolute bottom-0 right-0 ml-2 text-red-700 hover:text-red-500 cursor-pointer" wire:click="deleteOrder({{ $order->id }})"/></span>
 
+                            </div>
                         </div>
+
                     @endforeach
                 </div>
             </div>
 
-            <div class="flex flex-row text-white pl-2">
+            <div class="flex flex-row text-white ml-2">
                 <div class="mt-4 text-lg font-semibold">
                     Totaal: € {{ $sumOfOrders }}
                 </div>
@@ -47,7 +53,7 @@
             <div class="flex flex-col mt-10">
                 <p class="text-left pb-2 text-white m-2">Order aanpassen? Ga dan terug naar kleding bestellen. Gebruik het menu kleding of klik op de knop hieronder</p>
                 <x-button
-                    class="text-center pb-2 text-white mt-2 mb-2 ml-2"
+                    class="text-center pb-2 text-white mt-2 mb-2 ml-2 "
                     wire:click="redirectToOrder">
                     Ga terug
                 </x-button>
