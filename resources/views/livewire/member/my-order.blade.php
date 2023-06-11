@@ -3,42 +3,40 @@
     <x-slot name="description">Hier kun je zien welke kleding je hebt besteld en eventueel aanpassen</x-slot>
 
 
-    <div class="flex flex-row ml-2 mt-20">
-        <div class="mx-auto">
-            <div class="text-white flex flex-row text-2xl font-semibold mb-10">
-                <div class="col-span-1"></div>
-                Mijn bestelling
+    <div class="mt-20 @container">
+        <div class="@md:ml-0 @md:-mt-10">
+            <div class="text-white flex flex-row text-2xl font-semibold mb-10 @md:text-black @md:mt-10 @md:ml-2">
+                <div class="text-[#ffffff] ml-4">Mijn bestelling</div>
                 <x-heroicon-m-information-circle
                     wire:click="myOrderInfoModal"
-                    class="w-10 h-10 fill-green-300 hover:fill-white ml-2 hover:cursor-pointer self-center transform sm:hover:scale-110"
+                    class="w-10 h-10 fill-green-200 hover:fill-green-100 ml-2 hover:cursor-pointer self-center transform sm:hover:scale-110"
                 />
             </div>
 
-            <table class="table-auto">
-                <thead class="text-white">
-                <tr class="[&>th]:p-2 px-6 py-4 whitespace-no-wrap text-left">
-                    <th>Naam</th>
-                    <th class="hidden sm:table-cell">Maat</th>
-                    <th>Prijs</th>
-                    <th class="hidden sm:table-cell">Aantal</th>
-                    <th>Totaal</th>
-                </tr>
-                </thead>
-                <tbody class="text-white">
+            <div class="@container">
+                <div class="mr-2 ml-2
+                            @4xl:grid-cols-4 @4xl:gap-4 @4xl:min-w-[500px]
+                            @2xl:grid-cols-3 @2xl:gap-4 @2xl:max-w-[100%]
+                            @xl:grid-cols-2 @xl:gap-4 @xl:max-w-[100%]
+                             @lg:grid-cols-1 @lg:gap-4 @lg:max-w-[90%]
+                            grid grid-cols-1 gap-4 text-grey text-lg max-w-[90%] @md:max-w-[100%]
+                            @md:text-lg @sm:text-md">
                     @foreach($orders as $order)
-                        <tr class="border-t border-gray-300 [&>td]:p-2 px-6 py-4 text-left hover:bg-white hover:text-black">
-                            <td>{{ $this->getProductsFromOrder($order->product_size_id) }}</td>
-                            <td>{{ $this->getSizeFromProductSize($order->product_size_id) }}</td>
-                            <td>€ {{$this->getPriceFromOrder($order->product_size_id)}}</td>
-                            <td>{{ $order->quantity }}</td>
-                            <td>{{ $this->returnTotalPrice($order->product_size_id, $order->quantity) }}</td>
-                            <td>
-                                <x-heroicon-m-trash class="w-5 h-5 text-red-500 hover:text-red-700 cursor-pointer" wire:click="deleteOrder({{ $order->id }})"/>
-                            </td>
-                        </tr>
+                        <div class="min-h-[3rem] shadow-xl p-2 mb-0.5 relative flex flex-col
+                                    @md:mb-1 @md:mr-2 rounded-md bg-[#204770] @md:min-h-[175px]
+                                    bg-gradient-to-bl from-[#204770] to-[#073360]">
+                            <span class="@md:mb-2 text-[#ffffff] font-semibold @sm:text-md">{{ $this->getProductsFromOrder($order->product_size_id) }}</span>
+                            <span class="@md:mb-2 text-[#cdd6df] @sm:text-sm text-md">{{ $this->getSizeFromProductSize($order->product_size_id) }} * {{ $order->quantity }}</span>
+
+                            <span class=" @xl:mt-10 mt-10 flex flex-row">
+                                <span class="absolute bottom-0 mb-2 text-[#e6ebef]">totaal: € {{$this->getPriceFromOrder($order->product_size_id)}} </span>
+                                <x-heroicon-m-trash class="w-6 h-6 m-2
+                                                       absolute bottom-0 right-0 ml-2 text-red-700 hover:text-red-500 cursor-pointer" wire:click="deleteOrder({{ $order->id }})"/></span>
+
+                        </div>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            </div>
 
             <div class="flex flex-row text-white pl-2">
                 <div class="mt-4 text-lg font-semibold">
@@ -56,6 +54,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     @include('components.wd_components.mijnbestellinginfomodal')

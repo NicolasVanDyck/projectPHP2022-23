@@ -1,11 +1,11 @@
 <x-dialog-modal id="myOrderInfoModal"
                 wire:model="myOrderInfoModal">
     <x-slot name="title">
-        <h2 class="p-4 font-semibold text-2xl underline">Mijn bestellingen</h2>
+        <h2 class="p-4 font-semibold text-lg underline">Mijn bestellingen</h2>
     </x-slot>
 
     <x-slot name="content">
-        <div class="relative flex-auto p-4 text-lg">
+        <div class="relative flex-auto p-4">
             <p>
                 Op deze pagina kun je je eigen bestellingen raadplegen en nakijken. Wil je bestelling aanpassen? Dat kan!
             </p>
