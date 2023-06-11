@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,7 +97,7 @@ Route::get('/success', [App\Http\Controllers\Member\StravaController::class, 'ge
 
 
 // Mail
-Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
+//Route::post('/password-reset', [App\Actions\Fortify\ResetUserPassword::class])->name('password.reset');
 Route::post('/contact', [MailController::class, 'submitForm'])->name('contact.submit');
 
 

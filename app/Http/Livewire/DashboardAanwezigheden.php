@@ -5,9 +5,12 @@ namespace App\Http\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\UserTour;
+use Livewire\WithPagination;
 
 class DashboardAanwezigheden extends Component
 {
+    use WithPagination;
+
     public $perpage = 3;
 
     public function render()
@@ -16,7 +19,7 @@ class DashboardAanwezigheden extends Component
             ->join('group_tours', 'user_tours.group_tour_id', '=', 'group_tours.id')
             ->join('tours', 'user_tours.tour_id', '=', 'tours.id')
             ->where('user_id', Auth::id())
-            ->paginate($this->perpage);
+            ->simplePaginate($this->perpage);
         return view('livewire.dashboard-aanwezigheden', compact('userAanwezigheden'));
     }
 }
