@@ -14,8 +14,10 @@ class Gallery extends Component
 
     public $date = null;
 
+    public $groupToursPage = 1;
     public $groupToursPerPage = 3;
-    public $overigePerPage = 8;
+    public $overigePage = 1;
+    public $overigePerPage = 3;
 
     public function resetDate()
     {
@@ -37,10 +39,14 @@ class Gallery extends Component
             ->when($this->date != null, function ($query) {
                 $query->where('start_date', '=', $this->date);
             })
-            ->simplePaginate($this->groupToursPerPage);
-        $photos = Image::where([['tour_id', '=', null], ['image_type_id', '=', 1]])->paginate($this->overigePerPage);
+            ->paginate($this->groupToursPerPage, ['*'], 'groupToursPage');
 
-        return view('livewire.gallery', compact('grouptours', 'photos'));
+        // Fetch all images with null tour_id and image_type_id for pagination
+        $allPhotos = Image::whereNull('tour_id')
+            ->whereNull('image_type_id')
+            ->paginate($this->overigePerPage, ['*'], 'overigePage');
+
+        return view('livewire.gallery', compact('grouptours', 'allPhotos'));
     }
 
 }
