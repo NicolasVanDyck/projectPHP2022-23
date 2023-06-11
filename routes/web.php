@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,9 +58,6 @@ Route::middleware(['auth'])->prefix('member/')->group(function () {
     Route::get('profile.show', function () {
         return view('profile.show');
     })->name('profile.show');
-    Route::get('reset-password', function () {
-        return view('auth.reset-password');
-    })->name('reset-password');
 });
 
 //Voor de admins
@@ -98,7 +94,6 @@ Route::get('/success', [App\Http\Controllers\Member\StravaController::class, 'ge
 
 
 // Mail
-Route::post('/password-reset', 'App\Http\Controllers\PasswordResetController@sendResetLinkEmail')->name('password.reset');
 Route::post('/contact', [MailController::class, 'submitForm'])->name('contact.submit');
 
 

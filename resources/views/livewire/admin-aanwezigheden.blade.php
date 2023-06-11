@@ -2,7 +2,7 @@
     @if($grouptours->isEmpty())
         <div class="container flex">
             <div class="bg-white mx-auto max-w-md shadow-2xl rounded-2xl">
-                <p class="text-center justify-center">
+                <p class="text-center justify-center p-4">
                     Er kan geen rit gevonden worden. Naar alle waarschijnlijkheid
                     vallen de startdata van de ritten vroeger dan {{date('d/m/Y',strtotime($startdate))}}
                     en later dan {{date('d/m/Y',strtotime($enddate))}}.
