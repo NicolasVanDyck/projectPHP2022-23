@@ -24,9 +24,8 @@
                     @foreach($orders as $order)
                         <div class="bg-gradient-to-r from-[#b5c2cf] p-[1px] to-[#517090] rounded-md">
                             <div class="min-h-[3rem] shadow-xl p-2 relative flex flex-col
-                                    rounded-md bg-[#041f3a]
+                                    rounded-md
                                     @md:min-h-[175px]
-                                    {{--bg-gradient-to-bl from-[#041f3a] to-[#073360]--}}
                                     bg-[#e6ebef]
                                     ">
                                 <span class="text-[#192c44] text-sm @md:text-md">{{ $this->getProductsFromOrder($order->product_size_id) }}</span>
