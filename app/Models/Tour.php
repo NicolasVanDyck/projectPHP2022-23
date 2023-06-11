@@ -30,10 +30,10 @@ class Tour extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function tourName(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
-        );
-    }
+//    public function tourName(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn($value, $attributes) => GPX::find($attributes['g_p_x_id'])->name,
+//        );
+//    }
 }
