@@ -1,11 +1,14 @@
-<x-guest-layout>
+<x-templatelayout>
+    <x-slot name="title">Vraag je paswoord aan</x-slot>
+    <x-slot name="description">Op deze pagina kan u een nieuw paswoord aanvragen.</x-slot>
+
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="{{ asset('assets/logo/Logo WZD.png') }}" class="mt-2 h-[50%] w-[50%]" />
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Ben je je wachtwoord vergeten? Geen probleem. Laat ons gewoon je e-mailadres weten en we sturen je een wachtwoordherstel-link per e-mail, waarmee je een nieuw wachtwoord kunt kiezen..') }}
+        <div class="mb-4 text-gray-600">
+            {{ __('Ben je je wachtwoord vergeten? Geen probleem. Laat ons gewoon je e-mailadres weten en we sturen je een wachtwoordherstel-link per e-mail, waarmee je een nieuw wachtwoord kunt kiezen.') }}
         </div>
 
         @if (session('status'))
@@ -16,11 +19,12 @@
 
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="{{ route('password.email') }}"
+              class="mb-2">
             @csrf
 
             <div class="block">
-                <x-label for="email" value="{{ __('Email') }}" />
+                <x-label for="email" value="{{ __('E-mail') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             </div>
 
@@ -31,4 +35,4 @@
             </div>
         </form>
     </x-authentication-card>
-</x-guest-layout>
+</x-templatelayout>
