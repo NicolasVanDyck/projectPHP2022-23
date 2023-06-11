@@ -71,12 +71,12 @@
                             <td class="border-y border-white py-2">{{ date('d-m-Y', strtotime($groupTour->end_date)) }}</td>
                             <td class="border-y border-white py-2">
                                 <div class="flex justify-center space-x-2">
-                                    <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})">
+                                    <x-button wire:click="editGroupTour({{ $groupTour->id }})">
                                         Bewerken
-                                    </x-heroicon-m-pencil>
-                                    <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
+                                    </x-button>
+                                    <x-button wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
                                         Verwijderen
-                                    </x-heroicon-m-trash>
+                                    </x-button>
                                 </div>
                             </td>
                         </tr>
@@ -166,4 +166,3 @@
         </div>
     @endif
 </div>
-heroicon-m-trash
