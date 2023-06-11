@@ -1,6 +1,6 @@
 <x-templatelayout>
-    <x-slot name="title">Vraag je paswoord aan</x-slot>
-    <x-slot name="description">Op deze pagina kan u een nieuw paswoord aanvragen.</x-slot>
+    <x-slot name="title">Vraag je wachtwoord aan</x-slot>
+    <x-slot name="description">Op deze pagina kan u een nieuw wachtwoord aanvragen.</x-slot>
 
     <x-authentication-card>
         <x-slot name="logo">
