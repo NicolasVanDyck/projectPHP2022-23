@@ -31,12 +31,12 @@
                         <strong>Einddatum:</strong> {{ date('d-m-Y', strtotime($groupTour->end_date)) }}
                     </div>
                     <div class="flex justify-center">
-                        <x-button wire:click="editGroupTour({{ $groupTour->id }})" class="mr-2">
+                        <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})" class="w-10 h-10 hover:fill-blue-500 ml-2">
                             Bewerken
-                        </x-button>
-                        <x-button wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
+                        </x-heroicon-m-pencil>
+                        <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})" class="w-10 h-10 hover:fill-danger-500 ml-2">
                             Verwijderen
-                        </x-button>
+                        </x-heroicon-m-trash>
                     </div>
                 </div>
             @endforeach
@@ -71,12 +71,13 @@
                             <td class="border-y border-white py-2">{{ date('d-m-Y', strtotime($groupTour->end_date)) }}</td>
                             <td class="border-y border-white py-2">
                                 <div class="flex justify-center space-x-2">
-                                    <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})">
+                                    <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})" class="w-5 h-5 hover:fill-blue-500 ml-2">
                                         Bewerken
                                     </x-heroicon-m-pencil>
-                                    <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
+                                    <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})" class="w-5 h-5 hover:fill-red-500 ml-2">
                                         Verwijderen
                                     </x-heroicon-m-trash>
+
                                 </div>
                             </td>
                         </tr>
@@ -166,4 +167,3 @@
         </div>
     @endif
 </div>
-heroicon-m-trash
