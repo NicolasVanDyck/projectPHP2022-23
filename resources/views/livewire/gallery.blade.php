@@ -31,7 +31,7 @@
             </div>
         @endforeach
     </div>
-    <div class="p-4 bg-danger">
+    <div class="p-4">
         <div class="my-4">
             <p class="text-black">Overige foto's:</p>
         </div>
