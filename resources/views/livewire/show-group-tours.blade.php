@@ -6,45 +6,88 @@
         @endif
     </div>
 
-    <div class="p-6">
-        <h1 class="text-xl font-bold underline text-center">Groepsritten</h1>
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full">
-                <thead>
-                <tr>
-                    <th class="px-4 py-2">Groep</th>
-                    <th class="px-4 py-2">Route</th>
-                    <th class="px-4 py-2">Afstand (km)</th>
-                    <th class="px-4 py-2">Startdatum</th>
-                    <th class="px-4 py-2">Starttijd</th>
-                    <th class="px-4 py-2">Einddatum</th>
-                    <th class="px-4 py-2">Bewerken/Verwijderen</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Lus door $groupTours om elke groepsrit weer te geven -->
-                @foreach($groupTours as $groupTour)
-                    <tr class="text-center">
-                        <td class="border-y border-gray-700 py-2">{{ $groupTour->group->group }}</td>
-                        <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->gpx->name }}</td>
-                        <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->gpx->amount_of_km }}</td>
-                        <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->start_date }}</td>
-                        <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->start_time }}</td>
-                        <td class="border-y border-gray-700 px-4 py-2">{{ $groupTour->end_date }}</td>
-                        <td class="border-y border-gray-700 px-4 py-2">
-                            <x-button wire:click="editGroupTour({{ $groupTour->id }})">
-                                Bewerken
-                            </x-button>
-                            <x-button wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
-                                Verwijderen
-                            </x-button>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+    <div class="p-6 lg:hidden">
+        <h1 class="text-xl font-bold underline text-center pb-2 text-white">Groepsritten</h1>
+        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <!-- Lus door $groupTours om elke groepsrit weer te geven -->
+            @foreach($groupTours as $groupTour)
+                <div class="bg-[#f3f3f3] rounded-md p-6">
+                    <div class="mb-4">
+                        <strong>Groep:</strong> {{ $groupTour->group->group }}
+                    </div>
+                    <div class="mb-4">
+                        <strong>Route:</strong> {{ $groupTour->gpx->name }}
+                    </div>
+                    <div class="mb-4">
+                        <strong>Afstand (km):</strong> {{ $groupTour->gpx->amount_of_km }}
+                    </div>
+                    <div class="mb-4">
+                        <strong>Startdatum:</strong> {{ date('d-m-Y', strtotime($groupTour->start_date)) }}
+                    </div>
+                    <div class="mb-4">
+                        <strong>Starttijd:</strong> {{ $groupTour->start_time }}
+                    </div>
+                    <div class="mb-4">
+                        <strong>Einddatum:</strong> {{ date('d-m-Y', strtotime($groupTour->end_date)) }}
+                    </div>
+                    <div class="flex justify-center">
+                        <x-button wire:click="editGroupTour({{ $groupTour->id }})" class="mr-2">
+                            Bewerken
+                        </x-button>
+                        <x-button wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
+                            Verwijderen
+                        </x-button>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
+
+    <div class="hidden lg:block">
+        <div class="p-6 text-white">
+            <h1 class="text-xl font-bold underline text-white text-center">Groepsritten</h1>
+            <div class="table-responsive">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead>
+                    <tr>
+                        <th class="px-4 py-2">Groep</th>
+                        <th class="px-4 py-2">Route</th>
+                        <th class="px-4 py-2">Afstand (km)</th>
+                        <th class="px-4 py-2">Startdatum</th>
+                        <th class="px-4 py-2">Starttijd</th>
+                        <th class="px-4 py-2">Einddatum</th>
+                        <th class="px-4 py-2">Bewerken/Verwijderen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Lus door $groupTours om elke groepsrit weer te geven -->
+                    @foreach($groupTours as $groupTour)
+                        <tr class="text-center">
+                            <td class="border-y border-white py-2">{{ $groupTour->group->group }}</td>
+                            <td class="border-y border-white py-2">{{ $groupTour->gpx->name }}</td>
+                            <td class="border-y border-white py-2">{{ $groupTour->gpx->amount_of_km }}</td>
+                            <td class="border-y border-white py-2">{{ date('d-m-Y', strtotime($groupTour->start_date)) }}</td>
+                            <td class="border-y border-white py-2">{{ $groupTour->start_time }}</td>
+                            <td class="border-y border-white py-2">{{ date('d-m-Y', strtotime($groupTour->end_date)) }}</td>
+                            <td class="border-y border-white py-2">
+                                <div class="flex justify-center space-x-2">
+                                    <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})">
+                                        Bewerken
+                                    </x-heroicon-m-pencil>
+                                    <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})">
+                                        Verwijderen
+                                    </x-heroicon-m-trash>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Modal voor bewerken -->
     @if ($editGroupTour && $groupTour)
@@ -85,8 +128,9 @@
                         </div>
                         <div class="mb-4">
                             <label for="startTime" class="block font-bold mb-1">Starttijd:</label>
-                            <input type="time" wire:model="editGroupTour.start_time"
+                            <input type="time" wire:model="editGroupTour.start_time" step="60"
                                    class="border-gray-300 border rounded-md p-2 w-full">
+
                         </div>
                         <div class="mb-4">
                             <label for="endDate" class="block font-bold mb-1">Eind datum:</label>
@@ -122,3 +166,4 @@
         </div>
     @endif
 </div>
+heroicon-m-trash

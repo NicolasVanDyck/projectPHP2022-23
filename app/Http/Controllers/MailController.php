@@ -39,7 +39,7 @@ class MailController extends Controller
         $bericht = $request->input('bericht');
 
         // mail versturen
-        Mail::to('hello@example.com')->send(new HelloMail($voornaam, $achternaam, $email,$dropdown ,$bericht));
+        Mail::to('info@loopersnest.be')->send(new HelloMail($voornaam, $achternaam, $email, $dropdown, $bericht));
 
         // tonen van bedankt bericht
         return redirect()->back()->with('success', 'Email met succes verstuurd!');

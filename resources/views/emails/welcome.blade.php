@@ -8,10 +8,10 @@
     <p>Welkom bij de Wezeldrivers!</p>
     <p>U werd zonet succesvol geregistreerd als nieuw lid van onze club!</p>
     <br/>
-    <p>Uit veiligheidsoverwegingen vragen wij u om uw paswoord te wijzigen.</p>
-    <p>Huidig paswoord: {{ $paswoord }}</p>
-    <p>Vul je e-mailadres in via <a href="{{route('password.request')}}"> deze link</a> om uw paswoord te wijzigen.</p>
-    <p>Of log in op de website en verander je paswoord via <a href="{{ route('profile.show') }}"> profiel </a>.</p>
+    <p>Uit veiligheidsoverwegingen heeft u nog geen paswoord gekregen
+        en moet u een paswoord aanmaken via
+        <a href="{{route('password.request')}}">deze link</a> alvorens u kan inloggen:
+    </p>
     <br/>
     <p>Met vriendelijke groeten,</p>
     <p>De Wezeldrivers</p>

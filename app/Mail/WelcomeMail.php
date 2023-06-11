@@ -16,11 +16,10 @@ class WelcomeMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($naam, $paswoord)
+    public function __construct($naam)
     {
         //
         $this->naam = $naam;
-        $this->paswoord = $paswoord;
     }
 
     /**
@@ -42,7 +41,6 @@ class WelcomeMail extends Mailable
             view: 'emails.welcome',
             with: [
                 'naam' => $this->naam,
-                'paswoord' => $this->paswoord,
             ]
         );
     }
