@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Member;
 
 use App\Models\Order;
+use App\Models\Parameter;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
@@ -21,6 +22,7 @@ class Kleding extends Component
     protected $order;
     private array $totals = [];
     public $productSizes;
+    public $deadlineDate;
 
     protected $rules = [
         'products' => 'array',
@@ -29,11 +31,13 @@ class Kleding extends Component
         'selectedProduct' => 'required',
     ];
 
+
     public function mount(): void
     {
         $this->productSizes = ProductSize::all();
         $this->products = new Collection();
         $this->getProducts();
+        $this->getDeadlineDate();
     }
 
     /**
@@ -129,6 +133,18 @@ class Kleding extends Component
     }
 
     /**
+     * Gets the deadline date from the database.
+     */
+    public function getDeadlineDate()
+    {
+        $deadline = Parameter::get()->value('end_date_order');
+
+        $this->deadlineDate = $deadline;
+
+        return $deadline;
+    }
+
+    /**
      * Update the Order table with the selected product_size id and amount.
      *
      * @param int|null $selectedProductSize
@@ -165,6 +181,8 @@ class Kleding extends Component
         }
     }
 
+
+
     /**
      * Submit the form and update the order table.
      *
@@ -172,29 +190,43 @@ class Kleding extends Component
      */
     public function submitForm(): void
     {
-        foreach ($this->selectedProduct as $index => $productId)
+        $this->validate($this->rules);
+
+        $todaysDate = now()->format('Y-m-d');
+
+        if ($todaysDate > $this->deadlineDate)
         {
-
-            if (isset($this->selectedSize[$index]))
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'error',
+                'html' => "De deadline is verstreken! Je kunt nu geen bestellingen meer plaatsen.",
+            ]);
+        } else {
+            foreach ($this->selectedProduct as $index => $productId)
             {
-                $selectedSize = $this->selectedSize[$index];
 
-                // Find the corresponding product size
-                $selectedProductSize = ProductSize::where('product_id', $productId)
-                    ->where('size_id', $selectedSize)
-                    ->value('id');
+                if (isset($this->selectedSize[$index]))
+                {
+                    $selectedSize = $this->selectedSize[$index];
 
-                $selectedAmount = $this->getAmount($productId);
+                    // Find the corresponding product size
+                    $selectedProductSize = ProductSize::where('product_id', $productId)
+                        ->where('size_id', $selectedSize)
+                        ->value('id');
 
-                $this->updateOrder($selectedProductSize, $selectedAmount);
+                    $selectedAmount = $this->getAmount($productId);
+
+                    $this->updateOrder($selectedProductSize, $selectedAmount);
+                }
             }
-        }
-        $this->dispatchBrowserEvent('swal:toast', [
-            'background' => 'success',
-            'html' => "Je bestelling is geplaatst!",
-        ]);
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'success',
+                'html' => "Je bestelling is geplaatst!",
+            ]);
 
-        $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
+            $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
+        }
+
+
     }
 
     /**

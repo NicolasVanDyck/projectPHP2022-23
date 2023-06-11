@@ -20,7 +20,7 @@ class MyOrder extends Component
     public function mount()
     {
         $this->orders = $this->getOrdersForUser();
-        $this->sumOfOrders($this->orders);
+
     }
 
     public function myOrderInfoModal(): void
@@ -71,7 +71,7 @@ class MyOrder extends Component
         return $price * $amount;
     }
 
-    public function sumOfOrders($orders): void
+    public function sumOfOrders($orders): int|float
     {
         $sumOfOrders = 0;
 
@@ -85,6 +85,8 @@ class MyOrder extends Component
         }
 
         $this->sumOfOrders = $sumOfOrders;
+
+        return $sumOfOrders;
     }
 
     public function deleteOrder($orderId): void

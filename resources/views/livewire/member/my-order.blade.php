@@ -47,7 +47,7 @@
 
             <div class="flex flex-row text-white ml-2 @container">
                 <div class="mt-4 font-semibold text-md @md:text-lg">
-                    Totaal: € {{ $sumOfOrders }}
+                    Totaal: € {{ $this->sumOfOrders($orders) }}
                 </div>
             </div>
 

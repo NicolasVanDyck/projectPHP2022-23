@@ -1,27 +1,22 @@
 <div>
 
-    {{--    TODO: parameter endDate--}}
-    <div class="flex flex-wrap">
-{{--        <h2 class="flex-grow text-center pb-2 text-white text-2xl ">Plaats hier uw bestelling</h2>--}}
-        {{--        <td>{{ $parameter->end_date_order }}</td>--}}
-    </div>
-
-
-
     <div class="sm:ml-7 sm:mr-7 sm:mb-10 @container">
-        {{--Link to kleding/mijn-bestelling if the use already has an order in the Orders table--}}
-        @if( $this->hasOrders() )
-            <div class="mb-10 mt-4">
-                <div class="flex flex-row">
+
+        <div class="mt-4 flex flex-row justify-center m-2">
+            <p class="text-white mt-1 mr-2">Bestellen kan tot: {{ date('d/m/Y', strtotime($this->getDeadlineDate())) }}</p>
+
+            {{--Link to kleding/mijn-bestelling if the use already has an order in the Orders table--}}
+            @if( $this->hasOrders() )
+                <div>
                     <x-button
-                        class="p-2 text-white m-2 w-auto bg-[#11253e] hover:bg-[#11253e] mx-auto active:bg-[#11253e]"
+                        class="@sm:mb-2 p-2 text-white flex flex-row @sm:w-fit @sm:h-fit w-[80px] h-[80px] bg-[#11253e] hover:bg-[#11253e] active:bg-[#11253e]"
                         wire:click="redirectToMyOrder">
-                        Mijn bestelling
+                        <p class="@sm:visible collapse">Mijn bestelling</p>
+                        <x-heroicon-m-shopping-bag class="@sm:ml-1 @sm:h-6 @sm:w-6 h-10 w-10 mx-auto my-auto @sm:mx-0 @sm:my-0"/>
                     </x-button>
                 </div>
-            </div>
-        @endif
-
+            @endif
+        </div>
 
         <form wire:submit.prevent="submitForm" class="flex flex-col @md:justify-evenly">
             @csrf
@@ -106,14 +101,15 @@
                 @endforelse
                 </tbody>
                 <tfoot>
-                <tr class="[&>td]:text-[#617691] [&>td]:p-0 [&>td]:rounded-md [&>td]:text-lg [&>td]:font-semibold">
-                    <td></td>
-                    <td class="sm:table-cell hidden"></td>
-                    <td class="text-left">Totaal</td>
-                    <td class="border-collapse border-t-2 border-blue-400 sm:border-none md:border-none">
-                        €{{ $this->getTotal() }}</td>
-                    <td></td>
-                </tr>
+                    <tr class="[&>td]:text-[#617691] [&>td]:p-0 [&>td]:rounded-md [&>td]:text-lg [&>td]:font-semibold">
+                        <td class="sm:table-cell hidden"></td>
+                        <td class="text-right">Totaal</td>
+                        <td class="border-t-2 border-blue-400 sm:border-none md:border-none text-center">
+                            € {{ $this->getTotal() }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tfoot>
             </table>
             <div class="flex justify-center mt-4 mb-10">

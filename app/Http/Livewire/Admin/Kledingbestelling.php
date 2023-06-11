@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Admin;
 
 use App\Exports\OrderExport;
 use App\Models\Order;
+use App\Models\Parameter;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -26,6 +28,7 @@ class Kledingbestelling extends Component
         $this->amount = 0;
         $this->productId = 0;
         $this->ordersCollection = $this->getOrders();
+
 //        dd($this->ordersCollection);
     }
 
