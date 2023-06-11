@@ -58,6 +58,7 @@ class Gallery extends Component
             ->whereNull('image_type_id')
             ->paginate($this->overigePerPage);
 
+
         return view('livewire.gallery', compact('grouptours', 'allPhotos'));
     }
 
