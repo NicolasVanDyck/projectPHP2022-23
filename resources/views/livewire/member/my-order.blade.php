@@ -26,16 +26,17 @@
                             <div class="min-h-[3rem] shadow-xl p-2 relative flex flex-col
                                     rounded-md bg-[#041f3a]
                                     @md:min-h-[175px]
-                                    bg-gradient-to-bl from-[#041f3a] to-[#073360]
-
+                                    {{--bg-gradient-to-bl from-[#041f3a] to-[#073360]--}}
+                                    bg-[#e6ebef]
                                     ">
-                                <span class="text-white @sm:text-md">{{ $this->getProductsFromOrder($order->product_size_id) }}</span>
-                                <span class="text-white/90 @sm:text-sm text-md">{{ $this->getSizeFromProductSize($order->product_size_id) }} * {{ $order->quantity }}</span>
+                                <span class="text-[#192c44] text-sm @md:text-md">{{ $this->getProductsFromOrder($order->product_size_id) }}</span>
+                                <span class="text-[#617691] @md:text-md text-sm">{{ $this->getSizeFromProductSize($order->product_size_id) }} * {{ $order->quantity }}</span>
 
-                                <span class=" @xl:mt-10 mt-10 flex flex-row">
-                                <span class="absolute bottom-0 text-[#e6ebef]">totaal: € {{$this->getPriceFromOrder($order->product_size_id)}} </span>
-                                <x-heroicon-m-trash class="w-6 h-6 m-2
-                                                       absolute bottom-0 right-0 ml-2 text-red-700 hover:text-red-500 cursor-pointer" wire:click="deleteOrder({{ $order->id }})"/></span>
+                                <div class=" @md:mt-4 mt-10 flex flex-row">
+                                    <span class="absolute bottom-1 text-[#617691] text-sm @md:text-md ">totaal: € {{$this->getPriceFromOrder($order->product_size_id)}} </span>
+                                    <x-heroicon-m-trash class="w-6 h-6 m-2
+                                                           absolute bottom-0 right-0 ml-2 text-red-700 hover:text-red-500 cursor-pointer" wire:click="deleteOrder({{ $order->id }})"/>
+                                </div>
 
                             </div>
                         </div>
@@ -44,8 +45,8 @@
                 </div>
             </div>
 
-            <div class="flex flex-row text-white ml-2">
-                <div class="mt-4 text-lg font-semibold">
+            <div class="flex flex-row text-white ml-2 @container">
+                <div class="mt-4 font-semibold text-md @md:text-lg">
                     Totaal: € {{ $sumOfOrders }}
                 </div>
             </div>

@@ -32,7 +32,7 @@
             @endif
             <table class="table-auto md:mx-auto bg-[#e6ebef] shadow-2xl @md:rounded-md">
                 <thead class="text-left bg-[#cdd6df] overflow-hidden">
-                    <tr class="[&>th]:text-[#192c44] [&>th]:p-4 text-sm @lg:text-lg">
+                    <tr class="[&>th]:text-[#192c44] [&>th]:p-4 text-sm @lg:text-md">
                         <th>Naam</th>
                         <th class="hidden sm:table-cell">Maat</th>
                         <th>Prijs</th>
