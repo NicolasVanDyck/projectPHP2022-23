@@ -4,7 +4,7 @@
     <div class="sm:ml-7 sm:mr-7 @container mb-4">
         <div class="mt-4 flex flex-row justify-center m-2">
             <x-button wire:click="showModal()" class="@sm:mb-2 p-2 text-white flex flex-row @sm:w-fit @sm:h-fit w-[60px] h-[60px] mr-2 ml-1">
-                <p class="collapse @sm:visible text-center my-auto">Product toevoegen</p>
+                <p class="collapse @sm:visible text-left my-auto text-sm @md:text-md">Product toevoegen</p>
                 <x-heroicon-m-plus-circle class="@sm:ml-1 @sm:h-8 @sm:w-8 h-10 w-10 mx-auto my-auto @sm:mx-0 @sm:my-0"/>
             </x-button>
             <div>
@@ -12,7 +12,7 @@
                          placeholder="Zoeken..."
                          wire:model.debounce.500ms="search"
                          autofocus autocomplete="search"
-                         class="flex-initial w-[90%] @sm:w-auto mx-auto @sm:mb-2 p-2"/>
+                         class="flex-initial w-[90%] @sm:w-auto mx-auto @sm:mb-2 p-2 h-[60px] @sm:h-auto"/>
             </div>
         </div>
 
