@@ -15,7 +15,7 @@ class Gallery extends Component
     public $date = null;
 
     public $groupToursPerPage = 3;
-    public $overigePerPage = 8;
+    public $overigePerPage = 3;
 
     public function resetDate()
     {
@@ -28,9 +28,23 @@ class Gallery extends Component
             $this->resetPage();
     }
 
+//    public function render()
+//    {
+////        Join GroupTour, Tour and Image tables
+//        $grouptours = GroupTour::with('tour.images')
+//            ->has('tour.images')
+//            ->orderBy('start_date', 'desc')
+//            ->when($this->date != null, function ($query) {
+//                $query->where('start_date', '=', $this->date);
+//            })
+//            ->paginate($this->groupToursPerPage);
+//        $photos = Image::where([['tour_id', '=', null], ['image_type_id', '=', 1]])->paginate($this->overigePerPage);
+//
+//        return view('livewire.gallery', compact('grouptours', 'photos'));
+//    }
     public function render()
     {
-//        Join GroupTour, Tour and Image tables
+        // Join GroupTour, Tour, and Image tables
         $grouptours = GroupTour::with('tour.images')
             ->has('tour.images')
             ->orderBy('start_date', 'desc')
@@ -38,9 +52,19 @@ class Gallery extends Component
                 $query->where('start_date', '=', $this->date);
             })
             ->paginate($this->groupToursPerPage);
-        $photos = Image::where([['tour_id', '=', null], ['image_type_id', '=', 1]])->paginate($this->overigePerPage);
 
-        return view('livewire.gallery', compact('grouptours', 'photos'));
+        // Fetch all images with null tour_id and image_type_id for pagination
+        $allPhotos = Image::whereNull('tour_id')
+            ->whereNull('image_type_id')
+            ->paginate($this->overigePerPage);
+
+        return view('livewire.gallery', compact('grouptours', 'allPhotos'));
     }
+
+
+
+
+
+
 
 }
