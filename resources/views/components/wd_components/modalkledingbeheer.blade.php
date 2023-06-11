@@ -50,20 +50,18 @@
     </x-slot>
 
     <x-slot name="footer">
-{{--        @dd($newProduct['id'])--}}
         @if(is_null($newProduct['id']))
             <x-button
                 wire:click="createNewProduct()"
                 wire:loading.attr="disabled"
-                class="ml-2 mr-2 text-xs @sm:text-sm @md:text-md">Opslaan & verlaten
+                class="ml-2 mr-2 text-xs @sm:text-sm @md:text-md h-full">Opslaan & verlaten
             </x-button>
         @else
-{{--            @dd($newProduct['id'])--}}
             <x-button
                 wire:click="updateProduct({{$newProduct['id']}})"
                 wire:loading.attr="disabled"
-                class="@sm:mb-2 p-2 text-white flex flex-row @sm:w-fit @sm:h-fit mr-2 ml-1">
-                <p class="text-xs @sm:text-sm @md:text-md">Opslaan & verlaten</p>
+                class="@sm:mb-2 p-2 text-white flex flex-row @sm:w-fit h-full mr-2 ml-1">
+                <p class="text-xs @sm:text-sm @md:text-md h-full">Opslaan & verlaten</p>
             </x-button>
         @endif
 
