@@ -27,7 +27,6 @@
 
         {{-- Aantal ritten per pagina --}}
         <div class="flex flex-col text-gray-800">
-            <h3 class="flex text-white"></h3>
             <label for="perPage" class="mr-2 text-white">Per Page</label>
             <select class="border border-gray-300 rounded-lg px-4 py-2" id="perPage" wire:model="perPage">
                 <option value="1">1</option>

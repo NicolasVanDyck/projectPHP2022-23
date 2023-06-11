@@ -39,12 +39,12 @@ class Gallery extends Component
             ->when($this->date != null, function ($query) {
                 $query->where('start_date', '=', $this->date);
             })
-            ->paginate($this->groupToursPerPage, ['*'], 'groupToursPage');
+            ->simplePaginate($this->groupToursPerPage, ['*'], 'groupToursPage');
 
         // Fetch all images with null tour_id and image_type_id for pagination
         $allPhotos = Image::whereNull('tour_id')
             ->whereNull('image_type_id')
-            ->paginate($this->overigePerPage, ['*'], 'overigePage');
+            ->simplePaginate($this->overigePerPage, ['*'], 'overigePage');
 
         return view('livewire.gallery', compact('grouptours', 'allPhotos'));
     }
