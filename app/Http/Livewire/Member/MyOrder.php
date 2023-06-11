@@ -23,6 +23,11 @@ class MyOrder extends Component
         $this->sumOfOrders($this->orders);
     }
 
+    public function myOrderInfoModal(): void
+    {
+        $this->myOrderInfoModal = !$this->myOrderInfoModal;
+    }
+
     public function getOrdersForUser()
     {
         $orders = auth()->user()->orders;

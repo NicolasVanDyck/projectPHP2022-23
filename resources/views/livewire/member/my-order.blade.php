@@ -3,14 +3,14 @@
     <x-slot name="description">Hier kun je zien welke kleding je hebt besteld en eventueel aanpassen</x-slot>
 
 
-    <div class="flex flex-col ml-2 mt-20">
-        <div class="flex-ml-2 mx-auto">
+    <div class="flex flex-row ml-2 mt-20">
+        <div class="mx-auto">
             <div class="text-white flex flex-row text-2xl font-semibold mb-10">
                 <div class="col-span-1"></div>
                 Mijn bestelling
                 <x-heroicon-m-information-circle
                     wire:click="myOrderInfoModal"
-                    class="w-10 h-10 fill-green-300 hover:fill-green-500 ml-2 hover:cursor-pointer self-center"
+                    class="w-10 h-10 fill-green-300 hover:fill-white ml-2 hover:cursor-pointer self-center transform sm:hover:scale-110"
                 />
             </div>
 
@@ -40,26 +40,23 @@
                 </tbody>
             </table>
 
-            <div class="flex flex-row text-white ml-2 border-t border-t-white">
+            <div class="flex flex-row text-white pl-2">
                 <div class="mt-4 text-lg font-semibold">
                     Totaal: € {{ $sumOfOrders }}
                 </div>
             </div>
 
-
-
+            <div class="flex flex-col mt-10">
+                <p class="text-left pb-2 text-white m-2">Order aanpassen? Ga dan terug naar kleding bestellen. Gebruik het menu kleding of klik op de knop hieronder</p>
+                <x-button
+                    class="text-center pb-2 text-white mt-2 mb-2 ml-2"
+                    wire:click="redirectToOrder">
+                    Ga terug
+                </x-button>
+            </div>
         </div>
-
-        <div class="flex flex-col mt-10 ml-2">
-            <p class="text-left pb-2 text-white m-2">Order aanpassen? Ga dan terug naar kleding bestellen. Gebruik het menu kleding of klik op de knop hieronder</p>
-            <x-button
-                class="text-center pb-2 text-white mt-2 mb-2"
-                wire:click="redirectToOrder">
-                Ga terug
-            </x-button>
-        </div>
-
     </div>
 
 
+    @include('components.wd_components.mijnbestellinginfomodal')
 </div>
