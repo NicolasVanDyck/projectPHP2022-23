@@ -12,32 +12,64 @@
         </div>
 
         <div class="flex flex-col @md:justify-evenly">
-            <table class="table-auto md:mx-auto bg-[#e6ebef] shadow-2xl @md:rounded-md">
+            <table class="table-auto md:mx-auto bg-[#e6ebef] shadow-2xl w-full @xl:w-auto">
                 <thead class="text-left bg-[#cdd6df] overflow-hidden">
-                <tr class="[&>th]:text-[#192c44] [&>th]:p-4 text-sm @lg:text-md">
+                <tr class="collapse @sm:visible
+                           [&>th]:text-[#192c44] [&>th]:p-4 text-sm @lg:text-md">
                     <th>Naam</th>
                     <th>Product</th>
                     <th>Aantal</th>
                     <th>Maat</th>
                     <th>Prijs</th>
                 </tr>
+                <tr class="[&>th]:text-[#192c44] [&>th]:p-4 text-sm @lg:text-md
+                           visible @sm:collapse border border-b-1">
+                    <th colspan="4">
+                        <div class="text-center -ml-9">Bestellingen</div>
+                    </th>
+                </tr>
+                <tr class="[&>th]:text-[#192c44] [&>th]:p-4 text-sm @lg:text-md
+                           visible @sm:collapse [&>th]:@sm:collapse">
+                    <th>Bestelling</th>
+                    <th>Maat</th>
+                    <th colspan="2">Totaal</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($ordersCollection->sortBy('user_name') as $order)
-                    <tr class="[&>td]:p-2 [&>td]:border-y [&>td]:border-[#d4dde9]">
+                    <tr class="
+                        collapse @sm:visible
+                        [&>td]:p-2 [&>td]:border-y [&>td]:border-[#d4dde9]">
                         <td>
-                            <div class="text-[#617691] p-2 text-xs @md:text-md @lg:text-md">
+                            <div class="text-[#617691] p-2 text-xs @md:text-md">
                             {{ $order['user_name'] }}
                             </div>
                         </td>
                         <td>
-                            <div class="text-[#617691] p-2 text-xs @md:text-md @lg:text-md">
+                            <div class="text-[#617691] p-2 text-xs @md:text-md">
                             {{ $order['product_name'] }}
                             </div>
                         </td>
                         <td>
-                            <div class="text-[#617691] p-2 text-xs @md:text-md @lg:text-md">
+                            <div class="text-[#617691] p-2 text-xs @md:text-md">
                                 {{ $order['amount'] }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-[#617691] p-2 text-xs @md:text-md">
+                                {{ $order['size_name']}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-[#617691] p-2 text-xs @md:text-md">
+                                € {{ $order['price'] * $order['amount'] }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="[&>td]:p-2 [&>td]:border-y [&>td]:border-[#d4dde9] visible @sm:collapse">
+                        <td>
+                            <div class="text-[#617691] p-2 text-xs @md:text-md @lg:text-md">
+                                {{ $order['user_name'] }} - {{ $order['product_name'] }} * {{ $order['amount'] }}
                             </div>
                         </td>
                         <td>
