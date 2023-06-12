@@ -103,10 +103,6 @@
             </div>
 
         </div>
-        {{--Shows all the order from the orders table, with user name, product name, amount, product size, product price --}}
+        @include('components.wd_components.kledingbestellinginfomodal')
     </div>
-
-
-
-    @include('components.wd_components.kledingbestellinginfomodal')
 </div>
