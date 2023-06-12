@@ -1,7 +1,8 @@
 <x-dialog-modal id="productModal"
+                class="@container"
                 wire:model="showModal">
     <x-slot name="title">
-        <h2>{{ is_null($newProduct['id']) ? 'Nieuw product aanmaken' : 'Gegevens van ' . $newProduct['name'] . ' aanpassen' }}</h2>
+        <h2 class="text-lg">{{ is_null($newProduct['id']) ? 'Nieuw product aanmaken' : 'Gegevens van ' . $newProduct['name'] . ' aanpassen' }}</h2>
     </x-slot>
     <x-slot name="content">
         <div class="relative flex-auto p-4">
@@ -12,7 +13,7 @@
                 <x-input id="newProduct.name" type="text" name="name" placeholder="naam"
                          wire:model.defer="newProduct.name"
                          required
-                         autofocus autocomplete="name" class="block mt-1 w-full"/>
+                         autofocus autocomplete="name" class="block mt-1 w-full text-xs @sm:text-sm @md:text-md"/>
                 <x-input-error for="newProduct.name" class="mt-2"/>
             </div>
             <div class="mt-2">
@@ -21,7 +22,7 @@
                          placeholder="prijs in €"
                          wire:model.defer="newProduct.price" required autofocus
                          autocomplete="price"
-                         class="block mt-1 w-full"/>
+                         class="block mt-1 w-full text-xs @sm:text-sm @md:text-md"/>
                 <x-input-error for="newProduct.price" class="mt-2"/>
             </div>
                 <div class="mt-2">
@@ -38,7 +39,7 @@
                             wire:model="selectedSizes"
                             type="checkbox"
                             autofocus
-                            class="mr-2"
+                            class="mr-2 text-xs @sm:text-sm @md:text-md"
                             />
                             <label for="{{ 'size_' . $size->id }}">{{ $size->size }}</label>
                         </div>
@@ -49,24 +50,23 @@
     </x-slot>
 
     <x-slot name="footer">
-{{--        @dd($newProduct['id'])--}}
         @if(is_null($newProduct['id']))
             <x-button
                 wire:click="createNewProduct()"
                 wire:loading.attr="disabled"
-                class="ml-2">Gegevens opslaan & verlaten
+                class="ml-2 mr-2 text-xs @sm:text-sm @md:text-md h-full">Opslaan & verlaten
             </x-button>
         @else
-{{--            @dd($newProduct['id'])--}}
             <x-button
                 wire:click="updateProduct({{$newProduct['id']}})"
                 wire:loading.attr="disabled"
-                class="ml-2">Aanpassingen opslaan & verlaten
+                class="@sm:mb-2 p-2 text-white flex flex-row @sm:w-fit h-full mr-2 ml-1">
+                <p class="text-xs @sm:text-sm @md:text-md h-full">Opslaan & verlaten</p>
             </x-button>
         @endif
 
-        <x-button bgcolor="rood" @click="show = false" wire:loading.attr="disabled">
-            Annuleren
+        <x-button class="bg-gray-200 text-xs @sm:text-sm @md:text-md" @click="show = false" wire:loading.attr="disabled">
+            <p class="text-black">Annuleren</p>
         </x-button>
     </x-slot>
 </x-dialog-modal>

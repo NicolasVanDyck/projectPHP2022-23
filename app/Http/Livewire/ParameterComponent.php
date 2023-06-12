@@ -12,71 +12,50 @@ class ParameterComponent extends Component
 {
 
     public $parameters;
-    public  $selectedParameterId;
-
-    public $parameter_id_delete;
     public $end_date_order;
-    public $parameter_id;
+
 
     public function mount()
     {
         $this->parameters = Parameter::all(['end_date_order', 'id']);
     }
 
-    public function store()
+    /**
+     * Gets the enddate from the parameters table
+     *
+     * @return string
+     */
+    public function getEndDateOrder(): string
+    {
+        $parameter = Parameter::find(1);
+
+        if ($parameter == null) {
+            return "Geen einddatum gevonden";
+        } else {
+            return date('d/m/Y', strtotime($parameter->end_date_order));
+        }
+    }
+
+
+    /**
+     * Updates the parameter. The table is first truncated so there can always be only one end date.
+     * Then the new parameter is inserted.
+     *
+     * @return void
+     */
+    public function update(): void
     {
         $this->validate([
-            'end_date_order' => 'required',
-        ]);
-
-        Parameter::create([
-            'end_date_order' => $this->end_date_order,
-        ]);
-
-        $this->dispatchBrowserEvent('swal:toast', [
-            'background' => 'success',
-            'html' => "Parameter met einddatum " . date('d/m/Y', strtotime($this->end_date_order)) . " werd aangemaakt!",
-        ]);
-
-        $this->reset();
-        $this->mount();
-    }
-
-    public function destroy()
-    {
-        $parameter = Parameter::findOrFail($this->parameter_id_delete);
-        $parameter->delete();
-
-        session()->flash('message', 'Parameter deleted successfully.');
-
-        $this->reset('parameter_id_delete');
-        $this->reset();
-        $this->mount();
-        $this->dispatchBrowserEvent('swal:toast', [
-            'background' => 'danger',
-            'html' => "Parameter werd verwijderd!",
-        ]);
-    }
-
-    public function render()
-    {
-        return view('livewire.parameter-component' , [
-            'parameters' => Parameter::all()
-        ]);
-    }
-
-    public function update()
-    {
-        $this->validate([
-            'selectedParameterId' => 'required',
             'end_date_order' => 'required|date',
         ]);
 
-        $parameter = Parameter::findOrFail($this->selectedParameterId);
-
-        $parameter->update([
-            'end_date_order' => $this->end_date_order,
-        ]);
+        DB::table('parameters')->truncate();
+        DB::table('parameters')->insert([
+                'end_date_order' => $this->end_date_order,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
 
         $this->emit('parameterUpdated');
 
@@ -84,7 +63,17 @@ class ParameterComponent extends Component
             'background' => 'success',
             'html' => "Parameter werd aangepast naar " . date('d/m/Y', strtotime($this->end_date_order)) . "!",
         ]);
-        $this->reset(['selectedParameterId', 'end_date_order']);
+        $this->reset(['end_date_order']);
+
+
+
+
     }
 
+    public function render()
+    {
+        return view('livewire.parameter-component', [
+            'parameters' => Parameter::all()
+        ]);
+    }
 }

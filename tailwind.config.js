@@ -30,6 +30,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("tw-elements/dist/plugin.cjs"),
+    require('@tailwindcss/container-queries'),
   ],
   darkMode: "class",
 };
