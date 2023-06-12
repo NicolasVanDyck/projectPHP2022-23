@@ -16,6 +16,7 @@
         "codeat3/blade-simple-icons": "*",
         "codetoad/strava": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "laravel/framework": "^10.8",
         "laravel/jetstream": "^3.1",
         "laravel/sanctum": "^3.2",
