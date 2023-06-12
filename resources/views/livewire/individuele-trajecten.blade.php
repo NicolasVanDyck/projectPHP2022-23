@@ -18,7 +18,7 @@
                 <label for="afstand" class="text-white">Aantal kilometers:
                     <output id="kilometerfilter" name="kilometerfilter">{{round($afstand/1000)}}</output>
                 </label>
-                <input type="range" class="accent-orange-500" id="afstand" name="afstand" wire:model="afstand"
+                <input type="range" class="accent-blue-400" id="afstand" name="afstand" wire:model="afstand"
                        min="{{$afstandMin}}"
                        max="{{$afstandMax}}" value="0" step="5"
                        x-bind:value="afstand" x-on:input="kilometerfilter.value = $event.target.value">
@@ -27,7 +27,6 @@
 
         {{-- Aantal ritten per pagina --}}
         <div class="flex flex-col text-gray-800">
-            <h3 class="flex text-white"></h3>
             <label for="perPage" class="mr-2 text-white">Per Page</label>
             <select class="border border-gray-300 rounded-lg px-4 py-2" id="perPage" wire:model="perPage">
                 <option value="1">1</option>

@@ -10,6 +10,7 @@ use App\Models\Image;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Str;
+use Intervention\Image\Facades\Image as ImageIntervention;
 
 class FotoUpload extends Component
 {
@@ -17,27 +18,22 @@ class FotoUpload extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $perPage = 8;
+    public $perPage = 6;
 
     public $type = 1;
 
     public $tour = '%';
     public $photos = [];
     public $showModal = false;
-
-    protected $listeners = [
-        'delete-image' => 'deleteImage',
-    ];
-
-//    Op 0, zodat checkbox standaard niet aangevinkt staat.
     public $homecarousel = 0;
 
-//    Op 1, omdat gewone images meer zullen voorkomen dan sponsorimages.
+//    Op 0, zodat checkbox standaard niet aangevinkt staat.
     public $uploadType = 1;
 
-//    Waarde invullen, anders null en dan toont hij de images niet.
+//    Op 1, omdat gewone images meer zullen voorkomen dan sponsorimages.
     public $uploadTour = 1;
 
+//    Waarde invullen, anders null en dan toont hij de images niet.
     public $newImage = [
         'id' => null,
         'image_type_id' => null,
@@ -47,23 +43,11 @@ class FotoUpload extends Component
         'path' => null,
         'in_carousel' => false,
     ];
+    protected $listeners = [
+        'delete-image' => 'deleteImage',
+    ];
 
 //    Validationrules
-    protected function rules()
-    {
-        return [
-//            MIME = multipurpose internet mail extensions
-            'photos.*' => 'required|file|mimes:jpg,png|max:1024', // 1MB Max
-            'newImage.image_type_id' => 'required',
-            'newImage.tour_id' => 'nullable',
-            'newImage.name' => 'required|string|max:255|unique:images,name,' . $this->newImage['id'] . ',id',
-            'newImage.description' => 'required|string|max:255',
-//            Hoe werkt dit na het punt?
-            'newImage.path' => 'nullable|string|max:255|unique:images,path,' . $this->newImage['id'] . ',id',
-        ];
-    }
-
-//    Validationberichten
     protected $messages = [
         'photos.*.required' => 'Een foto is verplicht',
         'photos.*.mimes' => 'Een foto moet een jpeg of png zijn',
@@ -75,6 +59,8 @@ class FotoUpload extends Component
         'newImage.path.unique' => 'Het pad naar deze foto bestaat al. Je geeft je foto best een andere naam.',
     ];
 
+//    Validationberichten
+
     public function resetTour()
     {
         $this->type = 1;
@@ -84,44 +70,59 @@ class FotoUpload extends Component
     {
         $this->validate([
             'photos.*' => 'required|file|mimes:jpg,png|max:1024',
-            ]);
+        ]);
 
 //        Alle images overlopen en opslaan in de database en de juiste storagefolder.
-        foreach($this->photos as $photo) {
+        foreach ($this->photos as $photo) {
             $name = $photo->getClientOriginalName();
 //            Onderstaande code is nodig om de extensie van de foto te verwijderen. Parameter die je opgeeft aan basename wordt verwijderd.
             $name = Str::of($name)->basename('.' . $photo->getClientOriginalExtension());
 //            Opslaan in sponsor of imagefolder van de storage:
-            if($this->uploadType == '') {
+            if ($this->uploadType == '') {
                 $path = '/storage/galerij/' . $photo->getClientOriginalName();
-                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
-                Image::create([
-                    'name' => $name,
-                    'description' => $name,
-                    'path' => $path,
-                    'in_carousel' => 1,
-                ]);
-            } elseif ($this->uploadType == 1){
+//                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
+                ImageIntervention::make($photo)->fit(320, null, function ($constrained) {
+                    $constrained->aspectRatio();
+                    $constrained->upsize();
+                })->save('storage/galerij/' . $photo->getClientOriginalName());
+                if (!Image::where('path', $path)->exists()) {
+                    Image::create([
+                        'name' => $name,
+                        'description' => $name,
+                        'path' => $path,
+                        'in_carousel' => 1,
+                    ]);
+                }
+            } elseif ($this->uploadType == 1) {
                 $path = '/storage/galerij/' . $photo->getClientOriginalName();
-                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
-                Image::create([
-                    'image_type_id' => $this->uploadType,
-                    'tour_id' => $this->uploadTour,
-                    'name' => $name,
-                    'description' => $name,
-                    'path' => $path,
-                    'in_carousel' => 1,
-                ]);
+//                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
+                ImageIntervention::make($photo)->fit(320, null, function ($constrained) {
+                    $constrained->aspectRatio();
+                    $constrained->upsize();
+                })->save('storage/galerij/' . $photo->getClientOriginalName());
+                if (!Image::where('path', $path)->exists()) {
+                    Image::create([
+                        'image_type_id' => $this->uploadType,
+                        'tour_id' => $this->uploadTour,
+                        'name' => $name,
+                        'description' => $name,
+                        'path' => $path,
+                        'in_carousel' => 1,
+                    ]);
+                }
             } else {
                 $path = '/storage/sponsor/' . $photo->getClientOriginalName();
-                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
-                Image::create([
-                    'image_type_id' => $this->uploadType,
-                    'name' => $name,
-                    'description' => $name,
-                    'path' => $path,
-                    'in_carousel' => 1,
-                ]);
+//                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
+                ImageIntervention::make($photo)->resize(100, 100)->save('storage/sponsor/' . $photo->getClientOriginalName());
+                if (!Image::where('path', $path)->exists()) {
+                    Image::create([
+                        'image_type_id' => $this->uploadType,
+                        'name' => $name,
+                        'description' => $name,
+                        'path' => $path,
+                        'in_carousel' => 0,
+                    ]);
+                }
             }
             $this->dispatchBrowserEvent('swal:toast', [
                 'background' => 'success',
@@ -130,7 +131,6 @@ class FotoUpload extends Component
         }
     }
 
-//    Afbeelding aanpassen. Geef de juiste waarden mee aan de variabelen + toon modal.
     public function editImage(Image $image)
     {
         $this->resetErrorBag();
@@ -146,7 +146,8 @@ class FotoUpload extends Component
         $this->showModal = true;
     }
 
-//    Vul de aangepaste waarden in en update de image.
+//    Afbeelding aanpassen. Geef de juiste waarden mee aan de variabelen + toon modal.
+
     public function updateImage(Image $image)
     {
         $this->validate();
@@ -172,13 +173,14 @@ class FotoUpload extends Component
         ]);
     }
 
-//    Verwijder uit de database én de storage
+//    Vul de aangepaste waarden in en update de image.
+
     public function deleteImage($path)
     {
         $image = Image::where('path', $path)->first();
         $image->delete();
 //      Maak een string van de array, anders werkt de Str::after niet
-        $path = implode($path);
+//        $path = implode($path);
         //        Geef de rest van de string terug na het eerste voorkomen van de gegeven waarde
         $path = Str::after($path, '/storage/');
         Storage::disk('public')->delete($path);
@@ -189,7 +191,8 @@ class FotoUpload extends Component
 
     }
 
-//    Paginator bijwerken
+//    Verwijder uit de database én de storage
+
     public function updated($propertyName, $propertyValue)
     {
         // dump($propertyName, $propertyValue);
@@ -197,24 +200,25 @@ class FotoUpload extends Component
             $this->resetPage();
     }
 
+//    Paginator bijwerken
+
     public function render()
     {
         $tours = Tour::get();
 
 //      Ritten ophalen
-        if($this->type == 1) {
+        if ($this->type == 1) {
             $images = Image::orderBy('created_at', 'desc')
                 ->where('tour_id', 'like', $this->tour)
-                ->when($this->homecarousel == 1, function($query) {
+                ->when($this->homecarousel == 1, function ($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
                 ->paginate($this->perPage);
-        }
-        //        Sponsor ophalen, houdt verder geen rekening met tour_id, want is niet nodig.
-        elseif($this->type == 2) {
+        } //        Sponsor ophalen, houdt verder geen rekening met tour_id, want is niet nodig.
+        elseif ($this->type == 2) {
             $images = Image::where('image_type_id', '=', $this->type)
                 ->orderBy('created_at', 'desc')
-                ->when($this->homecarousel == 1, function($query) {
+                ->when($this->homecarousel == 1, function ($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
                 ->paginate($this->perPage);
@@ -222,12 +226,26 @@ class FotoUpload extends Component
         } else {
             $images = Image::orderBy('created_at', 'desc')
                 ->where('image_type_id', null)
-                ->when($this->homecarousel == 1, function($query) {
+                ->when($this->homecarousel == 1, function ($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
                 ->paginate($this->perPage);
         }
         $imagetypes = ImageType::get();
-        return view('livewire.foto-upload', compact('images', 'imagetypes','tours'));
+        return view('livewire.foto-upload', compact('images', 'imagetypes', 'tours'));
+    }
+
+    protected function rules()
+    {
+        return [
+//            MIME = multipurpose internet mail extensions
+            'photos.*' => 'required|file|mimes:jpg,png|max:1024', // 1MB Max
+            'newImage.image_type_id' => 'required',
+            'newImage.tour_id' => 'nullable',
+            'newImage.name' => 'required|string|max:255|unique:images,name,' . $this->newImage['id'] . ',id',
+            'newImage.description' => 'required|string|max:255',
+//            Hoe werkt dit na het punt?
+            'newImage.path' => 'nullable|string|max:255|unique:images,path,' . $this->newImage['id'] . ',id',
+        ];
     }
 }
