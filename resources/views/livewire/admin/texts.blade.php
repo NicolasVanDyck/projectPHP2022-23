@@ -54,8 +54,8 @@
         rounded-3xl shadow-xl overflow-hidden text-center p-4'>
                 <p>{{$individuele_trajecten->description}}</p>
         @elseif(str_contains(Request::url(), 'kleding'))
-            <div class='mb-4 max-w-[70%] mx-auto bg-white
-        rounded-3xl shadow-xl overflow-hidden text-center p-4'>
+            <div class='mb-4 md:max-w-[50%] max-w-[90%] mx-auto bg-white
+        rounded-2xl shadow-xl overflow-hidden md:text-center p-4'>
                 <p>{{$kleding->description}}</p>
             </div>
                 @elseif(str_contains(Request::url(), 'groep'))
@@ -74,5 +74,6 @@
                 </div>
             @endif
         @endif
+    </div>
 </div>
 </div>

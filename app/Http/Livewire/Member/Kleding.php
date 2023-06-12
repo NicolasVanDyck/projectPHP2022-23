@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Member;
 
 use App\Models\Order;
+use App\Models\Parameter;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use LaravelIdea\Helper\App\Models\_IH_Size_C;
 use Livewire\Component;
@@ -19,8 +21,8 @@ class Kleding extends Component
     public array $selectedProduct = [];
     public array $amounts = [];
     protected $order;
-    private array $totals = [];
     public $productSizes;
+    public $deadlineDate;
 
     protected $rules = [
         'products' => 'array',
@@ -29,11 +31,13 @@ class Kleding extends Component
         'selectedProduct' => 'required',
     ];
 
+
     public function mount(): void
     {
         $this->productSizes = ProductSize::all();
         $this->products = new Collection();
         $this->getProducts();
+        $this->getDeadlineDate();
     }
 
     /**
@@ -59,7 +63,6 @@ class Kleding extends Component
         $this->products = $products;
 
         $this->amounts = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
-        $this->totals = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
         return $products;
     }
 
@@ -99,7 +102,7 @@ class Kleding extends Component
      * @param $productId
      * @return int
      */
-    public function getTotalForProduct($productId): int
+    public function getTotalForProduct($productId): int|float
     {
         if (isset($this->amounts[$productId])) {
             $amount = $this->amounts[$productId];
@@ -129,6 +132,18 @@ class Kleding extends Component
     }
 
     /**
+     * Gets the deadline date from the database.
+     */
+    public function getDeadlineDate()
+    {
+        $deadline = Parameter::get()->value('end_date_order');
+
+        $this->deadlineDate = $deadline;
+
+        return $deadline;
+    }
+
+    /**
      * Update the Order table with the selected product_size id and amount.
      *
      * @param int|null $selectedProductSize
@@ -137,6 +152,7 @@ class Kleding extends Component
      */
     public function updateOrder(?int $selectedProductSize, int $selectedAmount): void
     {
+        $this->validate($this->rules);
         // If the selected product size is not null, the order is updated.
         if ($selectedProductSize !== null)
         {
@@ -144,26 +160,39 @@ class Kleding extends Component
             $this->order = DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->first();
         }
 
-        // If the order is not in the database, create it.
-        if (!$this->order)
-        {
-            DB::table('orders')->insert([
-                'user_id' => auth()->user()->id,
-                'product_size_id' => $selectedProductSize,
-                'quantity' => $selectedAmount,
-                'order_date' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        } else {
-            // Else, update the order.
-            DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->update([
-                'quantity' => $selectedAmount,
-                'order_date' => now(),
-                'updated_at' => now(),
-            ]);
+        try {
+            // If the order is not in the database, create it.
+            if (!$this->order)
+            {
+                DB::table('orders')->insert([
+                    'user_id' => auth()->user()->id,
+                    'product_size_id' => $selectedProductSize,
+                    'quantity' => $selectedAmount,
+                    'order_date' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } else {
+                // Else, update the order.
+                DB::table('orders')->where('user_id', auth()->user()->id)->where('product_size_id', $selectedProductSize)->update([
+                    'quantity' => $selectedAmount,
+                    'order_date' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        } catch (QueryException $exception) {
+            if ($exception->getCode() === '23000') {
+                $this->dispatchBrowserEvent('swal:toast', [
+                    'background' => 'error',
+                    'html' => "Er is iets misgegaan. Probeer het opnieuw.",
+                ]);
+            } else {
+                throw $exception;
+            }
         }
+
     }
+
 
     /**
      * Submit the form and update the order table.
@@ -172,29 +201,58 @@ class Kleding extends Component
      */
     public function submitForm(): void
     {
-        foreach ($this->selectedProduct as $index => $productId)
+        $todaysDate = now()->format('Y-m-d');
+
+        $arrayOfOrders = []; // Key value pair array for orders containing selected ProductSize and SelectedAmount
+
+        if ($todaysDate > $this->deadlineDate)
         {
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'error',
+                'html' => "De deadline is verstreken! Je kunt nu geen bestellingen meer plaatsen.",
+            ]);
+        } else {
+            foreach ($this->selectedProduct as $index => $productId) {
 
-            if (isset($this->selectedSize[$index]))
-            {
-                $selectedSize = $this->selectedSize[$index];
+                if (isset($this->selectedSize[$index])) {
+                    $selectedSize = $this->selectedSize[$index];
 
-                // Find the corresponding product size
-                $selectedProductSize = ProductSize::where('product_id', $productId)
-                    ->where('size_id', $selectedSize)
-                    ->value('id');
+                    // Find the corresponding product size
+                    $selectedProductSize = ProductSize::where('product_id', $productId)
+                        ->where('size_id', $selectedSize)
+                        ->value('id');
 
-                $selectedAmount = $this->getAmount($productId);
+                    $selectedAmount = $this->getAmount($productId);
 
-                $this->updateOrder($selectedProductSize, $selectedAmount);
+                    if ($selectedAmount === 0) {
+
+                        $this->dispatchBrowserEvent('swal:toast', [
+                            'background' => 'error',
+                            'html' => "Je hebt geen aantal ingevuld voor " . Product::where('id', $productId)->value('name') . ".",
+                        ]);
+
+                        $this->reset('selectedSize', 'selectedProduct', 'amounts');
+
+                        // Abort everything
+                        return;
+                    } else {
+                        $arrayOfOrders[$selectedProductSize] = $selectedAmount;
+                    }
+                }
             }
         }
-        $this->dispatchBrowserEvent('swal:toast', [
-            'background' => 'success',
-            'html' => "Je bestelling is geplaatst!",
-        ]);
+
+        foreach ($arrayOfOrders as $size => $amount)
+        {
+            $this->updateOrder($size, $amount);
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'success',
+                'html' => "Je bestelling is geplaatst!",
+            ]);
+        }
 
         $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
+
     }
 
     /**
