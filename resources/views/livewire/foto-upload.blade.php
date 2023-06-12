@@ -1,10 +1,10 @@
 <div class="text-black">
-    @if($images->isEmpty())
-        <div class="flex mx-auto my-2">
-            <div class="flex flex-col lg:flex-row justify-between">
+    <div class="m-2">
+        <div class="mx-auto max-w-screen-2xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
                 {{--                Filter op afbeeldingstype --}}
                 <div class="flex flex-col text-gray-800">
-                    <label for="type" class="mr-2 text-white">Filter op type</label>
+                    <label for="type" class="mr-2 text-white text-center">Filter op type</label>
                     <select id="type" class="border border-gray-300 rounded-lg px-4 py-2" wire:model="type">
                         @foreach($imagetypes as $it)
                             <option value="{{ $it->id }}">{{ $it->image_type }}</option>
@@ -16,7 +16,7 @@
                 {{--                Waarde aan tour wordt doorgegeven, maar de query wordt niet in rekening genomen?--}}
                 @if($type == 1)
                     <div class="flex flex-col text-gray-800">
-                        <label for="tour" class="mr-2 text-white">Filter op Route</label>
+                        <label for="tour" class="mr-2 text-white text-center">Filter op Route</label>
                         <select id="tour" class="border border-gray-300 rounded-lg px-4 py-2" wire:model="tour">
                             <option value="%">Alle ritten</option>
                             @foreach($tours as $t)
@@ -33,96 +33,16 @@
                                     autocomplete="off" class="block mt-1"/>
                     </div>
                 @endif
-                <div class="mb-2">{{$images->links()}}</div>
+                <div>{{$images->links()}}</div>
             </div>
-            <div class="bg-white mx-auto max-w-md shadow-2xl rounded-2xl">
-                <p class="text-center justify-center p-4">
-                    Er kunnen geen foto's met deze criteria gevonden worden.
-                    Mogelijk is er nog geen foto geüpload die hieraan voldoet.
-                </p>
-                <div class="flex justify-center">
-                    <x-button wire:click="resetTour" class="mb-2">Ga terug</x-button>
+            @if($images->isEmpty())
+                <div class="bg-white my-5 mx-auto max-w-md shadow-2xl rounded-2xl">
+                    <p class="text-center justify-center p-4">
+                        Er kunnen geen foto's met deze criteria gevonden worden.
+                        Mogelijk is er nog geen foto geüpload die hieraan voldoet.
+                    </p>
                 </div>
-            </div>
-        </div>
-        {{--            Uploadzone          --}}
-        <div class="flex flex-col mb-3 lg:flex-row justify-center">
-            {{--        Welk afbeeldingstype hoort bij de foto's?       --}}
-            <div class="mr-4 mb-2">
-                <label class="text-white" for="uploadType" value="uploadType">Afbeeldingstype: </label>
-                <select id="uploadType" wire:model="uploadType">
-                    @foreach($imagetypes as $itype)
-                        <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
-                    @endforeach
-                    <option value="">Overige</option>
-                </select>
-            </div>
-            {{--        Aan welke tour wil je images linken?        --}}
-            @if($uploadType == 1)
-                <div class="mr-4 mb-2">
-                    <label class="text-white" for="uploadTour" value="uploadTour">Voor welke tour wil je een afbeelding
-                        uploaden? </label>
-                    <select id="uploadTour" wire:model="uploadTour">
-                        @foreach($tours as $to)
-                            <option value="{{ $to->id }}">{{ $to->tour_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            @endif
-            {{--        Opslaan en errors       --}}
-            <form wire:submit.prevent="saveImage">
-                {{--                        Multiple om aan te duiden dat je meerdere afbeeldingen tegelijkertijd kan uploaden--}}
-                <input class="text-white mb-2" type="file" wire:model="photos" multiple>
-                @if($errors->any())
-                    <div class="mb-4">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li class="text-red-500">{{$error}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <x-button class="mb-2" type="submit">Save Images</x-button>
-            </form>
-        </div>
-    @else
-
-        <div class="m-2">
-            <div class="mx-auto max-w-screen-2xl">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    {{--                Filter op afbeeldingstype --}}
-                    <div class="flex flex-col text-gray-800">
-                        <label for="type" class="mr-2 text-white text-center">Filter op type</label>
-                        <select id="type" class="border border-gray-300 rounded-lg px-4 py-2" wire:model="type">
-                            @foreach($imagetypes as $it)
-                                <option value="{{ $it->id }}">{{ $it->image_type }}</option>
-                            @endforeach
-                            <option value="%">Overige</option>
-                        </select>
-                    </div>
-                    {{--                Filter rit      --}}
-                    {{--                Waarde aan tour wordt doorgegeven, maar de query wordt niet in rekening genomen?--}}
-                    @if($type == 1)
-                        <div class="flex flex-col text-gray-800">
-                            <label for="tour" class="mr-2 text-white text-center">Filter op Route</label>
-                            <select id="tour" class="border border-gray-300 rounded-lg px-4 py-2" wire:model="tour">
-                                <option value="%">Alle ritten</option>
-                                @foreach($tours as $t)
-                                    <option value="{{ $t->id }}">{{ $t->tour_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        {{--                Filter: Weergeven op carousel in homepage of niet?      --}}
-                        <div class="mb-2 flex flex-row lg:items-center">
-                            <label class="mr-2 text-white" for="homecarousel" value="homecarousel">Getoond op
-                                homepage?</label>
-                            <x-checkbox id="homecarousel" type="checkbox"
-                                        wire:model="homecarousel"
-                                        autocomplete="off" class="block mt-1"/>
-                        </div>
-                    @endif
-                    <div>{{$images->links()}}</div>
-                </div>
+            @else
                 {{--            Tonen van alle foto's       --}}
                 <div
                     class="mt-4 flex flex-wrap justify-between">
@@ -181,59 +101,59 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            @endif
         </div>
-        {{--            Uploadzone          --}}
-        <div class="m-2">
-            <div class="mx-auto max-w-screen-2xl">
-                <h3 class="text-white text-center">Upload hier je foto(s). Selecteer eerst een type, als je
-                    voor rit hebt
-                    gekozen
-                    selecteer
-                    dan de bijhordende rit, selecteer als laatste de bestanden die je wil uploaden.</h3>
-                <div class="flex flex-col m-2 md:flex-row justify-between items-center">
-                    {{--        Welk afbeeldingstype hoort bij de foto's?       --}}
+    </div>
+    {{--            Uploadzone          --}}
+    <div class="m-2">
+        <div class="mx-auto max-w-screen-2xl">
+            <h3 class="text-white text-center">Upload hier je foto(s). Selecteer eerst een type, als je
+                voor rit hebt
+                gekozen
+                selecteer
+                dan de bijhordende rit, selecteer als laatste de bestanden die je wil uploaden.</h3>
+            <div class="flex flex-col m-2 md:flex-row justify-between items-center">
+                {{--        Welk afbeeldingstype hoort bij de foto's?       --}}
+                <div class="flex flex-col text-gray-800">
+                    <label class="mr-2 text-white text-center" for="uploadType">Type</label>
+                    <select class="border border-gray-300 rounded-lg px-4 py-2" id="uploadType"
+                            wire:model="uploadType">
+                        @foreach($imagetypes as $itype)
+                            <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
+                        @endforeach
+                        <option value="">Overige</option>
+                    </select>
+                </div>
+                {{--        Aan welke tour wil je images linken?        --}}
+                @if($uploadType == 1)
                     <div class="flex flex-col text-gray-800">
-                        <label class="mr-2 text-white text-center" for="uploadType">Type</label>
-                        <select class="border border-gray-300 rounded-lg px-4 py-2" id="uploadType"
-                                wire:model="uploadType">
-                            @foreach($imagetypes as $itype)
-                                <option value="{{ $itype->id }}">{{ $itype->image_type }}</option>
+                        <label class="mr-2 text-white text-center" for="uploadTour">Route</label>
+                        <select class="border border-gray-300 rounded-lg px-4 py-2" id="uploadTour"
+                                wire:model="uploadTour">
+                            @foreach($tours as $to)
+                                <option value="{{ $to->id }}">{{ $to->tour_name }}</option>
                             @endforeach
-                            <option value="">Overige</option>
                         </select>
                     </div>
-                    {{--        Aan welke tour wil je images linken?        --}}
-                    @if($uploadType == 1)
-                        <div class="flex flex-col text-gray-800">
-                            <label class="mr-2 text-white text-center" for="uploadTour">Route</label>
-                            <select class="border border-gray-300 rounded-lg px-4 py-2" id="uploadTour"
-                                    wire:model="uploadTour">
-                                @foreach($tours as $to)
-                                    <option value="{{ $to->id }}">{{ $to->tour_name }}</option>
+                @endif
+                {{--        Opslaan en errors       --}}
+                <form class="mt-2" wire:submit.prevent="saveImage">
+                    {{--                        Multiple om aan te duiden dat je meerdere afbeeldingen tegelijkertijd kan uploaden--}}
+                    <input class="text-white mb-2" type="file" wire:model="photos" multiple>
+                    @if($errors->any())
+                        <div class="mb-4">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li class="text-red-500">{{$error}}</li>
                                 @endforeach
-                            </select>
+                            </ul>
                         </div>
                     @endif
-                    {{--        Opslaan en errors       --}}
-                    <form class="mt-2" wire:submit.prevent="saveImage">
-                        {{--                        Multiple om aan te duiden dat je meerdere afbeeldingen tegelijkertijd kan uploaden--}}
-                        <input class="text-white mb-2" type="file" wire:model="photos" multiple>
-                        @if($errors->any())
-                            <div class="mb-4">
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li class="text-red-500">{{$error}}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <x-button class="mb-2" type="submit">Save Images</x-button>
-                    </form>
-                </div>
+                    <x-button class="mb-2" type="submit">Save Images</x-button>
+                </form>
             </div>
         </div>
-    @endif
+    </div>
     @include('components.wd_components.modalfotobeheer')
 </div>
 
