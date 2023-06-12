@@ -18,7 +18,7 @@ class FotoUpload extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $perPage = 8;
+    public $perPage = 6;
 
     public $type = 1;
 
@@ -113,17 +113,14 @@ class FotoUpload extends Component
             } else {
                 $path = '/storage/sponsor/' . $photo->getClientOriginalName();
 //                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
-                ImageIntervention::make($photo)->fit(320, null, function ($constrained) {
-                    $constrained->aspectRatio();
-                    $constrained->upsize();
-                })->save('storage/sponsor/' . $photo->getClientOriginalName());
+                ImageIntervention::make($photo)->resize(100, 100)->save('storage/sponsor/' . $photo->getClientOriginalName());
                 if (!Image::where('path', $path)->exists()) {
                     Image::create([
                         'image_type_id' => $this->uploadType,
                         'name' => $name,
                         'description' => $name,
                         'path' => $path,
-                        'in_carousel' => 1,
+                        'in_carousel' => 0,
                     ]);
                 }
             }
