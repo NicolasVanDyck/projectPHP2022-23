@@ -21,7 +21,6 @@ class Kleding extends Component
     public array $selectedProduct = [];
     public array $amounts = [];
     protected $order;
-    private array $totals = [];
     public $productSizes;
     public $deadlineDate;
 
@@ -64,7 +63,6 @@ class Kleding extends Component
         $this->products = $products;
 
         $this->amounts = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
-        $this->totals = $products->pluck('id')->mapWithKeys(fn ($id) => [$id => 0])->toArray();
         return $products;
     }
 

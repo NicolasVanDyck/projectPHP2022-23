@@ -6,7 +6,6 @@
                     <div>{{ session('message') }}</div>
                 @endif
 
-
                 <form wire:submit.prevent="update"
                       class="md:mx-auto bg-[#e6ebef] w-full @lg:w-[75%] @xl:w-[50%]">
                     <p class="text-[#617691] p-2 text-sm @md:text-md font-bold">Huidige einddatum: {{ $this->getEndDateOrder() }}</p>
