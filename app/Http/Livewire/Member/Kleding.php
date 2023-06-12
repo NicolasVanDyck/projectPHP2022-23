@@ -154,6 +154,7 @@ class Kleding extends Component
      */
     public function updateOrder(?int $selectedProductSize, int $selectedAmount): void
     {
+        $this->validate($this->rules);
         // If the selected product size is not null, the order is updated.
         if ($selectedProductSize !== null)
         {
@@ -195,7 +196,6 @@ class Kleding extends Component
     }
 
 
-
     /**
      * Submit the form and update the order table.
      *
@@ -203,9 +203,9 @@ class Kleding extends Component
      */
     public function submitForm(): void
     {
-        $this->validate($this->rules);
-
         $todaysDate = now()->format('Y-m-d');
+
+        $arrayOfOrders = []; // Key value pair array for orders containing selected ProductSize and SelectedAmount
 
         if ($todaysDate > $this->deadlineDate)
         {
@@ -228,24 +228,32 @@ class Kleding extends Component
 
                     if ($selectedAmount === 0) {
 
-//                        dd($selectedAmount);
                         $this->dispatchBrowserEvent('swal:toast', [
                             'background' => 'error',
                             'html' => "Je hebt geen aantal ingevuld voor " . Product::where('id', $productId)->value('name') . ".",
                         ]);
+
+                        $this->reset('selectedSize', 'selectedProduct', 'amounts');
+
+                        // Abort everything
+                        return;
                     } else {
-                        $this->updateOrder($selectedProductSize, $selectedAmount);
-                        $this->dispatchBrowserEvent('swal:toast', [
-                            'background' => 'success',
-                            'html' => "Je bestelling is geplaatst!",
-                        ]);
+                        $arrayOfOrders[$selectedProductSize] = $selectedAmount;
                     }
                 }
             }
-
-            $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
         }
 
+        foreach ($arrayOfOrders as $size => $amount)
+        {
+            $this->updateOrder($size, $amount);
+            $this->dispatchBrowserEvent('swal:toast', [
+                'background' => 'success',
+                'html' => "Je bestelling is geplaatst!",
+            ]);
+        }
+
+        $this->reset(['selectedSize', 'selectedProduct', 'amounts']);
 
     }
 
