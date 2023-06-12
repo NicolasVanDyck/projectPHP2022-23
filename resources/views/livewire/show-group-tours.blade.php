@@ -19,7 +19,7 @@
                         <strong>Route:</strong> {{ $groupTour->gpx->name }}
                     </div>
                     <div class="mb-4">
-                        <strong>Afstand (km):</strong> {{ $groupTour->gpx->amount_of_km }}
+                        <strong>Afstand (km):</strong> {{ round($groupTour->gpx->amount_of_km/1000) }}
                     </div>
                     <div class="mb-4">
                         <strong>Startdatum:</strong> {{ date('d-m-Y', strtotime($groupTour->start_date)) }}
@@ -31,10 +31,12 @@
                         <strong>Einddatum:</strong> {{ date('d-m-Y', strtotime($groupTour->end_date)) }}
                     </div>
                     <div class="flex justify-center">
-                        <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})" class="w-10 h-10 hover:fill-blue-500 ml-2">
+                        <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})"
+                                             class="w-10 h-10 hover:fill-blue-500 ml-2">
                             Bewerken
                         </x-heroicon-m-pencil>
-                        <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})" class="w-10 h-10 hover:fill-danger-500 ml-2">
+                        <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})"
+                                            class="w-10 h-10 hover:fill-danger-500 ml-2">
                             Verwijderen
                         </x-heroicon-m-trash>
                     </div>
@@ -65,16 +67,18 @@
                         <tr class="text-center">
                             <td class="border-y border-white py-2">{{ $groupTour->group->group }}</td>
                             <td class="border-y border-white py-2">{{ $groupTour->gpx->name }}</td>
-                            <td class="border-y border-white py-2">{{ $groupTour->gpx->amount_of_km }}</td>
+                            <td class="border-y border-white py-2">{{ round($groupTour->gpx->amount_of_km/1000) }}</td>
                             <td class="border-y border-white py-2">{{ date('d-m-Y', strtotime($groupTour->start_date)) }}</td>
                             <td class="border-y border-white py-2">{{ $groupTour->start_time }}</td>
                             <td class="border-y border-white py-2">{{ date('d-m-Y', strtotime($groupTour->end_date)) }}</td>
                             <td class="border-y border-white py-2">
                                 <div class="flex justify-center space-x-2">
-                                    <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})" class="w-5 h-5 hover:fill-blue-500 ml-2">
+                                    <x-heroicon-m-pencil wire:click="editGroupTour({{ $groupTour->id }})"
+                                                         class="w-5 h-5 hover:fill-blue-500 ml-2">
                                         Bewerken
                                     </x-heroicon-m-pencil>
-                                    <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})" class="w-5 h-5 hover:fill-red-500 ml-2">
+                                    <x-heroicon-m-trash wire:click="confirmDeleteGroupTour({{ $groupTour->id }})"
+                                                        class="w-5 h-5 hover:fill-red-500 ml-2">
                                         Verwijderen
                                     </x-heroicon-m-trash>
 
@@ -87,7 +91,6 @@
             </div>
         </div>
     </div>
-
 
 
     <!-- Modal voor bewerken -->
@@ -161,7 +164,8 @@
                 <h1 class="text-xl font-bold mb-4 text-center">Verwijder Groepsrit</h1>
                 <p>Weet je zeker dat je deze groepsrit wilt verwijderen?</p>
                 <div class="flex justify-center mt-4">
-                    <x-button wire:click="deleteGroupTour({{ $confirmingDelete }})" class="btn btn-danger ml-2">Ja</x-button>
+                    <x-button wire:click="deleteGroupTour({{ $confirmingDelete }})" class="btn btn-danger ml-2">Ja
+                    </x-button>
                 </div>
             </div>
         </div>

@@ -165,6 +165,12 @@ class FotoUpload extends Component
         if ($this->newImage['tour_id'] == 0) {
             $image->update([
                 'tour_id' => null,
+                'image_type_id' => null,
+            ]);
+        }
+        if ($this->newImage['image_type_id'] == 2) {
+            $image->update([
+                'tour_id' => null,
             ]);
         }
         $this->dispatchBrowserEvent('swal:toast', [

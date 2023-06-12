@@ -16,7 +16,8 @@
         <!-- Dag Filter -->
         <div class="flex flex-col text-gray-800">
             <label for="selectedDay" class="mr-2 text-white">Dag:</label>
-            <select id="selectedDay" wire:model="selectedDay" class="border border-gray-300 rounded-lg px-4 py-2">
+            <select id="selectedDay" wire:model="selectedDay"
+                    class="border border-gray-300 rounded-lg px-4 py-2 w-[100px]">
                 <option value="">Alles</option>
                 @foreach($days as $day)
                     <option value="{{ $day }}">{{ $day }}</option>
@@ -29,7 +30,7 @@
             <h3 class="flex sm:mx-auto text-white">Filter op afstand:</h3>
             <div class="p-2 flex">
                 <label for="selectedDistance" class="text-white">Aantal kilometers:
-                    <output id="kilometerfilter" name="kilometerfilter">{{$selectedDistance}}</output>
+                    <output id="kilometerfilter" name="kilometerfilter">{{round($selectedDistance/1000)}}</output>
                 </label>
                 <input type="range" class="accent-blue-400" id="selectedDistance" name="selectedDistance"
                        wire:model="selectedDistance"
@@ -52,11 +53,13 @@
         </div>
     </div>
     <!-- Reset Filter -->
-    <x-button
-        wire:click="resetFilters"
-        type="gray">
-        Reset
-    </x-button>
+    <div class="m-2">
+        <x-button
+            wire:click="resetFilters"
+            type="gray">
+            Reset
+        </x-button>
+    </div>
 
 
     <!-- Pagination -->
@@ -86,7 +89,7 @@
                             Eind Datum: {{ $groupTour->end_date }}
                         </p>
                         <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-                            Hoeveel Km: {{ $groupTour->gpx->amount_of_km }}
+                            Hoeveel Km: {{ round($groupTour->gpx->amount_of_km/1000) }}
                         </p>
                         <div class="flex justify-center">
                             @if ($groupTour->isRegistered)
