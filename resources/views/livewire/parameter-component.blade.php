@@ -6,12 +6,10 @@
                     <div>{{ session('message') }}</div>
                 @endif
 
-                <div class="md:mx-auto bg-[#e6ebef] w-full @lg:w-[75%] @xl:w-[55%]">
-                    <p class="text-[#617691] p-2 text-xs @md:text-md font-semibold">Huidige einddatum: {{ $this->getEndDateOrder() }}</p>
-                </div>
 
                 <form wire:submit.prevent="update"
-                      class="md:mx-auto bg-[#e6ebef] w-full @lg:w-[75%] @xl:w-[55%]">
+                      class="md:mx-auto bg-[#e6ebef] w-full @lg:w-[75%] @xl:w-[50%]">
+                    <p class="text-[#617691] p-2 text-sm @md:text-md font-bold">Huidige einddatum: {{ $this->getEndDateOrder() }}</p>
                     <div class="flex flex-row">
                         <div class="flex flex-row justify-center m-2 ">
                             <input type="date" name="end_date_order" id="end_date_order"
@@ -20,7 +18,6 @@
                         </div>
                         <x-button class="p-2 m-2 text-white flex flex-row
                                  @sm:mb-2 @sm:w-fit @sm:h-fit w-[80px]
-                                 bg-green-700 hover:bg-green-100
                                  h-[80px]"
                                   type="submit">
                             <p class="@sm:visible collapse">Verander einddatum</p>
