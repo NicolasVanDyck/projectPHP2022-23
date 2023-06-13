@@ -33,7 +33,6 @@ class AdminAanwezigheden extends Component
         $usertour->delete();
     }
 
-//    Zodat de dropdown steeds start van de eerstvolgende datum
     public function mount()
     {
         $this->grouptour = GroupTour::orderBy('start_date')->first()->id;
