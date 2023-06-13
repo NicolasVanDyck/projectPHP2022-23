@@ -6,8 +6,7 @@
                 <div class='mb-4 bg-white
         rounded-3xl shadow-xl overflow-hidden text-center p-4'>
 
-                    {{--    Onderstaande zorgt ervoor dat er geen aparte component nodig is voor alle drie de views . --}}
-
+                    {{--    Onderstaande zorgt ervoor dat er geen aparte component nodig is voor alle views. --}}
                     <ul wire:key="text_{{$text->id}}">
                         <li class="text-xl">{{$text->location}}</li>
                         {{--    Als de 'id' van property editText != aan de 'id' van de huidige tekst in de loop, toont hij de knop.    --}}
