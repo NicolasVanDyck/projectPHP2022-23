@@ -1,5 +1,5 @@
 <div
-    class="block max-w-md rounded-lg p-6 mx-auto  bg-white">
+    class="block max-w-md rounded-lg p-6 mx-auto bg-white">
 
     <form action="{{ route('contact.submit') }}" method="POST">
         @csrf
