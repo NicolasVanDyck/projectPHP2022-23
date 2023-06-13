@@ -7,7 +7,7 @@
 
         <div>
             <div
-                x-data="{ isNestedModalOpen: @entangle('isNestedModalOpen'), openModal: @entangle('openModal'), selectedRoute: @entangle('selectedRoute'), selectedRouteName: @entangle('selectedRouteName'), selectedRouteKm: @entangle('selectedRouteKm'), selectedDate: @entangle('selectedDate'), selectedEndDate: @entangle('selectedEndDate') }"
+                x-data="{ isNestedModalOpen: @entangle('isNestedModalOpen'), openModal: @entangle('openModal'),selectedGroup: @entangle('selectedGroup'), selectedRoute: @entangle('selectedRoute'), selectedRouteName: @entangle('selectedRouteName'), selectedRouteKm: @entangle('selectedRouteKm'), selectedDate: @entangle('selectedDate'), selectedEndDate: @entangle('selectedEndDate') }"
                 x-cloak>
                 <div x-show="isNestedModalOpen"
                      class="fixed inset-0 z-10 bg-gray-900 bg-opacity-50 flex items-center justify-center px-4">
@@ -27,7 +27,7 @@
                             Wezeldrivers beschikbaar zijn</p>
                         <!-- Itereer over de routes en toon ze in een grid -->
                         <div class="grid grid-cols-3 gap-4 mt-4">
-                            @foreach($routes as $route)
+                                @foreach($routes as $route)
                                 <div class="bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-info-200"
                                      x-bind:class="{ 'bg-blue-200': {{ $route->id }} === selectedRoute }"
                                      x-on:click="$wire.selectRoute({{ $route->id }}, '{{ $route->amount_of_km }}')">

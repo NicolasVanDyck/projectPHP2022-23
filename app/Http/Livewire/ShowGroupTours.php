@@ -30,21 +30,29 @@ class ShowGroupTours extends Component
 //Haal alle groepsritten op.
     public function getGroupTours()
     {
-        return GroupTour::with(['group', 'tour']);
+        return GroupTour::with(['group', 'tour'])
+            ->orderBy('start_date', 'asc');
     }
+
 //Render de Livewire-component.
+
     public function render()
     {
-        $groups = Group::pluck('group', 'id')->toArray(); // Haal alle groepen op
-        $routes = GPX::all(); // Haal alle GPX-routes op
+        //editfunctie
+        $this->groups = Group::all(); // Initialiseer de $groups-eigenschap met alle groepen
+        $this->gpxs = GPX::all(); // Initialiseer de $gpxs-eigenschap met alle GPX-routes
 
-        // Haal de paginerende groepsritten op
+        $groups = $this->groups->pluck('group', 'id')->toArray(); // Haal de groepen op voor weergave
+        $routes = $this->gpxs; // Haal de GPX-routes op voor weergave
+
+        // Haal de groepsritten op met paginering, geordend op startdatum
         $groupTours = $this->getGroupTours()->paginate(5);
-
-//        $this->resetPage();
 
         return view('livewire.show-group-tours', compact('groups', 'routes', 'groupTours'));
     }
+
+
+
 //Bevestig het verwijderen van een groepsrit
     public function confirmDeleteGroupTour($groupId)
     {
@@ -98,11 +106,11 @@ class ShowGroupTours extends Component
     {
         $this->confirmingDelete = false;
     }
-    public function mount()
-    {
-        $this->groups = Group::all(); // Haal alle groepen op
-        $this->gpxs = GPX::all(); // Haal alle GPX-routes op
-    }
+//    public function mount()
+//    {
+//        $this->groups = Group::all(); // Haal alle groepen op
+//        $this->gpxs = GPX::all(); // Haal alle GPX-routes op
+//    }
 
 
 
