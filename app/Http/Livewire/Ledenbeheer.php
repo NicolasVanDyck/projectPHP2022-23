@@ -103,7 +103,7 @@ class Ledenbeheer extends Component
 
 //        Stuur mail ter bevestiging van registratie
         \Mail::to($this->newUser['email'])
-            ->send(new WelcomeMail($this->newUser['name'], $this->newUser['password']));
+            ->send(new WelcomeMail($this->newUser['name']));
 
         $this->dispatchBrowserEvent('swal:toast', [
             'background' => 'success',

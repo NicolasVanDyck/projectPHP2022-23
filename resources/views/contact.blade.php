@@ -8,7 +8,7 @@
         <div class="md:w-1/2">
             <div class="pt-20">
                 <livewire:admin.texts/>
-            <div class="mt-20">
+            <div class="mt-20 md:w-1/2">
              @if(session('success'))
                 <div class="bg-success text-white">
                     {{ session('success') }}

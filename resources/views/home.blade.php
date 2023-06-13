@@ -21,7 +21,7 @@
             {{--Carousel--}}
             <div
                 class="flex flex-col mx-auto sm:w-2/3 md:max-w-xl my-5">
-                <h3 class="text-2xl text-center text-gray-800">Foto's</h3>
+                <h3 class="text-2xl text-center text-gray-800">Enkele sfeerfoto's</h3>
                 <livewire:carousel/>
             </div>
         </div>

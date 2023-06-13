@@ -1,7 +1,7 @@
 <div class="text-black">
     <div class="m-2">
         <div class="mx-auto max-w-screen-2xl">
-            <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex flex-col md:flex-row justify-evenly items-center">
                 {{--                Filter op afbeeldingstype --}}
                 <div class="flex flex-col text-gray-800">
                     <label for="type" class="mr-2 text-white text-center">Filter op type</label>
@@ -93,7 +93,6 @@
                                                                           }
                                                                           }
                                                                           })"
-                                              @click="confirm('Weet je zeker dat je deze foto wilt verwijderen?') ? $wire.deleteImage('{{$image->path}}') : ''"
                                     >Verwijderen
                                     </x-button>
                                 </div>
@@ -108,10 +107,8 @@
     <div class="m-2">
         <div class="mx-auto max-w-screen-2xl">
             <h3 class="text-white text-center">Upload hier je foto(s). Selecteer eerst een type, als je
-                voor rit hebt
-                gekozen
-                selecteer
-                dan de bijhordende rit, selecteer als laatste de bestanden die je wil uploaden.</h3>
+                voor rit hebt gekozen selecteer
+                dan het bijhorende traject, selecteer als laatste de bestanden die je wil uploaden.</h3>
             <div class="flex flex-col m-2 md:flex-row justify-between items-center">
                 {{--        Welk afbeeldingstype hoort bij de foto's?       --}}
                 <div class="flex flex-col text-gray-800">
@@ -127,7 +124,7 @@
                 {{--        Aan welke tour wil je images linken?        --}}
                 @if($uploadType == 1)
                     <div class="flex flex-col text-gray-800">
-                        <label class="mr-2 text-white text-center" for="uploadTour">Route</label>
+                        <label class="mr-2 text-white text-center" for="uploadTour">Traject</label>
                         <select class="border border-gray-300 rounded-lg px-4 py-2" id="uploadTour"
                                 wire:model="uploadTour">
                             @foreach($tours as $to)
@@ -137,7 +134,7 @@
                     </div>
                 @endif
                 {{--        Opslaan en errors       --}}
-                <form class="mt-2" wire:submit.prevent="saveImage">
+                <form id="save" class="mt-2" wire:submit.prevent="saveImage">
                     {{--                        Multiple om aan te duiden dat je meerdere afbeeldingen tegelijkertijd kan uploaden--}}
                     <input class="text-white mb-2" type="file" wire:model="photos" multiple>
                     @if($errors->any())
@@ -149,7 +146,7 @@
                             </ul>
                         </div>
                     @endif
-                    <x-button class="mb-2" type="submit">Save Images</x-button>
+                    <x-button class="mb-2" type="submit">Foto's opslaan</x-button>
                 </form>
             </div>
         </div>

@@ -9,16 +9,16 @@
 
             <div class="flex-col justify-between pt-2 ">
                 <div class="flex m-auto text-center p-4">
-                    <h1 class="text-white m-2">Welkom, {{auth()->user()->name}}!</h1>
+                    <h1 class="text-white m-2 mx-auto sm:m-0 sm:ml-20 sm:mt-20">Welkom, {{auth()->user()->name}}!</h1>
                 </div>
                 <div class="flex m-auto text-center p-4">
-                    <p class="text-white w-[400px] mx-auto sm:m-0">
+                    <p class="text-white w-[400px] mx-auto sm:m-0 sm:ml-20">
                         Om je activiteiten te kunnen zien moet je eerst je Strava account koppelen.
                         Klik op de onderstaande knop om je Strava account te koppelen.
                     </p>
                 </div>
-                <div class="flex h-[200px]">
-                    <a class="flex m-auto sm:my-auto sm:ml-[100px]"
+                <div class="flex m-auto p-4">
+                    <a class="mx-auto sm:ml-40"
                        href="{{ route('stravaAuthentication') }}"><img
                             src="/assets/strava/btn_strava_connectwith_orange.png"
                             alt="strava"></a>

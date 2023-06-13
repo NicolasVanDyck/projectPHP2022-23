@@ -4,12 +4,12 @@
     <x-slot name="description">Op deze pagina kan u als admin zien welke onderdelen u kan beheren.</x-slot>
 
     <div class="bg-hero-pattern3 bg-cover bg-center bg-no-repeat h-screen">
-        <div class='flex m-2 max-w-[500px]'>
-            <div class='w-full max-w-3xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
+        <div class='flex sm:ml-20 max-w-[500px]'>
+            <div class='w-full mx-auto bg-white rounded-3xl shadow-xl overflow-hidden'>
                 <div class='max-w-3xl mx-auto'>
                     <div class='p-8'>
-                        <p class='font-bold text-gray-700 text-[22px] leading-7 mb-1'>Welkom {{Auth::user()->name}}!</p>
-                        <p class='text-[#7C7C80] font-[15px] mt-6'>
+                        <p class='font-bold text-[22px] leading-7 mb-1'>Welkom {{Auth::user()->name}}!</p>
+                        <p class='font-[15px] mt-6'>
                             Als administrator kan u wijzigingen aanbrengen aan de website. U kan kiezen voor:
                         </p>
                         <br>

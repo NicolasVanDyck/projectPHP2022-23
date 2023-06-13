@@ -1,17 +1,22 @@
 <div class="bg-[#073360] p-4">
     @if($grouptours->isEmpty())
-        <div class="container flex">
             <div class="bg-white mx-auto max-w-md shadow-2xl rounded-2xl">
                 <p class="text-center justify-center p-4">
                     Er kan geen rit gevonden worden. Naar alle waarschijnlijkheid
                     vallen de startdata van de ritten vroeger dan {{date('d/m/Y',strtotime($startdate))}}
-                    en later dan {{date('d/m/Y',strtotime($enddate))}}.
+                    of later dan {{date('d/m/Y',strtotime($enddate))}}.
                     Je kan de startdata nakijken onder 'Startdatum' via <a href={{route('trajectbeheer')}} class="underline">Trajectbeheer</a>.
                 </p>
             </div>
-        </div>
     @else
-    <div class="flex sm:justify-around md:justify-center items-center">
+            <div class="bg-white mx-auto max-w-lg shadow-2xl rounded-2xl">
+                <p class="text-center justify-center p-4">
+                    U kan enkel de ritten aanpassen die tussen {{date('d/m/Y',strtotime($startdate))}}
+                    en {{date('d/m/Y',strtotime($enddate))}} plaatsvinden.
+                    Je kan de startdata nakijken onder 'Startdatum' via <a href={{route('trajectbeheer')}} class="underline">Trajectbeheer</a>.
+                </p>
+            </div>
+    <div class="flex sm:justify-around md:justify-center items-center my-4">
         <h3 class="mx-2 my-4 text-white">Kies de rit die je wil beheren:</h3>
         <label for="grouptour" value="grouptour"/>
         <select class="mr-2" id="grouptour" wire:model="grouptour">
@@ -20,7 +25,6 @@
             @endforeach
         </select>
     </div>
-
     <div class="container flex-col mx-auto">
         @foreach($grouptours as $grouptour)
             <div wire:key="grouptour_{{$grouptour->id}}"
