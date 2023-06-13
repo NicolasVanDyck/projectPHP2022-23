@@ -18,7 +18,7 @@ class FotoUpload extends Component
     use WithPagination;
     use WithFileUploads;
 
-    public $perPage = 6;
+    public $perPage = 8;
 
     public $type = 1;
 
@@ -52,12 +52,25 @@ class FotoUpload extends Component
         'photos.*.required' => 'Een foto is verplicht',
         'photos.*.mimes' => 'Een foto moet een jpeg of png zijn',
         'photos.*.max' => 'Een foto mag maximaal 1MB groot zijn',
-        'newImage.image_type_id.required' => 'Een type is verplicht',
         'newImage.name.required' => 'Een naam is verplicht',
+        'newImage.tour_id.required' => 'Een tour is verplicht',
         'newImage.name.unique' => 'Deze naam bestaat al. Je geeft je foto best een andere naam.',
         'newImage.description.required' => 'Een beschrijving is verplicht',
         'newImage.path.unique' => 'Het pad naar deze foto bestaat al. Je geeft je foto best een andere naam.',
     ];
+
+    protected function rules()
+    {
+        return [
+//            MIME = multipurpose internet mail extensions
+            'photos.*' => 'required|file|mimes:jpg,png|max:1024', // 1MB Max
+            'newImage.tour_id' => 'nullable',
+            'newImage.name' => 'required|string|max:255|unique:images,name,' . $this->newImage['id'] . ',id',
+            'newImage.description' => 'required|string|max:255',
+//            Hoe werkt dit na het punt?
+            'newImage.path' => 'nullable|string|max:255|unique:images,path,' . $this->newImage['id'] . ',id',
+        ];
+    }
 
 //    Validationberichten
 
@@ -80,7 +93,6 @@ class FotoUpload extends Component
 //            Opslaan in sponsor of imagefolder van de storage:
             if ($this->uploadType == '') {
                 $path = '/storage/galerij/' . $photo->getClientOriginalName();
-//                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
                 ImageIntervention::make($photo)->fit(320, null, function ($constrained) {
                     $constrained->aspectRatio();
                     $constrained->upsize();
@@ -95,7 +107,6 @@ class FotoUpload extends Component
                 }
             } elseif ($this->uploadType == 1) {
                 $path = '/storage/galerij/' . $photo->getClientOriginalName();
-//                $photo->storeAs('public/galerij', $photo->getClientOriginalName());
                 ImageIntervention::make($photo)->fit(320, null, function ($constrained) {
                     $constrained->aspectRatio();
                     $constrained->upsize();
@@ -112,7 +123,6 @@ class FotoUpload extends Component
                 }
             } else {
                 $path = '/storage/sponsor/' . $photo->getClientOriginalName();
-//                $photo->storeAs('public/sponsor', $photo->getClientOriginalName());
                 ImageIntervention::make($photo)->resize(100, 100)->save('storage/sponsor/' . $photo->getClientOriginalName());
                 if (!Image::where('path', $path)->exists()) {
                     Image::create([
@@ -133,6 +143,7 @@ class FotoUpload extends Component
 
     public function editImage(Image $image)
     {
+
         $this->resetErrorBag();
 
         $this->newImage['id'] = $image->id;
@@ -144,6 +155,7 @@ class FotoUpload extends Component
         $this->newImage['in_carousel'] = $image->in_carousel;
 
         $this->showModal = true;
+
     }
 
 //    Afbeelding aanpassen. Geef de juiste waarden mee aan de variabelen + toon modal.
@@ -152,27 +164,38 @@ class FotoUpload extends Component
     {
         $this->validate();
 
-        $image->update([
+        if($this->newImage['image_type_id'] == 0) {
+            $image->update([
+                'tour_id' => null,
+                'image_type_id' => null,
+                'name' => $this->newImage['name'],
+                'description' => $this->newImage['description'],
+                'path' => $this->newImage['path'],
+                'in_carousel' => $this->newImage['in_carousel'],
+            ]);
+        } elseif ($this->newImage['image_type_id'] == 1) {
+            $this->validate([
+                'newImage.tour_id' => 'required',
+            ]);
+            $image->update([
+                'image_type_id' => $this->newImage['image_type_id'],
+                'tour_id' => $this->newImage['tour_id'],
+                'name' => $this->newImage['name'],
+                'description' => $this->newImage['description'],
+                'path' => $this->newImage['path'],
+                'in_carousel' => $this->newImage['in_carousel'],
+            ]);
+        } else {
+            $image->update([
             'image_type_id' => $this->newImage['image_type_id'],
-            'tour_id' => $this->newImage['tour_id'],
+            'tour_id' => null,
             'name' => $this->newImage['name'],
             'description' => $this->newImage['description'],
             'path' => $this->newImage['path'],
             'in_carousel' => $this->newImage['in_carousel'],
         ]);
+        }
 
-//        Als de waarde van de optie 0 is, zal er 'null' in de database komen te staan.
-        if ($this->newImage['tour_id'] == 0) {
-            $image->update([
-                'tour_id' => null,
-                'image_type_id' => null,
-            ]);
-        }
-        if ($this->newImage['image_type_id'] == 2) {
-            $image->update([
-                'tour_id' => null,
-            ]);
-        }
         $this->dispatchBrowserEvent('swal:toast', [
             'background' => 'success',
             'html' => $this->newImage['name'] . " werd aangepast!",
@@ -186,7 +209,7 @@ class FotoUpload extends Component
         $image = Image::where('path', $path)->first();
         $image->delete();
 //      Maak een string van de array, anders werkt de Str::after niet
-//        $path = implode($path);
+        $path = implode($path);
         //        Geef de rest van de string terug na het eerste voorkomen van de gegeven waarde
         $path = Str::after($path, '/storage/');
         Storage::disk('public')->delete($path);
@@ -202,7 +225,7 @@ class FotoUpload extends Component
     public function updated($propertyName, $propertyValue)
     {
         // dump($propertyName, $propertyValue);
-        if (in_array($propertyName, ['perPage']))
+        if (in_array($propertyName, ['perPage','type','homecarousel','tour']))
             $this->resetPage();
     }
 
@@ -214,7 +237,7 @@ class FotoUpload extends Component
 
 //      Ritten ophalen
         if ($this->type == 1) {
-            $images = Image::orderBy('created_at', 'desc')
+            $images = Image::orderBy('tour_id', 'desc')
                 ->where('tour_id', 'like', $this->tour)
                 ->when($this->homecarousel == 1, function ($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
@@ -223,14 +246,14 @@ class FotoUpload extends Component
         } //        Sponsor ophalen, houdt verder geen rekening met tour_id, want is niet nodig.
         elseif ($this->type == 2) {
             $images = Image::where('image_type_id', '=', $this->type)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('tour_id', 'desc')
                 ->when($this->homecarousel == 1, function ($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
                 })
                 ->paginate($this->perPage);
 //      Images zonder type ophalen (overige)
         } else {
-            $images = Image::orderBy('created_at', 'desc')
+            $images = Image::orderBy('tour_id', 'desc')
                 ->where('image_type_id', null)
                 ->when($this->homecarousel == 1, function ($query) {
                     return $query->where('in_carousel', '=', $this->homecarousel);
@@ -239,19 +262,5 @@ class FotoUpload extends Component
         }
         $imagetypes = ImageType::get();
         return view('livewire.foto-upload', compact('images', 'imagetypes', 'tours'));
-    }
-
-    protected function rules()
-    {
-        return [
-//            MIME = multipurpose internet mail extensions
-            'photos.*' => 'required|file|mimes:jpg,png|max:1024', // 1MB Max
-            'newImage.image_type_id' => 'required',
-            'newImage.tour_id' => 'nullable',
-            'newImage.name' => 'required|string|max:255|unique:images,name,' . $this->newImage['id'] . ',id',
-            'newImage.description' => 'required|string|max:255',
-//            Hoe werkt dit na het punt?
-            'newImage.path' => 'nullable|string|max:255|unique:images,path,' . $this->newImage['id'] . ',id',
-        ];
     }
 }

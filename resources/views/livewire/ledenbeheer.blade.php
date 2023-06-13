@@ -61,7 +61,7 @@
                     <td class="xs:hidden 2xl:table-cell">{{$user->mobile_number}}</td>
                     <td>
                         <div class="flex gap-1 justify-center [&>*]:cursor-pointer [&>*]:outline-0 [&>*]:transition">
-                            <x-heroicon-m-pencil class="w-5 h-5 hover:fill-green-500 ml-2" wire:click="setNewUser({{$user->id}})"/>
+                            <x-heroicon-m-pencil class="w-5 h-5 hover:fill-green-500 ml-2" wire:click="showUser({{$user->id}})"/>
                             {{--Om ervoor te zorgen dat admins niet rechtstreeks andere admins kunnen verwijderen!--}}
                             @if($user->is_admin != 1)
                                 <x-heroicon-m-trash
